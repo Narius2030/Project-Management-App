@@ -3,3 +3,48 @@ GO
 
 USE QLDA;
 GO
+
+CREATE TABLE DUAN(
+   MaDA VARCHAR(10) PRIMARY KEY,
+   TenDA NVARCHAR(30) NOT NULL,
+   TienDo REAL,
+   NgayKT DATE,
+   NgayBD DATE,
+   ChiPhi VARCHAR(30),
+   GiaiDoan NVARCHAR(30),
+   MaNV VARCHAR(10),
+);
+
+GO
+
+CREATE TABLE CONGVIEC(
+   MaCV VARCHAR(10) PRIMARY KEY,
+   TrangThai NVARCHAR(30) NOT NULL,
+   CVTienQuyet VARCHAR(10),
+   TenCV NVARCHAR(30) NOT NULL,
+   TienDo REAL,
+   TenNhom NVARCHAR(20),
+   MaDA VARCHAR(10),
+   MaSprint VARCHAR(10),
+);
+
+GO
+
+CREATE TABLE DIEMDANH(
+   Ngay Date,
+   MaNV VARCHAR(10),
+   PRIMARY KEY(Ngay, MaNV),
+   NoiDung NVARCHAR(20)
+);
+
+GO
+
+CREATE TABLE UOCLUONG(
+   MaNV VARCHAR(10),
+   MaDA VARCHAR(10),
+   MaSprint VARCHAR(10),
+   PRIMARY KEY(MaNV, MaDA, MaSprint),
+   SoNgayNghi INT,
+   TimeSprint INT,
+   TimeTasks INT,
+);
