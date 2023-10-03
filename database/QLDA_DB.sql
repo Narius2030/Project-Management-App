@@ -4,6 +4,53 @@ GO
 USE QLDA;
 GO
 
+CREATE TABLE DUAN(
+   MaDA VARCHAR(10) PRIMARY KEY,
+   TenDA NVARCHAR(30) NOT NULL,
+   TienDo REAL,
+   NgayKT DATE,
+   NgayBD DATE,
+   ChiPhi VARCHAR(30),
+   GiaiDoan NVARCHAR(30),
+   MaNV VARCHAR(10),
+);
+
+GO
+
+CREATE TABLE CONGVIEC(
+   MaCV VARCHAR(10) PRIMARY KEY,
+   TrangThai NVARCHAR(30) NOT NULL,
+   CVTienQuyet VARCHAR(10),
+   TenCV NVARCHAR(30) NOT NULL,
+   TienDo REAL,
+   TenNhom NVARCHAR(20),
+   MaDA VARCHAR(10),
+   MaSprint VARCHAR(10),
+);
+
+GO
+
+CREATE TABLE DIEMDANH(
+   Ngay Date,
+   MaNV VARCHAR(10),
+   PRIMARY KEY(Ngay, MaNV),
+   NoiDung NVARCHAR(20)
+);
+
+GO
+
+CREATE TABLE UOCLUONG(
+   MaNV VARCHAR(10),
+   MaDA VARCHAR(10),
+   MaSprint VARCHAR(10),
+   PRIMARY KEY(MaNV, MaDA, MaSprint),
+   SoNgayNghi INT,
+   TimeSprint INT,
+   TimeTasks INT,
+);
+
+GO
+
 Create Table NHIEMVU
 ( 
   MaNhiemVu  varchar(10) primary key,
@@ -15,6 +62,9 @@ Create Table NHIEMVU
   MaNV varchar(10),
   MaCV varchar(10),
 )
+
+GO
+
 Create TABLE SPRINT 
 (
 	MaSprint varchar(10) primary key,
@@ -23,19 +73,25 @@ Create TABLE SPRINT
 	NgayKT date,
 	MaDA varchar(10)
 )
+
+GO
+
 Create Table TAINGUYEN 
 (
 	MaTN varchar(10) primary key,
 	TenTN nvarchar(20) not null,
 	LoaiTaiNguyen nvarchar(20) not null,
 )
+
+GO
+
 CREATE TABLE CAP
 (
 	MaDA varchar(10),
 	MaTN varchar(10),
 	primary key(MaDA,MaTN)
 )
-
+Go
 CREATE TABLE NHANVIEN (
 	MaNV varchar(10) PRIMARY KEY,
 	HovaTenDem nvarchar(25) NOT NULL,
