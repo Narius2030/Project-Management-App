@@ -124,3 +124,9 @@ CREATE TABLE TEAM (
 	CapPerDay int NOT NULL
 );
 GO
+
+alter table NHIEMVU add constraint PK_HIEMVU_NHANVIEN FOREIGN KEY (MaNV) references NHANVIEN(MaNV)
+alter table NHIEMVU add constraint PK_NHIEMVU_CONGVIEC FOREIGN KEY (MaCV) references CONGVIEC(MaCV)
+alter table SPRINT add constraint PK_SPRINT_DUAN FOREIGN KEY (MaDA) references DUAN(MaDA)
+alter table CAP add constraint PK_CAP_DUAN FOREIGN KEY (MaDA) references DUAN(MaDA)
+alter table CAP add constraint PK_CAP_TAINGUYEN FOREIGN KEY (MaTN) references TAINGUYEN(MaTN)
