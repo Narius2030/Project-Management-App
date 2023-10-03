@@ -68,3 +68,5 @@ CREATE TABLE TEAM (
 	CapPerDay int NOT NULL
 );
 GO
+
+-- Adding constraint
