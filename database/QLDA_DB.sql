@@ -7,7 +7,7 @@ USE QLDA;
 GO
 
 CREATE TABLE DUAN(
-   MaDA VARCHAR(10) PRIMARY KEY,
+   MaDA INT IDENTITY PRIMARY KEY,
    TenDA NVARCHAR(30),
    TienDo REAL,
    NgayKT DATE,
@@ -20,14 +20,14 @@ CREATE TABLE DUAN(
 GO
 
 CREATE TABLE CONGVIEC(
-   MaCV VARCHAR(10) PRIMARY KEY,
+   MaCV INT IDENTITY PRIMARY KEY,
    TrangThai NVARCHAR(30) ,
-   CVTienQuyet VARCHAR(10),
+   CVTienQuyet INT,
    TenCV NVARCHAR(30) ,
    TienDo REAL,
    TenNhom NVARCHAR(20),
-   MaDA VARCHAR(10),
-   MaSprint VARCHAR(10),
+   MaDA INT,
+   MaSprint INT
 );
 
 GO
@@ -43,8 +43,8 @@ GO
 
 CREATE TABLE UOCLUONG(
    MaNV VARCHAR(10),
-   MaDA VARCHAR(10),
-   MaSprint VARCHAR(10),
+   MaDA INT,
+   MaSprint INT,
    PRIMARY KEY(MaNV, MaDA, MaSprint),
    SoNgayNghi INT,
    TimeSprint INT,
@@ -55,39 +55,37 @@ GO
 
 CREATE TABLE NHIEMVU
 ( 
-  MaNhiemVu  VARCHAR(10) PRIMARY KEY,
-  MaTienQuyet VARCHAR(10),
+  MaNhiemVu INT IDENTITY PRIMARY KEY,
+  MaTienQuyet INT,
   TrangThai NVARCHAR(30),
   ThoiGianLamThucTe INT,
   TenNhiemVu NVARCHAR(30),
   ThoiGianUocTinh int,
   MaNV VARCHAR(10),
-  MaCV VARCHAR(10),
+  MaCV INT,
 )
-
 GO
 
 CREATE TABLE SPRINT (
-	MaSprint VARCHAR(10) PRIMARY KEY,
+	MaSprint INT IDENTITY PRIMARY KEY,
 	NoiDung NVARCHAR(30),
 	NgayBD DATE ,
 	NgayKT DATE,
-	MaDA VARCHAR(10)
+	MaDA INT
 )
 GO
 
 CREATE TABLE TAINGUYEN (
 	MaTN VARCHAR(10) PRIMARY KEY,
-	TenTN NVARCHAR(20) ,
-	LoaiTaiNguyen NVARCHAR(20) ,
+	TenTN NVARCHAR(20),
+	LoaiTaiNguyen NVARCHAR(20),
 )
-
 GO
 
 CREATE TABLE CAP (
-	MaDA varchar(10),
-	MaTN varchar(10),
-	primary key(MaDA,MaTN)
+	MaDA INT,
+	MaTN VARCHAR(10),
+	PRIMARY KEY(MaDA,MaTN)
 )
 GO
 
@@ -111,7 +109,7 @@ GO
 
 CREATE TABLE TEAMLEADER (
 	TenNhom nvarchar(20) ,
-	MaDA varchar(10),
+	MaDA INT,
 	MaNV varchar(10),
 	PRIMARY KEY(TenNhom, MaDA)
 );
@@ -120,8 +118,8 @@ GO
 CREATE TABLE TEAM (
 	MaNV varchar(10),
 	TenNhom nvarchar(20),
-	MaDA varchar(10),
-	CapPerDay int ,
+	MaDA INT,
+	CapPerDay INT,
 	PRIMARY KEY(TenNhom, MaDA, MaNV)
 );
 GO
