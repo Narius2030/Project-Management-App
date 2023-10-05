@@ -363,3 +363,42 @@ INSERT INTO NHIEMVU VALUES
 ('01CV08', DEFAULT, 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV002', 8);
 
 GO
+
+--View:
+--1. Xem danh sách nhân viên và nhóm
+--Tất cả
+create view Ds_NV_Nhom as
+   select nv.MaNV, nv.HovaTenDem, nv.Ten, TenNhom, MaDA from NHANVIEN as nv, TEAM
+   where nv.MaNV = TEAM.MaNV
+
+--DROP VIEW Ds_NV_Nhom
+
+--Trưởng nhóm
+create view Ds_NV_TruongNhom as
+   select nv.MaNV, nv.HovaTenDem, nv.Ten, MaDA from NHANVIEN as nv, TEAMLEADER AS tl
+   where nv.MaNV = tl.MaNV
+
+--2. Xem nội dung công việc và nhiệm vụ
+--a) Tất cả công việc
+create view Ds_CV as
+   select MaCV, TenCV, TenNhom, MaDA, MaSprint, TrangThai
+   from CONGVIEC
+
+--SELECT *FROM Ds_CV   
+
+--b) Công việc theo dự án và Sprint
+
+--c) Nhiệm vụ và công việc tiên quyết của một dự án
+create view Ds_CV_Nvu as
+   select MaCV, CVTienQuyet, Ma
+--d) Những công việc đang trễ tiến độ
+
+
+
+select *from Ds_NV_Nhom
+select *from Ds_NV_TruongNhom
+select *from NHANVIEN
+select *from TEAM
+select *from TEAMLEADER
+select *from CONGVIEC
+SELECT *FROM NHIEMVU
