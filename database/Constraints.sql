@@ -26,11 +26,14 @@ GO
 CREATE OR ALTER VIEW vw_congviec_nhiemvu
 AS
 SELECT 
-	MaNhiemVu, NHV.TrangThai AS TTNHiemvu, TenNhiemVu, ThoiGianLamThucTe, ThoiGianUocTinh, MaTienQuyet, MaNV,
+	MaNhiemVu, NHV.TrangThai AS TTNhiemvu, TenNhiemVu, ThoiGianLamThucTe, ThoiGianUocTinh, MaTienQuyet, MaNV,
 	CV.*
 FROM CONGVIEC CV
 JOIN NHIEMVU NHV ON NHV.MaCV = CV.MaCV
 GO
+
+SELECT * FROM vw_congviec_nhiemvu
+
 --b)Nhiệm vụ và công việc tiên quyết của một dự án
 CREATE OR ALTER VIEW vw_congviec_tienquyet
 AS
@@ -51,19 +54,36 @@ JOIN NHIEMVU bfNV ON bfNV.MaNhiemVu = afNV.MaTienQuyet
 GO
 --c)Những công việc đang trễ tiến độ
 
+
+--d)Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của một từng một dự án
+CREATE OR ALTER VIEW vw_nvtrehan_cv_da
+AS
+SELECT nv.MaNhiemVu, nv.TenNhiemVu, nv.TrangThai, cv.MaCV, spt.MaDA, nv.MaNV, GETDATE() as HomNay, spt.NgayKT
+FROM NHIEMVU nv
+JOIN CONGVIEC cv ON cv.MaCV = nv.MaCV
+JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
+WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND nv.TrangThai != 'Done'
+GO
+
+SELECT * FROM vw_nvtrehan_cv_da
+
+
 --3. Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công 
 --a)Thông tin ngày nghỉ của nhân viên trong từng Sprint của dự án
 CREATE OR ALTER VIEW vw_ngaynghi_trong_duan
 AS
 SELECT 
-	DD.*,
+	DD.MaNV,
 	UL.MaSprint, UL.MaDA, UL.SoNgayNghi, UL.TimeSprint, UL.TimeTasks, 
 	SP.NgayBD AS BDSprint, SP.NgayKT AS KTSprint
 FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
-WHERE DD.NgayNghi BETWEEN NgayBD AND NgayKT
+WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
 
+GO
+
+SELECT * FROM vw_ngaynghi_trong_duan
 --###Constraints
 
 
