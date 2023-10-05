@@ -75,9 +75,9 @@ CREATE TABLE SPRINT (
 GO
 
 CREATE TABLE DIEMDANH(
-   Ngay Date,
+   NgayNghi Date,
    MaNV VARCHAR(10),
-   PRIMARY KEY(Ngay, MaNV),
+   PRIMARY KEY(NgayNghi, MaNV),
    NoiDung NVARCHAR(20),
    CONSTRAINT FK_DIEMDANH_NHIEMVIEN FOREIGN KEY (MaNV) REFERENCES NHANVIEN(MaNV)  ON UPDATE CASCADE
 );
@@ -121,7 +121,7 @@ GO
 CREATE TABLE NHIEMVU
 ( 
   MaNhiemVu VARCHAR(10) PRIMARY KEY,
-  MaTienQuyet INT DEFAULT NULL,
+  MaTienQuyet VARCHAR(10) DEFAULT NULL,
   TrangThai NVARCHAR(30),
   ThoiGianLamThucTe INT,
   TenNhiemVu NVARCHAR(30),
@@ -209,7 +209,6 @@ INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, GiaiDoan, MaPM) VALUES
 (N'Phần mềm chuyển đổi văn bản', 100, '2023-12-30', '2023-10-15', '150000', 'Done', 'NV002'),
 (N'Phần mềm học tiếng anh', 0, '2023-12-30', '2023-10-15', '150000', 'Planning', 'NV010'),
 (N'Phần mềm ql số liệu khí hậu', 0, '2023-12-30', '2023-10-15', '150000', 'Planning', 'NV007');
-
 GO
 
 
