@@ -63,10 +63,84 @@ FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
 WHERE DD.NgayNghi BETWEEN NgayBD AND NgayKT
-
+GO
 --###Constraints
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --###Triggers
+--1) Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
+CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
+AFTER UPDATE
+AS
+DECLARE @newNV varchar(10), @trangthaiOld varchar(30), @trangthaiTQ varchar(30), @tgUocTinh INT, @tgThucTe INT
+SELECT @newNV=n.MaNhiemVu, @trangthaiOld=o.TrangThai, @tgThucTe=o.ThoiGianLamThucTe
+FROM inserted n, deleted o, NHIEMVU NV
+WHERE NV.MaNhiemVu = n.MaNhiemVu AND n.MaNhiemVu = o.MaNhiemVu
+
+--Lấy trạng thái nhiệm vụ tiên quyết
+SELECT @trangthaiTQ=NVTQ.TrangThai
+FROM (SELECT * FROM NHIEMVU WHERE MaNhiemVu = @newNV) NV
+JOIN NHIEMVU NVTQ ON NV.MaTienQuyet = NVTQ.MaNhiemVu
+
+IF(@trangthaiTQ != 'Done')
+BEGIN
+	UPDATE NHIEMVU SET ThoiGianLamThucTe=@tgThucTe, TrangThai=@trangthaiOld
+		WHERE MaNhiemVu=@newNV
+	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
+END
+GO
+--2) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
+CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
+INSTEAD OF INSERT, UPDATE
+AS
+DECLARE @pm varchar(10) = NULL, @mada int=0, @madaNew int
+--Kiểm tra MaPM mới cập nhật có tồn tại trong DUAN hay chưa
+SELECT @pm=new.MaPM, @madaNew=new.MaDA
+FROM inserted new, DUAN
+WHERE new.MaPM = DUAN.MaPM
+print @pm
+IF (@pm IS NULL)
+BEGIN
+	INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, GiaiDoan, MaPM)
+	SELECT new.TenDA, new.TienDo, new.NgayKT, NgayBD, new.ChiPhi, new.GiaiDoan, new.MaPM
+	FROM inserted new
+END
+ELSE
+BEGIN
+	RAISERROR('Người này đang quản lý dự án khác', 16, 1)
+END
+GO
+--3) Xóa TeamLeader và Team trước khi xóa DUAN
+CREATE OR ALTER TRIGGER tr_rangbuoc_xoaDA ON DUAN
+INSTEAD OF DELETE
+AS
+DECLARE @mada INT
+SELECT @mada=ol.MaDA
+FROM deleted ol
+JOIN DUAN ON DUAN.MaDA = ol.MaDA
+BEGIN
+	DELETE FROM TEAM WHERE MaDA = @mada
+	DELETE FROM TEAMLEADER WHERE MaDA = @mada
+	DELETE FROM DUAN WHERE MaDA = @mada
+END
+GO

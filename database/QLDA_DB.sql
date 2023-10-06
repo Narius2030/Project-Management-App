@@ -355,10 +355,22 @@ INSERT INTO NHIEMVU VALUES
 ('01CV01', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV002', 1),
 ('01CV02', DEFAULT, 'Done', 5, N'Chức năng đăng nhập', 6, 'NV003', 2),
 ('01CV03', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV006', 3),
-('01CV04', DEFAULT, 'Done', 5, N'Chức năng đăng nhập', 8, 'NV007', 4),
-('01CV05', DEFAULT, 'Doing', 5, N'Giao diện đăng nhập', 8, 'NV003', 5),
+('01CV04', '01CV03', 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV007', 4),
+('01CV05', '01CV04', 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV003', 5),
 ('01CV06', DEFAULT, 'Doing', 5, N'Chức năng đăng nhập', 8, 'NV006', 6),
 ('01CV07', DEFAULT, 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV010', 7),
 ('01CV08', DEFAULT, 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV002', 8);
-
 GO
+
+-- TESTING
+UPDATE NHIEMVU SET TrangThai = 'Doing', ThoiGianLamThucTe=2 WHERE MaNhiemVu = '01CV05' 
+UPDATE NHIEMVU SET TrangThai = 'Doing', ThoiGianLamThucTe=4 WHERE MaNhiemVu = '01CV04' 
+
+SELECT * FROM NHIEMVU WHERE MaNhiemVu = '01CV05'
+SELECT * FROM NHIEMVU WHERE MaNhiemVu = '01CV04'
+SELECT * FROM DUAN
+SELECT * FROM TEAMLEADER
+
+INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, GiaiDoan, MaPM) VALUES (N'Phần mềm truy nã', 0, '2023-12-30', '2023-10-15', '150000', 'Planning', 'NV006')
+
+DELETE FROM DUAN WHERE MaPM = 'NV002' AND MaDA != 1
