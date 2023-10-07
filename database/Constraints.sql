@@ -53,7 +53,13 @@ FROM NHIEMVU afNV
 JOIN NHIEMVU bfNV ON bfNV.MaNhiemVu = afNV.MaTienQuyet
 GO
 --c)Những công việc đang trễ tiến độ
-
+CREATE OR ALTER VIEW vw_cvtre
+AS
+SELECT cv.MaDA, cv.MaCV, cv.TenCV, cv.MaSprint, cv.TenNhom, cv.TrangThai
+FROM CONGVIEC cv
+JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
+WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND cv.TrangThai != 'Done'
+GO
 
 --d)Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của một từng một dự án
 CREATE OR ALTER VIEW vw_nvtrehan_cv_da
