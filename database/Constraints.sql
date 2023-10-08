@@ -113,3 +113,55 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
 --###Triggers
+
+GO
+
+--Trigger kiểm tra tài nguyen
+CREATE TRIGGER KTTaiNguyen
+ON CAP
+FOR INSERT, UPDATE
+AS
+BEGIN 
+	DECLARE @MaTaiNguyenCap VARCHAR(50);
+	DECLARE @TaiNguyenCount VARCHAR(50);
+
+	SELECT @MaTaiNguyenCap = inserted.MaTN
+	FROM inserted;
+
+	SELECT @TaiNguyenCount = Count(*)
+	FROM TAINGUYEN
+	WHERE MaTN = @MaTaiNguyenCap;
+
+	IF @TaiNguyenCount = 0
+	BEGIN
+		ROLLBACK;
+    END
+END;
+
+GO
+
+--Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
+
+CREATE TRIGGER KTNgayNghiTrongSprint
+ON DIEMDANH
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @MaNV VARCHAR(10);
+	DECLARE @NgayNghi DATE;
+	DECLARE @MaSprint VARCHAR(15);
+
+	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
+	FROM DIEMDANH;
+
+	SELECT @MaSprint = MaSprint
+	FROM SPRINT
+	WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD;
+
+	IF @MaSprint IS NOT NULL
+	BEGIN
+		UPDATE UOCLUONG
+		SET SoNgayNghi = SoNgayNghi + 1
+		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint;
+	END
+END;
