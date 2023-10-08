@@ -96,51 +96,86 @@ DECLARE @newNV varchar(10), @trangthaiOld varchar(30), @trangthaiTQ varchar(30),
 SELECT @newNV=n.MaNhiemVu, @trangthaiOld=o.TrangThai, @tgThucTe=o.ThoiGianLamThucTe
 FROM inserted n, deleted o, NHIEMVU NV
 WHERE NV.MaNhiemVu = n.MaNhiemVu AND n.MaNhiemVu = o.MaNhiemVu
-
---Lấy trạng thái nhiệm vụ tiên quyết
+	--Lấy trạng thái nhiệm vụ tiên quyết
 SELECT @trangthaiTQ=NVTQ.TrangThai
 FROM (SELECT * FROM NHIEMVU WHERE MaNhiemVu = @newNV) NV
 JOIN NHIEMVU NVTQ ON NV.MaTienQuyet = NVTQ.MaNhiemVu
-
 IF(@trangthaiTQ != 'Done')
 BEGIN
+	--Nếu kiểm tra nvtq chưa Done thì trả về giá trị cũ
 	UPDATE NHIEMVU SET ThoiGianLamThucTe=@tgThucTe, TrangThai=@trangthaiOld
 		WHERE MaNhiemVu=@newNV
 	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
 END
 GO
+
 --2) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
 CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
-INSTEAD OF INSERT, UPDATE
+AFTER INSERT, UPDATE
 AS
-DECLARE @pm varchar(10) = NULL, @mada int=0, @madaNew int
---Kiểm tra MaPM mới cập nhật có tồn tại trong DUAN hay chưa
-SELECT @pm=new.MaPM, @madaNew=new.MaDA
-FROM inserted new, DUAN
-WHERE new.MaPM = DUAN.MaPM
-print @pm
-IF (@pm IS NULL)
+DECLARE @pm INT, @mada int=0, @madaNew int
+	--Kiểm tra MaPM mới cập nhật có tồn tại trong DUAN hay chưa
+SELECT @pm=soluong FROM (
+	SELECT COUNT(new.MaPM) AS soluong
+	FROM inserted new, DUAN
+	WHERE new.MaPM = DUAN.MaPM
+) AS Q
+IF (@pm > 1)
 BEGIN
-	INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, GiaiDoan, MaPM)
-	SELECT new.TenDA, new.TienDo, new.NgayKT, NgayBD, new.ChiPhi, new.GiaiDoan, new.MaPM
-	FROM inserted new
-END
-ELSE
-BEGIN
-	RAISERROR('Người này đang quản lý dự án khác', 16, 1)
+	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
+	ROLLBACK TRAN;
 END
 GO
---3) Xóa TeamLeader và Team trước khi xóa DUAN
+
+--3) Xử lý ràng buộc trước khi xóa DUAN
 CREATE OR ALTER TRIGGER tr_rangbuoc_xoaDA ON DUAN
 INSTEAD OF DELETE
 AS
 DECLARE @mada INT
-SELECT @mada=ol.MaDA
-FROM deleted ol
-JOIN DUAN ON DUAN.MaDA = ol.MaDA
+SELECT @mada=old.MaDA
+FROM deleted old
+JOIN DUAN ON DUAN.MaDA = old.MaDA
+--IF (@mada IS NOT NULL)
 BEGIN
+	--Xóa TEAM, CAP, UOCLUONG và TEAMLEADER có cùn MaDA trước
 	DELETE FROM TEAM WHERE MaDA = @mada
 	DELETE FROM TEAMLEADER WHERE MaDA = @mada
+	DELETE FROM CAP WHERE MaDA = @mada
+	DELETE FROM UOCLUONG WHERE MaDA = @mada
+	--Xóa DUAN
 	DELETE FROM DUAN WHERE MaDA = @mada
+END
+GO
+
+--4) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm/dự án khác thì hủy chỉ định
+CREATE OR ALTER TRIGGER tr_chidinh_teamleader ON TEAMLEADER
+AFTER INSERT, UPDATE
+AS
+DECLARE @tl INT, @mada int=0, @madaNew int
+	--Kiểm tra Team Leader mới cập nhật có tồn tại trong TEAMLEADER hay chưa
+SELECT @tl = soluong FROM (
+	SELECT COUNT(new.MaNV) as soluong
+	FROM inserted new JOIN TEAMLEADER
+	ON new.MaDA = TEAMLEADER.MaDA AND new.MaNV = TEAMLEADER.MaNV
+) AS Q
+IF (@tl > 1)
+BEGIN
+	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
+	ROLLBACK TRAN;
+END
+GO
+
+--Time Task > Time Sprint thì hủy phân công
+CREATE OR ALTER TRIGGER tr_sosanh_thoigian ON UOCLUONG
+FOR UPDATE
+AS
+DECLARE @timetask INT, @timesprint INT
+SELECT @timetask=new.TimeTasks, @timetask=new.TimeSprint
+FROM inserted new, UOCLUONG ul
+WHERE new.MaNV = ul.MaNV AND new.MaDA = ul.MaDA AND new.MaSprint = ul.MaSprint
+IF (@timetask > @timesprint)
+BEGIN 
+	RAISERROR('Lỗi Time Task > Time Sprint', 16, 1)
+	ROLLBACK TRAN;
 END
 GO
