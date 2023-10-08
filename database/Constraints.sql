@@ -165,3 +165,39 @@ BEGIN
 		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint;
 	END
 END;
+
+
+GO
+--Trigger kiểm tra ngày nghỉ để trừ timesprint
+CREATE TRIGGER UpdateTimeSprint
+ON DIEMDANH
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @MaNV VARCHAR(10);
+	DECLARE @NgayNghi DATE;
+	DECLARE @MaSprint VARCHAR(15);
+	DECLARE @CapPerDay INT;
+	DECLARE @MaDA INT;
+
+	--Lấy ngày nghỉ, mã nhân viên
+	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
+	FROM DIEMDANH;
+
+	--Lấy mã sprint và mã DA có ngày nghỉ thuộc sprint
+	SELECT @MaSprint = MaSprint, @MaDA = SPRINT.MaDA
+	FROM SPRINT
+	WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD;
+
+	--Lấy CapPerDay theo mã NV
+	SELECT @CapPerDay = TEAM.CapPerDay
+	FROM TEAM
+	WHERE @MaNV = TEAM.MaNV AND @MaDA = TEAM.MaDA;
+
+	IF @MaSprint IS NOT NULL
+	BEGIN
+		UPDATE UOCLUONG
+		SET TimeSprint = TimeSprint - @CapPerDay
+		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint AND @MaDA = UOCLUONG.MaDA;
+	END
+END;
