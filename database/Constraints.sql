@@ -107,3 +107,69 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
 --###Triggers
+--	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
+Create TRIGGER KiemTraSprintHoanThanh
+ON Sprint
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @NgayKetThuc DATE
+
+    -- Lấy MaDA từ bảng inserted
+    DECLARE @madamoithem INT
+    SELECT @madamoithem = MaDA FROM inserted;
+
+    -- Tạo con trỏ trên  danh sách ngày kết thúc từ bảng SPRINT với điều kiện cùng 1 mã dự án
+    DECLARE cur CURSOR FOR
+    SELECT S.NgayKT
+    FROM SPRINT as S
+	where S.MaDA=@madamoithem
+    OPEN cur
+	--đặt con trỏ vào hàng đầu tiên 
+    FETCH NEXT FROM cur INTO @NgayKetThuc
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- So sánh ngày kết thúc với ngày hiện tại
+        IF @NgayKetThuc >= GETDATE()
+
+        BEGIN
+			 RAISERROR('Lỗi Sprint của giai đoạn trước thuộc dự án này chưa kết thúc.', 16, 1)
+			 rollback tran
+			 return
+        END
+        FETCH NEXT FROM cur INTO @NgayKetThuc
+    END
+    CLOSE cur
+    DEALLOCATE cur
+END
+--Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
+alter TRIGGER UpdateTimeTasks
+ON NHIEMVU
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Khai báo biến để lưu tổng thời gian ước lượng của nhiệm vụ hoàn thành
+    DECLARE @TotalThoiGianUocTinh INT;
+	DECLARE @MANHANVIEN VARCHAR(10)
+    -- Tính tổng thời gian ước lượng của nhiệm vụ hoàn thành CỬA TỪNG NHÂN VIÊN
+	DECLARE cur CURSOR FOR  SELECT inserted.MaNV ,SUM(ThoiGianUocTinh) as [Tổng Thời Gian Ước Tính]
+	FROM  inserted
+	WHERE TrangThai = 'Done'
+	group by inserted.MaNV
+
+    OPEN cur
+    FETCH NEXT FROM cur INTO @MaNhanVien,@TotalThoiGianUocTinh
+
+    -- Cập nhật giá trị TimeTasks trong bảng UOCLUONG cho từng nhân viên
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        UPDATE UOCLUONG
+        SET TimeTasks =  @TotalThoiGianUocTinh
+        WHERE MaNV = @MaNhanVien;
+        
+        FETCH NEXT FROM cur INTO @MaNhanVien,@TotalThoiGianUocTinh
+    END
+
+    CLOSE cur
+    DEALLOCATE cur
+END
