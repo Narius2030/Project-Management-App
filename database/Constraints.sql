@@ -143,33 +143,21 @@ BEGIN
     DEALLOCATE cur
 END
 --Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
-alter TRIGGER UpdateTimeTasks
+CREATE TRIGGER UpdateTimeTasks
 ON NHIEMVU
 AFTER INSERT, UPDATE
 AS
 BEGIN
     -- Khai báo biến để lưu tổng thời gian ước lượng của nhiệm vụ hoàn thành
-    DECLARE @TotalThoiGianUocTinh INT;
+    DECLARE @ThoiGianUocTinh INT
 	DECLARE @MANHANVIEN VARCHAR(10)
-    -- Tính tổng thời gian ước lượng của nhiệm vụ hoàn thành CỬA TỪNG NHÂN VIÊN
-	DECLARE cur CURSOR FOR  SELECT inserted.MaNV ,SUM(ThoiGianUocTinh) as [Tổng Thời Gian Ước Tính]
+    -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
+	SELECT  @MANHANVIEN = inserted.MaNV,@ThoiGianUocTinh=(ThoiGianUocTinh)
 	FROM  inserted
-	WHERE TrangThai = 'Done'
-	group by inserted.MaNV
-
-    OPEN cur
-    FETCH NEXT FROM cur INTO @MaNhanVien,@TotalThoiGianUocTinh
-
-    -- Cập nhật giá trị TimeTasks trong bảng UOCLUONG cho từng nhân viên
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        UPDATE UOCLUONG
-        SET TimeTasks =  @TotalThoiGianUocTinh
-        WHERE MaNV = @MaNhanVien;
-        
-        FETCH NEXT FROM cur INTO @MaNhanVien,@TotalThoiGianUocTinh
-    END
-
-    CLOSE cur
-    DEALLOCATE cur
+	WHERE  inserted.TrangThai = 'Done' 
+	--Cập nhật timetasks
+    UPDATE UOCLUONG
+    SET TimeTasks =  TimeTasks- @ThoiGianUocTinh
+    WHERE MaNV = @MaNhanVien;
+       
 END
