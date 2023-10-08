@@ -32,8 +32,6 @@ FROM CONGVIEC CV
 JOIN NHIEMVU NHV ON NHV.MaCV = CV.MaCV
 GO
 
-SELECT * FROM vw_congviec_nhiemvu
-
 --b)Nhiệm vụ và công việc tiên quyết của một dự án
 CREATE OR ALTER VIEW vw_congviec_tienquyet
 AS
@@ -65,10 +63,7 @@ JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
 WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND nv.TrangThai != 'Done'
 GO
 
-SELECT * FROM vw_nvtrehan_cv_da
-
-
---3. Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công 
+--3. Xem thông tin ngày nghỉ của nhân viên 
 --a)Thông tin ngày nghỉ của nhân viên trong từng Sprint của dự án
 CREATE OR ALTER VIEW vw_ngaynghi_trong_duan
 AS
@@ -80,13 +75,8 @@ FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
 WHERE DD.NgayNghi BETWEEN NgayBD AND NgayKT
-drop database QLDA
-use QLDA
-WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
-
 GO
 
-SELECT * FROM vw_ngaynghi_trong_duan
 --###Constraints
 --check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
@@ -99,4 +89,5 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_SDT CHECK(SDT not LIKE '[a-zA-Z_!@#$%^
 ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(SUBSTRING(MANV, 3, 3) AS INT) > 0 AND CAST(SUBSTRING(MANV, 3, 3) AS INT) <= 999);
 --Trong UOCLUONG, Time Sprint >= Time Tasks
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
+
 --###Triggers
