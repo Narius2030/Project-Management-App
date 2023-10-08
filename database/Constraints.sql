@@ -87,22 +87,76 @@ SELECT * FROM vw_ngaynghi_trong_duan
 --###Constraints
 
 
-
+Go
 
 --###Triggers
 --	Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
-create trigger tr_addUocLuong on TEAM
+create trigger tr_addUocLuong on TEAMLEADER
 AFTER INSERT AS
 BEGIN
-   insert into UOCLUONG(MaNV, MaDA,MaSprint, SoNgayNghi,TimeSprint,TimeTasks)
-   select i.MaNV, TEAM.MaDA, NULL, NULL, NULL, NULL 
+   insert into UOCLUONG
+   select i.MaNV, i.MaDA, SPRINT.MaSprint, NULL, NULL, NULL 
    from inserted AS i
-     JOIN TEAM on TEAM.MaNV=i.MaNV
+	 join SPRINT on i.MaDA= SPRINT.MaDA
+   where SPRINT.NgayKT >= GETDATE()
+END;
+
+Go
+
+--	Kiểm tra dự án đang ở trạng thái “trì hoãn”, “hoàn thành” hay không, nếu có thì được xóa (delete) và ngược lại
+CREATE TRIGGER tr_DeleteDuAn
+ON DUAN
+AFTER DELETE
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM deleted WHERE deleted.GiaiDoan in ('Done', 'Delay'))
+    BEGIN
+        print('Không thể xóa dự án');
+        ROLLBACK;
+    END;
+    
+END;
+
+Go
+
+--	Cập nhật trạng thái dự án (update) sau khi cập nhật tiến độ (%)
+CREATE TRIGGER tr_Update_Trangthai
+ON DUAN
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS ( SELECT 1 FROM inserted WHERE TienDo = 100
+    )
+    BEGIN
+        UPDATE DUAN
+        SET GiaiDoan = 'Done'
+        FROM DUAN
+        JOIN inserted ON DUAN.MaDA = inserted.MaDA;
+    END
+	ELSE
+	 BEGIN
+        print('Không thể cập nhật dự án');
+        ROLLBACK;
+    END;
+END;
+
+Go
+
+--	Kiểm tra tính hợp lệ khi thiệt lập giai đoạn mới (update) cho dự án dựa trên trạng thái
+CREATE TRIGGER tr_CheckGiaiDoan
+ON DUAN
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM inserted as i
+        WHERE i.GiaiDoan <> 'Done' and i.TienDo <> 100
+    )
+    BEGIN
+        PRINT('Không thể thiết lập giai đoạn mới có thể do nhiệm vụ vẫn chưa được hoàn thành')
+        ROLLBACK;
+    END
 END;
 
 
-select *from UOCLUONG
-select *from DUAN
-select *from NHANVIEN
-select *from TEAMLEADER
-insert into TEAM value('Front-End',
