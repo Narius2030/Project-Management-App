@@ -21,6 +21,18 @@ FROM TEAMLEADER TLD
 JOIN NHANVIEN NV ON NV.MaNV = TLD.MaNV
 GO
 
+--c) Những PM và Team Leader chưa được phân công
+CREATE OR ALTER VIEW vw_khongla_pm
+AS
+SELECT *
+FROM NHANVIEN NV
+WHERE NOT EXISTS(
+	SELECT *
+	FROM DUAN pm
+	WHERE pm.MaPM = NV.MaNV
+)
+GO
+
 --2.Xem nội dung công việc và nhiệm vụ
 --a)Tất cả công việc
 CREATE OR ALTER VIEW vw_congviec_nhiemvu
