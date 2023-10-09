@@ -4,7 +4,6 @@ GO
 --DROP DATABASE QLDA
 
 USE QLDA;
-
 GO
 
 CREATE TABLE UOCLUONG(
@@ -48,7 +47,7 @@ CREATE TABLE DUAN(
    ChiPhi VARCHAR(30),
    GiaiDoan NVARCHAR(30),
    MaPM VARCHAR(10),
-   CONSTRAINT FK_DUAN_NHIEMVIEN FOREIGN KEY (MaPM) REFERENCES NHANVIEN(MaNV)
+   CONSTRAINT FK_DUAN_NHIEMVIEN FOREIGN KEY(MaPM) REFERENCES NHANVIEN(MaNV)
 );
 
 GO
@@ -57,10 +56,9 @@ CREATE TABLE CAP (
 	MaDA INT,
 	MaTN VARCHAR(10),
 	PRIMARY KEY(MaDA,MaTN),
-	constraint FK_CAP_DUAN FOREIGN KEY (MaDA) references DUAN(MaDA) ON UPDATE CASCADE,
-	constraint FK_CAP_TAINGUYEN FOREIGN KEY (MaTN) references TAINGUYEN(MaTN)   ON UPDATE CASCADE
+	constraint FK_CAP_DUAN FOREIGN KEY(MaDA) references DUAN(MaDA) ON UPDATE CASCADE,
+	constraint FK_CAP_TAINGUYEN FOREIGN KEY (MaTN) references TAINGUYEN(MaTN) ON UPDATE CASCADE
 )
-
 GO
 
 CREATE TABLE SPRINT (
@@ -69,13 +67,12 @@ CREATE TABLE SPRINT (
 	NgayBD DATE ,
 	NgayKT DATE,
 	MaDA INT,
-	constraint FK_SPRINT_DUAN FOREIGN KEY (MaDA) references DUAN(MaDA)  ON DELETE SET NULL ON UPDATE CASCADE
+	constraint FK_SPRINT_DUAN FOREIGN KEY (MaDA) references DUAN(MaDA) ON DELETE SET NULL ON UPDATE CASCADE
 )
-
 GO
 
 CREATE TABLE DIEMDANH(
-   NgayNghi Date,
+   Ngay Date,
    MaNV VARCHAR(10),
    PRIMARY KEY(NgayNghi, MaNV),
    NoiDung NVARCHAR(20),
@@ -146,7 +143,7 @@ GO
 
 -- Adding constraint
 
---ALTER TABLE TEAMLEADER ADD CONSTRAINT FK_TEAM_DUAN FOREIGN KEY(MaDA) REFERENCES DUAN(MaDA)  ON UPDATE CASCADE ;
+--ALTER TABLE TEAMLEADER ADD CONSTRAINT FK_TEAM_DUAN FOREIGN KEY(MaDA) REFERENCES DUAN(MaDA) ON UPDATE CASCADE ;
 --ALTER TABLE TEAMLEADER ADD CONSTRAINT FK_TEAMLEADER_NHANVIEN FOREIGN KEY(MaNV) REFERENCES NHANVIEN(MaNV) ON DELETE set null ON UPDATE CASCADE ; 
 --ALTER TABLE TEAM ADD CONSTRAINT FK_TEAM_TEAMLEADER FOREIGN KEY(TenNhom, MaDA) REFERENCES TEAMLEADER(TenNhom, MaDA)  ON UPDATE CASCADE ;
 --ALTER TABLE TEAM ADD CONSTRAINT FK_TEAM_NHANVIEN FOREIGN KEY(MaNV) REFERENCES NHANVIEN(MaNV)   ; 
@@ -223,7 +220,6 @@ INSERT INTO SPRINT (MaSprint, NoiDung, NgayKT, NgayBD, MaDA) VALUES
 ('02DA07', N'Back-End', '2023-12-30', '2023-10-01', 7),
 ('01DA08', N'Front-End', '2023-11-30', '2023-10-15', 8),
 ('02DA08', N'Back-End', '2023-12-30', '2023-12-01', 8);
-
 GO
 
 INSERT INTO UOCLUONG VALUES
@@ -355,10 +351,53 @@ INSERT INTO NHIEMVU VALUES
 ('01CV01', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV002', 1),
 ('01CV02', DEFAULT, 'Done', 5, N'Chức năng đăng nhập', 6, 'NV003', 2),
 ('01CV03', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV006', 3),
-('01CV04', DEFAULT, 'Done', 5, N'Chức năng đăng nhập', 8, 'NV007', 4),
-('01CV05', DEFAULT, 'Doing', 5, N'Giao diện đăng nhập', 8, 'NV003', 5),
+('01CV04', '01CV03', 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV007', 4),
+('01CV05', '01CV04', 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV003', 5),
 ('01CV06', DEFAULT, 'Doing', 5, N'Chức năng đăng nhập', 8, 'NV006', 6),
 ('01CV07', DEFAULT, 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV010', 7),
 ('01CV08', DEFAULT, 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV002', 8);
+<<<<<<< HEAD
 
 GO
+
+--View:
+--1. Xem danh sách nhân viên và nhóm
+--Tất cả
+create view Ds_NV_Nhom as
+   select nv.MaNV, nv.HovaTenDem, nv.Ten, TenNhom, MaDA from NHANVIEN as nv, TEAM
+   where nv.MaNV = TEAM.MaNV
+
+--DROP VIEW Ds_NV_Nhom
+
+--Trưởng nhóm
+create view Ds_NV_TruongNhom as
+   select nv.MaNV, nv.HovaTenDem, nv.Ten, MaDA from NHANVIEN as nv, TEAMLEADER AS tl
+   where nv.MaNV = tl.MaNV
+
+--2. Xem nội dung công việc và nhiệm vụ
+--a) Tất cả công việc
+create view Ds_CV as
+   select MaCV, TenCV, TenNhom, MaDA, MaSprint, TrangThai
+   from CONGVIEC
+
+--SELECT *FROM Ds_CV   
+
+--b) Công việc theo dự án và Sprint
+
+--c) Nhiệm vụ và công việc tiên quyết của một dự án
+create view Ds_CV_Nvu as
+   select MaCV, CVTienQuyet, Ma
+--d) Những công việc đang trễ tiến độ
+
+
+
+select *from Ds_NV_Nhom
+select *from Ds_NV_TruongNhom
+select *from NHANVIEN
+select *from TEAM
+select *from TEAMLEADER
+select *from CONGVIEC
+SELECT *FROM NHIEMVU
+=======
+GO
+>>>>>>> nhanbui
