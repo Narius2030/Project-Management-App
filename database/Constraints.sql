@@ -82,7 +82,7 @@ JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
 WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND cv.TrangThai != 'Done'
 GO
 
---d)Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của  từng một dự án
+--d) Show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của  từng một dự án
 CREATE OR ALTER VIEW vw_nvtrehan_cv_da
 AS
 SELECT nv.MaNhiemVu, nv.TenNhiemVu, nv.TrangThai, cv.MaCV, spt.MaDA, nv.MaNV, GETDATE() as HomNay, spt.NgayKT
@@ -111,6 +111,7 @@ AS
 SELECT *FROM TAINGUYEN,CAP,DUAN
 WHERE TAINGUYEN.MaTN=CAP.MaTN AND DUAN.MaDA=CAP.MaDA
 GO
+
 --###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
@@ -130,6 +131,7 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
 go
 
+
 --###Triggers
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create trigger tr_addUocLuong on TEAM
@@ -141,8 +143,7 @@ BEGIN
 	 join SPRINT on i.MaDA= SPRINT.MaDA
    where SPRINT.NgayKT >= GETDATE()
 END;
-
-Go
+GO
 
 --2.Kiểm tra dự án đang ở trạng thái “trì hoãn”, “hoàn thành” hay không, nếu có thì được xóa (delete) và ngược lại
 CREATE TRIGGER tr_DeleteDuAn
@@ -155,10 +156,8 @@ BEGIN
         RAISERROR('Không thể xóa dự án',16,2);
         ROLLBACK TRAN;
     END;
-    
 END;
-
-Go
+GO
 
 --3.Cập nhật trạng thái dự án (update) sau khi cập nhật tiến độ (%)
 CREATE TRIGGER tr_Update_Trangthai
@@ -177,12 +176,12 @@ BEGIN
         WHERE DUAN.MaDA=@MADA
     END
 	ELSE
-	 BEGIN
+	BEGIN
         RAISERROR('Không thể cập nhật dự án',16,2);
         ROLLBACK TRAN;
     END;
 END;
-go
+GO
 --4.Kiểm tra tính hợp lệ khi thiệt lập giai đoạn mới (update) cho dự án dựa trên trạng thái
 CREATE TRIGGER tr_CheckGiaiDoan
 ON DUAN
@@ -212,6 +211,7 @@ BEGIN
     END
 END
 go
+
 --6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
@@ -314,7 +314,7 @@ BEGIN
 	DECLARE @MaDA INT;
 
 	--Lấy ngày nghỉ, mã nhân viên
-	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
+	SELECT @NgayNghi = DIEMDANH.NgayNghi, @MaNV = MaNV
 	FROM DIEMDANH;
 
 	--Lấy mã sprint và mã DA có ngày nghỉ thuộc sprint
@@ -337,8 +337,7 @@ END;
 
 go
 --13.Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
-CREATE TRIGGER UpdateTimeTasks
-ON NHIEMVU
+CREATE TRIGGER UpdateTimeTasks ON NHIEMVU
 AFTER INSERT, UPDATE
 AS
 BEGIN
@@ -348,7 +347,8 @@ BEGIN
 	DECLARE @MASPRINT VARCHAR(10)
 	DECLARE @MADA VARCHAR(10)
     -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
-	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA,@ThoiGianUocTinh=inserted.ThoiGianUocTinh FROM  inserted ,NHANVIEN,CONGVIEC
+	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA, @ThoiGianUocTinh=inserted.ThoiGianUocTinh 
+	FROM  inserted, NHANVIEN, CONGVIEC
 	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
 	--Cập nhật timetasks
     UPDATE UOCLUONG
@@ -356,9 +356,7 @@ BEGIN
     WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaSprint=@MASPRINT;
        
 END
-
-Go
-
+GO
 
 --14)Kiểm tra tài nguyên có trong kho hay không trước khi cấp cho dự án
 CREATE TRIGGER KTTaiNguyen
@@ -381,7 +379,6 @@ BEGIN
 		ROLLBACK;
     END
 END;
-
 GO
 --15.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 --NOTE
