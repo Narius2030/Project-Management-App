@@ -287,7 +287,7 @@ ON DUAN
 AFTER DELETE
 AS
 BEGIN
-    IF NOT EXISTS (SELECT * FROM deleted WHERE deleted.GiaiDoan NOT in ('Done', 'Delay'))
+    IF EXISTS (SELECT * FROM deleted WHERE deleted.GiaiDoan NOT in ('Done', 'Delay'))
     BEGIN
         print('Không thể xóa dự án');
         ROLLBACK;
