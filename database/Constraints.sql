@@ -148,16 +148,18 @@ ON NHIEMVU
 AFTER INSERT, UPDATE
 AS
 BEGIN
-    -- Khai báo biến để lưu tổng thời gian ước lượng của nhiệm vụ hoàn thành
+    -- Khai báo biến
     DECLARE @ThoiGianUocTinh INT
 	DECLARE @MANHANVIEN VARCHAR(10)
+	DECLARE @MASPRINT VARCHAR(10)
+	DECLARE @MADA VARCHAR(10)
     -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
-	SELECT  @MANHANVIEN = inserted.MaNV,@ThoiGianUocTinh=(ThoiGianUocTinh)
-	FROM  inserted
-	WHERE  inserted.TrangThai = 'Done' 
+	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA,@ThoiGianUocTinh=inserted.ThoiGianUocTinh FROM  inserted ,NHANVIEN,CONGVIEC
+	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
 	--Cập nhật timetasks
     UPDATE UOCLUONG
     SET TimeTasks =  TimeTasks- @ThoiGianUocTinh
-    WHERE MaNV = @MaNhanVien;
+    WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaSprint=@MASPRINT;
        
 END
+
