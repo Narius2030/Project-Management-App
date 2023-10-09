@@ -205,8 +205,8 @@ go
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
 AS
-DECLARE @newNV varchar(10), @trangthaiOld varchar(30), @trangthaiTQ varchar(30), @tgUocTinh INT, @tgThucTe INT
-SELECT @newNV=n.MaNhiemVu, @trangthaiOld=o.TrangThai, @tgThucTe=o.ThoiGianLamThucTe
+DECLARE @newNV varchar(10), @trangthaiTQ varchar(30)
+SELECT @newNV=n.MaNhiemVu
 FROM inserted n, deleted o, NHIEMVU NV
 WHERE NV.MaNhiemVu = n.MaNhiemVu AND n.MaNhiemVu = o.MaNhiemVu
 	--Lấy trạng thái nhiệm vụ tiên quyết
@@ -216,10 +216,10 @@ JOIN NHIEMVU NVTQ ON NV.MaTienQuyet = NVTQ.MaNhiemVu
 IF(@trangthaiTQ != 'Done')
 BEGIN
 	--Nếu kiểm tra nvtq chưa Done thì trả về giá trị cũ
-	UPDATE NHIEMVU SET ThoiGianLamThucTe=@tgThucTe, TrangThai=@trangthaiOld
-		WHERE MaNhiemVu=@newNV
 	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
+	ROLLBACK TRAN
 END
+GO
 GO
 --7) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
 CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
