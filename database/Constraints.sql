@@ -28,10 +28,21 @@ SELECT *
 FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
-	FROM DUAN AS pm, TEAM as t
-	WHERE pm.MaPM = NV.MaNV AND t.MaNV = NV.MaNV
+	FROM DUAN AS pm
+	WHERE pm.MaPM = NV.MaNV
 )
-go
+GO
+
+CREATE OR ALTER VIEW vw_khongla_teamleader
+AS
+SELECT *
+FROM NHANVIEN NV
+WHERE NOT EXISTS(
+	SELECT *
+	FROM TEAMLEADER AS tl
+	WHERE tl.MaNV = NV.MaNV
+)
+GO
 
 --2.Xem nội dung nhiệm vụ thuộc 1 công việc 
 --a)Tất cả công việc
@@ -97,9 +108,10 @@ go
 --4)Xem Thông Tin Tài Nguyên
 Create OR ALTER VIEW V_TAINGUYEN
 AS 
-SELECT *FROM TAINGUYEN
-go
+SELECT * FROM TAINGUYEN
 GO
+
+
 --###Constraints
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
@@ -119,6 +131,7 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
 go
 
+
 --###Triggers
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create trigger tr_addUocLuong on TEAMLEADER
@@ -130,8 +143,7 @@ BEGIN
 	 join SPRINT on i.MaDA= SPRINT.MaDA
    where SPRINT.NgayKT >= GETDATE()
 END;
-
-Go
+GO
 
 --2.Kiểm tra dự án đang ở trạng thái “trì hoãn”, “hoàn thành” hay không, nếu có thì được xóa (delete) và ngược lại
 CREATE TRIGGER tr_DeleteDuAn
@@ -144,10 +156,8 @@ BEGIN
         print('Không thể xóa dự án');
         ROLLBACK;
     END;
-    
 END;
-
-Go
+GO
 
 --3.Cập nhật trạng thái dự án (update) sau khi cập nhật tiến độ (%)
 CREATE TRIGGER tr_Update_Trangthai
@@ -164,12 +174,12 @@ BEGIN
         JOIN inserted ON DUAN.MaDA = inserted.MaDA;
     END
 	ELSE
-	 BEGIN
+	BEGIN
         print('Không thể cập nhật dự án');
         ROLLBACK;
     END;
 END;
-go
+GO
 --4.Kiểm tra tính hợp lệ khi thiệt lập giai đoạn mới (update) cho dự án dựa trên trạng thái
 CREATE TRIGGER tr_CheckGiaiDoan
 ON DUAN
@@ -336,7 +346,7 @@ BEGIN
 	DECLARE @MaDA INT;
 
 	--Lấy ngày nghỉ, mã nhân viên
-	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
+	SELECT @NgayNghi = DIEMDANH.NgayNghi, @MaNV = MaNV
 	FROM DIEMDANH;
 
 	--Lấy mã sprint và mã DA có ngày nghỉ thuộc sprint
