@@ -166,6 +166,8 @@ BEGIN
        
 END
 
+Go
+
 --1) Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
@@ -259,7 +261,6 @@ END
 
 Go
 
---###Triggers
 --	Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create trigger tr_addUocLuong on TEAMLEADER
 AFTER INSERT AS
@@ -279,7 +280,7 @@ ON DUAN
 AFTER DELETE
 AS
 BEGIN
-    IF EXISTS (SELECT 1 FROM deleted WHERE deleted.GiaiDoan in ('Done', 'Delay'))
+    IF NOT EXISTS (SELECT 1 FROM deleted WHERE deleted.GiaiDoan in ('Done', 'Delay'))
     BEGIN
         print('Không thể xóa dự án');
         ROLLBACK;
