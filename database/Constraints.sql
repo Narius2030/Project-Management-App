@@ -94,10 +94,11 @@ JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
 go
---4)Xem Thông Tin Tài Nguyên
+--4)Xem Thông Tin Tài Nguyên ĐƯỢC CẤP CHO TỪNG DỰ ÁN
 Create OR ALTER VIEW V_TAINGUYEN
 AS 
-SELECT *FROM TAINGUYEN
+SELECT *FROM TAINGUYEN,CAP,DUAN
+WHERE TAINGUYEN.MaTN=CAP.MaTN AND DUAN.MaDA=CAP.MaDA
 GO
 --###Constraints
 -- câu 1: check tiến độ công việc và tiến độ dự án
