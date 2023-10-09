@@ -112,7 +112,7 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 -- câu 4 :Trong UOCLUONG, Time Sprint >= Time Tasks
 
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
-<<<<<<< HEAD
+go
 
 --###Triggers
 --	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
@@ -150,6 +150,8 @@ BEGIN
     CLOSE cur
     DEALLOCATE cur
 END
+
+go
 --Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
 CREATE TRIGGER UpdateTimeTasks
 ON NHIEMVU
@@ -285,7 +287,7 @@ ON DUAN
 AFTER DELETE
 AS
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM deleted WHERE deleted.GiaiDoan in ('Done', 'Delay'))
+    IF NOT EXISTS (SELECT * FROM deleted WHERE deleted.GiaiDoan NOT in ('Done', 'Delay'))
     BEGIN
         print('Không thể xóa dự án');
         ROLLBACK;
@@ -301,7 +303,7 @@ ON DUAN
 AFTER UPDATE
 AS
 BEGIN
-    IF EXISTS ( SELECT 1 FROM inserted WHERE TienDo = 100
+    IF EXISTS ( SELECT * FROM inserted WHERE TienDo = 100
     )
     BEGIN
         UPDATE DUAN
@@ -325,7 +327,7 @@ AFTER UPDATE
 AS
 BEGIN
     IF EXISTS (
-        SELECT 1
+        SELECT *
         FROM inserted as i
         WHERE i.GiaiDoan <> 'Done' and i.TienDo <> 100
     )
