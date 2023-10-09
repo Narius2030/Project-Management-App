@@ -28,11 +28,15 @@ SELECT *
 FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
-	FROM DUAN pm
-	WHERE pm.MaPM = NV.MaNV
+	FROM DUAN AS pm, TEAM as t
+	WHERE pm.MaPM = NV.MaNV AND t.MaNV = NV.MaNV
 )
-GO
-
+go
+ --4)Xem Thông Tin Tài Nguyên
+Create OR ALTER VIEW V_TAINGUYEN
+AS 
+SELECT *FROM TAINGUYEN
+go
 --2.Xem nội dung công việc và nhiệm vụ
 --a)Tất cả công việc
 CREATE OR ALTER VIEW vw_congviec_nhiemvu
