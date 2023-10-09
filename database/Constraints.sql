@@ -93,6 +93,10 @@ FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
+--4)Xem Thông Tin Tài Nguyên
+Create OR ALTER VIEW V_TAINGUYEN
+AS 
+SELECT *FROM TAINGUYEN
 
 GO
 --###Constraints
@@ -112,7 +116,6 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 -- câu 4 :Trong UOCLUONG, Time Sprint >= Time Tasks
 
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
-<<<<<<< HEAD
 
 --###Triggers
 --	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
