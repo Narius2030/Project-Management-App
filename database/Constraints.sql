@@ -29,7 +29,7 @@ FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
 	FROM DUAN AS pm
-	WHERE pm.MaPM = NV.MaNV
+	WHERE pm.MaPM = NV.MaNV OR NV.ChucVu IN('CEO', 'TEAM LEADER')
 )
 GO
 
@@ -39,8 +39,8 @@ SELECT *
 FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
-	FROM TEAMLEADER AS tl
-	WHERE tl.MaNV = NV.MaNV
+	FROM TEAMLEADER tl
+	WHERE tl.MaNV = NV.MaNV OR NV.ChucVu IN('CEO', 'PM')
 )
 GO
 
@@ -82,7 +82,7 @@ JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
 WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND cv.TrangThai != 'Done'
 GO
 
---d)Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của  từng một dự án
+--d) Show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của  từng một dự án
 CREATE OR ALTER VIEW vw_nvtrehan_cv_da
 AS
 SELECT nv.MaNhiemVu, nv.TenNhiemVu, nv.TrangThai, cv.MaCV, spt.MaDA, nv.MaNV, GETDATE() as HomNay, spt.NgayKT
@@ -347,7 +347,7 @@ BEGIN
 	DECLARE @MASPRINT VARCHAR(10)
 	DECLARE @MADA VARCHAR(10)
     -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
-	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA,@ThoiGianUocTinh=inserted.ThoiGianUocTinh 
+	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA, @ThoiGianUocTinh=inserted.ThoiGianUocTinh 
 	FROM  inserted, NHANVIEN, CONGVIEC
 	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
 	--Cập nhật timetasks
@@ -390,21 +390,17 @@ AS
 BEGIN
 	DECLARE @MaNV VARCHAR(10);
 	DECLARE @NgayNghi DATE;
-	DECLARE @MaSprint VARCHAR(15);
-	DECLARE @MaDA INT;
 
 	SELECT @NgayNghi = DIEMDANH.NgayNghi, @MaNV = MaNV
 	FROM DIEMDANH;
-
-	SELECT @MaSprint = MaSprint, @MaDA = SPRINT.MaDA
-	FROM SPRINT
-	WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD;
-
-	IF @MaSprint IS NOT NULL
 	BEGIN
 		UPDATE UOCLUONG
 		SET SoNgayNghi = SoNgayNghi + 1
-		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint AND @MaDA=UOCLUONG.MaDA;
+		WHERE @MaNV = UOCLUONG.MaNV AND UOCLUONG.MaSprint IN (
+			SELECT MaSprint
+			FROM SPRINT
+			WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD
+		);
 	END
 END;
 GO
