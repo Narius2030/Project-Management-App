@@ -209,12 +209,13 @@ BEGIN
     END
 END
 go
+
 --6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
 AS
-DECLARE @newNV varchar(10), @trangthaiOld varchar(30), @trangthaiTQ varchar(30), @tgUocTinh INT, @tgThucTe INT
-SELECT @newNV=n.MaNhiemVu, @trangthaiOld=o.TrangThai, @tgThucTe=o.ThoiGianLamThucTe
+DECLARE @newNV varchar(10), @trangthaiTQ varchar(30)
+SELECT @newNV=n.MaNhiemVu
 FROM inserted n, deleted o, NHIEMVU NV
 WHERE NV.MaNhiemVu = n.MaNhiemVu AND n.MaNhiemVu = o.MaNhiemVu
 	--Lấy trạng thái nhiệm vụ tiên quyết
@@ -224,9 +225,8 @@ JOIN NHIEMVU NVTQ ON NV.MaTienQuyet = NVTQ.MaNhiemVu
 IF(@trangthaiTQ != 'Done')
 BEGIN
 	--Nếu kiểm tra nvtq chưa Done thì trả về giá trị cũ
-	UPDATE NHIEMVU SET ThoiGianLamThucTe=@tgThucTe, TrangThai=@trangthaiOld
-		WHERE MaNhiemVu=@newNV
 	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
+	ROLLBACK TRAN
 END
 GO
 --7) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
@@ -369,8 +369,7 @@ END;
 
 go
 --13.Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
-CREATE TRIGGER UpdateTimeTasks
-ON NHIEMVU
+CREATE TRIGGER UpdateTimeTasks ON NHIEMVU
 AFTER INSERT, UPDATE
 AS
 BEGIN
@@ -380,7 +379,8 @@ BEGIN
 	DECLARE @MASPRINT VARCHAR(10)
 	DECLARE @MADA VARCHAR(10)
     -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
-	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA,@ThoiGianUocTinh=inserted.ThoiGianUocTinh FROM  inserted ,NHANVIEN,CONGVIEC
+	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA,@ThoiGianUocTinh=inserted.ThoiGianUocTinh 
+	FROM  inserted, NHANVIEN, CONGVIEC
 	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
 	--Cập nhật timetasks
     UPDATE UOCLUONG
@@ -388,9 +388,7 @@ BEGIN
     WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaSprint=@MASPRINT;
        
 END
-
-Go
-
+GO
 
 --14)Kiểm tra tài nguyên có trong kho hay không trước khi cấp cho dự án
 CREATE TRIGGER KTTaiNguyen
@@ -413,11 +411,10 @@ BEGIN
 		ROLLBACK;
     END
 END;
-
 GO
 
 --15.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
-
+--NOTE
 CREATE TRIGGER KTNgayNghiTrongSprint
 ON DIEMDANH
 AFTER INSERT
@@ -426,11 +423,12 @@ BEGIN
 	DECLARE @MaNV VARCHAR(10);
 	DECLARE @NgayNghi DATE;
 	DECLARE @MaSprint VARCHAR(15);
+	DECLARE @MaDA INT;
 
 	SELECT @NgayNghi = DIEMDANH.NgayNghi, @MaNV = MaNV
 	FROM DIEMDANH;
 
-	SELECT @MaSprint = MaSprint
+	SELECT @MaSprint = MaSprint, @MaDA = SPRINT.MaDA
 	FROM SPRINT
 	WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD;
 
@@ -438,9 +436,8 @@ BEGIN
 	BEGIN
 		UPDATE UOCLUONG
 		SET SoNgayNghi = SoNgayNghi + 1
-		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint;
+		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint AND @MaDA=UOCLUONG.MaDA;
 	END
 END;
-
 GO
 
