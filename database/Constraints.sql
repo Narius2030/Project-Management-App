@@ -77,8 +77,6 @@ JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
 WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND nv.TrangThai != 'Done'
 GO
 
-SELECT * FROM vw_nvtrehan_cv_da
-
 
 --3. Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công 
 --a)Thông tin ngày nghỉ của nhân viên trong từng Sprint của dự án
@@ -91,20 +89,9 @@ SELECT
 FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
-WHERE DD.NgayNghi BETWEEN NgayBD AND NgayKT
-<<<<<<< HEAD
-drop database QLDA
-use QLDA
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
 
 GO
-
-SELECT * FROM vw_ngaynghi_trong_duan
-
-
-=======
-GO
->>>>>>> nhanbui
 --###Constraints
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
@@ -269,5 +256,76 @@ BEGIN
 	RAISERROR('Lỗi Time Task > Time Sprint', 16, 1)
 	ROLLBACK TRAN;
 END
-GO
+
+Go
+
+--###Triggers
+--	Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
+create trigger tr_addUocLuong on TEAMLEADER
+AFTER INSERT AS
+BEGIN
+   insert into UOCLUONG
+   select i.MaNV, i.MaDA, SPRINT.MaSprint, NULL, NULL, NULL 
+   from inserted AS i
+	 join SPRINT on i.MaDA= SPRINT.MaDA
+   where SPRINT.NgayKT >= GETDATE()
+END;
+
+Go
+
+--	Kiểm tra dự án đang ở trạng thái “trì hoãn”, “hoàn thành” hay không, nếu có thì được xóa (delete) và ngược lại
+CREATE TRIGGER tr_DeleteDuAn
+ON DUAN
+AFTER DELETE
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM deleted WHERE deleted.GiaiDoan in ('Done', 'Delay'))
+    BEGIN
+        print('Không thể xóa dự án');
+        ROLLBACK;
+    END;
+    
+END;
+
+Go
+
+--	Cập nhật trạng thái dự án (update) sau khi cập nhật tiến độ (%)
+CREATE TRIGGER tr_Update_Trangthai
+ON DUAN
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS ( SELECT 1 FROM inserted WHERE TienDo = 100
+    )
+    BEGIN
+        UPDATE DUAN
+        SET GiaiDoan = 'Done'
+        FROM DUAN
+        JOIN inserted ON DUAN.MaDA = inserted.MaDA;
+    END
+	ELSE
+	 BEGIN
+        print('Không thể cập nhật dự án');
+        ROLLBACK;
+    END;
+END;
+
+Go
+
+--	Kiểm tra tính hợp lệ khi thiệt lập giai đoạn mới (update) cho dự án dựa trên trạng thái
+CREATE TRIGGER tr_CheckGiaiDoan
+ON DUAN
+AFTER UPDATE
+AS
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM inserted as i
+        WHERE i.GiaiDoan <> 'Done' and i.TienDo <> 100
+    )
+    BEGIN
+        PRINT('Không thể thiết lập giai đoạn mới có thể do nhiệm vụ vẫn chưa được hoàn thành')
+        ROLLBACK;
+    END
+END;
 
