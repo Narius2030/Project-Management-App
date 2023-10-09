@@ -32,11 +32,7 @@ WHERE NOT EXISTS(
 	WHERE pm.MaPM = NV.MaNV AND t.MaNV = NV.MaNV
 )
 go
- --4)Xem Thông Tin Tài Nguyên
-Create OR ALTER VIEW V_TAINGUYEN
-AS 
-SELECT *FROM TAINGUYEN
-go
+
 --2.Xem nội dung nhiệm vụ thuộc 1 công việc 
 --a)Tất cả công việc
 CREATE OR ALTER VIEW vw_congviec_nhiemvu
@@ -96,8 +92,13 @@ SELECT
 FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
-WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
-
+WHERE DD.NgayNghi BETWEEN NgayBD AND NgayKT
+go
+--4)Xem Thông Tin Tài Nguyên
+Create OR ALTER VIEW V_TAINGUYEN
+AS 
+SELECT *FROM TAINGUYEN
+go
 GO
 --###Constraints
 -- câu 1: check tiến độ công việc và tiến độ dự án
