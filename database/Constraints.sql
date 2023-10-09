@@ -44,8 +44,6 @@ FROM CONGVIEC CV
 JOIN NHIEMVU NHV ON NHV.MaCV = CV.MaCV
 GO
 
-SELECT * FROM vw_congviec_nhiemvu
-
 --b)Nhiệm vụ và công việc tiên quyết của một dự án
 CREATE OR ALTER VIEW vw_congviec_tienquyet
 AS
@@ -77,8 +75,7 @@ JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
 WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND nv.TrangThai != 'Done'
 GO
 
-
---3. Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công 
+--3. Xem thông tin ngày nghỉ của nhân viên 
 --a)Thông tin ngày nghỉ của nhân viên trong từng Sprint của dự án
 CREATE OR ALTER VIEW vw_ngaynghi_trong_duan
 AS
@@ -109,6 +106,7 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 -- câu 4 :Trong UOCLUONG, Time Sprint >= Time Tasks
 
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
+
 --###Triggers
 --	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
 Create TRIGGER KiemTraSprintHoanThanh
