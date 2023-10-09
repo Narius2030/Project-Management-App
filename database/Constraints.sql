@@ -287,7 +287,7 @@ ON DUAN
 AFTER DELETE
 AS
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM deleted WHERE deleted.GiaiDoan in ('Done', 'Delay'))
+    IF NOT EXISTS (SELECT * FROM deleted WHERE deleted.GiaiDoan NOT in ('Done', 'Delay'))
     BEGIN
         print('Không thể xóa dự án');
         ROLLBACK;
@@ -303,7 +303,7 @@ ON DUAN
 AFTER UPDATE
 AS
 BEGIN
-    IF EXISTS ( SELECT 1 FROM inserted WHERE TienDo = 100
+    IF EXISTS ( SELECT * FROM inserted WHERE TienDo = 100
     )
     BEGIN
         UPDATE DUAN
@@ -327,7 +327,7 @@ AFTER UPDATE
 AS
 BEGIN
     IF EXISTS (
-        SELECT 1
+        SELECT *
         FROM inserted as i
         WHERE i.GiaiDoan <> 'Done' and i.TienDo <> 100
     )
