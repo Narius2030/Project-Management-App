@@ -37,7 +37,7 @@ Create OR ALTER VIEW V_TAINGUYEN
 AS 
 SELECT *FROM TAINGUYEN
 go
---2.Xem nội dung công việc và nhiệm vụ
+--2.Xem nội dung nhiệm vụ thuộc 1 công việc 
 --a)Tất cả công việc
 CREATE OR ALTER VIEW vw_congviec_nhiemvu
 AS
@@ -198,7 +198,7 @@ BEGIN
     END
 END
 go
---7 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
+--6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
 AS
@@ -218,7 +218,7 @@ BEGIN
 	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
 END
 GO
---8) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
+--7) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
 CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
 AFTER INSERT, UPDATE
 AS
@@ -235,7 +235,7 @@ BEGIN
 	ROLLBACK TRAN;
 END
 GO
---9) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm/dự án khác thì hủy chỉ định
+--8) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm/dự án khác thì hủy chỉ định
 CREATE OR ALTER TRIGGER tr_chidinh_teamleader ON TEAMLEADER
 AFTER INSERT, UPDATE
 AS
@@ -253,7 +253,7 @@ BEGIN
 END
 GO
 
---10) Time Task > Time Sprint thì hủy phân công
+--9) Time Task > Time Sprint thì hủy phân công
 CREATE OR ALTER TRIGGER tr_sosanh_thoigian ON UOCLUONG
 FOR UPDATE
 AS
@@ -267,7 +267,7 @@ BEGIN
 	ROLLBACK TRAN;
 END
 GO
---11) Xử lý ràng buộc trước khi xóa DUAN
+--10) Xử lý ràng buộc trước khi xóa DUAN
 CREATE OR ALTER TRIGGER tr_rangbuoc_xoaDA ON DUAN
 INSTEAD OF DELETE
 AS
@@ -286,30 +286,29 @@ BEGIN
 	DELETE FROM DUAN WHERE MaDA = @mada
 END
 GO
---12)	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
+--11)	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
 Create TRIGGER KiemTraSprintHoanThanh
 ON Sprint
 AFTER INSERT
 AS
 BEGIN
-    DECLARE @NgayKetThuc DATE
 
     -- Lấy MaDA từ bảng inserted
     DECLARE @madamoithem INT
+	DECLARE @trangthaicv varchar(30)
     SELECT @madamoithem = MaDA FROM inserted;
 
     -- Tạo con trỏ trên  danh sách ngày kết thúc từ bảng SPRINT với điều kiện cùng 1 mã dự án
-    DECLARE cur CURSOR FOR
-    SELECT S.NgayKT
-    FROM SPRINT as S
-	where S.MaDA=@madamoithem
+    --DECLARE cur CURSOR FOR
+    SELECT @trangthaicv=cv.TrangThai FROM CONGVIEC AS CV,inserted AS S
+	WHERE CV.MaSprint=S.MaSprint  AND S.MaDA=@madamoithem and CV.TrangThai!='Done'
     OPEN cur
 	--đặt con trỏ vào hàng đầu tiên 
-    FETCH NEXT FROM cur INTO @NgayKetThuc
+    FETCH NEXT FROM cur INTO @trangthaicv
     WHILE @@FETCH_STATUS = 0
     BEGIN
         -- So sánh ngày kết thúc với ngày hiện tại
-        IF @NgayKetThuc >= GETDATE()
+        IF @trangthaicv !='Done'
 
         BEGIN
 			 RAISERROR('Lỗi Sprint của giai đoạn trước thuộc dự án này chưa kết thúc.', 16, 1)
@@ -323,7 +322,7 @@ BEGIN
 END
 
 go
---13)Thiết lập lại thời gian timesprint khi có nhân viên xin nghỉ
+--12)Thiết lập lại thời gian timesprint khi có nhân viên xin nghỉ
 CREATE TRIGGER UpdateTimeSprint
 ON DIEMDANH
 AFTER INSERT
@@ -357,7 +356,8 @@ BEGIN
 	END
 END;
 
---14.Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
+go
+--13.Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
 CREATE TRIGGER UpdateTimeTasks
 ON NHIEMVU
 AFTER INSERT, UPDATE
@@ -381,7 +381,7 @@ END
 Go
 
 
---15)Kiểm tra tài nguyên có trong kho hay không trước khi cấp cho dự án
+--14)Kiểm tra tài nguyên có trong kho hay không trước khi cấp cho dự án
 CREATE TRIGGER KTTaiNguyen
 ON CAP
 FOR INSERT, UPDATE
@@ -405,7 +405,7 @@ END;
 
 GO
 
---16Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
+--15.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 
 CREATE TRIGGER KTNgayNghiTrongSprint
 ON DIEMDANH
@@ -416,7 +416,7 @@ BEGIN
 	DECLARE @NgayNghi DATE;
 	DECLARE @MaSprint VARCHAR(15);
 
-	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
+	SELECT @NgayNghi = DIEMDANH.NgayNghi, @MaNV = MaNV
 	FROM DIEMDANH;
 
 	SELECT @MaSprint = MaSprint
@@ -431,5 +431,5 @@ BEGIN
 	END
 END;
 
-
 GO
+
