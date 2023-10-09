@@ -353,6 +353,7 @@ BEGIN
 	END
 END;
 
+GO
 --14.Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
 CREATE TRIGGER UpdateTimeTasks
 ON NHIEMVU
