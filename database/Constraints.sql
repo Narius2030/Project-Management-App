@@ -79,14 +79,87 @@ SELECT
 FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
+WHERE DD.NgayNghi BETWEEN NgayBD AND NgayKT
+drop database QLDA
+use QLDA
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
 
 GO
 
 SELECT * FROM vw_ngaynghi_trong_duan
+
+
 --###Constraints
+-- câu 1: check tiến độ công việc và tiến độ dự án
+ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
+ALTER TABLE DUAN ADD CONSTRAINT CHECK_TIENDODA CHECK (TienDo <=100 and TienDo>=0)
 
+--câu 2 :check Tên nhân viên và levels không chứa ký tự đặc biệt và số; SDT không chứa ký tự chữ cái
 
+ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_TENNV CHECK(Ten NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
+ALTER TABLE NHANVIEN ADD CONSTRAINT  CHECK_LEVELS CHECK(levels NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
+ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_SDT CHECK(SDT not LIKE '[a-zA-Z_!@#$%^&*()<>?/|}{~:]%]');
+--câu 3 :Mã nhân viên viết theo công thức: 2 ký tự đầu là “NV” + 3 ký tự số nguyên dương
 
+ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(SUBSTRING(MANV, 3, 3) AS INT) > 0 AND CAST(SUBSTRING(MANV, 3, 3) AS INT) <= 999);
 
+-- câu 4 :Trong UOCLUONG, Time Sprint >= Time Tasks
+
+Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
 --###Triggers
+--	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
+Create TRIGGER KiemTraSprintHoanThanh
+ON Sprint
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @NgayKetThuc DATE
+
+    -- Lấy MaDA từ bảng inserted
+    DECLARE @madamoithem INT
+    SELECT @madamoithem = MaDA FROM inserted;
+
+    -- Tạo con trỏ trên  danh sách ngày kết thúc từ bảng SPRINT với điều kiện cùng 1 mã dự án
+    DECLARE cur CURSOR FOR
+    SELECT S.NgayKT
+    FROM SPRINT as S
+	where S.MaDA=@madamoithem
+    OPEN cur
+	--đặt con trỏ vào hàng đầu tiên 
+    FETCH NEXT FROM cur INTO @NgayKetThuc
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- So sánh ngày kết thúc với ngày hiện tại
+        IF @NgayKetThuc >= GETDATE()
+
+        BEGIN
+			 RAISERROR('Lỗi Sprint của giai đoạn trước thuộc dự án này chưa kết thúc.', 16, 1)
+			 rollback tran
+			 return
+        END
+        FETCH NEXT FROM cur INTO @NgayKetThuc
+    END
+    CLOSE cur
+    DEALLOCATE cur
+END
+--Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
+CREATE TRIGGER UpdateTimeTasks
+ON NHIEMVU
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Khai báo biến
+    DECLARE @ThoiGianUocTinh INT
+	DECLARE @MANHANVIEN VARCHAR(10)
+	DECLARE @MASPRINT VARCHAR(10)
+	DECLARE @MADA VARCHAR(10)
+    -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
+	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaSprint, @MADA=CONGVIEC.MaDA,@ThoiGianUocTinh=inserted.ThoiGianUocTinh FROM  inserted ,NHANVIEN,CONGVIEC
+	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
+	--Cập nhật timetasks
+    UPDATE UOCLUONG
+    SET TimeTasks =  TimeTasks- @ThoiGianUocTinh
+    WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaSprint=@MASPRINT;
+       
+END
+

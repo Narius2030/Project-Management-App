@@ -35,7 +35,7 @@ CREATE TABLE NHANVIEN (
 	Email varchar(25),
 	Levels varchar(10),
 	DiaChi nvarchar(50),
-	SDT varchar(20),
+	SDT varchar(10),
 );
 
 GO
@@ -133,7 +133,6 @@ CREATE TABLE NHIEMVU
 )
 
 GO
-
 CREATE TABLE TEAM (
 	MaNV varchar(10),
 	TenNhom nvarchar(20),
@@ -172,6 +171,7 @@ GO
 
 GO
 --INSERT DATA
+
 INSERT INTO NHANVIEN VALUES 
 ('NV001', 'Nguyen Van', 'A', 'CEO', 'nva@gmail.com', 'Junier', N'1, VVN, Thủ Đức', '0164785658'),
 ('NV002', 'Nguyen Van', 'B', DEFAULT , 'nvb@gmail.com', 'Senior', N'1, VVN, Thủ Đức', '0164476589'),
@@ -347,7 +347,7 @@ INSERT INTO CONGVIEC (TrangThai, CVTienQuyet, TenCV, TienDo, TenNhom, MaDA, MaSp
 ('Doing', DEFAULT , N'Giao diện đăng nhập', 50, 'Front-End', 6, '01DA06'),
 ('Doing', DEFAULT , N'Chức năng', 30, 'Back-End', 6, '01DA06'),
 ('Pending', DEFAULT , N'Giao diện đăng nhập', 0, 'Front-End', 5, '01DA05'),
-('Pending', DEFAULT , N'Chức năng', 0, 'Back-End', 5, '01DA05');
+('Pending', DEFAULT , N'Chức năng', 1, 'Back-End', 5, '01DA05');
 
 GO
 
