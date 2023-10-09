@@ -28,7 +28,7 @@ SELECT *
 FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
-	FROM DUAN AS pm, TEAM as t
+	FROM DUAN AS pm, TEAMLEADER AS t
 	WHERE pm.MaPM = NV.MaNV AND t.MaNV = NV.MaNV
 )
 go
@@ -62,7 +62,7 @@ SELECT
 FROM NHIEMVU afNV
 JOIN NHIEMVU bfNV ON bfNV.MaNhiemVu = afNV.MaTienQuyet
 GO
---c)Những công việc đang trễ tiến độ
+--c)Những công việc đang sắp trễ tiến độ
 CREATE OR ALTER VIEW vw_cvtre
 AS
 SELECT cv.MaDA, cv.MaCV, cv.TenCV, cv.MaSprint, cv.TenNhom, cv.TrangThai
@@ -71,7 +71,7 @@ JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
 WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND cv.TrangThai != 'Done'
 GO
 
---d)Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của một từng một dự án
+--d)Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của  từng một dự án
 CREATE OR ALTER VIEW vw_nvtrehan_cv_da
 AS
 SELECT nv.MaNhiemVu, nv.TenNhiemVu, nv.TrangThai, cv.MaCV, spt.MaDA, nv.MaNV, GETDATE() as HomNay, spt.NgayKT
@@ -94,13 +94,13 @@ JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
 go
---4)Xem Thông Tin Tài Nguyên
+--4)Xem Thông Tin Tài Nguyên ĐƯỢC CẤP CHO TỪNG DỰ ÁN
 Create OR ALTER VIEW V_TAINGUYEN
 AS 
-SELECT *FROM TAINGUYEN
-go
+SELECT *FROM TAINGUYEN,CAP,DUAN
+WHERE TAINGUYEN.MaTN=CAP.MaTN AND DUAN.MaDA=CAP.MaDA
 GO
---###Constraints
+--###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
 ALTER TABLE DUAN ADD CONSTRAINT CHECK_TIENDODA CHECK (TienDo <=100 and TienDo>=0)
@@ -121,7 +121,7 @@ go
 
 --###Triggers
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
-create trigger tr_addUocLuong on TEAMLEADER
+create trigger tr_addUocLuong on TEAM
 AFTER INSERT AS
 BEGIN
    insert into UOCLUONG
@@ -141,8 +141,8 @@ AS
 BEGIN
     IF EXISTS (SELECT * FROM deleted WHERE deleted.GiaiDoan NOT in ('Done', 'Delay'))
     BEGIN
-        print('Không thể xóa dự án');
-        ROLLBACK;
+        RAISERROR('Không thể xóa dự án',16,2);
+        ROLLBACK TRAN;
     END;
     
 END;
@@ -155,18 +155,20 @@ ON DUAN
 AFTER UPDATE
 AS
 BEGIN
+	DECLARE @MADA VARCHAR(10)
+	SELECT @MADA=inserted.MaDA FROM inserted
     IF EXISTS ( SELECT * FROM inserted WHERE TienDo = 100
     )
     BEGIN
         UPDATE DUAN
         SET GiaiDoan = 'Done'
         FROM DUAN
-        JOIN inserted ON DUAN.MaDA = inserted.MaDA;
+        WHERE DUAN.MaDA=@MADA
     END
 	ELSE
 	 BEGIN
-        print('Không thể cập nhật dự án');
-        ROLLBACK;
+        RAISERROR('Không thể cập nhật dự án',16,2);
+        ROLLBACK TRAN;
     END;
 END;
 go
@@ -178,12 +180,12 @@ AS
 BEGIN
     IF EXISTS (
         SELECT *
-        FROM inserted as i
+        FROM deleted as i
         WHERE i.GiaiDoan <> 'Done' and i.TienDo <> 100
     )
     BEGIN
-        PRINT('Không thể thiết lập giai đoạn mới có thể do nhiệm vụ vẫn chưa được hoàn thành')
-        ROLLBACK;
+        RAISERROR('Không thể thiết lập giai đoạn mới có thể do nhiệm vụ vẫn chưa được hoàn thành')
+        ROLLBACK TRAN;
     END
 END;
 GO
@@ -195,7 +197,7 @@ BEGIN
 	                   WHERE nv.TrangThai not in ('Done'))
 	BEGIN
 	      PRINT('Không thể xóa công việc vì nhiệm vụ chưa được hoàn thành!')
-          ROLLBACK
+          ROLLBACK TRAN
     END
 END
 go
@@ -203,8 +205,8 @@ go
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
 AS
-DECLARE @newNV varchar(10), @trangthaiOld varchar(30), @trangthaiTQ varchar(30), @tgUocTinh INT, @tgThucTe INT
-SELECT @newNV=n.MaNhiemVu, @trangthaiOld=o.TrangThai, @tgThucTe=o.ThoiGianLamThucTe
+DECLARE @newNV varchar(10), @trangthaiTQ varchar(30)
+SELECT @newNV=n.MaNhiemVu
 FROM inserted n, deleted o, NHIEMVU NV
 WHERE NV.MaNhiemVu = n.MaNhiemVu AND n.MaNhiemVu = o.MaNhiemVu
 	--Lấy trạng thái nhiệm vụ tiên quyết
@@ -214,10 +216,10 @@ JOIN NHIEMVU NVTQ ON NV.MaTienQuyet = NVTQ.MaNhiemVu
 IF(@trangthaiTQ != 'Done')
 BEGIN
 	--Nếu kiểm tra nvtq chưa Done thì trả về giá trị cũ
-	UPDATE NHIEMVU SET ThoiGianLamThucTe=@tgThucTe, TrangThai=@trangthaiOld
-		WHERE MaNhiemVu=@newNV
 	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
+	ROLLBACK TRAN
 END
+GO
 GO
 --7) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
 CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
@@ -287,42 +289,7 @@ BEGIN
 	DELETE FROM DUAN WHERE MaDA = @mada
 END
 GO
---11)	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
-Create TRIGGER KiemTraSprintHoanThanh
-ON Sprint
-AFTER INSERT
-AS
-BEGIN
 
-    -- Lấy MaDA từ bảng inserted
-    DECLARE @madamoithem INT
-	DECLARE @trangthaicv varchar(30)
-    SELECT @madamoithem = MaDA FROM inserted;
-
-    -- Tạo con trỏ trên  danh sách ngày kết thúc từ bảng SPRINT với điều kiện cùng 1 mã dự án
-    --DECLARE cur CURSOR FOR
-    SELECT @trangthaicv=cv.TrangThai FROM CONGVIEC AS CV,inserted AS S
-	WHERE CV.MaSprint=S.MaSprint  AND S.MaDA=@madamoithem and CV.TrangThai!='Done'
-    OPEN cur
-	--đặt con trỏ vào hàng đầu tiên 
-    FETCH NEXT FROM cur INTO @trangthaicv
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- So sánh ngày kết thúc với ngày hiện tại
-        IF @trangthaicv !='Done'
-
-        BEGIN
-			 RAISERROR('Lỗi Sprint của giai đoạn trước thuộc dự án này chưa kết thúc.', 16, 1)
-			 rollback tran
-			 return
-        END
-        FETCH NEXT FROM cur INTO @NgayKetThuc
-    END
-    CLOSE cur
-    DEALLOCATE cur
-END
-
-go
 --12)Thiết lập lại thời gian timesprint khi có nhân viên xin nghỉ
 CREATE TRIGGER UpdateTimeSprint
 ON DIEMDANH
