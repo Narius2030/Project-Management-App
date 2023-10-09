@@ -63,7 +63,13 @@ FROM NHIEMVU afNV
 JOIN NHIEMVU bfNV ON bfNV.MaNhiemVu = afNV.MaTienQuyet
 GO
 --c)Những công việc đang trễ tiến độ
-
+CREATE OR ALTER VIEW vw_cvtre
+AS
+SELECT cv.MaDA, cv.MaCV, cv.TenCV, cv.MaSprint, cv.TenNhom, cv.TrangThai
+FROM CONGVIEC cv
+JOIN SPRINT spt ON cv.MaSprint = spt.MaSprint
+WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND cv.TrangThai != 'Done'
+GO
 
 --d)Đếm và show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của một từng một dự án
 CREATE OR ALTER VIEW vw_nvtrehan_cv_da
@@ -106,6 +112,7 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 -- câu 4 :Trong UOCLUONG, Time Sprint >= Time Tasks
 
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
+<<<<<<< HEAD
 
 --###Triggers
 --	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
@@ -328,3 +335,90 @@ BEGIN
     END
 END;
 
+GO
+
+--Trigger kiểm tra tài nguyen
+CREATE TRIGGER KTTaiNguyen
+ON CAP
+FOR INSERT, UPDATE
+AS
+BEGIN 
+	DECLARE @MaTaiNguyenCap VARCHAR(50);
+	DECLARE @TaiNguyenCount VARCHAR(50);
+
+	SELECT @MaTaiNguyenCap = inserted.MaTN
+	FROM inserted;
+
+	SELECT @TaiNguyenCount = Count(*)
+	FROM TAINGUYEN
+	WHERE MaTN = @MaTaiNguyenCap;
+
+	IF @TaiNguyenCount = 0
+	BEGIN
+		ROLLBACK;
+    END
+END;
+
+GO
+
+--Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
+
+CREATE TRIGGER KTNgayNghiTrongSprint
+ON DIEMDANH
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @MaNV VARCHAR(10);
+	DECLARE @NgayNghi DATE;
+	DECLARE @MaSprint VARCHAR(15);
+
+	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
+	FROM DIEMDANH;
+
+	SELECT @MaSprint = MaSprint
+	FROM SPRINT
+	WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD;
+
+	IF @MaSprint IS NOT NULL
+	BEGIN
+		UPDATE UOCLUONG
+		SET SoNgayNghi = SoNgayNghi + 1
+		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint;
+	END
+END;
+
+
+GO
+--Trigger kiểm tra ngày nghỉ để trừ timesprint
+CREATE TRIGGER UpdateTimeSprint
+ON DIEMDANH
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @MaNV VARCHAR(10);
+	DECLARE @NgayNghi DATE;
+	DECLARE @MaSprint VARCHAR(15);
+	DECLARE @CapPerDay INT;
+	DECLARE @MaDA INT;
+
+	--Lấy ngày nghỉ, mã nhân viên
+	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
+	FROM DIEMDANH;
+
+	--Lấy mã sprint và mã DA có ngày nghỉ thuộc sprint
+	SELECT @MaSprint = MaSprint, @MaDA = SPRINT.MaDA
+	FROM SPRINT
+	WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD;
+
+	--Lấy CapPerDay theo mã NV
+	SELECT @CapPerDay = TEAM.CapPerDay
+	FROM TEAM
+	WHERE @MaNV = TEAM.MaNV AND @MaDA = TEAM.MaDA;
+
+	IF @MaSprint IS NOT NULL
+	BEGIN
+		UPDATE UOCLUONG
+		SET TimeSprint = TimeSprint - @CapPerDay
+		WHERE @MaNV = UOCLUONG.MaNV AND @MaSprint = UOCLUONG.MaSprint AND @MaDA = UOCLUONG.MaDA;
+	END
+END;

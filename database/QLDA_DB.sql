@@ -72,7 +72,7 @@ CREATE TABLE SPRINT (
 GO
 
 CREATE TABLE DIEMDANH(
-   NgayNghi Date,
+   Ngay Date,
    MaNV VARCHAR(10),
    PRIMARY KEY(NgayNghi, MaNV),
    NoiDung NVARCHAR(20),
