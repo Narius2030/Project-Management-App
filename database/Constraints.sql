@@ -31,10 +31,12 @@ WHERE NOT EXISTS(
 	FROM DUAN AS pm, TEAM as t
 	WHERE pm.MaPM = NV.MaNV AND t.MaNV = NV.MaNV
 )
-
-SELECT *FROM vw_khongla_pm
-GO
-SELECT *FROM TEAM
+go
+ --4)Xem Thông Tin Tài Nguyên
+Create OR ALTER VIEW V_TAINGUYEN
+AS 
+SELECT *FROM TAINGUYEN
+go
 --2.Xem nội dung công việc và nhiệm vụ
 --a)Tất cả công việc
 CREATE OR ALTER VIEW vw_congviec_nhiemvu
