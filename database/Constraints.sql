@@ -412,3 +412,27 @@ END;
 
 GO
 
+--15.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
+--NOTE
+CREATE TRIGGER KTNgayNghiTrongSprint
+ON DIEMDANH
+AFTER INSERT
+AS
+BEGIN
+	DECLARE @MaNV VARCHAR(10);
+	DECLARE @NgayNghi DATE;
+
+	SELECT @NgayNghi = DIEMDANH.NgayNghi, @MaNV = MaNV
+	FROM DIEMDANH;
+	BEGIN
+		UPDATE UOCLUONG
+		SET SoNgayNghi = SoNgayNghi + 1
+		WHERE @MaNV = UOCLUONG.MaNV AND UOCLUONG.MaSprint IN (
+			SELECT MaSprint
+			FROM SPRINT
+			WHERE @NgayNghi <= SPRINT.NgayKT AND @NgayNghi >= SPRINT.NgayBD
+		);
+	END
+END;
+GO
+
