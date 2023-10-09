@@ -28,7 +28,7 @@ SELECT *
 FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
-	FROM DUAN AS pm, TEAM AS t
+	FROM DUAN AS pm, TEAMLEADER AS t
 	WHERE pm.MaPM = NV.MaNV AND t.MaNV = NV.MaNV
 )
 go
@@ -289,42 +289,7 @@ BEGIN
 	DELETE FROM DUAN WHERE MaDA = @mada
 END
 GO
---11)	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
-Create TRIGGER KiemTraSprintHoanThanh
-ON Sprint
-AFTER INSERT
-AS
-BEGIN
 
-    -- Lấy MaDA từ bảng inserted
-    DECLARE @madamoithem INT
-	DECLARE @NGAYKETHUC DATE
-    SELECT @madamoithem = inserted.MaDA FROM inserted;
-
-    -- Tạo con trỏ trên  danh sách ngày kết thúc từ bảng SPRINT với điều kiện cùng 1 mã dự án
-    --DECLARE cur CURSOR FOR
-    SELECT @NGAYKETHUC=S.NgayKT FROM DUAN ,inserted AS S
-	WHERE  S.MaDA=@madamoithem
-    OPEN cur
-	--đặt con trỏ vào hàng đầu tiên 
-    FETCH NEXT FROM cur INTO @NGAYKETHUC
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        -- So sánh ngày kết thúc với ngày hiện tại
-        IF @NGAYKETHUC >= GETDATE()
-
-        BEGIN
-			 RAISERROR('Lỗi Sprint của giai đoạn trước thuộc dự án này chưa kết thúc.', 16, 1)
-			 rollback tran
-			 return
-        END
-        FETCH NEXT FROM cur INTO @NgayKetThuc
-    END
-    CLOSE cur
-    DEALLOCATE cur
-END
-
-go
 --12)Thiết lập lại thời gian timesprint khi có nhân viên xin nghỉ
 CREATE TRIGGER UpdateTimeSprint
 ON DIEMDANH
