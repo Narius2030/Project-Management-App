@@ -112,7 +112,7 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(S
 -- câu 4 :Trong UOCLUONG, Time Sprint >= Time Tasks
 
 Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
-<<<<<<< HEAD
+go
 
 --###Triggers
 --	Kiểm tra một Sprint đã hoàn thành trước khi tạo cái mới
@@ -150,6 +150,8 @@ BEGIN
     CLOSE cur
     DEALLOCATE cur
 END
+
+go
 --Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
 CREATE TRIGGER UpdateTimeTasks
 ON NHIEMVU
