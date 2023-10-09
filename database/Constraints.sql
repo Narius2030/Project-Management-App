@@ -21,6 +21,18 @@ FROM TEAMLEADER TLD
 JOIN NHANVIEN NV ON NV.MaNV = TLD.MaNV
 GO
 
+--c) Những PM và Team Leader chưa được phân công
+CREATE OR ALTER VIEW vw_khongla_pm
+AS
+SELECT *
+FROM NHANVIEN NV
+WHERE NOT EXISTS(
+	SELECT *
+	FROM DUAN pm
+	WHERE pm.MaPM = NV.MaNV
+)
+GO
+
 --2.Xem nội dung công việc và nhiệm vụ
 --a)Tất cả công việc
 CREATE OR ALTER VIEW vw_congviec_nhiemvu
@@ -80,6 +92,7 @@ FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN SPRINT SP ON SP.MaSprint = UL.MaSprint
 WHERE DD.NgayNghi BETWEEN NgayBD AND NgayKT
+<<<<<<< HEAD
 drop database QLDA
 use QLDA
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
@@ -89,6 +102,9 @@ GO
 SELECT * FROM vw_ngaynghi_trong_duan
 
 
+=======
+GO
+>>>>>>> nhanbui
 --###Constraints
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
@@ -162,4 +178,96 @@ BEGIN
     WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaSprint=@MASPRINT;
        
 END
+
+--1) Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
+CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
+AFTER UPDATE
+AS
+DECLARE @newNV varchar(10), @trangthaiOld varchar(30), @trangthaiTQ varchar(30), @tgUocTinh INT, @tgThucTe INT
+SELECT @newNV=n.MaNhiemVu, @trangthaiOld=o.TrangThai, @tgThucTe=o.ThoiGianLamThucTe
+FROM inserted n, deleted o, NHIEMVU NV
+WHERE NV.MaNhiemVu = n.MaNhiemVu AND n.MaNhiemVu = o.MaNhiemVu
+	--Lấy trạng thái nhiệm vụ tiên quyết
+SELECT @trangthaiTQ=NVTQ.TrangThai
+FROM (SELECT * FROM NHIEMVU WHERE MaNhiemVu = @newNV) NV
+JOIN NHIEMVU NVTQ ON NV.MaTienQuyet = NVTQ.MaNhiemVu
+IF(@trangthaiTQ != 'Done')
+BEGIN
+	--Nếu kiểm tra nvtq chưa Done thì trả về giá trị cũ
+	UPDATE NHIEMVU SET ThoiGianLamThucTe=@tgThucTe, TrangThai=@trangthaiOld
+		WHERE MaNhiemVu=@newNV
+	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
+END
+GO
+
+--2) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
+CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
+AFTER INSERT, UPDATE
+AS
+DECLARE @pm INT, @mada int=0, @madaNew int
+	--Kiểm tra MaPM mới cập nhật có tồn tại trong DUAN hay chưa
+SELECT @pm=soluong FROM (
+	SELECT COUNT(new.MaPM) AS soluong
+	FROM inserted new, DUAN
+	WHERE new.MaPM = DUAN.MaPM
+) AS Q
+IF (@pm > 1)
+BEGIN
+	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
+	ROLLBACK TRAN;
+END
+GO
+
+--3) Xử lý ràng buộc trước khi xóa DUAN
+CREATE OR ALTER TRIGGER tr_rangbuoc_xoaDA ON DUAN
+INSTEAD OF DELETE
+AS
+DECLARE @mada INT
+SELECT @mada=old.MaDA
+FROM deleted old
+JOIN DUAN ON DUAN.MaDA = old.MaDA
+--IF (@mada IS NOT NULL)
+BEGIN
+	--Xóa TEAM, CAP, UOCLUONG và TEAMLEADER có cùn MaDA trước
+	DELETE FROM TEAM WHERE MaDA = @mada
+	DELETE FROM TEAMLEADER WHERE MaDA = @mada
+	DELETE FROM CAP WHERE MaDA = @mada
+	DELETE FROM UOCLUONG WHERE MaDA = @mada
+	--Xóa DUAN
+	DELETE FROM DUAN WHERE MaDA = @mada
+END
+GO
+
+--4) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm/dự án khác thì hủy chỉ định
+CREATE OR ALTER TRIGGER tr_chidinh_teamleader ON TEAMLEADER
+AFTER INSERT, UPDATE
+AS
+DECLARE @tl INT, @mada int=0, @madaNew int
+	--Kiểm tra Team Leader mới cập nhật có tồn tại trong TEAMLEADER hay chưa
+SELECT @tl = soluong FROM (
+	SELECT COUNT(new.MaNV) as soluong
+	FROM inserted new JOIN TEAMLEADER
+	ON new.MaDA = TEAMLEADER.MaDA AND new.MaNV = TEAMLEADER.MaNV
+) AS Q
+IF (@tl > 1)
+BEGIN
+	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
+	ROLLBACK TRAN;
+END
+GO
+
+--Time Task > Time Sprint thì hủy phân công
+CREATE OR ALTER TRIGGER tr_sosanh_thoigian ON UOCLUONG
+FOR UPDATE
+AS
+DECLARE @timetask INT, @timesprint INT
+SELECT @timetask=new.TimeTasks, @timetask=new.TimeSprint
+FROM inserted new, UOCLUONG ul
+WHERE new.MaNV = ul.MaNV AND new.MaDA = ul.MaDA AND new.MaSprint = ul.MaSprint
+IF (@timetask > @timesprint)
+BEGIN 
+	RAISERROR('Lỗi Time Task > Time Sprint', 16, 1)
+	ROLLBACK TRAN;
+END
+GO
 
