@@ -28,10 +28,21 @@ SELECT *
 FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
-	FROM DUAN AS pm, TEAMLEADER AS t
-	WHERE pm.MaPM = NV.MaNV AND t.MaNV = NV.MaNV
+	FROM DUAN AS pm
+	WHERE pm.MaPM = NV.MaNV
 )
-go
+GO
+
+CREATE OR ALTER VIEW vw_khongla_teamleader
+AS
+SELECT *
+FROM NHANVIEN NV
+WHERE NOT EXISTS(
+	SELECT *
+	FROM TEAMLEADER AS tl
+	WHERE tl.MaNV = NV.MaNV
+)
+GO
 
 --2.Xem nội dung nhiệm vụ thuộc 1 công việc 
 --a)Tất cả công việc
