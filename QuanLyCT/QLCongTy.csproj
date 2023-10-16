@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{82DF95CD-6650-49A0-9DA2-5F58BDFD368F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>QLCongTy</RootNamespace>
+    <AssemblyName>QLCongTy</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FontAwesome.Sharp, Version=6.3.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome.Sharp.6.3.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Custome_control\CTDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Custome_control\CustomComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Custome_control\Custom_Datagridview.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DiemDanh\CheckInOutDAO.cs" />
+    <Compile Include="DiemDanh\CheckInOut.cs" />
+    <Compile Include="Custome_control\CustomTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Custome_control\CustomTextBox.Designer.cs">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Custome_control\Custom_Pannel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DBConnection.cs" />
+    <Compile Include="DiemDanh\fCheckin-Checkout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DiemDanh\fCheckin-Checkout.designer.cs">
+      <DependentUpon>fCheckin-Checkout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportFile.cs" />
+    <Compile Include="MainMenu\DangNhapDAO.cs" />
+    <Compile Include="MainMenu\FMainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu\FMainMenu.designer.cs">
+      <DependentUpon>FMainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu\FProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainMenu\FProfile.Designer.cs">
+      <DependentUpon>FProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainMenu\KiemTraThongTin.cs" />
+    <Compile Include="MainMenu\ProfileDAO.cs" />
+    <Compile Include="NhanSu\fNhanSu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanSu\fNhanSu.Designer.cs">
+      <DependentUpon>fNhanSu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanSu\NhanSu.cs" />
+    <Compile Include="NhanSu\NhanSuDao.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QLDuAn\DuAn.cs" />
+    <Compile Include="QLDuAn\DuAnDAO.cs" />
+    <Compile Include="QLDuAn\FQLDuAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QLDuAn\FQLDuAn.Designer.cs">
+      <DependentUpon>FQLDuAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QLDuAn\PCNhanLuc.cs" />
+    <Compile Include="QLDuAn\FTaoDuAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QLDuAn\FTaoDuAn.Designer.cs">
+      <DependentUpon>FTaoDuAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QLDuAn\TienDoDAO.cs" />
+    <Compile Include="QLNhom\FQLNhanVienPB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QLNhom\FQLNhanVienPB.designer.cs">
+      <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QLNhom\PhongBan.cs" />
+    <Compile Include="QLNhom\PhongBanDAO.cs" />
+    <Compile Include="QLNhom\QLNhanVienPBDAO.cs" />
+    <EmbeddedResource Include="DiemDanh\fCheckin-Checkout.resx">
+      <DependentUpon>fCheckin-Checkout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Custome_control\CustomTextBox.resx">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu\FMainMenu.resx">
+      <DependentUpon>FMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainMenu\FProfile.resx">
+      <DependentUpon>FProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanSu\fNhanSu.resx">
+      <DependentUpon>fNhanSu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="QLDuAn\FQLDuAn.resx">
+      <DependentUpon>FQLDuAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QLDuAn\FTaoDuAn.resx">
+      <DependentUpon>FTaoDuAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QLNhom\FQLNhanVienPB.resx">
+      <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sean-pollock-PhYq704ffdA-unsplash.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendarDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendarWhite.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

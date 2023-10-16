@@ -29,8 +29,12 @@ FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
 	FROM DUAN AS pm
-	WHERE pm.MaPM = NV.MaNV OR NV.ChucVu IN('CEO', 'TEAM LEADER')
-)
+	WHERE pm.MaPM = NV.MaNV
+) AND NOT EXISTS(
+	SELECT *
+	FROM TRUONGNHOM AS tn
+	WHERE tn.MaNV = NV.MaNV
+) AND NV.ChucVu != 'CEO'
 GO
 
 CREATE OR ALTER VIEW vw_khongla_truongnhom
@@ -241,17 +245,17 @@ SELECT @pm=soluong FROM (
 ) AS Q
 IF (@pm > 1)
 BEGIN
-	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
+	RAISERROR('Người này đang quản lý dự án khác trong dự án này', 16, 1)
 	ROLLBACK TRAN;
 END
 GO
 
---8) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm/dự án khác thì hủy chỉ định
+--8) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm trong cùng dự án thì hủy chỉ định
 CREATE OR ALTER TRIGGER tr_chidinh_teamleader ON TRUONGNHOM
 AFTER INSERT, UPDATE
 AS
 DECLARE @tl INT, @mada int=0, @madaNew int
-	--Kiểm tra Team Leader mới cập nhật có tồn tại trong TEAMLEADER hay chưa
+	--Kiểm tra Team Leader mới cập nhật có tồn tại trong TRUONGNHOM ở cùng 1 dự án hay chưa
 SELECT @tl = soluong FROM (
 	SELECT COUNT(new.MaNV) as soluong
 	FROM inserted new JOIN TRUONGNHOM

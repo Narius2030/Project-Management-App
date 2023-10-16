@@ -1,0 +1,516 @@
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\bin\Debug\QLCongTy.exe.config
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\bin\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\bin\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongTy\obj\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.exe.config
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.fMainMenu.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.FChucVu.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.FNhanSu.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.Properties.Resources.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\OneDrive\Tài liệu\GitHub\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.exe.config
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.FChucVu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.FNhanSu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCongty\QuanLyCT\QLCongTy\obj\Debug\test.frmluongthuong.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.exe.config
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.exe
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\bin\Debug\QLCongTy.pdb
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.fMainMenu.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.FChucVu.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.FNhanSu.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.fQLDAThamGia.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.fQLNhanVienPB.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.fQLPhongBan.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.fTimKiemPB.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\test.frmluongthuong.resources
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.exe
+D:\hoc\llwd\pj\QuanLyCT\QLCongTy\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\bin\Debug\QLCongTy.exe.config
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\bin\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\bin\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.FChucVu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.FNhanSu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fQLDAThamGia.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fQLNhanVienPB.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fQLPhongBan.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fQLDuAn.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QLCT\obj\Debug\QLCongTy.fQLtienluong.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.fQLNhanVienPB.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\bin\Debug\QLCongTy.exe.config
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\bin\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\bin\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.fQLNhanVienPB.resources
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\Source\Repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\hoc\llwd\1\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\hoc\llwd\1\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\hoc\llwd\1\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.fQLNhanVienPB.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\bin\Debug\QLCongTy.exe.config
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\bin\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\bin\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fNhanSu.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fQLDuAn.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fQLDAThamGia.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fQLNhanVienPB.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fQLPhongBan.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.fQLtienluong.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.ucQLDA.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\source\repos\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\bin\Debug\QLCongTy.exe.config
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\bin\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\bin\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fNhanSu.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fQLDuAn.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.FQLDAThamGia.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.fQLtienluong.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.ucQLDA.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.exe
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.ucPhanCong.resources
+C:\Users\HUYNH THIEN NHAN\OneDrive\Máy tính\QuanLyCT\obj\Debug\QLCongTy.ucDuAn.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fMMenu.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fNhanSu.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fQLDuAn.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.ucDuAn.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.FQLDAThamGia.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.ucPhanCong.resources
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\HCMUTE\Nam hai\HK02\Windows\DO_AN\QuanLyCT\obj\Debug\QLCongTy.fTienLuong.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (2)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (2)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (2)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (2)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fNhanSu.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fQLDuAn.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.fTienLuong.resources
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (2)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (6)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (6)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (6)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (6)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (6)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\hoc\llwd\2\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\hoc\llwd\2\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\hoc\llwd\2\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\hoc\llwd\2\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\Github\New folder (7)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (7)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (7)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (7)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (7)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (8)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (8)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (8)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (8)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (8)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\Github\New folder (9)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (9)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (9)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (9)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.fQLchamcong.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (9)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\hoc\llwd\2\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\Github\New folder (10)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (10)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (10)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (10)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (10)\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Users\HUYNH THIEN NHAN\source\repos\Narius2030\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\Github\New folder (11)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (11)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (11)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (11)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (11)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\Github\New folder (12)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (12)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (12)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (12)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.fChucVu.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.fVonDieuHanh.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.FQLPhongBan.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (12)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\hoc\llwd\1\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\hoc\llwd\1\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (16)\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Github\New folder (16)\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Github\New folder (16)\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Github\New folder (16)\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Github\New folder (16)\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.SuggestedBindingRedirects.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\QLCongTy.exe.config
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\QLCongTy.exe
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\QLCongTy.pdb
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.fDuyetDonXinNghi.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.TienLuong.fTienLuong.resources
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.exe
+C:\Education\Giáo trình\Window Programming\Workspace\DACK\QuanLyCT\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.exe
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.pdb
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\bin\Debug\QLCongTy.exe.config
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\bin\Debug\QLCongTy.exe
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\bin\Debug\QLCongTy.pdb
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+C:\Education\Giáo trình\Window Programming\Workspace\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
