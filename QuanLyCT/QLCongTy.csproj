@@ -78,6 +78,51 @@
     <Compile Include="DAO\TaiNguyenDao.cs" />
     <Compile Include="DAO\TruongNhomDao.cs" />
     <Compile Include="DAO\UocLuongDao.cs" />
+    <Compile Include="DTO\CONGVIEC.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\DIEMDANH.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\DUAN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\GIAIDOAN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\NHANVIEN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\NHIEMVU.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\NHOM.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLDACongTyPM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLDACongTyPM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLDACongTyPM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLDACongTyPM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\TAINGUYEN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\TRUONGNHOM.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\UOCLUONG.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -176,6 +221,13 @@
     <EmbeddedResource Include="Views\QLNhom\FQLNhanVienPB.resx">
       <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
     </EmbeddedResource>
+    <EntityDeploy Include="DTO\QLDACongTyPM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLDACongTyPM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DTO\QLDACongTyPM.edmx.diagram">
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -201,12 +253,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database\QLDA_DB.sql" />
+    <Content Include="DTO\QLDACongTyPM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+      <LastGenOutput>QLDACongTyPM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DTO\QLDACongTyPM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+      <LastGenOutput>QLDACongTyPM.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
