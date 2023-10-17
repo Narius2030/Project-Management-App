@@ -111,13 +111,8 @@ namespace QLCongTy
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             NHANVIEN nv =new NHANVIEN(txtTaiKhoan.Texts,txtMatKhau.Texts);
-            int check = nvD.CheckTaiKhoan(nv);
-           
-            if (check==0)
-            {
-                MessageBox.Show("Thất Bại", "Thông Bao", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-            }
-            else
+            
+            if (nvD.CheckTaiKhoan(nv)==1)
             {
                 MessageBox.Show("Thành Công", "Thông Bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 pnlAccount.Visible = true;
@@ -132,6 +127,10 @@ namespace QLCongTy
                 pnlNhanSu.Visible = false;
                 btnDuyetDonXinNghi.Enabled = true;
                 HidePanel(pnlLogin);
+            }
+            else
+            {
+                MessageBox.Show("Thất Bại", "Thông Bao", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
 
             }
         }
