@@ -23,6 +23,7 @@ namespace QLCongTy.DAO
             Dbc.ExecuteProcedure("sp_ktrDangNhap", parameters);
 
             int check = Convert.ToInt32(parameters[2].Value);
+
             return check;
         }
 

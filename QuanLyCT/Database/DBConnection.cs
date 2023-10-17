@@ -44,7 +44,7 @@ namespace QLCongTy
             try
             {
                 conn.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                SqlDataReader reader = cmd.ExecuteReader();
                 {
                     resultTable.Load(reader);
                 }
