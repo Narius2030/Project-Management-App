@@ -12,6 +12,8 @@ namespace QLCongTy.DTO
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class QLDAEntities : DbContext
     {
@@ -35,5 +37,18 @@ namespace QLCongTy.DTO
         public virtual DbSet<TAINGUYEN> TAINGUYENs { get; set; }
         public virtual DbSet<TRUONGNHOM> TRUONGNHOMs { get; set; }
         public virtual DbSet<UOCLUONG> UOCLUONGs { get; set; }
+    
+        public virtual int sp_ktrDangNhap(string matk, string matkhau, ObjectParameter check)
+        {
+            var matkParameter = matk != null ?
+                new ObjectParameter("matk", matk) :
+                new ObjectParameter("matk", typeof(string));
+    
+            var matkhauParameter = matkhau != null ?
+                new ObjectParameter("matkhau", matkhau) :
+                new ObjectParameter("matkhau", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ktrDangNhap", matkParameter, matkhauParameter, check);
+        }
     }
 }

@@ -69,13 +69,13 @@
     <Property Name="Levels" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="TaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="MatKhau" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DIEMDANHs" Relationship="Self.FK_DIEMDANH_NHANVIEN" FromRole="NHANVIEN" ToRole="DIEMDANH" />
     <NavigationProperty Name="DUANs" Relationship="Self.FK_DUAN_NHANVIEN" FromRole="NHANVIEN" ToRole="DUAN" />
     <NavigationProperty Name="NHIEMVUs" Relationship="Self.FK_NHIEMVU_NHANVIEN" FromRole="NHANVIEN" ToRole="NHIEMVU" />
     <NavigationProperty Name="NHOMs" Relationship="Self.FK_NHOM_NHANVIEN" FromRole="NHANVIEN" ToRole="NHOM" />
     <NavigationProperty Name="TRUONGNHOMs" Relationship="Self.FK_TRUONGNHOM_NHANVIEN" FromRole="NHANVIEN" ToRole="TRUONGNHOM" />
+    <Property Name="MaTaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="NHIEMVU">
     <Key>
@@ -373,5 +373,10 @@
       <End Role="DUAN" EntitySet="DUANs" />
       <End Role="TAINGUYEN" EntitySet="TAINGUYENs" />
     </AssociationSet>
+    <FunctionImport Name="sp_ktrDangNhap">
+      <Parameter Name="matk" Mode="In" Type="String" />
+      <Parameter Name="matkhau" Mode="In" Type="String" />
+      <Parameter Name="check" Mode="InOut" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
 </Schema>

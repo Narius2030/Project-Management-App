@@ -13,6 +13,7 @@ CREATE TABLE TAINGUYEN (
 );
 
 GO
+--drop database QLDA
 
 CREATE TABLE NHANVIEN (
 	MaNV Ma  PRIMARY KEY,
@@ -23,7 +24,7 @@ CREATE TABLE NHANVIEN (
 	Levels varchar(10),
 	DiaChi nvarchar(50),
 	SDT varchar(10),
-	TaiKhoan varchar(20),
+	MaTaiKhoan varchar(20) unique,
 	MatKhau varchar(20),
 );
 GO 
@@ -49,7 +50,6 @@ CREATE TABLE CAP (
 	PRIMARY KEY(MaDA,MaTN)
 )
 GO
-EXEC sp_pkeys 'Cap';
 
 
 CREATE TABLE GIAIDOAN (
@@ -243,7 +243,7 @@ INSERT INTO TAINGUYEN VALUES
 GO
 
 INSERT INTO CAP VALUES
-(7, '7'),
+(7, '1'),
 (7, '2'),
 (7, '3'),
 (7, '4'),
