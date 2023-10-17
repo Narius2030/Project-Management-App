@@ -276,7 +276,7 @@
             this.txtMaDA.Multiline = false;
             this.txtMaDA.Name = "txtMaDA";
             this.txtMaDA.Padding = new System.Windows.Forms.Padding(7);
-            this.txtMaDA.Password = false;
+            this.txtMaDA.PasswordChar = false;
             this.txtMaDA.Size = new System.Drawing.Size(200, 41);
             this.txtMaDA.TabIndex = 110;
             this.txtMaDA.Texts = "";
@@ -293,7 +293,7 @@
             this.txtTenDA.Multiline = false;
             this.txtTenDA.Name = "txtTenDA";
             this.txtTenDA.Padding = new System.Windows.Forms.Padding(7);
-            this.txtTenDA.Password = false;
+            this.txtTenDA.PasswordChar = false;
             this.txtTenDA.Size = new System.Drawing.Size(200, 41);
             this.txtTenDA.TabIndex = 111;
             this.txtTenDA.Texts = "";

@@ -131,6 +131,9 @@
     <Compile Include="Views\Custome_control\CTDateTimePicker.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Custome_control\CTProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Custome_control\CustomComboBox.cs">
       <SubType>Component</SubType>
     </Compile>

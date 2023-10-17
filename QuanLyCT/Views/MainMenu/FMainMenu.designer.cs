@@ -627,7 +627,7 @@
             this.txtMatKhau.Multiline = false;
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Padding = new System.Windows.Forms.Padding(7);
-            this.txtMatKhau.Password = true;
+            this.txtMatKhau.PasswordChar = true;
             this.txtMatKhau.Size = new System.Drawing.Size(354, 56);
             this.txtMatKhau.TabIndex = 11;
             this.txtMatKhau.Texts = "";
@@ -663,7 +663,7 @@
             this.txtTaiKhoan.Multiline = false;
             this.txtTaiKhoan.Name = "txtTaiKhoan";
             this.txtTaiKhoan.Padding = new System.Windows.Forms.Padding(7);
-            this.txtTaiKhoan.Password = false;
+            this.txtTaiKhoan.PasswordChar = false;
             this.txtTaiKhoan.Size = new System.Drawing.Size(402, 56);
             this.txtTaiKhoan.TabIndex = 10;
             this.txtTaiKhoan.Texts = "";

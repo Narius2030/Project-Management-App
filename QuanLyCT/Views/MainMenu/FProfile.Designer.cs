@@ -780,7 +780,7 @@
             this.txtLuongcb.Multiline = false;
             this.txtLuongcb.Name = "txtLuongcb";
             this.txtLuongcb.Padding = new System.Windows.Forms.Padding(7);
-            this.txtLuongcb.Password = false;
+            this.txtLuongcb.PasswordChar = false;
             this.txtLuongcb.Size = new System.Drawing.Size(152, 48);
             this.txtLuongcb.TabIndex = 88;
             this.txtLuongcb.Texts = "";
@@ -843,7 +843,7 @@
             this.txtLuongthuong.Multiline = false;
             this.txtLuongthuong.Name = "txtLuongthuong";
             this.txtLuongthuong.Padding = new System.Windows.Forms.Padding(7);
-            this.txtLuongthuong.Password = false;
+            this.txtLuongthuong.PasswordChar = false;
             this.txtLuongthuong.Size = new System.Drawing.Size(152, 48);
             this.txtLuongthuong.TabIndex = 86;
             this.txtLuongthuong.Texts = "";
@@ -906,7 +906,7 @@
             this.txtLuongphat.Multiline = false;
             this.txtLuongphat.Name = "txtLuongphat";
             this.txtLuongphat.Padding = new System.Windows.Forms.Padding(7);
-            this.txtLuongphat.Password = false;
+            this.txtLuongphat.PasswordChar = false;
             this.txtLuongphat.Size = new System.Drawing.Size(152, 48);
             this.txtLuongphat.TabIndex = 84;
             this.txtLuongphat.Texts = "";
@@ -940,7 +940,7 @@
             this.txtLuongcthuc.Multiline = false;
             this.txtLuongcthuc.Name = "txtLuongcthuc";
             this.txtLuongcthuc.Padding = new System.Windows.Forms.Padding(7);
-            this.txtLuongcthuc.Password = false;
+            this.txtLuongcthuc.PasswordChar = false;
             this.txtLuongcthuc.Size = new System.Drawing.Size(216, 48);
             this.txtLuongcthuc.TabIndex = 83;
             this.txtLuongcthuc.Texts = "";
@@ -1032,7 +1032,7 @@
             this.txtSoNgayLam.Multiline = false;
             this.txtSoNgayLam.Name = "txtSoNgayLam";
             this.txtSoNgayLam.Padding = new System.Windows.Forms.Padding(7);
-            this.txtSoNgayLam.Password = false;
+            this.txtSoNgayLam.PasswordChar = false;
             this.txtSoNgayLam.Size = new System.Drawing.Size(86, 48);
             this.txtSoNgayLam.TabIndex = 81;
             this.txtSoNgayLam.Texts = "";
@@ -1051,7 +1051,7 @@
             this.txtSoNgayNghi.Multiline = false;
             this.txtSoNgayNghi.Name = "txtSoNgayNghi";
             this.txtSoNgayNghi.Padding = new System.Windows.Forms.Padding(7);
-            this.txtSoNgayNghi.Password = false;
+            this.txtSoNgayNghi.PasswordChar = false;
             this.txtSoNgayNghi.Size = new System.Drawing.Size(86, 48);
             this.txtSoNgayNghi.TabIndex = 80;
             this.txtSoNgayNghi.Texts = "";
@@ -1070,7 +1070,7 @@
             this.txtSoNgayNghiPhep.Multiline = false;
             this.txtSoNgayNghiPhep.Name = "txtSoNgayNghiPhep";
             this.txtSoNgayNghiPhep.Padding = new System.Windows.Forms.Padding(7);
-            this.txtSoNgayNghiPhep.Password = false;
+            this.txtSoNgayNghiPhep.PasswordChar = false;
             this.txtSoNgayNghiPhep.Size = new System.Drawing.Size(86, 48);
             this.txtSoNgayNghiPhep.TabIndex = 79;
             this.txtSoNgayNghiPhep.Texts = "";
@@ -1089,7 +1089,7 @@
             this.txtSoDuAnHoanThanh.Multiline = false;
             this.txtSoDuAnHoanThanh.Name = "txtSoDuAnHoanThanh";
             this.txtSoDuAnHoanThanh.Padding = new System.Windows.Forms.Padding(7);
-            this.txtSoDuAnHoanThanh.Password = false;
+            this.txtSoDuAnHoanThanh.PasswordChar = false;
             this.txtSoDuAnHoanThanh.Size = new System.Drawing.Size(86, 48);
             this.txtSoDuAnHoanThanh.TabIndex = 78;
             this.txtSoDuAnHoanThanh.Texts = "";

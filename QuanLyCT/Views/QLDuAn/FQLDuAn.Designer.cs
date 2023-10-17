@@ -683,7 +683,7 @@
             this.txtMaNV.Multiline = false;
             this.txtMaNV.Name = "txtMaNV";
             this.txtMaNV.Padding = new System.Windows.Forms.Padding(7);
-            this.txtMaNV.Password = false;
+            this.txtMaNV.PasswordChar = false;
             this.txtMaNV.Size = new System.Drawing.Size(135, 41);
             this.txtMaNV.TabIndex = 65;
             this.txtMaNV.Texts = "";
@@ -725,7 +725,7 @@
             this.txtTruongDA.Multiline = false;
             this.txtTruongDA.Name = "txtTruongDA";
             this.txtTruongDA.Padding = new System.Windows.Forms.Padding(7);
-            this.txtTruongDA.Password = false;
+            this.txtTruongDA.PasswordChar = false;
             this.txtTruongDA.Size = new System.Drawing.Size(132, 41);
             this.txtTruongDA.TabIndex = 60;
             this.txtTruongDA.Texts = "";
@@ -743,7 +743,7 @@
             this.txtTenPB.Multiline = false;
             this.txtTenPB.Name = "txtTenPB";
             this.txtTenPB.Padding = new System.Windows.Forms.Padding(7);
-            this.txtTenPB.Password = false;
+            this.txtTenPB.PasswordChar = false;
             this.txtTenPB.Size = new System.Drawing.Size(135, 41);
             this.txtTenPB.TabIndex = 59;
             this.txtTenPB.Texts = "";

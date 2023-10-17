@@ -171,14 +171,14 @@ namespace QLCongTy
 
         private void btnShowPW_Click(object sender, EventArgs e)
         {
-            if (txtMatKhau.Password)
+            if (txtMatKhau.PasswordChar)
             {
-                txtMatKhau.Password = false;
+                txtMatKhau.PasswordChar = false;
                 btnShowPW.IconChar = FontAwesome.Sharp.IconChar.EyeSlash;
             }
             else
             {
-                txtMatKhau.Password = true;
+                txtMatKhau.PasswordChar = true;
                 btnShowPW.IconChar = FontAwesome.Sharp.IconChar.Eye;
             }
         }
