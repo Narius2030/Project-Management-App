@@ -14,10 +14,7 @@ namespace QLCongTy
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sqlStr, conn);
-                if(cmd.ExecuteNonQuery()>0)
-                {
-                    MessageBox.Show("Thành Công","Thông Báo",MessageBoxButtons.RetryCancel,MessageBoxIcon.Information);
-                }    
+                cmd.ExecuteNonQuery();
             }
             catch (Exception exc)
             {
