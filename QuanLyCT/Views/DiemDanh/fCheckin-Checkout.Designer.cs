@@ -139,7 +139,7 @@
             this.txtMacvsang.Multiline = false;
             this.txtMacvsang.Name = "txtMacvsang";
             this.txtMacvsang.Padding = new System.Windows.Forms.Padding(8, 9, 8, 9);
-            this.txtMacvsang.Password = false;
+            this.txtMacvsang.PasswordChar = false;
             this.txtMacvsang.Size = new System.Drawing.Size(135, 51);
             this.txtMacvsang.TabIndex = 60;
             this.txtMacvsang.Texts = "";
@@ -156,7 +156,7 @@
             this.txtManvsang.Multiline = false;
             this.txtManvsang.Name = "txtManvsang";
             this.txtManvsang.Padding = new System.Windows.Forms.Padding(8, 9, 8, 9);
-            this.txtManvsang.Password = false;
+            this.txtManvsang.PasswordChar = false;
             this.txtManvsang.Size = new System.Drawing.Size(148, 51);
             this.txtManvsang.TabIndex = 59;
             this.txtManvsang.Texts = "";
