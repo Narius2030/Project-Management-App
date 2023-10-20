@@ -216,10 +216,10 @@
             this.tpQLDA.Controls.Add(this.pnBot);
             this.tpQLDA.Controls.Add(this.pnTop);
             this.tpQLDA.Controls.Add(this.pnlTiendo);
-            this.tpQLDA.Location = new System.Drawing.Point(4, 40);
+            this.tpQLDA.Location = new System.Drawing.Point(4, 47);
             this.tpQLDA.Name = "tpQLDA";
             this.tpQLDA.Padding = new System.Windows.Forms.Padding(3);
-            this.tpQLDA.Size = new System.Drawing.Size(1329, 728);
+            this.tpQLDA.Size = new System.Drawing.Size(1329, 721);
             this.tpQLDA.TabIndex = 0;
             this.tpQLDA.Text = "Dự Án";
             // 
@@ -230,7 +230,7 @@
             this.pnBot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnBot.Location = new System.Drawing.Point(3, 236);
             this.pnBot.Name = "pnBot";
-            this.pnBot.Size = new System.Drawing.Size(1323, 431);
+            this.pnBot.Size = new System.Drawing.Size(1323, 424);
             this.pnBot.TabIndex = 89;
             // 
             // pnThongTin
@@ -345,7 +345,7 @@
             this.cboFindMaDA.Location = new System.Drawing.Point(215, 68);
             this.cboFindMaDA.MinimumSize = new System.Drawing.Size(200, 0);
             this.cboFindMaDA.Name = "cboFindMaDA";
-            this.cboFindMaDA.Size = new System.Drawing.Size(200, 28);
+            this.cboFindMaDA.Size = new System.Drawing.Size(200, 33);
             this.cboFindMaDA.TabIndex = 89;
             this.cboFindMaDA.Texts = "";
             // 
@@ -489,7 +489,7 @@
             this.pnlTiendo.Controls.Add(this.btnThongKe);
             this.pnlTiendo.Controls.Add(this.artanPannel5);
             this.pnlTiendo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlTiendo.Location = new System.Drawing.Point(3, 667);
+            this.pnlTiendo.Location = new System.Drawing.Point(3, 660);
             this.pnlTiendo.MaximumSize = new System.Drawing.Size(1323, 734);
             this.pnlTiendo.MinimumSize = new System.Drawing.Size(1323, 58);
             this.pnlTiendo.Name = "pnlTiendo";
@@ -661,10 +661,10 @@
             this.tpPCDA.Controls.Add(this.PnlDonxinnghi);
             this.tpPCDA.Controls.Add(this.pnlPCDA);
             this.tpPCDA.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.tpPCDA.Location = new System.Drawing.Point(4, 40);
+            this.tpPCDA.Location = new System.Drawing.Point(4, 47);
             this.tpPCDA.Name = "tpPCDA";
             this.tpPCDA.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPCDA.Size = new System.Drawing.Size(1329, 728);
+            this.tpPCDA.Size = new System.Drawing.Size(1329, 721);
             this.tpPCDA.TabIndex = 1;
             this.tpPCDA.Text = "Thêm nhân viên";
             // 
@@ -703,7 +703,7 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(811, 62);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 26);
+            this.label2.Size = new System.Drawing.Size(110, 33);
             this.label2.TabIndex = 84;
             this.label2.Text = "Trình độ";
             // 
@@ -715,7 +715,7 @@
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(538, 62);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(106, 26);
+            this.label11.Size = new System.Drawing.Size(126, 33);
             this.label11.TabIndex = 83;
             this.label11.Text = "Công việc";
             // 
@@ -740,7 +740,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(538, 187);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(152, 26);
+            this.label1.Size = new System.Drawing.Size(181, 33);
             this.label1.TabIndex = 68;
             this.label1.Text = "Ngày Kết Thúc";
             // 
@@ -755,7 +755,7 @@
             "TESTER"});
             this.cboCongViec.Location = new System.Drawing.Point(663, 62);
             this.cboCongViec.Name = "cboCongViec";
-            this.cboCongViec.Size = new System.Drawing.Size(128, 39);
+            this.cboCongViec.Size = new System.Drawing.Size(128, 46);
             this.cboCongViec.TabIndex = 82;
             // 
             // label9
@@ -780,7 +780,7 @@
             "Intership"});
             this.cboTrinhDo.Location = new System.Drawing.Point(920, 62);
             this.cboTrinhDo.Name = "cboTrinhDo";
-            this.cboTrinhDo.Size = new System.Drawing.Size(115, 39);
+            this.cboTrinhDo.Size = new System.Drawing.Size(115, 46);
             this.cboTrinhDo.TabIndex = 65;
             this.cboTrinhDo.SelectedIndexChanged += new System.EventHandler(this.cboTrinhDo_SelectedIndexChanged);
             // 
@@ -801,7 +801,7 @@
             this.txtMaNV.PasswordChar = false;
             this.txtMaNV.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtMaNV.PlaceholderText = "";
-            this.txtMaNV.Size = new System.Drawing.Size(135, 35);
+            this.txtMaNV.Size = new System.Drawing.Size(135, 39);
             this.txtMaNV.TabIndex = 65;
             this.txtMaNV.Texts = "";
             this.txtMaNV.UnderlinedStyle = false;
@@ -848,7 +848,7 @@
             this.txtTruongDA.PasswordChar = false;
             this.txtTruongDA.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtTruongDA.PlaceholderText = "";
-            this.txtTruongDA.Size = new System.Drawing.Size(132, 35);
+            this.txtTruongDA.Size = new System.Drawing.Size(132, 39);
             this.txtTruongDA.TabIndex = 60;
             this.txtTruongDA.Texts = "";
             this.txtTruongDA.UnderlinedStyle = false;
@@ -871,7 +871,7 @@
             this.txtTenPB.PasswordChar = false;
             this.txtTenPB.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtTenPB.PlaceholderText = "";
-            this.txtTenPB.Size = new System.Drawing.Size(135, 35);
+            this.txtTenPB.Size = new System.Drawing.Size(135, 39);
             this.txtTenPB.TabIndex = 59;
             this.txtTenPB.Texts = "";
             this.txtTenPB.UnderlinedStyle = false;
@@ -884,7 +884,7 @@
             this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(156, 125);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(149, 26);
+            this.label4.Size = new System.Drawing.Size(179, 33);
             this.label4.TabIndex = 36;
             this.label4.Text = "Trưởng Dự Án";
             // 
@@ -1144,10 +1144,10 @@
             this.tpPhanCongViec.Controls.Add(this.pnThongTinDA);
             this.tpPhanCongViec.Controls.Add(this.pnTitle);
             this.tpPhanCongViec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
-            this.tpPhanCongViec.Location = new System.Drawing.Point(4, 40);
+            this.tpPhanCongViec.Location = new System.Drawing.Point(4, 47);
             this.tpPhanCongViec.Name = "tpPhanCongViec";
             this.tpPhanCongViec.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPhanCongViec.Size = new System.Drawing.Size(1329, 728);
+            this.tpPhanCongViec.Size = new System.Drawing.Size(1329, 721);
             this.tpPhanCongViec.TabIndex = 2;
             this.tpPhanCongViec.Text = "Phân Công Việc";
             // 
@@ -1278,7 +1278,7 @@
             this.cboMaDA.Location = new System.Drawing.Point(35, 38);
             this.cboMaDA.MinimumSize = new System.Drawing.Size(200, 0);
             this.cboMaDA.Name = "cboMaDA";
-            this.cboMaDA.Size = new System.Drawing.Size(200, 28);
+            this.cboMaDA.Size = new System.Drawing.Size(200, 33);
             this.cboMaDA.TabIndex = 97;
             this.cboMaDA.Texts = "";
             // 
@@ -1290,7 +1290,7 @@
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(30, 9);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(99, 26);
+            this.label12.Size = new System.Drawing.Size(121, 33);
             this.label12.TabIndex = 96;
             this.label12.Text = "Mã dự án";
             // 
@@ -1302,7 +1302,7 @@
             this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(765, 9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 26);
+            this.label7.Size = new System.Drawing.Size(126, 33);
             this.label7.TabIndex = 91;
             this.label7.Text = "Công việc";
             // 
@@ -1320,7 +1320,7 @@
             this.cboCV.Location = new System.Drawing.Point(770, 38);
             this.cboCV.MinimumSize = new System.Drawing.Size(200, 0);
             this.cboCV.Name = "cboCV";
-            this.cboCV.Size = new System.Drawing.Size(200, 28);
+            this.cboCV.Size = new System.Drawing.Size(200, 33);
             this.cboCV.TabIndex = 92;
             this.cboCV.Texts = "";
             // 
@@ -1332,7 +1332,7 @@
             this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(520, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(108, 26);
+            this.label6.Size = new System.Drawing.Size(126, 33);
             this.label6.TabIndex = 84;
             this.label6.Text = "Tên nhóm";
             // 
@@ -1350,7 +1350,7 @@
             this.cboTenNhom.Location = new System.Drawing.Point(525, 38);
             this.cboTenNhom.MinimumSize = new System.Drawing.Size(200, 0);
             this.cboTenNhom.Name = "cboTenNhom";
-            this.cboTenNhom.Size = new System.Drawing.Size(200, 28);
+            this.cboTenNhom.Size = new System.Drawing.Size(200, 33);
             this.cboTenNhom.TabIndex = 90;
             this.cboTenNhom.Texts = "";
             // 
@@ -1387,7 +1387,7 @@
             this.cboMaGD.Location = new System.Drawing.Point(280, 38);
             this.cboMaGD.MinimumSize = new System.Drawing.Size(200, 0);
             this.cboMaGD.Name = "cboMaGD";
-            this.cboMaGD.Size = new System.Drawing.Size(200, 28);
+            this.cboMaGD.Size = new System.Drawing.Size(200, 33);
             this.cboMaGD.TabIndex = 94;
             this.cboMaGD.Texts = "";
             // 
@@ -1399,7 +1399,7 @@
             this.label8.ForeColor = System.Drawing.Color.Black;
             this.label8.Location = new System.Drawing.Point(275, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(132, 26);
+            this.label8.Size = new System.Drawing.Size(161, 33);
             this.label8.TabIndex = 93;
             this.label8.Text = "Mã giai đoạn";
             // 
@@ -1526,10 +1526,10 @@
             this.cboMaGiaiDoan.IconColor = System.Drawing.Color.White;
             this.cboMaGiaiDoan.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
             this.cboMaGiaiDoan.ListTextColor = System.Drawing.Color.DimGray;
-            this.cboMaGiaiDoan.Location = new System.Drawing.Point(204, 18);
+            this.cboMaGiaiDoan.Location = new System.Drawing.Point(241, 20);
             this.cboMaGiaiDoan.MinimumSize = new System.Drawing.Size(200, 0);
             this.cboMaGiaiDoan.Name = "cboMaGiaiDoan";
-            this.cboMaGiaiDoan.Size = new System.Drawing.Size(200, 28);
+            this.cboMaGiaiDoan.Size = new System.Drawing.Size(200, 33);
             this.cboMaGiaiDoan.TabIndex = 98;
             this.cboMaGiaiDoan.Texts = "";
             // 
@@ -1541,7 +1541,7 @@
             this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(59, 20);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(137, 27);
+            this.label13.Size = new System.Drawing.Size(161, 33);
             this.label13.TabIndex = 97;
             this.label13.Text = "Mã giai đoạn";
             // 
@@ -1581,10 +1581,10 @@
             this.tpChiaGianDoan.Controls.Add(this.panel1);
             this.tpChiaGianDoan.Controls.Add(this.artanPannel7);
             this.tpChiaGianDoan.ForeColor = System.Drawing.Color.Crimson;
-            this.tpChiaGianDoan.Location = new System.Drawing.Point(4, 40);
+            this.tpChiaGianDoan.Location = new System.Drawing.Point(4, 47);
             this.tpChiaGianDoan.Name = "tpChiaGianDoan";
             this.tpChiaGianDoan.Padding = new System.Windows.Forms.Padding(3);
-            this.tpChiaGianDoan.Size = new System.Drawing.Size(1329, 728);
+            this.tpChiaGianDoan.Size = new System.Drawing.Size(1329, 721);
             this.tpChiaGianDoan.TabIndex = 3;
             this.tpChiaGianDoan.Text = "Chia giai đoạn";
             // 
@@ -1635,7 +1635,7 @@
             this.label19.ForeColor = System.Drawing.Color.Black;
             this.label19.Location = new System.Drawing.Point(63, 353);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(190, 26);
+            this.label19.Size = new System.Drawing.Size(228, 33);
             this.label19.TabIndex = 94;
             this.label19.Text = "Nội dung giai đoạn";
             // 
@@ -1660,7 +1660,7 @@
             this.label17.ForeColor = System.Drawing.Color.Black;
             this.label17.Location = new System.Drawing.Point(63, 258);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(152, 26);
+            this.label17.Size = new System.Drawing.Size(181, 33);
             this.label17.TabIndex = 92;
             this.label17.Text = "Ngày Kết Thúc";
             // 
@@ -1705,7 +1705,7 @@
             this.txtMaGD.PasswordChar = false;
             this.txtMaGD.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtMaGD.PlaceholderText = "VD: 01DA01";
-            this.txtMaGD.Size = new System.Drawing.Size(315, 35);
+            this.txtMaGD.Size = new System.Drawing.Size(315, 39);
             this.txtMaGD.TabIndex = 89;
             this.txtMaGD.Texts = "";
             this.txtMaGD.UnderlinedStyle = false;
@@ -1718,7 +1718,7 @@
             this.label16.ForeColor = System.Drawing.Color.Black;
             this.label16.Location = new System.Drawing.Point(63, 113);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(132, 26);
+            this.label16.Size = new System.Drawing.Size(161, 33);
             this.label16.TabIndex = 88;
             this.label16.Text = "Mã giai đoạn";
             // 
@@ -1889,7 +1889,7 @@
             // 
             // fQLDuAn
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1337, 772);
