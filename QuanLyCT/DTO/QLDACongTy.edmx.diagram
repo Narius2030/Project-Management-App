@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="83723fd23af7497f934e90cdada613c7" Name="Diagram1" ZoomLevel="58">
+        <EntityTypeShape EntityType="QLDAModel.CONGVIEC" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.DIEMDANH" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.DUAN" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.GIAIDOAN" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.NHANVIEN" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.NHIEMVU" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.NHOM" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.TAINGUYEN" Width="1.5" PointX="6.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.TRUONGNHOM" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QLDAModel.UOCLUONG" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="QLDAModel.FK_CONGVIEC_GIAIDOAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_CONGVIEC_TRUONGNHOM" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_NHIEMVU_CONGVIEC" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_TIENQUYET_CONGVIEC" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_DIEMDANH_NHANVIEN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_DUAN_NHANVIEN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_GIAIDOAN_DUAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_TRUONGNHOM_DUAN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_NHIEMVU_NHANVIEN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_NHOM_NHANVIEN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_TRUONGNHOM_NHANVIEN" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_TIENQUYET_NHIEMVU" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.FK_NHOM_TRUONGNHOM" ManuallyRouted="false" />
+        <AssociationConnector Association="QLDAModel.CAP" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

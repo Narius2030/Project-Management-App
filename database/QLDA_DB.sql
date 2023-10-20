@@ -1,33 +1,22 @@
 ﻿CREATE DATABASE QLDA;
 GO
-
---DROP DATABASE QLDA
-
+go
 USE QLDA;
 GO
-
-CREATE TABLE UOCLUONG(
-   MaNV VARCHAR(10),
-   MaDA INT,
-   MaSprint Varchar(20),
-   PRIMARY KEY(MaNV, MaDA, MaSprint),
-   SoNgayNghi INT,
-   TimeSprint INT,
-   TimeTasks INT,
+--Định nghĩa 1 kiểu dữ liệu Ma dùng chung
+EXEC sp_addtype 'Ma','varchar(10)'
+go
+CREATE TABLE TAINGUYEN (
+	MaTN Ma PRIMARY KEY,
+	TenTN NVARCHAR(20),
+	LoaiTaiNguyen NVARCHAR(20),
 );
 
 GO
-
-CREATE TABLE TAINGUYEN (
-	MaTN VARCHAR(10) PRIMARY KEY,
-	TenTN NVARCHAR(20),
-	LoaiTaiNguyen NVARCHAR(20),
-)
-
-GO
+--drop database QLDA
 
 CREATE TABLE NHANVIEN (
-	MaNV varchar(10) PRIMARY KEY,
+	MaNV Ma  PRIMARY KEY,
 	HovaTenDem nvarchar(25) ,
 	Ten nvarchar(25),
 	ChucVu nvarchar(20) DEFAULT 'Member',
@@ -35,9 +24,10 @@ CREATE TABLE NHANVIEN (
 	Levels varchar(10),
 	DiaChi nvarchar(50),
 	SDT varchar(10),
+	MaTaiKhoan varchar(20) unique,
+	MatKhau varchar(20),
 );
-
-GO
+GO 
 CREATE TABLE DUAN(
    MaDA INT IDENTITY PRIMARY KEY,
    TenDA NVARCHAR(50),
@@ -45,57 +35,50 @@ CREATE TABLE DUAN(
    NgayKT DATE,
    NgayBD DATE,
    ChiPhi VARCHAR(30),
-   GiaiDoan NVARCHAR(30),
-   MaPM VARCHAR(10),
-   CONSTRAINT FK_DUAN_NHIEMVIEN FOREIGN KEY(MaPM) REFERENCES NHANVIEN(MaNV)
+   TrangThai NVARCHAR(30),
+   MaPM Ma ,
+   CONSTRAINT FK_DUAN_NHANVIEN FOREIGN KEY(MaPM) REFERENCES NHANVIEN(MaNV)
 );
 
 GO
 
 CREATE TABLE CAP (
-	MaDA INT,
-	MaTN VARCHAR(10),
-	PRIMARY KEY(MaDA,MaTN),
+	MaDA INT not null,
+	MaTN Ma  not null,
 	constraint FK_CAP_DUAN FOREIGN KEY(MaDA) references DUAN(MaDA) ON UPDATE CASCADE,
-	constraint FK_CAP_TAINGUYEN FOREIGN KEY (MaTN) references TAINGUYEN(MaTN) ON UPDATE CASCADE
+	constraint FK_CAP_TAINGUYEN FOREIGN KEY (MaTN) references TAINGUYEN(MaTN) ON UPDATE CASCADE,
+	PRIMARY KEY(MaDA,MaTN)
 )
 GO
 
-CREATE TABLE SPRINT (
-	MaSprint Varchar(20) PRIMARY KEY,
+
+CREATE TABLE GIAIDOAN (
+	MaGiaiDoan Varchar(20) PRIMARY KEY,
 	NoiDung NVARCHAR(30),
 	NgayBD DATE ,
 	NgayKT DATE,
 	MaDA INT,
-	constraint FK_SPRINT_DUAN FOREIGN KEY (MaDA) references DUAN(MaDA) ON DELETE SET NULL ON UPDATE CASCADE
+	constraint FK_GIAIDOAN_DUAN FOREIGN KEY (MaDA) references DUAN(MaDA) ON DELETE SET NULL ON UPDATE CASCADE
 )
 GO
 
 CREATE TABLE DIEMDANH(
    Ngay Date,
-   MaNV VARCHAR(10),
-   PRIMARY KEY(NgayNghi, MaNV),
+   MaNV Ma ,
+   PRIMARY KEY(Ngay, MaNV),
    NoiDung NVARCHAR(20),
-   CONSTRAINT FK_DIEMDANH_NHIEMVIEN FOREIGN KEY (MaNV) REFERENCES NHANVIEN(MaNV)  ON UPDATE CASCADE
+   CONSTRAINT FK_DIEMDANH_NHANVIEN FOREIGN KEY (MaNV) REFERENCES NHANVIEN(MaNV)  ON UPDATE CASCADE
 );
 
 GO
 
-CREATE TABLE TAIKHOAN (
-	UserNames varchar(25) ,
-	Passwords varchar(25) ,
-	MaNV varchar(10),
-	CONSTRAINT FK_TAIKHOAN_NHANVIEN FOREIGN KEY(MaNV) REFERENCES NHANVIEN(MaNV)  ON DELETE SET NULL ON UPDATE CASCADE
-);
-GO
-
-CREATE TABLE TEAMLEADER (
+CREATE TABLE TRUONGNHOM (
 	TenNhom nvarchar(20) ,
 	MaDA INT,
-	MaNV varchar(10),
+	MaNV Ma ,
 	PRIMARY KEY(TenNhom, MaDA),
-	CONSTRAINT FK_TEAM_DUAN FOREIGN KEY(MaDA) REFERENCES DUAN(MaDA)  ON UPDATE CASCADE,
-	CONSTRAINT FK_TEAMLEADER_NHANVIEN FOREIGN KEY(MaNV) REFERENCES NHANVIEN(MaNV) ON DELETE set null ON UPDATE CASCADE
+	CONSTRAINT FK_TRUONGNHOM_DUAN FOREIGN KEY(MaDA) REFERENCES DUAN(MaDA)  ON UPDATE CASCADE,
+	CONSTRAINT FK_TRUONGNHOM_NHANVIEN FOREIGN KEY(MaNV) REFERENCES NHANVIEN(MaNV) ON DELETE set null ON UPDATE CASCADE
 );
 
 GO
@@ -108,38 +91,50 @@ CREATE TABLE CONGVIEC(
    TienDo REAL,
    TenNhom NVARCHAR(20),
    MaDA INT,
-   MaSprint Varchar(20),
-   CONSTRAINT FK_CONGVIEC_TEAMLEADER FOREIGN KEY (TenNhom, MaDA) REFERENCES TEAMLEADER(TenNhom,MaDA)  ON DELETE SET NULL,
-   CONSTRAINT FK_CONGVIEC_SPRINT FOREIGN KEY (MaSprint) REFERENCES SPRINT(MaSprint) ON DELETE SET NULL ON UPDATE CASCADE
+   MaGiaiDoan Varchar(20),
+   CONSTRAINT FK_CONGVIEC_TRUONGNHOM FOREIGN KEY (TenNhom, MaDA) REFERENCES TRUONGNHOM(TenNhom,MaDA)  ON DELETE SET NULL,
+   CONSTRAINT FK_CONGVIEC_GIAIDOAN FOREIGN KEY (MaGiaiDoan) REFERENCES GIAIDOAN(MaGiaiDoan) ON DELETE SET NULL ON UPDATE CASCADE,
+   CONSTRAINT FK_TIENQUYET_CONGVIEC FOREIGN KEY (CVTienQuyet) REFERENCES CONGVIEC(MaCV)
 );
+GO
 
 GO
 
 CREATE TABLE NHIEMVU
 ( 
-  MaNhiemVu VARCHAR(10) PRIMARY KEY,
-  MaTienQuyet VARCHAR(10) DEFAULT NULL,
+  MaNhiemVu Ma  PRIMARY KEY,
+  MaTienQuyet Ma  DEFAULT NULL,
   TrangThai NVARCHAR(30),
   ThoiGianLamThucTe INT,
   TenNhiemVu NVARCHAR(30),
   ThoiGianUocTinh int,
-  MaNV VARCHAR(10),
+  MaNV Ma ,
   MaCV INT,
   constraint FK_NHIEMVU_NHANVIEN FOREIGN KEY (MaNV) references NHANVIEN(MaNV)  ON DELETE SET NULL ON UPDATE CASCADE,
-  constraint FK_NHIEMVU_CONGVIEC FOREIGN KEY (MaCV) references CONGVIEC(MaCV) ON DELETE SET NULL ON UPDATE CASCADE
+  constraint FK_NHIEMVU_CONGVIEC FOREIGN KEY (MaCV) references CONGVIEC(MaCV) ON DELETE SET NULL ON UPDATE CASCADE,
+  constraint FK_TIENQUYET_NHIEMVU FOREIGN KEY (MaTienQuyet) references NHIEMVU(MaNhiemVu)
 )
 
 GO
-CREATE TABLE TEAM (
-	MaNV varchar(10),
+CREATE TABLE NHOM (
+	MaNV Ma ,
 	TenNhom nvarchar(20),
 	MaDA INT,
-	CapPerDay INT,
+	SoGioMotNg INT,
 	PRIMARY KEY(TenNhom, MaDA, MaNV),
-	CONSTRAINT FK_TEAM_TEAMLEADER FOREIGN KEY(TenNhom, MaDA) REFERENCES TEAMLEADER(TenNhom, MaDA)  ON UPDATE CASCADE,
-	CONSTRAINT FK_TEAM_NHANVIEN FOREIGN KEY(MaNV) REFERENCES NHANVIEN(MaNV)
+	CONSTRAINT FK_NHOM_TRUONGNHOM FOREIGN KEY(TenNhom, MaDA) REFERENCES TRUONGNHOM(TenNhom, MaDA)  ON UPDATE CASCADE,
+	CONSTRAINT FK_NHOM_NHANVIEN FOREIGN KEY(MaNV) REFERENCES NHANVIEN(MaNV)
 );
 GO
+CREATE TABLE UOCLUONG(
+   MaNV Ma  not null ,
+   MaDA INT  not null ,
+   MaGiaiDoan Varchar(20) not null,
+   SoNgayNghi INT,
+   TimeSprint INT,
+   TimeTasks INT,
+    PRIMARY KEY(MaNV, MaDA, MaGiaiDoan),
+);
 
 -- Adding constraint
 
@@ -170,32 +165,20 @@ GO
 --INSERT DATA
 
 INSERT INTO NHANVIEN VALUES 
-('NV001', 'Nguyen Van', 'A', 'CEO', 'nva@gmail.com', 'Junier', N'1, VVN, Thủ Đức', '0164785658'),
-('NV002', 'Nguyen Van', 'B', DEFAULT , 'nvb@gmail.com', 'Senior', N'1, VVN, Thủ Đức', '0164476589'),
-('NV003', 'Nguyen Thu', 'C', DEFAULT , 'ntc@gmail.com', 'Fresher', N'1, VVN, Thủ Đức', '0164348564'),
-('NV004', 'Tran Van', 'D', DEFAULT , 'tvd@gmail.com', 'Intern', N'1, VVN, Thủ Đức', '0164714242'),
-('NV005', 'Mai Van', 'E', DEFAULT , 'mve@gmail.com', 'Fresher', N'1, VVN, Thủ Đức', '0164111111'),
-('NV006', 'Phan Thi', 'F', DEFAULT , 'ptf@gmail.com', 'Junier', N'1, VVN, Thủ Đức', '0164142142'),
-('NV007', 'Trinh Van', 'G', DEFAULT , 'tvg@gmail.com', 'Senior', N'1, VVN, Thủ Đức', '0164888645'),
-('NV008', 'Phung Van', 'H', DEFAULT , 'pvh@gmail.com', 'Junier', N'1, VVN, Thủ Đức', '0164143231'),
-('NV009', 'Nguyen Thanh', 'I', DEFAULT , 'nti@gmail.com', 'Fresher', N'1, VVN, Thủ Đức', '0164143257'),
-('NV010', 'Nguyen Thanh', 'K', DEFAULT , 'ntk@gmail.com', 'Senior', N'1, VVN, Thủ Đức', '0164953438')
+('NV001', 'Nguyen Van', 'A', 'CEO', 'nva@gmail.com', 'Junier', N'1, VVN, Thủ Đức', '0164785658', 'NV001', 'nv001'),
+('NV002', 'Nguyen Van', 'B', DEFAULT , 'nvb@gmail.com', 'Senior', N'1, VVN, Thủ Đức', '0164476589', 'NV002', 'nv002'),
+('NV003', 'Nguyen Thu', 'C', DEFAULT , 'ntc@gmail.com', 'Fresher', N'1, VVN, Thủ Đức', '0164348564', 'NV003', 'nv003'),
+('NV004', 'Tran Van', 'D', DEFAULT , 'tvd@gmail.com', 'Intern', N'1, VVN, Thủ Đức', '0164714242', 'NV004', 'nv004'),
+('NV005', 'Mai Van', 'E', DEFAULT , 'mve@gmail.com', 'Fresher', N'1, VVN, Thủ Đức', '0164111111', 'NV005', 'nv005'),
+('NV006', 'Phan Thi', 'F', DEFAULT , 'ptf@gmail.com', 'Junier', N'1, VVN, Thủ Đức', '0164142142', 'NV006', 'nv006'),
+('NV007', 'Trinh Van', 'G', DEFAULT , 'tvg@gmail.com', 'Senior', N'1, VVN, Thủ Đức', '0164888645', 'NV007', 'nv007'),
+('NV008', 'Phung Van', 'H', DEFAULT , 'pvh@gmail.com', 'Junier', N'1, VVN, Thủ Đức', '0164143231', 'NV008', 'nv008'),
+('NV009', 'Nguyen Thanh', 'I', DEFAULT , 'nti@gmail.com', 'Fresher', N'1, VVN, Thủ Đức', '0164143257', 'NV009', 'nv009'),
+('NV010', 'Nguyen Thanh', 'K', DEFAULT , 'ntk@gmail.com', 'Senior', N'1, VVN, Thủ Đức', '0164953438', 'NV010', 'nv010')
 
 GO
-INSERT INTO TAIKHOAN VALUES
-('NV001', 'NV001', 'NV001'),
-('NV002', 'NV002', 'NV002'),
-('NV003', 'NV003', 'NV003'),
-('NV004', 'NV004', 'NV004'),
-('NV005', 'NV005', 'NV005'),
-('NV006', 'NV006', 'NV006'),
-('NV007', 'NV007', 'NV007'),
-('NV008', 'NV008', 'NV008'),
-('NV009', 'NV009', 'NV009'),
-('NV010', 'NV010', 'NV010');
 
-GO
-INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, GiaiDoan, MaPM) VALUES 
+INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, TrangThai, MaPM) VALUES 
 (N'Phần mềm dạy học số', 0, '2023-12-30', '2023-10-15', '150000', 'Planning', 'NV002'),
 (N'Phần mềm đặt vé tàu', 0, '2023-12-30', '2023-10-01', '150000', 'Requirement Analysis', 'NV010'),
 (N'Phần mềm xử lý ảnh', 30, '2023-12-30', '2023-09-01', '150000', 'Implementation', 'NV007'),
@@ -209,7 +192,7 @@ INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, GiaiDoan, MaPM) VALUES
 GO
 
 
-INSERT INTO SPRINT (MaSprint, NoiDung, NgayKT, NgayBD, MaDA) VALUES
+INSERT INTO GIAIDOAN (MaGiaiDoan, NoiDung, NgayKT, NgayBD, MaDA) VALUES
 ('01DA03', N'Database', '2023-10-30', '2023-09-01', 3),
 ('01DA04', N'Database', '2023-09-30', '2023-09-01', 4),
 ('02DA04', N'UI', '2023-10-30', '2023-10-01', 4),
@@ -290,7 +273,7 @@ INSERT INTO DIEMDANH VALUES
 
 GO
 
-INSERT INTO TEAMLEADER VALUES
+INSERT INTO TRUONGNHOM VALUES
 ('Front-End', 8, 'NV002'),
 ('Back-End', 8, 'NV003'),
 ('Front-End', 7, 'NV006'),
@@ -305,7 +288,7 @@ INSERT INTO TEAMLEADER VALUES
 ('Back-End', 3, 'NV002');
 
 
-INSERT INTO TEAM VALUES
+INSERT INTO NHOM VALUES
 ('NV002', 'Front-End', 8, 6),
 ('NV003', 'Back-End', 8, 6),
 ('NV004', 'Front-End', 8, 8),
@@ -335,7 +318,7 @@ INSERT INTO TEAM VALUES
 GO
 
 
-INSERT INTO CONGVIEC (TrangThai, CVTienQuyet, TenCV, TienDo, TenNhom, MaDA, MaSprint) VALUES
+INSERT INTO CONGVIEC (TrangThai, CVTienQuyet, TenCV, TienDo, TenNhom, MaDA, MaGiaiDoan) VALUES
 ('Done', DEFAULT , N'Giao diện đăng nhập', 100, 'Front-End', 8, '01DA08'),
 ('Done', DEFAULT , N'Chức năng', 100, 'Back-End', 8, '01DA08'),
 ('Done', DEFAULT , N'Giao diện đăng nhập', 100, 'Front-End', 7, '01DA07'),
@@ -356,48 +339,5 @@ INSERT INTO NHIEMVU VALUES
 ('01CV06', DEFAULT, 'Doing', 5, N'Chức năng đăng nhập', 8, 'NV006', 6),
 ('01CV07', DEFAULT, 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV010', 7),
 ('01CV08', DEFAULT, 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV002', 8);
-<<<<<<< HEAD
-
 GO
 
---View:
---1. Xem danh sách nhân viên và nhóm
---Tất cả
-create view Ds_NV_Nhom as
-   select nv.MaNV, nv.HovaTenDem, nv.Ten, TenNhom, MaDA from NHANVIEN as nv, TEAM
-   where nv.MaNV = TEAM.MaNV
-
---DROP VIEW Ds_NV_Nhom
-
---Trưởng nhóm
-create view Ds_NV_TruongNhom as
-   select nv.MaNV, nv.HovaTenDem, nv.Ten, MaDA from NHANVIEN as nv, TEAMLEADER AS tl
-   where nv.MaNV = tl.MaNV
-
---2. Xem nội dung công việc và nhiệm vụ
---a) Tất cả công việc
-create view Ds_CV as
-   select MaCV, TenCV, TenNhom, MaDA, MaSprint, TrangThai
-   from CONGVIEC
-
---SELECT *FROM Ds_CV   
-
---b) Công việc theo dự án và Sprint
-
---c) Nhiệm vụ và công việc tiên quyết của một dự án
-create view Ds_CV_Nvu as
-   select MaCV, CVTienQuyet, Ma
---d) Những công việc đang trễ tiến độ
-
-
-
-select *from Ds_NV_Nhom
-select *from Ds_NV_TruongNhom
-select *from NHANVIEN
-select *from TEAM
-select *from TEAMLEADER
-select *from CONGVIEC
-SELECT *FROM NHIEMVU
-=======
-GO
->>>>>>> nhanbui
