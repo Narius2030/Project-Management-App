@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.pnlTTDuAn = new System.Windows.Forms.Panel();
+            this.txtTenDA = new QLCongTy.CTTextBox();
+            this.txtMaDA = new QLCongTy.CTTextBox();
             this.cboTrangThai = new System.Windows.Forms.ComboBox();
             this.cboMaTruongDA = new System.Windows.Forms.ComboBox();
             this.cboMaPB = new System.Windows.Forms.ComboBox();
@@ -45,8 +47,6 @@
             this.btnExit = new FontAwesome.Sharp.IconButton();
             this.pnlTitle = new System.Windows.Forms.Panel();
             this.lblTitle = new QLCongTy.VBLabel();
-            this.txtMaDA = new QLCongTy.CTTextBox();
-            this.txtTenDA = new QLCongTy.CTTextBox();
             this.pnlTTDuAn.SuspendLayout();
             this.pnlTitle.SuspendLayout();
             this.SuspendLayout();
@@ -74,6 +74,50 @@
             this.pnlTTDuAn.Size = new System.Drawing.Size(997, 331);
             this.pnlTTDuAn.TabIndex = 0;
             // 
+            // txtTenDA
+            // 
+            this.txtTenDA.BackColor = System.Drawing.Color.White;
+            this.txtTenDA.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtTenDA.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtTenDA.BorderRadius = 0;
+            this.txtTenDA.BorderSize = 3;
+            this.txtTenDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTenDA.ForeColor = System.Drawing.Color.Black;
+            this.txtTenDA.Location = new System.Drawing.Point(202, 99);
+            this.txtTenDA.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTenDA.Multiline = false;
+            this.txtTenDA.Name = "txtTenDA";
+            this.txtTenDA.Padding = new System.Windows.Forms.Padding(7);
+            this.txtTenDA.PasswordChar = false;
+            this.txtTenDA.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtTenDA.PlaceholderText = "";
+            this.txtTenDA.Size = new System.Drawing.Size(200, 35);
+            this.txtTenDA.TabIndex = 111;
+            this.txtTenDA.Texts = "";
+            this.txtTenDA.UnderlinedStyle = false;
+            // 
+            // txtMaDA
+            // 
+            this.txtMaDA.BackColor = System.Drawing.Color.White;
+            this.txtMaDA.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtMaDA.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtMaDA.BorderRadius = 0;
+            this.txtMaDA.BorderSize = 3;
+            this.txtMaDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaDA.ForeColor = System.Drawing.Color.Black;
+            this.txtMaDA.Location = new System.Drawing.Point(202, 29);
+            this.txtMaDA.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaDA.Multiline = false;
+            this.txtMaDA.Name = "txtMaDA";
+            this.txtMaDA.Padding = new System.Windows.Forms.Padding(7);
+            this.txtMaDA.PasswordChar = false;
+            this.txtMaDA.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtMaDA.PlaceholderText = "";
+            this.txtMaDA.Size = new System.Drawing.Size(200, 35);
+            this.txtMaDA.TabIndex = 110;
+            this.txtMaDA.Texts = "";
+            this.txtMaDA.UnderlinedStyle = false;
+            // 
             // cboTrangThai
             // 
             this.cboTrangThai.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -83,7 +127,7 @@
             "Plan",
             "Implement",
             "Finish"});
-            this.cboTrangThai.Location = new System.Drawing.Point(201, 165);
+            this.cboTrangThai.Location = new System.Drawing.Point(202, 180);
             this.cboTrangThai.Name = "cboTrangThai";
             this.cboTrangThai.Size = new System.Drawing.Size(200, 34);
             this.cboTrangThai.TabIndex = 109;
@@ -148,18 +192,18 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(460, 33);
+            this.label2.Location = new System.Drawing.Point(460, 42);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(234, 22);
+            this.label2.Size = new System.Drawing.Size(128, 22);
             this.label2.TabIndex = 86;
-            this.label2.Text = "PHÒNG BAN ĐẢM NHẬN";
+            this.label2.Text = "TÀI NGUYÊN";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(460, 94);
+            this.label1.Location = new System.Drawing.Point(460, 97);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(161, 22);
             this.label1.TabIndex = 87;
@@ -170,7 +214,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(59, 26);
+            this.label4.Location = new System.Drawing.Point(60, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 22);
             this.label4.TabIndex = 84;
@@ -192,7 +236,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(59, 94);
+            this.label3.Location = new System.Drawing.Point(60, 109);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 22);
             this.label3.TabIndex = 85;
@@ -203,7 +247,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(59, 165);
+            this.label12.Location = new System.Drawing.Point(60, 180);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(128, 22);
             this.label12.TabIndex = 96;
@@ -264,40 +308,6 @@
             this.lblTitle.Text = "Title";
             this.lblTitle.TextColor = System.Drawing.Color.White;
             this.lblTitle.UseVisualStyleBackColor = false;
-            // 
-            // txtMaDA
-            // 
-            this.txtMaDA.BackColor = System.Drawing.Color.White;
-            this.txtMaDA.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.txtMaDA.BorderSize = 3;
-            this.txtMaDA.ForeColor = System.Drawing.Color.Black;
-            this.txtMaDA.Location = new System.Drawing.Point(201, 14);
-            this.txtMaDA.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMaDA.Multiline = false;
-            this.txtMaDA.Name = "txtMaDA";
-            this.txtMaDA.Padding = new System.Windows.Forms.Padding(7);
-            this.txtMaDA.Password = false;
-            this.txtMaDA.Size = new System.Drawing.Size(200, 41);
-            this.txtMaDA.TabIndex = 110;
-            this.txtMaDA.Texts = "";
-            this.txtMaDA.UnderlinedStyle = false;
-            // 
-            // txtTenDA
-            // 
-            this.txtTenDA.BackColor = System.Drawing.Color.White;
-            this.txtTenDA.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.txtTenDA.BorderSize = 3;
-            this.txtTenDA.ForeColor = System.Drawing.Color.Black;
-            this.txtTenDA.Location = new System.Drawing.Point(201, 84);
-            this.txtTenDA.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTenDA.Multiline = false;
-            this.txtTenDA.Name = "txtTenDA";
-            this.txtTenDA.Padding = new System.Windows.Forms.Padding(7);
-            this.txtTenDA.Password = false;
-            this.txtTenDA.Size = new System.Drawing.Size(200, 41);
-            this.txtTenDA.TabIndex = 111;
-            this.txtTenDA.Texts = "";
-            this.txtTenDA.UnderlinedStyle = false;
             // 
             // FTaoDuAn
             // 
