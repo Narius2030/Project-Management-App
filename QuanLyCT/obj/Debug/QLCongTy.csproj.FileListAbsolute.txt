@@ -537,3 +537,26 @@ D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\EntityFramework.xml
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\EntityFramework.SqlServer.xml
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\QLCongTy.exe.config
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\QLCongTy.exe
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\QLCongTy.pdb
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\EntityFramework.dll
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\EntityFramework.SqlServer.dll
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\EntityFramework.xml
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\bin\Debug\EntityFramework.SqlServer.xml
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.exe
+C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.pdb
