@@ -157,7 +157,13 @@
       <DependentUpon>fCheckin-Checkout.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportFile.cs" />
+<<<<<<< HEAD
     <Compile Include="Views\MainMenu\FMainMenu.cs" />
+=======
+    <Compile Include="Views\MainMenu\FMainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+>>>>>>> 33fc26a041df68a5f9324046eb92264c4aea1183
     <Compile Include="Views\MainMenu\FMainMenu.designer.cs">
       <DependentUpon>FMainMenu.cs</DependentUpon>
     </Compile>
