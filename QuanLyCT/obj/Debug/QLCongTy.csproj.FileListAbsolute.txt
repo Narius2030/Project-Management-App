@@ -44,3 +44,5 @@ D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInpu
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.exe
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.Views.NhanSu.fNhiemVu.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.Views.NhanSu.fNhom.resources

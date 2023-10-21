@@ -177,6 +177,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\NhanSu\fNhiemVu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhiemVu.designer.cs">
+      <DependentUpon>fNhiemVu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhom.designer.cs">
+      <DependentUpon>fNhom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\QLDuAn\FQLDuAn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -214,6 +226,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NhanSu\fNhiemVu.resx">
+      <DependentUpon>fNhiemVu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NhanSu\fNhom.resx">
+      <DependentUpon>fNhom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\QLDuAn\FQLDuAn.resx">
       <DependentUpon>FQLDuAn.cs</DependentUpon>

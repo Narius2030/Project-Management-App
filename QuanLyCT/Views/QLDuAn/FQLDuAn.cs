@@ -4,12 +4,13 @@ using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using QLCongTy.DAO;
 
 namespace QLCongTy.QLDuAn
 {
     public partial class fQLDuAn : Form
     {  
-        
+        GiaiDoanDao gdD =new GiaiDoanDao();
         public fQLDuAn()
         {
             InitializeComponent();
@@ -18,11 +19,15 @@ namespace QLCongTy.QLDuAn
             gvNhanLuc.AllowUserToAddRows = false;
             gvPCDuAn.AllowUserToAddRows = false;
         }
-
+        void LoadDataGiaiDoan()
+        {
+            gvDSGiaiDoan.DataSource = gdD.GetListSprint();
+        }
         private void fQLDuAn_Load(object sender, EventArgs e)
         {
-           
-            
+            LoadDataGiaiDoan();
+
+
         }
         public void LoadCboFind()
         {
@@ -221,5 +226,36 @@ namespace QLCongTy.QLDuAn
         }
 
         #endregion
+
+        private void gvDSGiaiDoan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex == -1)
+            {
+                return;
+            }    
+            else
+            {
+                DataGridViewRow row = gvDSGiaiDoan.Rows[e.RowIndex];
+                txtMaGD.Texts = row.Cells[0].Value.ToString();
+                dtpNgayBD.Value = Convert.ToDateTime(row.Cells[2].Value.ToString());
+                dtpNgayKT.Value = Convert.ToDateTime(row.Cells[3].Value.ToString());
+                txtNoiDung.Texts = row.Cells[1].Value.ToString();
+            }   
+        }
+
+        private void btnadd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnremove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnupdate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
