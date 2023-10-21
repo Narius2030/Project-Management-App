@@ -65,7 +65,11 @@
     <Property Name="Levels" Type="varchar" MaxLength="10" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
     <Property Name="SDT" Type="varchar" MaxLength="10" />
+<<<<<<< HEAD
     <Property Name="MaTaiKhoan" Type="varchar" MaxLength="20" />
+=======
+    <Property Name="TaiKhoan" Type="varchar" MaxLength="20" />
+>>>>>>> 61de1a83d4cb14a8d3ccbc9b02fd905b499e83dc
     <Property Name="MatKhau" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="NHIEMVU">
@@ -306,11 +310,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+<<<<<<< HEAD
   <Function Name="sp_ktrDangNhap" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="matk" Type="varchar" Mode="In" />
     <Parameter Name="matkhau" Type="varchar" Mode="In" />
     <Parameter Name="check" Type="int" Mode="InOut" />
   </Function>
+=======
+>>>>>>> 61de1a83d4cb14a8d3ccbc9b02fd905b499e83dc
   <EntityContainer Name="QLDAModelStoreContainer">
     <EntitySet Name="CAP" EntityType="Self.CAP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CONGVIEC" EntityType="Self.CONGVIEC" Schema="dbo" store:Type="Tables" />
