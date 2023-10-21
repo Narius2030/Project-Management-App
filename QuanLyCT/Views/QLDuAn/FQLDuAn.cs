@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using QLCongTy.DAO;
+using QLCongTy.DTO;
 
 namespace QLCongTy.QLDuAn
 {
@@ -240,22 +241,90 @@ namespace QLCongTy.QLDuAn
                 dtpNgayBD.Value = Convert.ToDateTime(row.Cells[2].Value.ToString());
                 dtpNgayKT.Value = Convert.ToDateTime(row.Cells[3].Value.ToString());
                 txtNoiDung.Texts = row.Cells[1].Value.ToString();
+                lblDuAn.Text = row.Cells[4].Value.ToString();   
             }   
         }
 
         private void btnadd_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                GIAIDOAN gd = new GIAIDOAN()
+                {
+                    MaGiaiDoan = txtMaGD.Texts,
+                    NoiDung = txtNoiDung.Texts,
+                    NgayBD = dtpNgayBD.Value,
+                    NgayKT = dtpNgayKT.Value,
+                    MaDA = Convert.ToInt32(lblDuAn.Text)
+                };
+                DataTable kq = gdD.CheckGiaiDoan(gd);
+                if (kq.Rows.Count > 0)
+                {
+                    gdD.ThemGiaiDoan(gd);
+                    LoadDataGiaiDoan();
+                }
+                else
+                {
+                    MessageBox.Show($"Thêm Thất Bại ", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }    
+            }
+            catch(Exception)
+            { 
+                MessageBox.Show("Thêm Thất Bại","Thông Báo",MessageBoxButtons.RetryCancel,MessageBoxIcon.Error);
+            }
         }
 
         private void btnremove_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                GIAIDOAN gd = new GIAIDOAN()
+                {
+                    MaGiaiDoan = txtMaGD.Texts,
+                };
+                if (gdD.XoaGiaiDoan(gd) == 1)
+                {
+                    LoadDataGiaiDoan();
+                    MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
         }
 
         private void btnupdate_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                GIAIDOAN gd = new GIAIDOAN()
+                {
+                    MaGiaiDoan = txtMaGD.Texts,
+                    NoiDung = txtNoiDung.Texts,
+                    NgayBD = dtpNgayBD.Value,
+                    NgayKT = dtpNgayKT.Value,
+                    MaDA = Convert.ToInt32(lblDuAn.Text)
+                };
+                 DataTable kq = gdD.CheckGiaiDoan(gd);
+                if (gdD.SuaGiaiDoan(gd) == 1 && kq.Rows.Count>0)
+                {
+                    LoadDataGiaiDoan();
+                    MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }    
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
         }
     }
 }

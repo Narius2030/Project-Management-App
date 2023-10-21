@@ -52,10 +52,7 @@
     <EntitySetMapping Name="NHANVIENs">
       <EntityTypeMapping TypeName="QLDAModel.NHANVIEN">
         <MappingFragment StoreEntitySet="NHANVIEN">
-<<<<<<< HEAD
           <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
-=======
->>>>>>> 61de1a83d4cb14a8d3ccbc9b02fd905b499e83dc
           <ScalarProperty Name="MaNV" ColumnName="MaNV" />
           <ScalarProperty Name="HovaTenDem" ColumnName="HovaTenDem" />
           <ScalarProperty Name="Ten" ColumnName="Ten" />
@@ -64,10 +61,6 @@
           <ScalarProperty Name="Levels" ColumnName="Levels" />
           <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />
-<<<<<<< HEAD
-=======
-          <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
->>>>>>> 61de1a83d4cb14a8d3ccbc9b02fd905b499e83dc
           <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -134,9 +127,6 @@
         <ScalarProperty Name="MaTN" ColumnName="MaTN" />
       </EndProperty>
     </AssociationSetMapping>
-<<<<<<< HEAD
     <FunctionImportMapping FunctionImportName="sp_ktrDangNhap" FunctionName="QLDAModel.Store.sp_ktrDangNhap" />
-=======
->>>>>>> 61de1a83d4cb14a8d3ccbc9b02fd905b499e83dc
   </EntityContainerMapping>
 </Mapping>

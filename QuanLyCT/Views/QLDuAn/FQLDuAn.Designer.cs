@@ -156,7 +156,7 @@
             this.gvDSGiaiDoan = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.artanPannel7 = new ArtanComponent.ArtanPannel();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblDuAn = new System.Windows.Forms.Label();
             this.tmShowTiendo = new System.Windows.Forms.Timer(this.components);
             this.tabQLDA.SuspendLayout();
             this.tpQLDA.SuspendLayout();
@@ -1650,7 +1650,7 @@
             this.txtNoiDung.PlaceholderText = "Nội dung";
             this.txtNoiDung.Size = new System.Drawing.Size(315, 150);
             this.txtNoiDung.TabIndex = 95;
-            this.txtNoiDung.Texts = "";
+            this.txtNoiDung.Texts = "Nội dung";
             this.txtNoiDung.UnderlinedStyle = false;
             // 
             // btnremove
@@ -1773,7 +1773,7 @@
             this.txtMaGD.PlaceholderText = "VD: 01DA01";
             this.txtMaGD.Size = new System.Drawing.Size(269, 44);
             this.txtMaGD.TabIndex = 89;
-            this.txtMaGD.Texts = "";
+            this.txtMaGD.Texts = "VD: 01DA01";
             this.txtMaGD.UnderlinedStyle = false;
             // 
             // label16
@@ -1924,7 +1924,7 @@
             // 
             this.artanPannel7.BackColor = System.Drawing.Color.White;
             this.artanPannel7.BorderRadius = 0;
-            this.artanPannel7.Controls.Add(this.label14);
+            this.artanPannel7.Controls.Add(this.lblDuAn);
             this.artanPannel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.artanPannel7.ForeColor = System.Drawing.Color.Black;
             this.artanPannel7.GradientAngle = 90F;
@@ -1936,18 +1936,18 @@
             this.artanPannel7.Size = new System.Drawing.Size(1398, 72);
             this.artanPannel7.TabIndex = 87;
             // 
-            // label14
+            // lblDuAn
             // 
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label14.Location = new System.Drawing.Point(10, 10);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(1378, 52);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "Mã_Tên Dự Án";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDuAn.BackColor = System.Drawing.Color.Transparent;
+            this.lblDuAn.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDuAn.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDuAn.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblDuAn.Location = new System.Drawing.Point(10, 10);
+            this.lblDuAn.Name = "lblDuAn";
+            this.lblDuAn.Size = new System.Drawing.Size(1378, 52);
+            this.lblDuAn.TabIndex = 1;
+            this.lblDuAn.Text = "Mã_Tên Dự Án";
+            this.lblDuAn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tmShowTiendo
             // 
@@ -2105,7 +2105,7 @@
         private System.Windows.Forms.DataGridView gvDSGiaiDoan;
         private System.Windows.Forms.Panel panel2;
         private ArtanComponent.ArtanPannel artanPannel7;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblDuAn;
         private VBButton btnupdate;
         private VBButton btnremove;
         private VBButton btnadd;

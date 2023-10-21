@@ -144,8 +144,7 @@ namespace QLCongTy
         {
             get
             {
-                if (isPlaceholder) return "";
-                else return textbox.Text;
+               return textbox.Text;
             }
             set
             {
@@ -359,7 +358,6 @@ namespace QLCongTy
         {
             isFocused = true;
             this.Invalidate();
-            RemovePlaceholder();
         }
         private void textBox1_Leave(object sender, EventArgs e)
         {
