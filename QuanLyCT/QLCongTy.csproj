@@ -273,6 +273,8 @@
     <None Include="Views\Resources\calendarWhite.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\Constraints.sql" />
+    <Content Include="Database\ProcedureAndFunction.sql" />
     <Content Include="Database\QLDA_DB.sql" />
     <Content Include="DTO\QLDACongTyPM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
