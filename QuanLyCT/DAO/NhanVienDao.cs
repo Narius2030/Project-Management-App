@@ -1,52 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QLCongTy.DTO;
+
 namespace QLCongTy.DAO
 {
-    public class NhanVienDao
+    internal class NhanVienDao
     {
-        DBConnection Dbc = new DBConnection();
-        public int CheckTaiKhoan(NHANVIEN nv)
-        {
-            SqlParameter[] parameters = new SqlParameter[]
-            {
-                new SqlParameter("@matk", SqlDbType.NVarChar, 20) { Value = nv.MaTaiKhoan },
-                new SqlParameter("@matkhau", SqlDbType.NVarChar, 20) { Value = nv.MatKhau },
-                new SqlParameter("@check", SqlDbType.Int) { Direction = ParameterDirection.Output }
-            };
-            Dbc.ExecuteProcedure("sp_ktrDangNhap", parameters);
-
-            int check = Convert.ToInt32(parameters[2].Value);
-
-            return check;
-        }
-
-        //public int CheckTaiKhoan(NHANVIEN nv) 
-        //{
-        //    int check = 0;
-
-        //    using (SqlConnection conn = Dbc.conn)
-        //    using (SqlCommand cmd = new SqlCommand("sp_ktrDangNhap", conn))
-        //    {
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Parameters.Add("@matk", SqlDbType.NVarChar, 20).Value = nv.MaTaiKhoan;
-        //        cmd.Parameters.Add("@matkhau", SqlDbType.NVarChar, 20).Value = nv.MatKhau;
-
-        //        cmd.Parameters.Add("@check", SqlDbType.Int).Direction = ParameterDirection.Output;
-
-        //        conn.Open();
-        //        cmd.ExecuteNonQuery();
-
-        //        check = Convert.ToInt32(cmd.Parameters["@check"].Value.ToString());
-        //    }
-        //    return check;
-        //}
-
     }
 }

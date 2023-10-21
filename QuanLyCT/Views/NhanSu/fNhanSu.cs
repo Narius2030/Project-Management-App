@@ -24,7 +24,7 @@ namespace QLCongTy.NhanSu
           
             DoiTenGV();
             GetCboPB();
-            GetCboCV();
+            //GetCboCV();
 
             //Thống kê
             ThongKeLuong();
@@ -36,21 +36,23 @@ namespace QLCongTy.NhanSu
            
             cboChucVu.Text = "";
             cboGioiTinh.Text = "";
-            cboPhongBan.Text = "";
         }
 
         #region Tương tác với Datagridview
 
         private void DoiTenGV()
         {
-            
+            string[] thuoctinh = { "Mã Nhân Viên", "Họ Đệm", "Tên", "Ngày Sinh", "Địa Chỉ", "CCCD", "Mã Phòng Ban", "Giới Tính", "SĐT", "Email", "MaCV" };
+            for (int i = 0; i < thuoctinh.Length; i++)
+            {
+                gvNhanSu.Columns[i].HeaderText = thuoctinh[i];
+            }
         }
         #endregion
 
         #region Các chức năng phổ biến
         private void cboPhongBan_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string value = cboPhongBan.Text.ToString().Substring(0, 4);
           
         }
 
@@ -190,32 +192,25 @@ namespace QLCongTy.NhanSu
         {
             DataGridViewRow r = gvNhanSu.SelectedRows[0];
 
-            txtMaNV.Texts = r.Cells[0].Value.ToString();
-            txtHoDem.Texts = r.Cells[1].Value.ToString();
-            txtTenNV.Texts = r.Cells[2].Value.ToString();
-            dtpNgaySinh.Text = r.Cells[3].Value.ToString();
-            txtDiaChi.Texts = r.Cells[4].Value.ToString();
-            txtCCCD.Texts = r.Cells[5].Value.ToString();
-            cboPB.Text = r.Cells[6].Value.ToString();
-            cboGTinh.Text = r.Cells[7].Value.ToString();
-            txtSDT.Texts = r.Cells[8].Value.ToString();
-            txtEmail.Texts = r.Cells[9].Value.ToString();
-            cboCV.Text = r.Cells[10].Value.ToString();
-            cboTrinhdo.Text = r.Cells[11].Value.ToString();
+            //txtMaNV.Texts = r.Cells[0].Value.ToString();
+            //txtHoDem.Texts = r.Cells[1].Value.ToString();
+            //txtTenNV.Texts = r.Cells[2].Value.ToString();
+            //dtpNgaySinh.Text = r.Cells[3].Value.ToString();
+            //txtDiaChi.Texts = r.Cells[4].Value.ToString();
+            //txtCCCD.Texts = r.Cells[5].Value.ToString();
+            //cboPB.Text = r.Cells[6].Value.ToString();
+            //cboGTinh.Text = r.Cells[7].Value.ToString();
+            //txtSDT.Texts = r.Cells[8].Value.ToString();
+            //txtEmail.Texts = r.Cells[9].Value.ToString();
+            //cboCV.Text = r.Cells[10].Value.ToString();
+            //cboTrinhdo.Text = r.Cells[11].Value.ToString();
         }
 
         private void GetCboPB()
         {
           
-            cboPB.DisplayMember = "TenPB";
-            cboPB.ValueMember = "MaPB";
-        }
-
-        private void GetCboCV()
-        {
-          
-            cboCV.DisplayMember = "TenCV";
-            cboCV.ValueMember = "MaCV";
+            //cboPB.DisplayMember = "TenPB";
+            //cboPB.ValueMember = "MaPB";
         }
     }
 }

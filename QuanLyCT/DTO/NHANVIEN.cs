@@ -23,11 +23,7 @@ namespace QLCongTy.DTO
             this.NHOMs = new HashSet<NHOM>();
             this.TRUONGNHOMs = new HashSet<TRUONGNHOM>();
         }
-        public NHANVIEN(string MaTaiKhoan, string MatKhau)
-        {
-            this.MaTaiKhoan = MaTaiKhoan;
-            this.MatKhau = MatKhau;
-        }
+    
         public string MaNV { get; set; }
         public string HovaTenDem { get; set; }
         public string Ten { get; set; }
@@ -36,8 +32,8 @@ namespace QLCongTy.DTO
         public string Levels { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }
+        public string TaiKhoan { get; set; }
         public string MatKhau { get; set; }
-        public string MaTaiKhoan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DIEMDANH> DIEMDANHs { get; set; }

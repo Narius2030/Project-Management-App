@@ -102,7 +102,7 @@
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 61);
             this.pnlMenu.Name = "pnlMenu";
-            this.pnlMenu.Size = new System.Drawing.Size(245, 879);
+            this.pnlMenu.Size = new System.Drawing.Size(245, 889);
             this.pnlMenu.TabIndex = 0;
             // 
             // btnDangXuat
@@ -526,6 +526,7 @@
             // pnlLogin
             // 
             this.pnlLogin.BackColor = System.Drawing.Color.Lavender;
+          
             this.pnlLogin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlLogin.Controls.Add(this.artanPannel3);
             this.pnlLogin.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -590,7 +591,7 @@
             this.artanPannel2.GradientTopcolor = System.Drawing.Color.Transparent;
             this.artanPannel2.Location = new System.Drawing.Point(120, 503);
             this.artanPannel2.Name = "artanPannel2";
-            this.artanPannel2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.artanPannel2.Padding = new System.Windows.Forms.Padding(5);
             this.artanPannel2.Size = new System.Drawing.Size(420, 70);
             this.artanPannel2.TabIndex = 93;
             // 
@@ -622,10 +623,9 @@
             this.txtMatKhau.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMatKhau.ForeColor = System.Drawing.Color.Black;
             this.txtMatKhau.Location = new System.Drawing.Point(9, 9);
-            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4);
             this.txtMatKhau.Multiline = false;
             this.txtMatKhau.Name = "txtMatKhau";
-
             this.txtMatKhau.Padding = new System.Windows.Forms.Padding(7);
             this.txtMatKhau.PasswordChar = true;
             this.txtMatKhau.Size = new System.Drawing.Size(354, 56);
@@ -644,7 +644,7 @@
             this.artanPannel1.GradientTopcolor = System.Drawing.Color.Transparent;
             this.artanPannel1.Location = new System.Drawing.Point(120, 347);
             this.artanPannel1.Name = "artanPannel1";
-            this.artanPannel1.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.artanPannel1.Padding = new System.Windows.Forms.Padding(5);
             this.artanPannel1.Size = new System.Drawing.Size(420, 70);
             this.artanPannel1.TabIndex = 92;
             // 
@@ -659,7 +659,7 @@
             this.txtTaiKhoan.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTaiKhoan.ForeColor = System.Drawing.Color.Black;
             this.txtTaiKhoan.Location = new System.Drawing.Point(9, 9);
-            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
             this.txtTaiKhoan.Multiline = false;
             this.txtTaiKhoan.Name = "txtTaiKhoan";
             this.txtTaiKhoan.Padding = new System.Windows.Forms.Padding(7);
@@ -716,7 +716,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1600, 940);
+            this.ClientSize = new System.Drawing.Size(1600, 950);
             this.Controls.Add(this.pnlDesktop);
             this.Controls.Add(this.pnlShadow);
             this.Controls.Add(this.pnlMenu);
