@@ -221,5 +221,39 @@ namespace QLCongTy.QLDuAn
         }
 
         #endregion
+
+        
+        private void btn_ThongTin_CV_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnCV_Click(object sender, EventArgs e)
+        {
+            tmShowCV.Start();
+        }
+
+        bool sidebarExpand_CV = false;
+        private void tmShowCV_Tick(object sender, EventArgs e)
+        {
+            if (sidebarExpand_CV)
+            {
+                pnlCV.Height -= 50;
+                if (pnlCV.Height == pnlCV.MinimumSize.Height)
+                {
+                    sidebarExpand_CV = false;
+                    tmShowCV.Stop();
+                }
+            }
+            else
+            {
+                pnlCV.Height += 50;
+                if (pnlCV.Height == pnlCV.MaximumSize.Height)
+                {
+                    sidebarExpand_CV = true;
+                    tmShowCV.Stop();
+                }
+            }
+        }
     }
 }
