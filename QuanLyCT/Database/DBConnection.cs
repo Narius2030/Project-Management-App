@@ -58,9 +58,6 @@ namespace QLCongTy
 
             return resultTable;
         }
-
-
-
         public DataTable FormLoad(string sqlStr)
         {
             DataTable dataSet = new DataTable();

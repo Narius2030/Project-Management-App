@@ -4,12 +4,13 @@ using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using QLCongTy.DAO;
 
 namespace QLCongTy.QLDuAn
 {
     public partial class fQLDuAn : Form
     {  
-        
+        DuAnDao daDao = new DuAnDao();
         public fQLDuAn()
         {
             InitializeComponent();
@@ -21,8 +22,7 @@ namespace QLCongTy.QLDuAn
 
         private void fQLDuAn_Load(object sender, EventArgs e)
         {
-           
-            
+           gvQLDuAn.DataSource = daDao.getProjectList();
         }
         public void LoadCboFind()
         {

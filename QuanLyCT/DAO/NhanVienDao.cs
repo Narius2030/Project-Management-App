@@ -26,27 +26,5 @@ namespace QLCongTy.DAO
 
             return check;
         }
-
-        //public int CheckTaiKhoan(NHANVIEN nv) 
-        //{
-        //    int check = 0;
-
-        //    using (SqlConnection conn = Dbc.conn)
-        //    using (SqlCommand cmd = new SqlCommand("sp_ktrDangNhap", conn))
-        //    {
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Parameters.Add("@matk", SqlDbType.NVarChar, 20).Value = nv.MaTaiKhoan;
-        //        cmd.Parameters.Add("@matkhau", SqlDbType.NVarChar, 20).Value = nv.MatKhau;
-
-        //        cmd.Parameters.Add("@check", SqlDbType.Int).Direction = ParameterDirection.Output;
-
-        //        conn.Open();
-        //        cmd.ExecuteNonQuery();
-
-        //        check = Convert.ToInt32(cmd.Parameters["@check"].Value.ToString());
-        //    }
-        //    return check;
-        //}
-
     }
 }
