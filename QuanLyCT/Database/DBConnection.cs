@@ -8,7 +8,7 @@ namespace QLCongTy
     internal class DBConnection
     {
         public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
-        public void ThucThiThemXoaSua(string sqlStr)
+        public void ExecuteCommand(string sqlStr)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace QLCongTy
 
 
 
-        public DataTable FormLoad(string sqlStr)
+        public DataTable ExecuteQuery(string sqlStr)
         {
             DataTable dataSet = new DataTable();
             try

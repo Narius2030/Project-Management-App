@@ -21,3 +21,28 @@ C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongT
 C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
 C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.exe
 C:\Education\Giáo trình\Database\RDMS\Final_Project\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\QLCongTy.exe.config
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\QLCongTy.exe
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\QLCongTy.pdb
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\EntityFramework.dll
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\EntityFramework.SqlServer.dll
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\EntityFramework.xml
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\bin\Debug\EntityFramework.SqlServer.xml
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.AssemblyReference.cache
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.fCheckin_Checkout.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.CTTextBox.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.fMainMenu.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.FProfile.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.exe
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.pdb
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.Views.NhanSu.fNhiemVu.resources
+D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.Views.NhanSu.fNhom.resources

@@ -19,7 +19,6 @@ namespace QLCongTy.DTO
         {
             this.CONGVIECs = new HashSet<CONGVIEC>();
         }
-    
         public string MaGiaiDoan { get; set; }
         public string NoiDung { get; set; }
         public Nullable<System.DateTime> NgayBD { get; set; }
