@@ -47,7 +47,7 @@ namespace QLCongTy.QLDuAn
             txtmagiaidoan.Texts = txtMaGD.Texts;
             txtmavaten.Text = lblDuAn.Text;
             txtmaduan.Texts = (da.MaDA).ToString();
-            gvDSPhanCong.DataSource = cvd.LayDanhSach(da.MaDA, txtMaGD.Texts);
+            gvDSPhanCong.DataSource = cvd.GetListJob(da.MaDA, txtMaGD.Texts);
         }
         void LoadTabPages()
         {
@@ -418,21 +418,21 @@ namespace QLCongTy.QLDuAn
             {
                 DataGridViewRow row = gvDSPhanCong.Rows[e.RowIndex];
                 txtmacongviec.Texts = row.Cells[0].Value.ToString();
-                txttrangthai.Texts = row.Cells[1].Value.ToString();
                 txttienquyet.Texts = row.Cells[2].Value.ToString();
-                txttiendo.Texts = row.Cells[4].Value.ToString();
-                int tiendoValue;
-                if (int.TryParse(txttiendo.Texts, out tiendoValue))
+                txttencongviec.Texts = row.Cells[3].Value.ToString();
+                if (int.TryParse(txtmacongviec.Texts, out int macongviec) && !String.IsNullOrEmpty(txtmagiaidoan.Texts))
                 {
-                    pbTienDoGD.Value = tiendoValue; 
+                    double ketqua = cvd.UpdateProgress((macongviec), txtmagiaidoan.Texts);
+                    string trangthai = cvd.UpdateStatus(macongviec);
+                    txttrangthai.Texts = trangthai;
+                    txttiendo.Texts = ketqua.ToString();
+                    double tiendoValue;
+                    if (Double.TryParse(txttiendo.Texts, out tiendoValue))
+                    {
+                        pbTienDoGD.Value = (int)tiendoValue;
+                    }
                 }
-                else
-                {
-                    
-                }
-
-
-
+                LoadCongViec();
             }
         }
 
@@ -462,7 +462,7 @@ namespace QLCongTy.QLDuAn
                 MaDA = Convert.ToInt32(txtmaduan.Texts),
                 MaGiaiDoan = txtmagiaidoan.Texts
             };
-            cvd.Them(cv);
+            cvd.AddJob(cv);
             LoadCongViec();
 
         }
@@ -474,7 +474,7 @@ namespace QLCongTy.QLDuAn
                 MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
 
             };
-            if(cvd.Xoa(cv)==1)
+            if(cvd.RemoveJob(cv)==1)
             {
                 MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }    
@@ -483,6 +483,30 @@ namespace QLCongTy.QLDuAn
                 MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
             LoadCongViec();
+        }
+
+        private void btnupdatepc_Click(object sender, EventArgs e)
+        {
+            CONGVIEC cv = new CONGVIEC()
+            {
+                MaCV= !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
+                TrangThai = txttrangthai.Texts,
+                CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?)null,
+                TenCV = txttencongviec.Texts,
+                TienDo =float.Parse(txttiendo.Texts),
+                TenNhom = cbbtennhom.Texts,
+                MaDA = Convert.ToInt32(txtmaduan.Texts),
+                MaGiaiDoan = txtmagiaidoan.Texts
+            };
+            if (cvd.UpdateJob(cv) == 1)
+            {
+                LoadCongViec();
+                MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }    
         }
     }
 }

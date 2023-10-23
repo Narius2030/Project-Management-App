@@ -330,7 +330,7 @@ INSERT INTO CONGVIEC (TrangThai, CVTienQuyet, TenCV, TienDo, TenNhom, MaDA, MaGi
 GO
 
 INSERT INTO NHIEMVU VALUES
-('01CV01', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV002', 1),
+('01CV09', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV002', 3),
 ('01CV02', DEFAULT, 'Done', 5, N'Chức năng đăng nhập', 6, 'NV003', 2),
 ('01CV03', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV006', 3),
 ('01CV04', '01CV03', 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV007', 4),
