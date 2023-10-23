@@ -21,7 +21,8 @@ namespace QLCongTy.QLDuAn
 
         private void fQLDuAn_Load(object sender, EventArgs e)
         {
-           
+            txtMaGD.Texts = "Hello";
+            
             
         }
         public void LoadCboFind()
@@ -47,7 +48,7 @@ namespace QLCongTy.QLDuAn
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-           
+            MessageBox.Show(txtMaGD.Texts);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)

@@ -144,8 +144,7 @@ namespace QLCongTy
         {
             get
             {
-                if (isPlaceholder) return "";
-                else return textbox.Text;
+                return textbox.Text;
             }
             set
             {
@@ -194,9 +193,9 @@ namespace QLCongTy
 
 
 
-        #endregion
+#endregion
 
-        #region -> Overridden methods
+#region -> Overridden methods
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
@@ -265,9 +264,9 @@ namespace QLCongTy
                 }
             }
         }
-        #endregion
+#endregion
 
-        #region -> Private methods
+#region -> Private methods
         private void SetPlaceholder()
         {
             if (string.IsNullOrWhiteSpace(textbox.Text) && placeholderText != "")
@@ -330,9 +329,9 @@ namespace QLCongTy
                 this.Height = textbox.Height + this.Padding.Top + this.Padding.Bottom;
             }
         }
-        #endregion
+#endregion
 
-        #region -> TextBox events
+#region -> TextBox events
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (_TextChanged != null)
@@ -359,7 +358,7 @@ namespace QLCongTy
         {
             isFocused = true;
             this.Invalidate();
-            RemovePlaceholder();
+            //RemovePlaceholder();
         }
         private void textBox1_Leave(object sender, EventArgs e)
         {
@@ -368,6 +367,6 @@ namespace QLCongTy
             SetPlaceholder();
         }
         ///::::+
-        #endregion
+#endregion
     }
 }

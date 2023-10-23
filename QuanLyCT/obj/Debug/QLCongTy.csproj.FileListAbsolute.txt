@@ -561,3 +561,5 @@ D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\FontAwesome.Sharp.dll
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\EntityFramework.xml
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\EntityFramework.SqlServer.xml
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
+D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.Views.NhanSu.fNhiemVu.resources
+D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.Views.NhanSu.fNhom.resources
