@@ -13,7 +13,23 @@ namespace QLCongTy.DAO
         public DataTable getProjectList()
         {
             string sqlStr = "SELECT * FROM DUAN";
-            return dbconn.FormLoad(sqlStr);
+            return dbconn.ExecuteQuery(sqlStr);
+        }
+        public DataTable getNhanLucDA(int mada)
+        {
+            string sqlStr = $@"SELECT 
+	                            nv.MaNV, CONCAT(nv.HovaTenDem,' ',nv.Ten), n.TenNhom, nv.Email
+                            FROM NHANVIEN nv
+                            JOIN NHOM n ON n.MaNV = nv.MaNV
+                            WHERE n.MaDA = 6";
+            return dbconn.ExecuteQuery(sqlStr);
+        }
+        public DataTable getNhanLucCty()
+        {
+            string sqlStr = $@"SELECT
+	                            MaNV,  CONCAT(HovaTenDem,' ',Ten), Levels, Email
+                            FROM NHANVIEN";
+            return dbconn.ExecuteQuery(sqlStr);
         }
     }
 }

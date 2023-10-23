@@ -8,6 +8,7 @@ using QLCongTy.DAO;
 using QLCongTy.DTO;
 using QLCongTy.NhanSu;
 using QLCongTy.QLDuAn;
+using QLCongTy.Views.NhanSu;
 
 namespace QLCongTy
 {
@@ -58,7 +59,7 @@ namespace QLCongTy
 
         private void btnPhongBan_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FQLNhanVienPB());
+            OpenChildForm(new fNhom());
             HidePanel(pnlNhanSu);
         }
 

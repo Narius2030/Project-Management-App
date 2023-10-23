@@ -13,44 +13,45 @@ namespace QLCongTy.QLDuAn
     {  
         DuAnDao daDao = new DuAnDao();
         GiaiDoanDao gdD =new GiaiDoanDao();
+        DUAN da = new DUAN();
+        NhomDao nd = new NhomDao();
         public fQLDuAn()
         {
             InitializeComponent();
             //Ẩn dòng cuối cùng của DatagridView
             gvQLDuAn.AllowUserToAddRows = false;
-            gvNhanLuc.AllowUserToAddRows = false;
-            gvPCDuAn.AllowUserToAddRows = false;
+            gvNLCTy.AllowUserToAddRows = false;
+            gvNLDA.AllowUserToAddRows = false;
         }
+
+        #region ReLoad Something
         void LoadDataGiaiDoan()
         {
-            gvDSGiaiDoan.DataSource = gdD.GetListSprint();
+            gvDSGiaiDoan.DataSource = gdD.GetListSprint(da.MaDA);
         }
+        void LoadDataNhanLuc()
+        {
+            gvNLDA.DataSource = daDao.getNhanLucDA(da.MaDA);
+            gvNLCTy.DataSource = daDao.getNhanLucCty();
+        }
+        void LoadTabPages()
+        {
+            foreach (TabPage tab in tabQLDA.TabPages)
+            {
+                if (tab.TabIndex != 0)
+                    tabQLDA.Controls.Remove(tab);
+            }
+        }
+        #endregion
+
         private void fQLDuAn_Load(object sender, EventArgs e)
         {
            gvQLDuAn.DataSource = daDao.getProjectList();
-           LoadDataGiaiDoan();
         }
         public void LoadCboFind()
         {
             
         }
-        public void ReLoadPCDuAn()
-        {
-           
-        }
-
-        private void gvPCDuAn_Row_Click(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            DataGridViewRow r = gvPCDuAn.SelectedRows[0];
-            txtMaNV.Texts = r.Cells[1].Value.ToString();
-        }
-
-        private void gvNhanLuc_Row_Click(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            DataGridViewRow r = gvNhanLuc.SelectedRows[0];
-            txtMaNV.Texts = r.Cells[0].Value.ToString();
-        }
-
         private void btnThem_Click(object sender, EventArgs e)
         {
            
@@ -72,9 +73,24 @@ namespace QLCongTy.QLDuAn
 
         private void btnPhanCong_Click(object sender, EventArgs e)
         {
-            
-        }
+            LoadTabPages();
+            tabQLDA.Controls.Add(tpChiaGianDoan);
+            tabQLDA.SelectedIndex = 1;
 
+            //Điền thông tin giai đoạn
+            lblDuAn.Text = da.MaDA.ToString() + "_" + da.TenDA;
+            LoadDataGiaiDoan();
+        }
+        private void btnTuyenNV_Click(object sender, EventArgs e)
+        {
+            LoadTabPages();
+            tabQLDA.Controls.Add(tpTuyenNL);
+            tabQLDA.SelectedIndex = 1;
+
+            //Điền thông tin giai đoạn
+            txtMaDA.Texts = da.MaDA.ToString();
+            LoadDataNhanLuc();
+        }
         private bool CheckQuyen(string MaTruongDA)
         {
             if (fMainMenu.MaNV == MaTruongDA)
@@ -96,7 +112,10 @@ namespace QLCongTy.QLDuAn
 
         private void btnThemNVvaoDA_Click(object sender, EventArgs e)
         {
-           
+            DataGridViewRow row = gvNLCTy.SelectedRows[0];            
+            NHOM nhom = new NHOM(row.Cells["MaNV"].Value.ToString(), cboNhom.Text, int.Parse(txtMaDA.Texts), 0);
+            nd.ThemThanhVien(nhom);
+            MessageBox.Show("Thêm thành viên thành công");
         }
 
         private void cboTrinhDo_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,7 +147,35 @@ namespace QLCongTy.QLDuAn
 
         private void gvQLDuAn_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            //Để data ra đối tượng DuAn để lưu trữ
+            DataGridViewRow r = gvQLDuAn.SelectedRows[0];
+
+            Type type = da.GetType();
+            int i = 0;
+            foreach (var propertyInfo in type.GetProperties())
+            {
+                //MessageBox.Show(propertyInfo.Name.ToString());
+                if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                {
+                    propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                }
+                else if (propertyInfo.PropertyType == typeof(string))
+                {
+                    propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
+                }
+                else if (propertyInfo.PropertyType == typeof(Nullable<float>))
+                {
+                    propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
+                }
+                else
+                {
+                    propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
+                }
+                i++;
+            }
+
+            //Đổ data ra Datagridview TTPhancong
+            LoadDataGiaiDoan();
         }
         private void gvPCDuAn_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -200,8 +247,8 @@ namespace QLCongTy.QLDuAn
             gvQLDuAn.Columns[5].HeaderText = "Bắt Đầu";
             gvQLDuAn.Columns[6].HeaderText = "Kết Thúc";
             gvQLDuAn.Columns[7].HeaderText = "Trạng Thái";
-            gvNhanLuc.Columns[0].HeaderText = "Mã Nhân Viên";
-            gvNhanLuc.Columns[1].HeaderText = "Trình Độ";
+            gvNLCTy.Columns[0].HeaderText = "Mã Nhân Viên";
+            gvNLCTy.Columns[1].HeaderText = "Trình Độ";
         }
         private void gvQLDuAn_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -325,6 +372,11 @@ namespace QLCongTy.QLDuAn
             {
                 MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
+        }
+
+        private void cboTrinhDo_SelectedValueChanged(object sender, EventArgs e)
+        {
+            // Insert TRUONGNHOM
         }
     }
 }
