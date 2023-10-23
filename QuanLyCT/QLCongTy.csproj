@@ -207,6 +207,9 @@
     <Compile Include="Views\QLNhom\FQLNhanVienPB.designer.cs">
       <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\Custome_control\CustomComboBox.resx">
+      <DependentUpon>CustomComboBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\DiemDanh\fCheckin-Checkout.resx">
       <DependentUpon>fCheckin-Checkout.cs</DependentUpon>
     </EmbeddedResource>

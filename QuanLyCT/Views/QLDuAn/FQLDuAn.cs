@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using QLCongTy.DAO;
 using QLCongTy.DTO;
+using System.Collections.Generic;
 
 namespace QLCongTy.QLDuAn
 {
@@ -15,6 +16,8 @@ namespace QLCongTy.QLDuAn
         GiaiDoanDao gdD =new GiaiDoanDao();
         DUAN da = new DUAN();
         NhomDao nd = new NhomDao();
+        GIAIDOAN gd=new GIAIDOAN();
+        CongViecDao cvd=new CongViecDao();
         public fQLDuAn()
         {
             InitializeComponent();
@@ -33,6 +36,18 @@ namespace QLCongTy.QLDuAn
         {
             gvNLDA.DataSource = daDao.getNhanLucDA(da.MaDA);
             gvNLCTy.DataSource = daDao.getNhanLucCty();
+        }
+        void LoadDuLieuNhom()
+        {
+            cbbtennhom.DataSource = nd.laydanhsachnhom(da.MaDA);
+            cbbtennhom.DisplayMember = "TenNhom";
+        }
+        void LoadCongViec()
+        {
+            txtmagiaidoan.Texts = txtMaGD.Texts;
+            txtmavaten.Text = lblDuAn.Text;
+            txtmaduan.Texts = (da.MaDA).ToString();
+            gvDSPhanCong.DataSource = cvd.LayDanhSach(da.MaDA, txtMaGD.Texts);
         }
         void LoadTabPages()
         {
@@ -154,23 +169,29 @@ namespace QLCongTy.QLDuAn
             int i = 0;
             foreach (var propertyInfo in type.GetProperties())
             {
-                //MessageBox.Show(propertyInfo.Name.ToString());
-                if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                //MessageBox.Show(propertyInfo.Name);
+                if(propertyInfo.PropertyType!=typeof(ICollection<GIAIDOAN>)
+                    && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) 
+                    && propertyInfo.PropertyType!=typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
                 {
-                    propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                    if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                    {
+                        propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(string))
+                    {
+                        propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
+                    }
+                    else if (propertyInfo.PropertyType == typeof(Nullable<float>))
+                    {
+                        propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
+                    }
                 }
-                else if (propertyInfo.PropertyType == typeof(string))
-                {
-                    propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
-                }
-                else if (propertyInfo.PropertyType == typeof(Nullable<float>))
-                {
-                    propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
-                }
-                else
-                {
-                    propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
-                }
+       
                 i++;
             }
 
@@ -288,7 +309,7 @@ namespace QLCongTy.QLDuAn
                 dtpNgayBD.Value = Convert.ToDateTime(row.Cells[2].Value.ToString());
                 dtpNgayKT.Value = Convert.ToDateTime(row.Cells[3].Value.ToString());
                 txtNoiDung.Texts = row.Cells[1].Value.ToString();
-                lblDuAn.Text = row.Cells[4].Value.ToString();   
+
             }   
         }
 
@@ -302,7 +323,7 @@ namespace QLCongTy.QLDuAn
                     NoiDung = txtNoiDung.Texts,
                     NgayBD = dtpNgayBD.Value,
                     NgayKT = dtpNgayKT.Value,
-                    MaDA = Convert.ToInt32(lblDuAn.Text)
+                    MaDA = da.MaDA
                 };
                 DataTable kq = gdD.CheckGiaiDoan(gd);
                 if (kq.Rows.Count > 0)
@@ -355,7 +376,7 @@ namespace QLCongTy.QLDuAn
                     NoiDung = txtNoiDung.Texts,
                     NgayBD = dtpNgayBD.Value,
                     NgayKT = dtpNgayKT.Value,
-                    MaDA = Convert.ToInt32(lblDuAn.Text)
+                    MaDA = da.MaDA
                 };
                  DataTable kq = gdD.CheckGiaiDoan(gd);
                 if (gdD.SuaGiaiDoan(gd) == 1 && kq.Rows.Count>0)
@@ -377,6 +398,91 @@ namespace QLCongTy.QLDuAn
         private void cboTrinhDo_SelectedValueChanged(object sender, EventArgs e)
         {
             // Insert TRUONGNHOM
+        }
+        private void vbTaoCV_Click(object sender, EventArgs e)
+        {
+            LoadTabPages();
+            tabQLDA.Controls.Add(tpPhanCongViec);
+            tabQLDA.SelectedIndex = 1;
+            LoadDuLieuNhom();
+            LoadCongViec();
+        }
+
+        private void gvDSPhanCong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+            else
+            {
+                DataGridViewRow row = gvDSPhanCong.Rows[e.RowIndex];
+                txtmacongviec.Texts = row.Cells[0].Value.ToString();
+                txttrangthai.Texts = row.Cells[1].Value.ToString();
+                txttienquyet.Texts = row.Cells[2].Value.ToString();
+                txttiendo.Texts = row.Cells[4].Value.ToString();
+                int tiendoValue;
+                if (int.TryParse(txttiendo.Texts, out tiendoValue))
+                {
+                    pbTienDoGD.Value = tiendoValue; 
+                }
+                else
+                {
+                    
+                }
+
+
+
+            }
+        }
+
+        private void lblreload_Click(object sender, EventArgs e)
+        {
+            List<CTTextBox> list = new List<CTTextBox>()
+            {
+                txttiendo, txtmacongviec,txttrangthai,txttienquyet
+            };
+            foreach(CTTextBox t in list) 
+            {
+                t.Texts = "";
+            }
+            pbTienDoGD.Value = 0;
+        }
+
+        private void btnthemcv_Click(object sender, EventArgs e)
+        {
+
+            CONGVIEC cv = new CONGVIEC()
+            {
+                TrangThai = "Pending",
+                CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?)null,
+                TenCV = txttencongviec.Texts,
+                TienDo = 0,
+                TenNhom = cbbtennhom.Texts,
+                MaDA = Convert.ToInt32(txtmaduan.Texts),
+                MaGiaiDoan = txtmagiaidoan.Texts
+            };
+            cvd.Them(cv);
+            LoadCongViec();
+
+        }
+
+        private void btnxoacv_Click(object sender, EventArgs e)
+        {
+            CONGVIEC cv = new CONGVIEC()
+            {
+                MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
+
+            };
+            if(cvd.Xoa(cv)==1)
+            {
+                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }    
+            else
+            {
+                MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
+            LoadCongViec();
         }
     }
 }
