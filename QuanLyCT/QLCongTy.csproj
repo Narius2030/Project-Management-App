@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{82DF95CD-6650-49A0-9DA2-5F58BDFD368F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>QLCongTy</RootNamespace>
+    <AssemblyName>QLCongTy</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=6.3.0.0, Culture=neutral, PublicKeyToken=d16d1e4e568ec10f, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome.Sharp.6.3.0\lib\net472\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAO\CongViecDao.cs" />
+    <Compile Include="DAO\DiemDanhDao.cs" />
+    <Compile Include="DAO\DuAnDao.cs" />
+    <Compile Include="DAO\GiaiDoanDao.cs" />
+    <Compile Include="DAO\NhanVienDao.cs" />
+    <Compile Include="DAO\NhiemVuDao.cs" />
+    <Compile Include="DAO\NhomDao.cs" />
+    <Compile Include="DAO\TaiNguyenDao.cs" />
+    <Compile Include="DAO\TruongNhomDao.cs" />
+    <Compile Include="DAO\UocLuongDao.cs" />
+    <Compile Include="DTO\CONGVIEC.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\DIEMDANH.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\DUAN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\GIAIDOAN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\NHANVIEN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\NHIEMVU.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\NHOM.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLDACongTyPM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLDACongTyPM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLDACongTyPM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLDACongTyPM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\TAINGUYEN.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\TRUONGNHOM.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\UOCLUONG.cs">
+      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Custome_control\CTDateTimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Custome_control\CTProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Custome_control\CustomComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Custome_control\Custom_Datagridview.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Custome_control\CustomTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Custome_control\CustomTextBox.Designer.cs">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Custome_control\Custom_Pannel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Database\DBConnection.cs" />
+    <Compile Include="Views\DiemDanh\fCheckin-Checkout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\DiemDanh\fCheckin-Checkout.designer.cs">
+      <DependentUpon>fCheckin-Checkout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportFile.cs" />
+    <Compile Include="Views\MainMenu\FMainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainMenu\FMainMenu.designer.cs">
+      <DependentUpon>FMainMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainMenu\FProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainMenu\FProfile.Designer.cs">
+      <DependentUpon>FProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhanSu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhanSu.Designer.cs">
+      <DependentUpon>fNhanSu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\NhanSu\fNhiemVu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhiemVu.designer.cs">
+      <DependentUpon>fNhiemVu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\NhanSu\fNhom.designer.cs">
+      <DependentUpon>fNhom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QLDuAn\FQLDuAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QLDuAn\FQLDuAn.Designer.cs">
+      <DependentUpon>FQLDuAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QLDuAn\FTaoDuAn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QLDuAn\FTaoDuAn.Designer.cs">
+      <DependentUpon>FTaoDuAn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QLNhom\FQLNhanVienPB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QLNhom\FQLNhanVienPB.designer.cs">
+      <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\DiemDanh\fCheckin-Checkout.resx">
+      <DependentUpon>fCheckin-Checkout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Custome_control\CustomTextBox.resx">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainMenu\FMainMenu.resx">
+      <DependentUpon>FMainMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainMenu\FProfile.resx">
+      <DependentUpon>FProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NhanSu\fNhanSu.resx">
+      <DependentUpon>fNhanSu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NhanSu\fNhiemVu.resx">
+      <DependentUpon>fNhiemVu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NhanSu\fNhom.resx">
+      <DependentUpon>fNhom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QLDuAn\FQLDuAn.resx">
+      <DependentUpon>FQLDuAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QLDuAn\FTaoDuAn.resx">
+      <DependentUpon>FTaoDuAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QLNhom\FQLNhanVienPB.resx">
+      <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="DTO\QLDACongTyPM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLDACongTyPM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DTO\QLDACongTyPM.edmx.diagram">
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Resources\sean-pollock-PhYq704ffdA-unsplash.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Resources\calendarDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Resources\calendarWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\Constraints.sql" />
+    <Content Include="Database\ProcedureAndFunction.sql" />
+    <Content Include="Database\QLDA_DB.sql" />
+    <Content Include="DTO\QLDACongTyPM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+      <LastGenOutput>QLDACongTyPM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DTO\QLDACongTyPM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
+      <LastGenOutput>QLDACongTyPM.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
