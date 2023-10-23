@@ -305,15 +305,23 @@ namespace QLCongTy.QLDuAn
                     MaDA = Convert.ToInt32(lblDuAn.Text)
                 };
                 DataTable kq = gdD.CheckGiaiDoan(gd);
-                if (kq.Rows.Count > 0)
+
+                if (gdD.CheckGiaiDoanTruoc(gd))
                 {
-                    gdD.ThemGiaiDoan(gd);
-                    LoadDataGiaiDoan();
+                    if (kq.Rows.Count == 0)
+                    {
+                        gdD.ThemGiaiDoan(gd);
+                        LoadDataGiaiDoan();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Thêm Thất Bại Rồi", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show($"Thêm Thất Bại ", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }    
+                    MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới");
+                }
             }
             catch(Exception)
             { 
