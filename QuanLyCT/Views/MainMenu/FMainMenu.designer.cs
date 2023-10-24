@@ -58,14 +58,14 @@
             this.pnlDesktop = new System.Windows.Forms.Panel();
             this.pnlLogin = new System.Windows.Forms.Panel();
             this.artanPannel3 = new ArtanComponent.ArtanPannel();
-            this.btnDangNhap = new QLCongTy.VBButton();
             this.btnShowPW = new FontAwesome.Sharp.IconButton();
+            this.txtMatKhau = new QLCongTy.CTTextBox();
+            this.txtTaiKhoan = new QLCongTy.CTTextBox();
+            this.btnDangNhap = new QLCongTy.VBButton();
             this.lblMatKhau = new System.Windows.Forms.Label();
             this.lblTaiKhoan = new System.Windows.Forms.Label();
             this.picAccount = new FontAwesome.Sharp.IconPictureBox();
             this.tmCurrentTime = new System.Windows.Forms.Timer(this.components);
-            this.txtTaiKhoan = new QLCongTy.CTTextBox();
-            this.txtMatKhau = new QLCongTy.CTTextBox();
             this.pnlMenu.SuspendLayout();
             this.pnlDiemDanh.SuspendLayout();
             this.pnlNhanSu.SuspendLayout();
@@ -553,6 +553,67 @@
             this.artanPannel3.Size = new System.Drawing.Size(562, 695);
             this.artanPannel3.TabIndex = 89;
             // 
+            // btnShowPW
+            // 
+            this.btnShowPW.BackColor = System.Drawing.Color.White;
+            this.btnShowPW.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.btnShowPW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowPW.ForeColor = System.Drawing.Color.White;
+            this.btnShowPW.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            this.btnShowPW.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnShowPW.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnShowPW.IconSize = 30;
+            this.btnShowPW.Location = new System.Drawing.Point(445, 515);
+            this.btnShowPW.Name = "btnShowPW";
+            this.btnShowPW.Size = new System.Drawing.Size(38, 33);
+            this.btnShowPW.TabIndex = 7;
+            this.btnShowPW.UseVisualStyleBackColor = false;
+            this.btnShowPW.Click += new System.EventHandler(this.btnShowPW_Click);
+            // 
+            // txtMatKhau
+            // 
+            this.txtMatKhau.BackColor = System.Drawing.SystemColors.Window;
+            this.txtMatKhau.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtMatKhau.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtMatKhau.BorderRadius = 0;
+            this.txtMatKhau.BorderSize = 3;
+            this.txtMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMatKhau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtMatKhau.Location = new System.Drawing.Point(75, 504);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMatKhau.Multiline = false;
+            this.txtMatKhau.Name = "txtMatKhau";
+            this.txtMatKhau.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txtMatKhau.PasswordChar = false;
+            this.txtMatKhau.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtMatKhau.PlaceholderText = "";
+            this.txtMatKhau.Size = new System.Drawing.Size(420, 54);
+            this.txtMatKhau.TabIndex = 106;
+            this.txtMatKhau.Texts = "";
+            this.txtMatKhau.UnderlinedStyle = false;
+            // 
+            // txtTaiKhoan
+            // 
+            this.txtTaiKhoan.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTaiKhoan.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtTaiKhoan.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtTaiKhoan.BorderRadius = 0;
+            this.txtTaiKhoan.BorderSize = 3;
+            this.txtTaiKhoan.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaiKhoan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtTaiKhoan.Location = new System.Drawing.Point(75, 351);
+            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTaiKhoan.Multiline = false;
+            this.txtTaiKhoan.Name = "txtTaiKhoan";
+            this.txtTaiKhoan.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txtTaiKhoan.PasswordChar = false;
+            this.txtTaiKhoan.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtTaiKhoan.PlaceholderText = "";
+            this.txtTaiKhoan.Size = new System.Drawing.Size(420, 51);
+            this.txtTaiKhoan.TabIndex = 105;
+            this.txtTaiKhoan.Texts = "";
+            this.txtTaiKhoan.UnderlinedStyle = false;
+            // 
             // btnDangNhap
             // 
             this.btnDangNhap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
@@ -575,23 +636,6 @@
             this.btnDangNhap.TextColor = System.Drawing.Color.White;
             this.btnDangNhap.UseVisualStyleBackColor = false;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
-            // 
-            // btnShowPW
-            // 
-            this.btnShowPW.BackColor = System.Drawing.Color.White;
-            this.btnShowPW.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.btnShowPW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowPW.ForeColor = System.Drawing.Color.White;
-            this.btnShowPW.IconChar = FontAwesome.Sharp.IconChar.Eye;
-            this.btnShowPW.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnShowPW.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnShowPW.IconSize = 30;
-            this.btnShowPW.Location = new System.Drawing.Point(445, 515);
-            this.btnShowPW.Name = "btnShowPW";
-            this.btnShowPW.Size = new System.Drawing.Size(38, 33);
-            this.btnShowPW.TabIndex = 7;
-            this.btnShowPW.UseVisualStyleBackColor = false;
-            this.btnShowPW.Click += new System.EventHandler(this.btnShowPW_Click);
             // 
             // lblMatKhau
             // 
@@ -634,50 +678,6 @@
             // tmCurrentTime
             // 
             this.tmCurrentTime.Tick += new System.EventHandler(this.tmCurrentTime_Tick);
-            // 
-            // txtTaiKhoan
-            // 
-            this.txtTaiKhoan.BackColor = System.Drawing.SystemColors.Window;
-            this.txtTaiKhoan.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.txtTaiKhoan.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.txtTaiKhoan.BorderRadius = 0;
-            this.txtTaiKhoan.BorderSize = 3;
-            this.txtTaiKhoan.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaiKhoan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtTaiKhoan.Location = new System.Drawing.Point(75, 351);
-            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
-            this.txtTaiKhoan.Multiline = false;
-            this.txtTaiKhoan.Name = "txtTaiKhoan";
-            this.txtTaiKhoan.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.txtTaiKhoan.PasswordChar = false;
-            this.txtTaiKhoan.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtTaiKhoan.PlaceholderText = "";
-            this.txtTaiKhoan.Size = new System.Drawing.Size(420, 51);
-            this.txtTaiKhoan.TabIndex = 105;
-            this.txtTaiKhoan.Texts = "";
-            this.txtTaiKhoan.UnderlinedStyle = false;
-            // 
-            // txtMatKhau
-            // 
-            this.txtMatKhau.BackColor = System.Drawing.SystemColors.Window;
-            this.txtMatKhau.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.txtMatKhau.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.txtMatKhau.BorderRadius = 0;
-            this.txtMatKhau.BorderSize = 3;
-            this.txtMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.txtMatKhau.Location = new System.Drawing.Point(75, 504);
-            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMatKhau.Multiline = false;
-            this.txtMatKhau.Name = "txtMatKhau";
-            this.txtMatKhau.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.txtMatKhau.PasswordChar = false;
-            this.txtMatKhau.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtMatKhau.PlaceholderText = "";
-            this.txtMatKhau.Size = new System.Drawing.Size(420, 54);
-            this.txtMatKhau.TabIndex = 106;
-            this.txtMatKhau.Texts = "";
-            this.txtMatKhau.UnderlinedStyle = false;
             // 
             // fMainMenu
             // 

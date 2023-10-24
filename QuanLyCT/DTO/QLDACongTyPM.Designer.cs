@@ -1,4 +1,5 @@
 ﻿// T4 code generation is enabled for model 'D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\DTO\QLDACongTyPM.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\DTO\QLDACongTyPM.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

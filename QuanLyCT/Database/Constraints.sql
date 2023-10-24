@@ -134,12 +134,18 @@ go
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create or alter trigger tr_addUocLuong on NHOM
 AFTER INSERT AS
+DECLARE @manv VARCHAR(10), @magd VARCHAR(10), @mada INT
+SELECT @manv=i.MaNV, @mada=i.MaDA
+FROM inserted i 
 BEGIN
-   insert into UOCLUONG
-   select i.MaNV, i.MaDA, GIAIDOAN.MaGiaiDoan, NULL, NULL, NULL 
-   from inserted AS i
-	 join GIAIDOAN on i.MaDA= GIAIDOAN.MaDA
-   where GIAIDOAN.NgayKT >= GETDATE()
+	if not exists(select * from UOCLUONG ul 
+		where ul.MaNV = @manv AND ul.MaDA = @mada AND ul.MaGiaiDoan = (SELECT TOP 1 MaGiaiDoan FROM GIAIDOAN WHERE GIAIDOAN.MaDA = @mada ORDER BY MaGiaiDoan DESC))
+		--Nếu nhân viên ko tồn tại trong giai đoạn mới nhất (đang làm việc) tại dự án đó thì tạo mới 1 hàng UOCLUONG
+		insert into UOCLUONG
+		select i.MaNV, i.MaDA, GIAIDOAN.MaGiaiDoan, NULL, NULL, NULL 
+		from inserted AS i
+			join GIAIDOAN on i.MaDA= GIAIDOAN.MaDA
+		where GIAIDOAN.MaGiaiDoan = (SELECT TOP 1 MaGiaiDoan FROM GIAIDOAN WHERE GIAIDOAN.MaDA = i.MaDA ORDER BY MaGiaiDoan DESC)
 END;
 GO
 
@@ -157,48 +163,6 @@ BEGIN
 END;
 GO
 
---3.Cập nhật trạng thái dự án (update) sau khi cập nhật tiến độ (%)
-CREATE OR ALTER TRIGGER tr_Update_Trangthai
-ON DUAN
-AFTER UPDATE
-AS
-BEGIN
-	DECLARE @MADA VARCHAR(10)
-	SELECT @MADA=inserted.MaDA FROM inserted
-    IF EXISTS ( SELECT * FROM inserted WHERE TienDo = 100
-    )
-    BEGIN
-        UPDATE DUAN
-        SET TrangThai = 'Done'
-        FROM DUAN
-        WHERE DUAN.MaDA=@MADA
-    END
-	ELSE
-	BEGIN
-        RAISERROR('Không thể cập nhật dự án',16,2)
-        ROLLBACK TRAN
-    END;
-END
-GO
-
---4.Kiểm tra tính hợp lệ khi thiệt lập giai đoạn mới (update) cho dự án dựa trên trạng thái
-CREATE OR ALTER TRIGGER tr_CheckGiaiDoan
-ON DUAN
-AFTER UPDATE
-AS
-BEGIN
-    IF EXISTS (
-        SELECT *
-        FROM deleted as i
-        WHERE i.TrangThai <> 'Done' and i.TienDo <> 100
-    )
-    BEGIN
-        RAISERROR('Không thể thiết lập giai đoạn mới có thể do nhiệm vụ vẫn chưa được hoàn thành', 16, 1)
-        ROLLBACK TRAN
-    END
-END;
-GO
-
 --5 Xóa NhiemVu trước khi xóa CongViec
 CREATE OR ALTER TRIGGER deleteCongViec on CONGVIEC
 AFTER DELETE AS
@@ -212,7 +176,7 @@ BEGIN
 END
 GO
 
---6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
+--6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết trong cùng 1 công việc trước đó thì không được làm nhiệm vụ hiện tại
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
 AS
@@ -234,7 +198,7 @@ GO
 
 --7) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
 CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
-AFTER INSERT, UPDATE
+AFTER INSERT
 AS
 DECLARE @pm INT, @mada int=0, @madaNew int
 	--Kiểm tra MaPM mới cập nhật có tồn tại trong DUAN hay chưa
@@ -325,7 +289,7 @@ BEGIN
 	WHERE @NgayNghi <= GIAIDOAN.NgayKT AND @NgayNghi >= GIAIDOAN.NgayBD;
 
 	--Lấy CapPerDay theo mã NV
-	SELECT @CapPerDay = NHOM.CapPerDay
+	SELECT @CapPerDay = NHOM.SoGioMotNg
 	FROM NHOM
 	WHERE @MaNV = NHOM.MaNV AND @MaDA = NHOM.MaDA;
 
@@ -381,4 +345,73 @@ BEGIN
 		)
 	END
 END;
+GO
+
+--16.Xóa UOCLUONG của nhan vien trong 1 DUAN trong SPRINT đó SAU KHI xóa khỏi NHOM
+
+--15. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
+CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON NHOM
+AFTER DELETE
+AS
+DECLARE @manv VARCHAR(10), @mada INT, @tennhom VARCHAR(20), @count INT
+SELECT @manv=d.MaNV, @mada=d.MaDA, @tennhom=d.TenNhom
+FROM deleted d
+BEGIN
+	SELECT @count=COUNT(*) FROM NHOM
+	WHERE MaNV=@manv AND MaDA=@mada
+	
+	IF @count = 0	
+	BEGIN
+		DELETE FROM UOCLUONG WHERE MaDA=@mada AND MaNV=@manv
+		PRINT @mada
+		PRINT @tennhom
+		DELETE FROM TRUONGNHOM WHERE MaDA=@mada AND TenNhom=@tennhom
+	END
+END
+GO
+
+--16. Tạo uocluong mới cho từng nhanvien trong duan theo giaidoan mới tạo
+CREATE OR ALTER TRIGGER tr_themUocLuong ON GIAIDOAN
+AFTER INSERT
+AS
+DECLARE @manv VARCHAR(10), @magd VARCHAR(10), @mada INT
+SELECT @mada=i.MaDA, @magd=i.MaGiaiDoan
+FROM inserted i 
+BEGIN
+	DECLARE cursor_nhomDA CURSOR
+	FOR SELECT DISTINCT MaNV FROM NHOM WHERE MaDA=@mada
+	
+	OPEN cursor_nhomDA
+	FETCH NEXT FROM cursor_nhomDA INTO @manv
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		insert into UOCLUONG VALUES(@manv, @mada, @magd, 0, 0, 0)
+		FETCH NEXT FROM cursor_nhomDA INTO @manv
+	END
+	CLOSE cursor_nhomDA;
+END
+GO
+
+--17. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
+CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON NHOM
+AFTER DELETE
+AS
+DECLARE @manv VARCHAR(10), @mada INT, @tennhom VARCHAR(20), @countNhomThamGia INT, @countTVNhom INT, @checkNhomTruong INT
+SELECT @manv=d.MaNV, @mada=d.MaDA, @tennhom=d.TenNhom
+FROM deleted d
+BEGIN
+	--Lấy số lượng thành viên của nhóm trong dự án
+	SELECT @countTVNhom=COUNT(*) FROM NHOM
+	WHERE TenNhom=@tennhom AND MaDA=@mada
+	--Kiểm tra nhân viên đó là trưởng nhóm hay không
+	SELECT @checkNhomTruong=COUNT(*) FROM TRUONGNHOM
+	WHERE TenNhom=@tennhom AND MaDA=@mada AND MaNV=@manv
+
+	--Kiểm tra nếu nhân viên đó còn tham gia nhóm nào khác trong DUAN hay không ?
+	--Nếu nhân viên đó là nhóm trưởng và nhóm còn thành viên thì không được xóa
+	IF  @countTVNhom = 0 AND @checkNhomTruong > 0	
+	BEGIN
+		DELETE FROM TRUONGNHOM WHERE MaDA=@mada AND TenNhom=@tennhom
+	END
+END
 GO

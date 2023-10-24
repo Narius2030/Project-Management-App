@@ -111,8 +111,11 @@ namespace QLCongTy
         }
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            NHANVIEN nv =new NHANVIEN(txtTaiKhoan.Texts,txtMatKhau.Texts);
-            
+            NHANVIEN nv = new NHANVIEN()
+            {
+                MaTaiKhoan = txtTaiKhoan.Texts,
+                MatKhau = txtMatKhau.Texts
+            };
             if (nvD.CheckTaiKhoan(nv)==1)
             {
                 pnlAccount.Visible = true;

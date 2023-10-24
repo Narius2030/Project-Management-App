@@ -78,7 +78,7 @@ begin
 end
 --Procedure Cập Nhật Trạng Thái
 go
-Create Procedure sp_UpdateTrangThai
+CREATE OR ALTER Procedure sp_UpdateTrangThai
 @macongviec int ,@trangthai varchar(20) output
 as
 begin
@@ -97,3 +97,18 @@ begin
 	select @trangthai=CONGVIEC.TrangThai From CONGVIEC where 
 	CONGVIEC.MaCV=@macongviec
 end
+GO
+
+CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Result INT
+
+    IF EXISTS (SELECT 1 FROM TRUONGNHOM WHERE TenNhom = @TenNhom AND MaDA = @MaDA)
+        SET @Result = 1
+    ELSE
+        SET @Result = 0
+
+    RETURN @Result
+END;

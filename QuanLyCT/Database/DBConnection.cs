@@ -58,6 +58,36 @@ namespace QLCongTy
 
             return resultTable;
         }
+        public int ExecuteFunction(string functionName, SqlParameter[] parameters)
+        {
+            SqlCommand cmd = new SqlCommand(functionName, conn);
+            int result;
+            cmd.CommandType = CommandType.StoredProcedure;
+            if (parameters != null)
+            {
+                foreach (SqlParameter parameter in parameters)
+                {
+                    cmd.Parameters.Add(parameter);
+                }
+            }
+            try
+            {
+                conn.Open();
+                //ExecuteScalar chỉ trả về 1 giá trị
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Thực thi thất bại\n" + exc.Message, "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                return -1;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
+        }
         public DataTable ExecuteQuery(string sqlStr)
         {
             DataTable dataSet = new DataTable();
