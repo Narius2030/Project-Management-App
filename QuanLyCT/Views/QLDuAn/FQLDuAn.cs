@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using QLCongTy.DAO;
 using QLCongTy.DTO;
+using System.Collections.Generic;
 
 namespace QLCongTy.QLDuAn
 {
@@ -155,25 +156,30 @@ namespace QLCongTy.QLDuAn
             foreach (var propertyInfo in type.GetProperties())
             {
                 //MessageBox.Show(propertyInfo.Name.ToString());
-                if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                //MessageBox.Show(propertyInfo.Name);
+                if (propertyInfo.PropertyType != typeof(ICollection<GIAIDOAN>)
+                    && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>)
+                    && propertyInfo.PropertyType != typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
                 {
-                    propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
-                }
-                else if (propertyInfo.PropertyType == typeof(string))
-                {
-                    propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
-                }
-                else if (propertyInfo.PropertyType == typeof(Nullable<float>))
-                {
-                    propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
-                }
-                else
-                {
-                    propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
+                    if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                    {
+                        propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(string))
+                    {
+                        propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
+                    }
+                    else if (propertyInfo.PropertyType == typeof(Nullable<float>))
+                    {
+                        propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
+                    }
                 }
                 i++;
             }
-
             //Đổ data ra Datagridview TTPhancong
             LoadDataGiaiDoan();
         }

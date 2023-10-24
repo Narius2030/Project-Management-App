@@ -125,7 +125,7 @@ namespace QLCongTy.DAO
             int id = Int32.Parse(maGD.Substring(0, 2));
             if (id == 1)
             {
-                return "Không có dự án trước đó";
+                return "Không có giai đoạn trước đó";
             }
             else
             {
