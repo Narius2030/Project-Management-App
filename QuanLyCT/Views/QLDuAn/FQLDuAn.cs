@@ -326,20 +326,29 @@ namespace QLCongTy.QLDuAn
                     MaDA = da.MaDA
                 };
                 DataTable kq = gdD.CheckGiaiDoan(gd);
-                if (kq.Rows.Count > 0)
+
+                if (gdD.CheckGiaiDoanTruoc(gd))
                 {
-                    gdD.ThemGiaiDoan(gd);
-                    LoadDataGiaiDoan();
+                    if (kq.Rows.Count == 0)
+                    {
+                        gdD.ThemGiaiDoan(gd);
+                        LoadDataGiaiDoan();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Thêm Thất Bại Rồi", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show($"Thêm Thất Bại ", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }    
+                    MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                }
             }
-            catch(Exception)
-            { 
-                MessageBox.Show("Thêm Thất Bại","Thông Báo",MessageBoxButtons.RetryCancel,MessageBoxIcon.Error);
+            catch (Exception)
+            {
+                MessageBox.Show("Thêm Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
+
         }
 
         private void btnremove_Click(object sender, EventArgs e)
@@ -378,8 +387,7 @@ namespace QLCongTy.QLDuAn
                     NgayKT = dtpNgayKT.Value,
                     MaDA = da.MaDA
                 };
-                 DataTable kq = gdD.CheckGiaiDoan(gd);
-                if (gdD.SuaGiaiDoan(gd) == 1 && kq.Rows.Count>0)
+                if (gdD.SuaGiaiDoan(gd) == 1 )
                 {
                     LoadDataGiaiDoan();
                     MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
