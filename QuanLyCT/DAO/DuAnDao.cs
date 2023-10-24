@@ -21,7 +21,7 @@ namespace QLCongTy.DAO
 	                            nv.MaNV, CONCAT(nv.HovaTenDem,' ',nv.Ten), n.TenNhom, nv.Email
                             FROM NHANVIEN nv
                             JOIN NHOM n ON n.MaNV = nv.MaNV
-                            WHERE n.MaDA = 6";
+                            WHERE n.MaDA = {mada}";
             return dbconn.ExecuteQuery(sqlStr);
         }
         public DataTable getNhanLucCty()
