@@ -162,7 +162,6 @@
             this.artanPannel7 = new ArtanComponent.ArtanPannel();
             this.lblDuAn = new System.Windows.Forms.Label();
             this.tmShowTiendo = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabQLDA.SuspendLayout();
             this.tpQLDA.SuspendLayout();
             this.pnBot.SuspendLayout();
@@ -225,9 +224,7 @@
             this.tpQLDA.Location = new System.Drawing.Point(4, 40);
             this.tpQLDA.Name = "tpQLDA";
             this.tpQLDA.Padding = new System.Windows.Forms.Padding(3);
-
-            this.tpQLDA.Size = new System.Drawing.Size(1331, 903);
-
+            this.tpQLDA.Size = new System.Drawing.Size(1331, 896);
             this.tpQLDA.TabIndex = 0;
             this.tpQLDA.Text = "Dự Án";
             // 
@@ -238,8 +235,7 @@
             this.pnBot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnBot.Location = new System.Drawing.Point(3, 236);
             this.pnBot.Name = "pnBot";
-            this.pnBot.Size = new System.Drawing.Size(1325, 606);
-
+            this.pnBot.Size = new System.Drawing.Size(1325, 599);
             this.pnBot.TabIndex = 89;
             // 
             // pnThongTin
@@ -665,6 +661,8 @@
             this.gvTTPhancong.Size = new System.Drawing.Size(586, 262);
             this.gvTTPhancong.TabIndex = 56;
             // 
+            // tpTuyenNL
+            // 
             // pnTop
             // 
             this.pnTop.BackColor = System.Drawing.Color.White;
@@ -839,11 +837,10 @@
             this.tpTuyenNL.Controls.Add(this.PnlDonxinnghi);
             this.tpTuyenNL.Controls.Add(this.pnlPCDA);
             this.tpTuyenNL.ForeColor = System.Drawing.Color.DarkSlateGray;
-
-            this.tpTuyenNL.Location = new System.Drawing.Point(4, 40);
+            this.tpTuyenNL.Location = new System.Drawing.Point(4, 47);
             this.tpTuyenNL.Name = "tpTuyenNL";
             this.tpTuyenNL.Padding = new System.Windows.Forms.Padding(3);
-            this.tpTuyenNL.Size = new System.Drawing.Size(1331, 903);
+            this.tpTuyenNL.Size = new System.Drawing.Size(1331, 896);
             this.tpTuyenNL.TabIndex = 1;
             this.tpTuyenNL.Text = "Thêm nhân viên";
             // 
@@ -886,7 +883,7 @@
             this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(474, 62);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 26);
+            this.label11.Size = new System.Drawing.Size(83, 33);
             this.label11.TabIndex = 83;
             this.label11.Text = "Nhóm";
             // 
@@ -904,7 +901,7 @@
             "SECURITY"});
             this.cboNhom.Location = new System.Drawing.Point(565, 54);
             this.cboNhom.Name = "cboNhom";
-            this.cboNhom.Size = new System.Drawing.Size(181, 39);
+            this.cboNhom.Size = new System.Drawing.Size(181, 46);
             this.cboNhom.TabIndex = 82;
             // 
             // cboTrinhDo
@@ -918,7 +915,7 @@
             "Internship"});
             this.cboTrinhDo.Location = new System.Drawing.Point(921, 53);
             this.cboTrinhDo.Name = "cboTrinhDo";
-            this.cboTrinhDo.Size = new System.Drawing.Size(145, 39);
+            this.cboTrinhDo.Size = new System.Drawing.Size(145, 46);
             this.cboTrinhDo.TabIndex = 65;
             this.cboTrinhDo.SelectedIndexChanged += new System.EventHandler(this.cboTrinhDo_SelectedIndexChanged);
             this.cboTrinhDo.SelectedValueChanged += new System.EventHandler(this.cboTrinhDo_SelectedValueChanged);
@@ -941,7 +938,7 @@
             this.txtMaDA.PasswordChar = false;
             this.txtMaDA.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtMaDA.PlaceholderText = "";
-            this.txtMaDA.Size = new System.Drawing.Size(135, 35);
+            this.txtMaDA.Size = new System.Drawing.Size(135, 39);
             this.txtMaDA.TabIndex = 59;
             this.txtMaDA.Texts = "";
             this.txtMaDA.UnderlinedStyle = false;
@@ -1203,7 +1200,7 @@
             this.tpPhanCongViec.Location = new System.Drawing.Point(4, 40);
             this.tpPhanCongViec.Name = "tpPhanCongViec";
             this.tpPhanCongViec.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPhanCongViec.Size = new System.Drawing.Size(1331, 903);
+            this.tpPhanCongViec.Size = new System.Drawing.Size(1331, 896);
             this.tpPhanCongViec.TabIndex = 2;
             this.tpPhanCongViec.Text = "Phân Công Việc";
             // 
@@ -1509,9 +1506,6 @@
             this.label7.TabIndex = 91;
             this.label7.Text = "Công việc";
             // 
-            // cboCV
-            // 
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -1520,12 +1514,9 @@
             this.label6.ForeColor = System.Drawing.Color.Black;
             this.label6.Location = new System.Drawing.Point(520, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(108, 26);
+            this.label6.Size = new System.Drawing.Size(200, 33);
             this.label6.TabIndex = 84;
-            this.label6.Text = "Tên nhóm";
-            // 
-            // cboTenNhom
-            // 
+            this.label6.Text = "Danh sách nhóm";
             // 
             // label8
             // 
@@ -1683,7 +1674,6 @@
             this.pbTienDoGD.SymbolBefore = "";
             this.pbTienDoGD.TabIndex = 99;
             // 
-
             // label13
             // 
             this.label13.AutoSize = true;
@@ -1692,8 +1682,7 @@
             this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(59, 20);
             this.label13.Name = "label13";
-
-            this.label13.Size = new System.Drawing.Size(137, 27);
+            this.label13.Size = new System.Drawing.Size(105, 33);
             this.label13.TabIndex = 97;
             this.label13.Text = "Tiến Độ";
             // 
@@ -1736,8 +1725,7 @@
             this.tpChiaGianDoan.Location = new System.Drawing.Point(4, 40);
             this.tpChiaGianDoan.Name = "tpChiaGianDoan";
             this.tpChiaGianDoan.Padding = new System.Windows.Forms.Padding(3);
-
-            this.tpChiaGianDoan.Size = new System.Drawing.Size(1331, 903);
+            this.tpChiaGianDoan.Size = new System.Drawing.Size(1331, 896);
             this.tpChiaGianDoan.TabIndex = 3;
             this.tpChiaGianDoan.Text = "Chia giai đoạn";
             // 
@@ -1997,6 +1985,7 @@
             this.vbTaoCV.Text = "Tạo Công Việc";
             this.vbTaoCV.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
             this.vbTaoCV.UseVisualStyleBackColor = false;
+            this.vbTaoCV.Click += new System.EventHandler(this.vbTaoCV_Click);
             // 
             // vbLabel3
             // 
@@ -2149,8 +2138,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartTiendoCN)).EndInit();
             this.artanPannel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvTTPhancong)).EndInit();
-
-            this.pnTop.ResumeLayout(false);
             this.tpTuyenNL.ResumeLayout(false);
             this.pnlThongtinCheckIn.ResumeLayout(false);
             this.pnlThongtinCheckIn.PerformLayout();
@@ -2276,6 +2263,5 @@
         private VBButton btnupdatepc;
         private System.Windows.Forms.Label label4;
         private CTTextBox txttienquyet;
-        private System.Windows.Forms.Timer timer1;
     }
 }

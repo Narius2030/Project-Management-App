@@ -23,7 +23,6 @@ BEGIN
 	 group by DA.MaDA,GD.MaGiaiDoan
 END
 GO
-<<<<<<< HEAD
 --PROCEDURE CẬP NHẬT TIẾN ĐỘ CÔNG VIỆC
 CREATE OR ALTER PROCEDURE sp_TinhTienDoCV
 @MaCV int, @magiaidoan varchar(20),@ketqua REAL OUTPUT
@@ -72,7 +71,7 @@ begin
 	select @trangthai=CONGVIEC.TrangThai From CONGVIEC where 
 	CONGVIEC.MaCV=@macongviec
 end
-=======
+go
 --Kiểm Tra  Giai đoạn trước đã có công việc trước khi tạo giai đoạn mới
 CREATE OR ALTER PROCEDURE sp_KiemTraGiaiDoanTruoc
     @MaDuAn INT,
@@ -99,4 +98,4 @@ BEGIN
         END
 END
 GO
->>>>>>> thiennhan
+
