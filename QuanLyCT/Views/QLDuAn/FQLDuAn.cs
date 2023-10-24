@@ -18,7 +18,6 @@ namespace QLCongTy.QLDuAn
         NhomDao nd = new NhomDao();
         GIAIDOAN gd=new GIAIDOAN();
         CongViecDao cvd=new CongViecDao();
-
         public fQLDuAn()
         {
             InitializeComponent();
@@ -170,10 +169,10 @@ namespace QLCongTy.QLDuAn
             int i = 0;
             foreach (var propertyInfo in type.GetProperties())
             {
-
-                if (propertyInfo.PropertyType != typeof(ICollection<GIAIDOAN>)
-                    && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>)
-                    && propertyInfo.PropertyType != typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
+                //MessageBox.Show(propertyInfo.Name);
+                if(propertyInfo.PropertyType!=typeof(ICollection<GIAIDOAN>)
+                    && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) 
+                    && propertyInfo.PropertyType!=typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
                 {
                     if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
                     {
@@ -192,8 +191,10 @@ namespace QLCongTy.QLDuAn
                         propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
                     }
                 }
+       
                 i++;
             }
+
             //Đổ data ra Datagridview TTPhancong
             LoadDataGiaiDoan();
         }
@@ -325,23 +326,15 @@ namespace QLCongTy.QLDuAn
                     MaDA = da.MaDA
                 };
                 DataTable kq = gdD.CheckGiaiDoan(gd);
-
-                if (gdD.CheckGiaiDoanTruoc(gd))
+                if (kq.Rows.Count > 0)
                 {
-                    if (kq.Rows.Count == 0)
-                    {
-                        gdD.ThemGiaiDoan(gd);
-                        LoadDataGiaiDoan();
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Thêm Thất Bại Rồi", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                    }
+                    gdD.ThemGiaiDoan(gd);
+                    LoadDataGiaiDoan();
                 }
                 else
                 {
-                    MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới");
-                }
+                    MessageBox.Show($"Thêm Thất Bại ", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }    
             }
             catch(Exception)
             { 
@@ -406,7 +399,6 @@ namespace QLCongTy.QLDuAn
         {
             // Insert TRUONGNHOM
         }
-
         private void vbTaoCV_Click(object sender, EventArgs e)
         {
             LoadTabPages();
@@ -516,6 +508,5 @@ namespace QLCongTy.QLDuAn
                 MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }    
         }
-
     }
 }

@@ -4,23 +4,20 @@ CREATE OR ALTER PROCEDURE sp_ktrDangNhap
 AS
 BEGIN
 	SELECT @check=COUNT(*) FROM NHANVIEN
-	WHERE MaTaiKhoan = @matk AND MatKhau = @matkhau
+	WHERE TaiKhoan = @matk AND MatKhau = @matkhau
 END
 GO
 --Kiểm Tra  Giai đoạn đã hoàn thành chưa  trước khi tạo cái khác
 CREATE or alter PROCEDURE sp_KiemTraGiaiDoan
-    @maduan int,
-    @MaGiaiDoan VARCHAR(255)
+    @maduan int
 AS
 BEGIN
-    SELECT DA.MaDA,GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
-    FROM CongViec CV
-    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
-    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-    WHERE CV.TrangThai != 'Done'
-      AND CV.MaGiaiDoan = @MaGiaiDoan
-      AND DA.MaDA = @maduan
-	 group by DA.MaDA,GD.MaGiaiDoan
+    SELECT DuAn.MaDA,GIAIDOAN.MaGiaiDoan ,COUNT(CONGVIEC.MaCV) as[ số lượng công việc]
+    FROM CongViec,GIAIDOAN,DUAN
+    WHERE CONGVIEC.TrangThai = 'Done'
+      AND GIAIDOAN.MaGiaiDoan=CONGVIEC.MaGiaiDoan and GIAIDOAN.MaDA=DUAN.MaDA
+	  AND DUAN.MaDA=@maduan
+	 group by DUAN.MaDA,GIAIDOAN.MaGiaiDoan
 END
 GO
 --PROCEDURE CẬP NHẬT TIẾN ĐỘ CÔNG VIỆC
@@ -71,31 +68,3 @@ begin
 	select @trangthai=CONGVIEC.TrangThai From CONGVIEC where 
 	CONGVIEC.MaCV=@macongviec
 end
-go
---Kiểm Tra  Giai đoạn trước đã có công việc trước khi tạo giai đoạn mới
-CREATE OR ALTER PROCEDURE sp_KiemTraGiaiDoanTruoc
-    @MaDuAn INT,
-    @MaGiaiDoan VARCHAR(255)
-AS
-BEGIN
-    DECLARE @Count INT
-
-    SELECT @Count = COUNT(*)
-    FROM CongViec CV
-    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
-    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-    WHERE CV.MaGiaiDoan = @MaGiaiDoan
-        AND DA.MaDA = @MaDuAn
-
-    -- Trả về kết quả
-    IF @Count > 0
-        BEGIN
-            SELECT 'true' AS Result
-        END
-    ELSE
-        BEGIN
-            SELECT 'false' AS Result
-        END
-END
-GO
-
