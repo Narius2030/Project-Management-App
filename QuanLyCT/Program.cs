@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLCongTy.QLDuAn;
+using System;
 using System.Windows.Forms;
 
 namespace QLCongTy
@@ -13,7 +14,7 @@ namespace QLCongTy
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new QLDuAn.fQLDuAn());
+            Application.Run(new fMainMenu());
         }
     }
 }

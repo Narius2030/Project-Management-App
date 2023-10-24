@@ -70,7 +70,7 @@
           <Property Name="Levels" Type="varchar" MaxLength="10" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
           <Property Name="SDT" Type="varchar" MaxLength="10" />
-          <Property Name="TaiKhoan" Type="varchar" MaxLength="20" />
+          <Property Name="MaTaiKhoan" Type="varchar" MaxLength="20" />
           <Property Name="MatKhau" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="NHIEMVU">
@@ -311,6 +311,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_ktrDangNhap" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="matk" Type="varchar" Mode="In" />
+          <Parameter Name="matkhau" Type="varchar" Mode="In" />
+          <Parameter Name="check" Type="int" Mode="InOut" />
+        </Function>
         <EntityContainer Name="QLDAModelStoreContainer">
           <EntitySet Name="CAP" EntityType="Self.CAP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONGVIEC" EntityType="Self.CONGVIEC" Schema="dbo" store:Type="Tables" />
@@ -457,13 +462,13 @@
           <Property Name="Levels" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="TaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="MatKhau" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DIEMDANHs" Relationship="Self.FK_DIEMDANH_NHANVIEN" FromRole="NHANVIEN" ToRole="DIEMDANH" />
           <NavigationProperty Name="DUANs" Relationship="Self.FK_DUAN_NHANVIEN" FromRole="NHANVIEN" ToRole="DUAN" />
           <NavigationProperty Name="NHIEMVUs" Relationship="Self.FK_NHIEMVU_NHANVIEN" FromRole="NHANVIEN" ToRole="NHIEMVU" />
           <NavigationProperty Name="NHOMs" Relationship="Self.FK_NHOM_NHANVIEN" FromRole="NHANVIEN" ToRole="NHOM" />
           <NavigationProperty Name="TRUONGNHOMs" Relationship="Self.FK_TRUONGNHOM_NHANVIEN" FromRole="NHANVIEN" ToRole="TRUONGNHOM" />
+          <Property Name="MaTaiKhoan" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="NHIEMVU">
           <Key>
@@ -761,6 +766,11 @@
             <End Role="DUAN" EntitySet="DUANs" />
             <End Role="TAINGUYEN" EntitySet="TAINGUYENs" />
           </AssociationSet>
+          <FunctionImport Name="sp_ktrDangNhap">
+            <Parameter Name="matk" Mode="In" Type="String" />
+            <Parameter Name="matkhau" Mode="In" Type="String" />
+            <Parameter Name="check" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -819,6 +829,7 @@
           <EntitySetMapping Name="NHANVIENs">
             <EntityTypeMapping TypeName="QLDAModel.NHANVIEN">
               <MappingFragment StoreEntitySet="NHANVIEN">
+                <ScalarProperty Name="MaTaiKhoan" ColumnName="MaTaiKhoan" />
                 <ScalarProperty Name="MaNV" ColumnName="MaNV" />
                 <ScalarProperty Name="HovaTenDem" ColumnName="HovaTenDem" />
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
@@ -827,7 +838,6 @@
                 <ScalarProperty Name="Levels" ColumnName="Levels" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="TaiKhoan" ColumnName="TaiKhoan" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -894,6 +904,7 @@
               <ScalarProperty Name="MaTN" ColumnName="MaTN" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ktrDangNhap" FunctionName="QLDAModel.Store.sp_ktrDangNhap" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

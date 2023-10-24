@@ -23,7 +23,7 @@ CREATE TABLE NHANVIEN (
 	Levels varchar(10),
 	DiaChi nvarchar(50),
 	SDT varchar(10),
-	TaiKhoan varchar(20),
+	MaTaiKhoan varchar(20),
 	MatKhau varchar(20),
 );
 

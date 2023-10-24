@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Data;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
-
+using QLCongTy.DAO;
+using QLCongTy.DTO;
 using QLCongTy.NhanSu;
 using QLCongTy.QLDuAn;
+using QLCongTy.Views.NhanSu;
 
 namespace QLCongTy
 {
@@ -15,11 +18,11 @@ namespace QLCongTy
         private IconButton currentBtn;  //Button hien tai
         private Panel leftBorderBtn;    //Bien phia ben trai button
         private Form currentChildForm;  //Form chuc nang hien tai
-        //Fields dang nhap va cham cong
-       
+                                        //Fields dang nhap va cham cong
         public static string MaNV;
         public static string MaCV;
         public bool Account = false;
+        NhanVienDao nvD =new NhanVienDao();
         public fMainMenu()
         {
             InitializeComponent();
@@ -56,7 +59,7 @@ namespace QLCongTy
 
         private void btnPhongBan_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FQLNhanVienPB());
+            OpenChildForm(new fNhom());
             HidePanel(pnlNhanSu);
         }
 
@@ -108,65 +111,29 @@ namespace QLCongTy
         }
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    //Dealing with Login
-            //    var infoAcc="";
-               
-            //    //Enable feature base on their ChucVu
-            //    if (infoAcc.Item3 == null)      
-            //        return;
-            //    if (infoAcc.Item3.Contains("KT") || infoAcc.Item3.Contains("TPNS") || infoAcc.Item3.Contains("GD"))
-            //    {
-            //        pnlAccount.Visible = true;
-            //        btnDangXuat.Visible = true;
-            //        btnTaiKhoan.Visible = true;
-            //        pnlDiemDanh.Visible = true;
-            //        btnDiemDanh.Visible = true;
-            //        pnlDiemDanh.Visible = false;
-            //    }
-            //    if (infoAcc.Item3.Contains("TP") || infoAcc.Item3.Contains("GD"))
-            //    {
-            //        pnlAccount.Visible = true;
-            //        btnDangXuat.Visible = true;
-            //        btnTaiKhoan.Visible = true;
-            //        pnlDiemDanh.Visible = true;
-            //        btnDiemDanh.Visible = true;
-            //        pnlDiemDanh.Visible = false;
-            //        btnDuAn.Visible = true;
-            //        pnlNhanSu.Visible = true;
-            //        btnNhanSu.Visible = true;
-            //        pnlNhanSu.Visible = false;
-            //        btnDuyetDonXinNghi.Enabled = true;
-            //        if (infoAcc.Item3.Contains("GD"))
-            //        {
-            //            btnDuyetDonXinNghi.Enabled = false;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        pnlAccount.Visible = true;
-            //        btnDangXuat.Visible = true;
-            //        btnTaiKhoan.Visible = true;
-            //        pnlDiemDanh.Visible = true;
-            //        btnDiemDanh.Visible = true;
-            //        pnlDiemDanh.Visible = false;
-            //        btnDuyetDonXinNghi.Enabled = false;
-            //    }
-            //    Account = true;
+            NHANVIEN nv =new NHANVIEN(txtTaiKhoan.Texts,txtMatKhau.Texts);
+            
+            if (nvD.CheckTaiKhoan(nv)==1)
+            {
+                pnlAccount.Visible = true;
+                btnDangXuat.Visible = true;
+                btnTaiKhoan.Visible = true;
+                pnlDiemDanh.Visible = true;
+                btnDiemDanh.Visible = true;
+                pnlDiemDanh.Visible = false;
+                btnDuAn.Visible = true;
+                pnlNhanSu.Visible = true;
+                btnNhanSu.Visible = true;
+                pnlNhanSu.Visible = false;
+                btnDuyetDonXinNghi.Enabled = true;
+                HidePanel(pnlLogin);
+                MessageBox.Show("Thành Công", "Thông Bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Thất Bại", "Thông Bao", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
 
-            //    //Assigning to NhanSu variables
-            //    MaNV = infoAcc.Item1;
-            //    MaCV = infoAcc.Item3;
-            //    lblTenNV.Text = currentStaff.HoDem + " " + currentStaff.Ten;
-            //    HidePanel(pnlLogin);
-
-            //    pnlAccount.Visible = true;
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            }
         }
 
         private void btnShowPW_Click(object sender, EventArgs e)

@@ -30,7 +30,7 @@ namespace QLCongTy.DTO
         public string ChiPhi { get; set; }
         public string TrangThai { get; set; }
         public string MaPM { get; set; }
-    
+
         public virtual NHANVIEN NHANVIEN { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GIAIDOAN> GIAIDOANs { get; set; }

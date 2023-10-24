@@ -42,11 +42,7 @@ namespace QLCongTy.NhanSu
 
         private void DoiTenGV()
         {
-            string[] thuoctinh = { "Mã Nhân Viên", "Họ Đệm", "Tên", "Ngày Sinh", "Địa Chỉ", "CCCD", "Mã Phòng Ban", "Giới Tính", "SĐT", "Email", "MaCV" };
-            for (int i = 0; i < thuoctinh.Length; i++)
-            {
-                gvNhanSu.Columns[i].HeaderText = thuoctinh[i];
-            }
+            
         }
         #endregion
 
