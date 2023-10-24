@@ -17,9 +17,9 @@ namespace QLCongTy.DTO
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DUAN()
         {
-            //this.GIAIDOANs = new HashSet<GIAIDOAN>();
-            //this.TRUONGNHOMs = new HashSet<TRUONGNHOM>();
-            //this.TAINGUYENs = new HashSet<TAINGUYEN>();
+            this.GIAIDOANs = new HashSet<GIAIDOAN>();
+            this.TRUONGNHOMs = new HashSet<TRUONGNHOM>();
+            this.TAINGUYENs = new HashSet<TAINGUYEN>();
         }
     
         public int MaDA { get; set; }
@@ -31,12 +31,12 @@ namespace QLCongTy.DTO
         public string TrangThai { get; set; }
         public string MaPM { get; set; }
     
-        //public virtual NHANVIEN NHANVIEN { get; set; }
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<GIAIDOAN> GIAIDOANs { get; set; }
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<TRUONGNHOM> TRUONGNHOMs { get; set; }
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<TAINGUYEN> TAINGUYENs { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GIAIDOAN> GIAIDOANs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TRUONGNHOM> TRUONGNHOMs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TAINGUYEN> TAINGUYENs { get; set; }
     }
 }

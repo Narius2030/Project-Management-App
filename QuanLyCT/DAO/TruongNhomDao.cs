@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace QLCongTy.DAO
 {
-    internal class TruongNhomDao
+    public class TruongNhomDao
     {
+       
     }
 }

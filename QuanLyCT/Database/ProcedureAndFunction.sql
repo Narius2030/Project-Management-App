@@ -16,6 +16,7 @@ BEGIN
     FROM CongViec,GIAIDOAN,DUAN
     WHERE CONGVIEC.TrangThai = 'Done'
       AND GIAIDOAN.MaGiaiDoan=CONGVIEC.MaGiaiDoan and GIAIDOAN.MaDA=DUAN.MaDA
-	  AND DUAN.MaDA=@maduan
+	  AND DUAN.MaDA=7
 	 group by DUAN.MaDA,GIAIDOAN.MaGiaiDoan
 END
+GO

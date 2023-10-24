@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using QLCongTy.DAO;
 using QLCongTy.DTO;
+using System.Collections.Generic;
 
 namespace QLCongTy.QLDuAn
 {
@@ -14,6 +15,7 @@ namespace QLCongTy.QLDuAn
         DuAnDao daDao = new DuAnDao();
         GiaiDoanDao gdD =new GiaiDoanDao();
         DUAN da = new DUAN();
+        NHOM nhom = new NHOM();
         NhomDao nd = new NhomDao();
         public fQLDuAn()
         {
@@ -34,6 +36,10 @@ namespace QLCongTy.QLDuAn
             gvNLDA.DataSource = daDao.getNhanLucDA(da.MaDA);
             gvNLCTy.DataSource = daDao.getNhanLucCty();
         }
+        public void LoadDataDA()
+        {
+            gvQLDuAn.DataSource = daDao.getProjectList();
+        }
         void LoadTabPages()
         {
             foreach (TabPage tab in tabQLDA.TabPages)
@@ -42,11 +48,20 @@ namespace QLCongTy.QLDuAn
                     tabQLDA.Controls.Remove(tab);
             }
         }
+        void LoadDataCboTimKiem()
+        {
+            foreach(DataGridViewRow row in gvQLDuAn.Rows)
+            {
+                cboFindMaDA.Items.Add($"{row.Cells["MaDA"].Value} - {row.Cells["TenDA"].Value}");
+            }
+        }
+
         #endregion
 
         private void fQLDuAn_Load(object sender, EventArgs e)
         {
-           gvQLDuAn.DataSource = daDao.getProjectList();
+            LoadDataDA();
+            LoadDataCboTimKiem();
         }
         public void LoadCboFind()
         {
@@ -54,23 +69,34 @@ namespace QLCongTy.QLDuAn
         }
         private void btnThem_Click(object sender, EventArgs e)
         {
-           
+            FTaoDuAn fTaoDuAn = new FTaoDuAn(da, btnThem.Text);
+            fTaoDuAn.Show();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            try
+            {
+                daDao.removeDuAn(da.MaDA);
+                MessageBox.Show("Thao tác thành công");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadDataDA();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            
+            FTaoDuAn fTaoDuAn = new FTaoDuAn(da, btnSua.Text);
+            fTaoDuAn.Show();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnPhanCong_Click(object sender, EventArgs e)
         {
             LoadTabPages();
@@ -99,23 +125,38 @@ namespace QLCongTy.QLDuAn
             }
             return false;
         }
-
         private void btnFilter_Click(object sender, EventArgs e)
         {
-            
+            gvNLCTy.DataSource = daDao.FilterLevel(cboTrinhDo.Text);
         }
-
         private void btnXoaNVkhoiDA_Click(object sender, EventArgs e)
         {
-            
+            DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn loại nhân viên khỏi dự án ?", "Xác nhận", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                daDao.removeThanhVienDA(nhom);
+                //Xoa UOCLUONG nếu ko error
+                //...
+            }
+            LoadDataNhanLuc();
         }
-
         private void btnThemNVvaoDA_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = gvNLCTy.SelectedRows[0];            
-            NHOM nhom = new NHOM(row.Cells["MaNV"].Value.ToString(), cboNhom.Text, int.Parse(txtMaDA.Texts), 0);
+            nhom.MaNV = txtNhomTruong.Texts;
+            nhom.MaDA = int.Parse(txtMaDA.Texts);
+            nhom.TenNhom = cboNhom.Text;
+            nhom.SoGioMotNg = 0;
+            if (cbNhomTruong.Checked == true)
+            {
+                TRUONGNHOM tn = new TRUONGNHOM();
+                tn.MaNV = txtNhomTruong.Texts;
+                tn.MaDA = int.Parse(txtMaDA.Texts);
+                tn.TenNhom = cboNhom.Text;
+                nd.ThemTruongNhom(tn);
+            }
             nd.ThemThanhVien(nhom);
             MessageBox.Show("Thêm thành viên thành công");
+            LoadDataNhanLuc();
         }
 
         private void cboTrinhDo_SelectedIndexChanged(object sender, EventArgs e)
@@ -124,7 +165,7 @@ namespace QLCongTy.QLDuAn
         }
         private void ReloadCboFind_Click(object sender, EventArgs e)
         {
-            
+            LoadDataDA();
         }
 
         private void btnThongKe_Click(object sender, EventArgs e)
@@ -154,36 +195,42 @@ namespace QLCongTy.QLDuAn
             int i = 0;
             foreach (var propertyInfo in type.GetProperties())
             {
-                //MessageBox.Show(propertyInfo.Name.ToString());
-                if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                MessageBox.Show(propertyInfo.Name.ToString());
+                if (propertyInfo.PropertyType != typeof(ICollection<GIAIDOAN>) && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) && propertyInfo.PropertyType != typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN)) 
                 {
-                    propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                    if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                    {
+                        propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                    }
+                    else if (propertyInfo.PropertyType == typeof(string))
+                    {
+                        propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
+                    }
+                    else if (propertyInfo.PropertyType == typeof(Nullable<float>))
+                    {
+                        propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
+                    }
+                    else
+                    {
+                        propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
+                    }
+                    i++;
                 }
-                else if (propertyInfo.PropertyType == typeof(string))
-                {
-                    propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
-                }
-                else if (propertyInfo.PropertyType == typeof(Nullable<float>))
-                {
-                    propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
-                }
-                else
-                {
-                    propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
-                }
-                i++;
             }
-
             //Đổ data ra Datagridview TTPhancong
             LoadDataGiaiDoan();
         }
         private void gvPCDuAn_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+            DataGridViewRow row = gvNLDA.SelectedRows[0];
+            nhom.MaNV = row.Cells["MaNV"].Value.ToString();
+            nhom.TenNhom = row.Cells["TenNhom"].Value.ToString();
+            nhom.MaDA = da.MaDA;
         }
-        private void gvNhanLuc_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void gvNLCTy_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-          
+            DataGridViewRow row = gvNLCTy.SelectedRows[0];
+            txtNhomTruong.Texts = row.Cells["MaNV"].Value.ToString();
         }
 
         #endregion
