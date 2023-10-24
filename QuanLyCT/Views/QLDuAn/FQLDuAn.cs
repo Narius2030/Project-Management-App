@@ -216,7 +216,7 @@ namespace QLCongTy.QLDuAn
         {
             if (sidebarExpand)
             {
-                pnlTiendo.Height -= 50;
+                pnlTiendo.Height -= 5;
                 if (pnlTiendo.Height == pnlTiendo.MinimumSize.Height)
                 {
                     sidebarExpand = false;
@@ -225,12 +225,25 @@ namespace QLCongTy.QLDuAn
             }
             else
             {
-                pnlTiendo.Height += 50;
+                pnlTiendo.Height += 5;
                 if (pnlTiendo.Height == pnlTiendo.MaximumSize.Height)
                 {
                     sidebarExpand = true;
                     tmShowTiendo.Stop();
                 }
+            }
+        }
+
+        double valuePercent = 0;
+        private void tmProgressBar_Tick(object sender, EventArgs e)
+        {
+            if (pbTienDoGD.Value == valuePercent)
+            {
+                tmProgressBar.Stop();
+            }
+            if (pbTienDoGD.Value + 5 <= valuePercent)
+            {
+                pbTienDoGD.Value += 5;
             }
         }
 
@@ -437,7 +450,9 @@ namespace QLCongTy.QLDuAn
                     double tiendoValue;
                     if (Double.TryParse(txttiendo.Texts, out tiendoValue))
                     {
-                        pbTienDoGD.Value = (int)tiendoValue;
+                        pbTienDoGD.Value = 0;
+                        valuePercent = (double)tiendoValue;
+                        tmProgressBar.Start();
                     }
                 }
                 LoadCongViec();

@@ -22,7 +22,7 @@ namespace QLCongTy.DTO
         public virtual NHANVIEN NHANVIEN { get; set; }
         public virtual TRUONGNHOM TRUONGNHOM { get; set; }
 
-        public NHOM(string maNV, string tenNhom, int maDA, int soGioMotNg)
+        public NHOM(string maNV, string tenNhom, int maDA, int? soGioMotNg)
         {
             MaNV = maNV;
             TenNhom = tenNhom;
