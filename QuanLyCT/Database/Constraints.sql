@@ -267,14 +267,15 @@ GO
 CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
 INSTEAD OF DELETE
 AS
-DECLARE @mada INT, @tennhom VARCHAR(20), @countTVNhom INT
-SELECT @mada=d.MaDA, @tennhom=d.TenNhom
+DECLARE @mada INT, @tennhom VARCHAR(20), @countTVNhom INT, @matn VARCHAR(10)
+SELECT @mada=d.MaDA, @tennhom=d.TenNhom, @matn=d.MaNV
 FROM deleted d
 BEGIN
+	DELETE FROM NHOM WHERE MaDA=@mada AND TenNhom=@tennhom AND MaNV=@matn
 	--Lấy số lượng thành viên của nhóm trong dự án
 	SELECT @countTVNhom=COUNT(*) FROM NHOM
 	WHERE TenNhom=@tennhom AND MaDA=@mada
-
+	PRINT @countTVNHOM
 	--Nếu nhóm ko còn thành viên thì được xóa trưởng nhóm
 	IF  @countTVNhom = 0
 	BEGIN
@@ -284,3 +285,4 @@ BEGIN
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
 GO
+

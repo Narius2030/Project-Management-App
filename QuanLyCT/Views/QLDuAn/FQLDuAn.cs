@@ -145,9 +145,15 @@ namespace QLCongTy.QLDuAn
             DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn loại nhân viên khỏi dự án ?", "Xác nhận", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                daDao.removeThanhVienDA(nhom);
-                //Xoa UOCLUONG nếu ko error
-                //...
+                if (cbNhomTruong.Checked == false)
+                {
+                    daDao.removeThanhVienDA(nhom);
+                }
+                else
+                {
+                    TRUONGNHOM tn = new TRUONGNHOM() {TenNhom=nhom.TenNhom, MaDA=nhom.MaDA, MaNV=nhom.MaNV};
+                    daDao.removeTruongNhomDA(tn);
+                }
             }
             LoadDataNhanLuc();
         }

@@ -65,7 +65,6 @@ C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.
 C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.Views.NhanSu.fNhom.resources
 C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
 C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
-C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
 C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
 C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
 C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
@@ -98,3 +97,4 @@ D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\EntityFramework.xml
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\EntityFramework.SqlServer.xml
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\QLCongTy.pdb
+C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.Custome_control.CTComboBox.resources
