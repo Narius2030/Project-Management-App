@@ -127,7 +127,7 @@ SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N
 end
 
 go
---Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trị
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trịS
 CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
 RETURNS INT
 AS
