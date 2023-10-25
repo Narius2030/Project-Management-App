@@ -321,8 +321,8 @@ namespace QLCongTy.QLDuAn
                 {
                     MaGiaiDoan = txtMaGD.Texts,
                     NoiDung = txtNoiDung.Texts,
-                    NgayBD = dtpNgayBD.Value,
-                    NgayKT = dtpNgayKT.Value,
+                    NgayBD = dtpNgayBD.Value.Date,
+                    NgayKT = dtpNgayKT.Value.Date,
                     MaDA = da.MaDA
                 };
                 DataTable kq = gdD.CheckGiaiDoan(gd);
@@ -344,9 +344,9 @@ namespace QLCongTy.QLDuAn
                     MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Thêm Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Thêm Thất Bại"+ex.Message, "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
 
         }
