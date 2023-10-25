@@ -54,6 +54,11 @@ namespace QLCongTy.DAO
             string sqlStr = $@"DELETE FROM NHOM WHERE MaNV='{nhom.MaNV}' AND MaDA={nhom.MaDA} AND TenNhom='{nhom.TenNhom}'";
             dbconn.ExecuteCommand(sqlStr);
         }
+        public void removeTruongNhomDA(TRUONGNHOM tn)
+        {
+            string sqlStr = $@"DELETE FROM TRUONGNHOM WHERE TenNhom='{tn.TenNhom}' AND MaDA={tn.MaDA}";
+            dbconn.ExecuteCommand(sqlStr);
+        }
         public DataTable FilterLevel(string level)
         {
             // Function return a table

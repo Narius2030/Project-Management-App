@@ -1,26 +1,4 @@
 ﻿-- ###Views
-
--- 1.Xem danh sách nhân viên và nhóm
---a)Tất cả
-CREATE OR ALTER VIEW vw_nhanvien_trong_duan
-AS
-SELECT 
-	NV.MaNV, CONCAT(HovaTenDem,' ',Ten) AS HoTen, ChucVu, Levels,
-	TM.TenNhom, TM.MaDA, TM.SoGioMotNg
-FROM NHANVIEN NV
-JOIN NHOM TM ON TM.MaNV = NV.MaNV
-GO
-
---b)Trưởng nhóm
-CREATE OR ALTER VIEW vw_truongnhom_trong_duan
-AS
-SELECT
-	NV.MaNV, CONCAT(HovaTenDem,' ',Ten) AS HoTen, ChucVu, Levels,
-	TLD.TenNhom, TLD.MaDA
-FROM TRUONGNHOM TLD
-JOIN NHANVIEN NV ON NV.MaNV = TLD.MaNV
-GO
-
 --c) Những PM và Team Leader chưa được phân công
 CREATE OR ALTER VIEW vw_khongla_pm
 AS
@@ -46,54 +24,6 @@ WHERE NOT EXISTS(
 	FROM TRUONGNHOM tl
 	WHERE tl.MaNV = NV.MaNV OR NV.ChucVu IN('CEO', 'PM')
 )
-GO
-
---2.Xem nội dung nhiệm vụ thuộc 1 công việc 
---a)Tất cả công việc
-CREATE OR ALTER VIEW vw_congviec_nhiemvu
-AS
-SELECT 
-	MaNhiemVu, NHV.TrangThai AS TTNhiemvu, TenNhiemVu, ThoiGianLamThucTe, ThoiGianUocTinh, MaTienQuyet, MaNV,
-	CV.*
-FROM CONGVIEC CV
-JOIN NHIEMVU NHV ON NHV.MaCV = CV.MaCV
-GO
-
---b)Nhiệm vụ và công việc tiên quyết của một dự án
-CREATE OR ALTER VIEW vw_congviec_tienquyet
-AS
-SELECT 
-	afCV.*,
-	bfCV.MaCV AS MaCVTQ, bfCV.TenCV AS TenCVTQ, bfCV.TienDo AS TienDoTQ, bfCV.TrangThai AS TrangThaiTQ
-FROM CONGVIEC afCV
-JOIN CONGVIEC bfCV ON bfCV.MaCV = afCV.CVTienQuyet
-GO
-
-CREATE OR ALTER VIEW vw_nhiemvu_tienquyet
-AS
-SELECT 
-	afNV.*,
-	bfNV.MaNV AS MaNVTQ, bfNV.TenNhiemVu AS TenNVTQ, bfNV.TrangThai AS TrangThaiTQ
-FROM NHIEMVU afNV
-JOIN NHIEMVU bfNV ON bfNV.MaNhiemVu = afNV.MaTienQuyet
-GO
---c)Những công việc đang sắp trễ tiến độ
-CREATE OR ALTER VIEW vw_cvtre
-AS
-SELECT cv.MaDA, cv.MaCV, cv.TenCV, cv.MaGiaiDoan, cv.TenNhom, cv.TrangThai
-FROM CONGVIEC cv
-JOIN GIAIDOAN spt ON cv.MaGiaiDoan = spt.MaGiaiDoan
-WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND cv.TrangThai != 'Done'
-GO
-
---d) Show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của  từng một dự án
-CREATE OR ALTER VIEW vw_nvtrehan_cv_da
-AS
-SELECT nv.MaNhiemVu, nv.TenNhiemVu, nv.TrangThai, cv.MaCV, spt.MaDA, nv.MaNV, GETDATE() as HomNay, spt.NgayKT
-FROM NHIEMVU nv
-JOIN CONGVIEC cv ON cv.MaCV = nv.MaCV
-JOIN GIAIDOAN spt ON cv.MaGiaiDoan = spt.MaGiaiDoan
-WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND nv.TrangThai != 'Done'
 GO
 
 --3. Xem thông tin ngày nghỉ của nhân viên 
@@ -166,13 +96,11 @@ GO
 --5 Xóa NhiemVu trước khi xóa CongViec
 CREATE OR ALTER TRIGGER deleteCongViec on CONGVIEC
 AFTER DELETE AS
+DECLARE @macv INT
 BEGIN
-    IF exists (SELECT *FROM NHIEMVU as nv join deleted on deleted.MaCV = nv.MaCV 
-	                   WHERE nv.TrangThai not in ('Done'))
-	BEGIN
-	      RAISERROR('Không thể xóa công việc vì nhiệm vụ chưa được hoàn thành!', 16, 1)
-          ROLLBACK TRAN
-    END
+	--DELETE FROM NHIEMVU WHERE MaCV IS NULL AND (SELECT )
+	SELECT * FROM NHIEMVU NV
+	JOIN NHIEMVU TQ ON TQ.MaTienQuyet = NV.MaNhiemVu
 END
 GO
 
@@ -193,42 +121,6 @@ BEGIN
 	--Nếu kiểm tra nvtq chưa Done thì trả về giá trị cũ
 	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
 	ROLLBACK TRAN
-END
-GO
-
---7) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
-CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
-AFTER INSERT
-AS
-DECLARE @pm INT, @mada int=0, @madaNew int
-	--Kiểm tra MaPM mới cập nhật có tồn tại trong DUAN hay chưa
-SELECT @pm=soluong FROM (
-	SELECT COUNT(new.MaPM) AS soluong
-	FROM inserted new, DUAN
-	WHERE new.MaPM = DUAN.MaPM
-) AS Q
-IF (@pm > 1)
-BEGIN
-	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
-	ROLLBACK TRAN;
-END
-GO
-
---8) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm/dự án khác thì hủy chỉ định
-CREATE OR ALTER TRIGGER tr_chidinh_teamleader ON TRUONGNHOM
-AFTER INSERT, UPDATE
-AS
-DECLARE @tl INT, @mada int=0, @madaNew int
-	--Kiểm tra Team Leader mới cập nhật có tồn tại trong TEAMLEADER hay chưa
-SELECT @tl = soluong FROM (
-	SELECT COUNT(new.MaNV) as soluong
-	FROM inserted new JOIN TRUONGNHOM
-	ON new.MaDA = TRUONGNHOM.MaDA AND new.MaNV = TRUONGNHOM.MaNV
-) AS Q
-IF (@tl > 1)
-BEGIN
-	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
-	ROLLBACK TRAN;
 END
 GO
 
@@ -325,7 +217,7 @@ GO
 
 --14.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 --NOTE
-CREATE TRIGGER tr_ktr_ngaynghi_giaidoan
+CREATE OR ALTER TRIGGER tr_ktr_ngaynghi_giaidoan
 ON DIEMDANH
 AFTER INSERT
 AS
@@ -347,28 +239,7 @@ BEGIN
 END;
 GO
 
---16.Xóa UOCLUONG của nhan vien trong 1 DUAN trong SPRINT đó SAU KHI xóa khỏi NHOM
-
---15. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
-CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON NHOM
-AFTER DELETE
-AS
-DECLARE @manv VARCHAR(10), @mada INT, @tennhom VARCHAR(20), @count INT
-SELECT @manv=d.MaNV, @mada=d.MaDA, @tennhom=d.TenNhom
-FROM deleted d
-BEGIN
-	SELECT @count=COUNT(*) FROM NHOM
-	WHERE MaNV=@manv AND MaDA=@mada
-	
-	IF @count = 0	
-	BEGIN
-		DELETE FROM UOCLUONG WHERE MaDA=@mada AND MaNV=@manv
-		PRINT @mada
-		PRINT @tennhom
-		DELETE FROM TRUONGNHOM WHERE MaDA=@mada AND TenNhom=@tennhom
-	END
-END
-GO
+--18.Xóa UOCLUONG của nhan vien trong 1 DUAN trong SPRINT đó SAU KHI xóa khỏi NHOM
 
 --16. Tạo uocluong mới cho từng nhanvien trong duan theo giaidoan mới tạo
 CREATE OR ALTER TRIGGER tr_themUocLuong ON GIAIDOAN
@@ -396,14 +267,15 @@ GO
 CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
 INSTEAD OF DELETE
 AS
-DECLARE @mada INT, @tennhom VARCHAR(20), @countTVNhom INT
-SELECT @mada=d.MaDA, @tennhom=d.TenNhom
+DECLARE @mada INT, @tennhom VARCHAR(20), @countTVNhom INT, @matn VARCHAR(10)
+SELECT @mada=d.MaDA, @tennhom=d.TenNhom, @matn=d.MaNV
 FROM deleted d
 BEGIN
+	DELETE FROM NHOM WHERE MaDA=@mada AND TenNhom=@tennhom AND MaNV=@matn
 	--Lấy số lượng thành viên của nhóm trong dự án
 	SELECT @countTVNhom=COUNT(*) FROM NHOM
 	WHERE TenNhom=@tennhom AND MaDA=@mada
-
+	PRINT @countTVNHOM
 	--Nếu nhóm ko còn thành viên thì được xóa trưởng nhóm
 	IF  @countTVNhom = 0
 	BEGIN
@@ -413,3 +285,4 @@ BEGIN
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
 GO
+

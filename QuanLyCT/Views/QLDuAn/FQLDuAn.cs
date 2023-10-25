@@ -145,16 +145,15 @@ namespace QLCongTy.QLDuAn
             DialogResult dialogResult = MessageBox.Show($"Bạn chắc chắn muốn loại nhân viên {nhom.MaNV} khỏi dự án {nhom.MaDA}", "Xác nhận", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                daDao.removeThanhVienDA(nhom);
-                //if (cbNhomTruong.Checked == true)
-                //{
-                //    //tnDao.xoaTruongNhom(nhom);
-                //    daDao.removeThanhVienDA(nhom);
-                //}
-                //else
-                //{
-                //    daDao.removeThanhVienDA(nhom);
-                //}
+                if (cbNhomTruong.Checked == false)
+                {
+                    daDao.removeThanhVienDA(nhom);
+                }
+                else
+                {
+                    TRUONGNHOM tn = new TRUONGNHOM() {TenNhom=nhom.TenNhom, MaDA=nhom.MaDA, MaNV=nhom.MaNV};
+                    daDao.removeTruongNhomDA(tn);
+                }
             }
             LoadDataNhanLuc();
         }
