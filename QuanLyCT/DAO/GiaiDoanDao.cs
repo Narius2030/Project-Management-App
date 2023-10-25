@@ -110,7 +110,6 @@ namespace QLCongTy.DAO
                 new SqlParameter("@MaGiaiDoan", SqlDbType.VarChar) { Value = MaGiaiDoanTruoc }
             };
             return dbC.ExecuteProcedure("sp_KiemTraGiaiDoan", parame);
-
         }
         public String getMaGiaiDoanTruoc(String maGD)
         {
