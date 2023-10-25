@@ -4,7 +4,7 @@ CREATE OR ALTER PROCEDURE sp_ktrDangNhap
 AS
 BEGIN
 	SELECT @check=COUNT(*) FROM NHANVIEN
-	WHERE TaiKhoan = @matk AND MatKhau = @matkhau
+	WHERE MaTaiKhoan = @matk AND MatKhau = @matkhau
 END
 GO
 --Kiểm Tra  Giai đoạn đã hoàn thành chưa  trước khi tạo cái khác
