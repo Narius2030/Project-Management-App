@@ -26,40 +26,6 @@ WHERE NOT EXISTS(
 )
 GO
 
-<<<<<<< HEAD
---2.Xem nội dung nhiệm vụ thuộc 1 công việc 
---a)Tất cả công việc
-CREATE OR ALTER VIEW vw_congviec_nhiemvu
-AS
-SELECT 
-	MaNhiemVu, NHV.TrangThai AS TTNhiemvu, TenNhiemVu, ThoiGianLamThucTe, ThoiGianUocTinh, MaTienQuyet, MaNV,
-	CV.*
-FROM CONGVIEC CV
-JOIN NHIEMVU NHV ON NHV.MaCV = CV.MaCV
-GO
-
---b)Nhiệm vụ và công việc tiên quyết của một dự án
-CREATE OR ALTER VIEW vw_congviec_tienquyet
-AS
-SELECT 
-	afCV.*,
-	bfCV.MaCV AS MaCVTQ, bfCV.TenCV AS TenCVTQ, bfCV.TienDo AS TienDoTQ, bfCV.TrangThai AS TrangThaiTQ
-FROM CONGVIEC afCV
-JOIN CONGVIEC bfCV ON bfCV.MaCV = afCV.CVTienQuyet
-GO
-
-CREATE OR ALTER VIEW vw_nhiemvu_tienquyet
-AS
-SELECT 
-	afNV.*,
-	bfNV.MaNV AS MaNVTQ, bfNV.TenNhiemVu AS TenNVTQ, bfNV.TrangThai AS TrangThaiTQ
-FROM NHIEMVU afNV
-JOIN NHIEMVU bfNV ON bfNV.MaNhiemVu = afNV.MaTienQuyet
-GO
-
-
-=======
->>>>>>> 129d4ca2f0d448aa3d96e34e2ef80e3b47c81e6f
 --3. Xem thông tin ngày nghỉ của nhân viên 
 --a)Thông tin ngày nghỉ của nhân viên trong từng Sprint của dự án
 CREATE OR ALTER VIEW vw_ngaynghi_trong_duan
@@ -296,7 +262,6 @@ BEGIN
 	CLOSE cursor_nhomDA;
 END
 GO
-
 --17. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
 CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
 INSTEAD OF DELETE

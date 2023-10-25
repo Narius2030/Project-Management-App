@@ -17,7 +17,7 @@ namespace QLCongTy.Views.NhanSu
         DuAnDao daDao = new DuAnDao();
         TruongNhomDao tnDao = new TruongNhomDao();
         NhomDao nDao = new NhomDao();
-        public static NHOM nhom = new NHOM();
+        NHOM nhom = new NHOM();
         public fNhom()
         {
             InitializeComponent();
@@ -37,23 +37,23 @@ namespace QLCongTy.Views.NhanSu
         {
             gvDSThanhVien.DataSource = nDao.dsThanhVienNhom(nhom.MaDA, nhom.TenNhom);
         }
-
+        void ReadLoadSomeThing()
+        {
+            gvTruongNhom.DataSource = "";
+            gvDSThanhVien.DataSource = "";
+            cboNhom.Text = "";
+        }
         private void cboDuAn_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cboNhom.DataSource = null;
-            cboNhom.Items.Clear();
-            //nhom = new NHOM();
+            ReadLoadSomeThing();
             nhom.MaDA = Convert.ToInt32(cboDuAn.SelectedValue.ToString());
             LoadCboNhom();
         }
 
         private void cboNhom_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //
-            //Van con Exception
-            //
+           
             nhom.TenNhom = cboNhom.SelectedValue.ToString();
-            nhom.MaDA = Convert.ToInt32(cboDuAn.SelectedValue.ToString());
             LoadGVTruongNhom();
             LoadTVNhom();
         }
@@ -109,10 +109,9 @@ namespace QLCongTy.Views.NhanSu
         private void btnDoiTruongNhom_Click(object sender, EventArgs e)
         {
             string MaNVTruongNhom = nDao.XacDinhTruongNhom(nhom).Rows[0]["MaNV"].ToString();
-            if (nDao.KiemTraTVThuocNhom(txtMaNV.Texts, nhom))
-            {
-                tnDao.DoiTruongNhom(txtMaNV.Texts, MaNVTruongNhom, nhom);
-            }
+            tnDao.DoiTruongNhom(txtMaNV.Texts, MaNVTruongNhom, nhom);
+            LoadGVTruongNhom();
+            LoadTVNhom();
         }
     }
 }

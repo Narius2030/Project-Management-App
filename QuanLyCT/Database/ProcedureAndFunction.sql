@@ -98,7 +98,36 @@ begin
 	CONGVIEC.MaCV=@macongviec
 end
 GO
+--Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
+CREATE OR ALTER	PROCEDURE sp_TimTruongNhom
+@tennhom nvarchar(20),@mada int
+as
+begin 
+	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+                                FROM TRUONGNHOM TN
+                                INNER JOIN NHOM N
+                                ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
+								INNER JOIN NHANVIEN NV
+                                 on  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
+								 WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+end
 
+go
+
+--xem danh sách thành viên trong 1 dự án trong 1 nhóm
+CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
+@mada int, @tennhom nvarchar(20)
+as
+begin
+SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+                                FROM NHOM N
+                                INNER JOIN NHANVIEN NV
+                                ON N.MaNV = NV.MaNV
+                                WHERE N.MaDA = @mada AND N.TenNhom = @tennhom
+end
+
+go
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trị
 CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
 RETURNS INT
 AS

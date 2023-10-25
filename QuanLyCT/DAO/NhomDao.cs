@@ -58,12 +58,13 @@ namespace QLCongTy.DAO
         }
         public DataTable dsThanhVienNhom(int mada, string tennhom)
         {
-            string sqlStr = $@"SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-                                FROM NHOM N
-                                INNER JOIN NHANVIEN NV
-                                ON N.MaNV = NV.MaNV
-                                WHERE N.MaDA = {mada} AND N.TenNhom = '{tennhom}'";
-            return dbconn.ExecuteQuery(sqlStr);
+
+            SqlParameter[] parame = new SqlParameter[]
+            {
+                new SqlParameter("@mada",SqlDbType.Int){Value=mada},
+                new SqlParameter("@tennhom",SqlDbType.NVarChar,20){Value=tennhom}
+            };
+            return dbconn.ExecuteProcedure("sp_dstvmotnhomtrongmotduan", parame);
         }
         public Boolean KiemTraTonTaiNhomTruong(NHOM nhom)
         {
@@ -82,19 +83,6 @@ namespace QLCongTy.DAO
             }
         }
 
-        public Boolean KiemTraTVThuocNhom(string MaNV, NHOM nhom)
-        {
-            string sqlStr = $@"SELECT 1 FROM NHOM WHERE MaDA = '{nhom.MaDA}' AND TenNhom = '{nhom.TenNhom}' AND MaNV = '{MaNV}'";
-            DataTable dataTable = dbconn.ExecuteQuery(sqlStr);
-            if (Convert.ToInt32(dataTable.Rows[0][0]) == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
         public DataTable XacDinhTruongNhom(NHOM nhom)
         {

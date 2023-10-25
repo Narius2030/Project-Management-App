@@ -16,7 +16,7 @@ namespace QLCongTy
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fNhom());
+            Application.Run(new fMainMenu());
         }
     }
 }

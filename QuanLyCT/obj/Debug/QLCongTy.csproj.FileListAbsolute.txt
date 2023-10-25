@@ -38,7 +38,6 @@ D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.NhanSu.FNhanSu.resourc
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.Properties.Resources.resources
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.fQLDuAn.resources
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.QLDuAn.FTaoDuAn.resources
-D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.FQLNhanVienPB.resources
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.GenerateResource.cache
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCompileInputs.cache
 D:\DaiHoc\nam3\DBMS\doan\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete

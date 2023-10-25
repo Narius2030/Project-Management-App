@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-
+using System.Data.SqlClient;
 
 namespace QLCongTy.DAO
 {
@@ -26,13 +26,12 @@ namespace QLCongTy.DAO
 
         public DataTable timTruongNhom(NHOM nhom)
         {
-            string sqlStr = $@"SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-                                FROM TRUONGNHOM TN
-                                INNER JOIN NHOM N
-                                ON TN.MaNV = N.MaNV AND TN.TenNhom = N.TenNhom
-                                INNER JOIN NHANVIEN NV
-                                ON N.MaNV = NV.MaNV WHERE TN.TenNhom = '{nhom.TenNhom}' AND TN.MaDA = '{nhom.MaDA}'";
-            return dbconn.ExecuteQuery(sqlStr);
+            SqlParameter[] parame = new SqlParameter[]
+            {
+                new SqlParameter("@tennhom",SqlDbType.NVarChar,20){Value=nhom.TenNhom},
+                new SqlParameter("@mada",SqlDbType.Int){Value=nhom.MaDA}
+            };
+            return dbconn.ExecuteProcedure("sp_TimTruongNhom", parame);
         }
 
         public void DoiTruongNhom(string MaTruongNhomMoi, string MaTruongNhomCu, NHOM nhom)

@@ -72,7 +72,7 @@ CREATE TABLE DIEMDANH(
 );
 
 GO
-
+	
 CREATE TABLE TRUONGNHOM (
 	TenNhom nvarchar(20) ,
 	MaDA INT,
