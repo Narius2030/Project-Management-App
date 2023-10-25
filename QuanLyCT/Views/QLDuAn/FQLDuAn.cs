@@ -142,12 +142,19 @@ namespace QLCongTy.QLDuAn
         }
         private void btnXoaNVkhoiDA_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn loại nhân viên khỏi dự án ?", "Xác nhận", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show($"Bạn chắc chắn muốn loại nhân viên {nhom.MaNV} khỏi dự án {nhom.MaDA}", "Xác nhận", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 daDao.removeThanhVienDA(nhom);
-                //Xoa UOCLUONG nếu ko error
-                //...
+                //if (cbNhomTruong.Checked == true)
+                //{
+                //    //tnDao.xoaTruongNhom(nhom);
+                //    daDao.removeThanhVienDA(nhom);
+                //}
+                //else
+                //{
+                //    daDao.removeThanhVienDA(nhom);
+                //}
             }
             LoadDataNhanLuc();
         }
