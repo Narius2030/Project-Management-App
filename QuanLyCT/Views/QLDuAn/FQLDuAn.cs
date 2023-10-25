@@ -165,7 +165,7 @@ namespace QLCongTy.QLDuAn
                 tn.TenNhom = cboNhom.Text;
                 nd.ThemTruongNhom(tn);
                 nd.ThemThanhVien(nhom);
-                MessageBox.Show("Thêm thành viên thành công");
+                MessageBox.Show("Thêm nhóm trưởng thành công");
             }
             else
             {
@@ -179,7 +179,6 @@ namespace QLCongTy.QLDuAn
                     MessageBox.Show("Cần có nhóm trưởng trước khi thêm thành viên vào nhóm");
                 }
             }
-            
         }
         private void btnLoc_Click(object sender, EventArgs e)
         {

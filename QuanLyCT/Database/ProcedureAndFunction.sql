@@ -109,6 +109,5 @@ BEGIN
         SET @Result = 1
     ELSE
         SET @Result = 0
-
     RETURN @Result
 END;

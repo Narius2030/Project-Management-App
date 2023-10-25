@@ -14,6 +14,7 @@ namespace QLCongTy.DAO
 {
     public class NhomDao
     {
+        public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
         DBConnection dbconn = new DBConnection();
         public void ThemThanhVien(NHOM nhom)
         {
@@ -26,7 +27,7 @@ namespace QLCongTy.DAO
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show($"Thuc Thi That Bai: {ex.Message}");
+                    MessageBox.Show($"Thêm thành viên thất bại: {ex.Message}");
                 }
             }
         }
@@ -62,20 +63,18 @@ namespace QLCongTy.DAO
         }
         public Boolean KiemTraTonTaiNhomTruong(NHOM nhom)
         {
-            SqlParameter[] parame = new SqlParameter[]
+            string sqlStr = $"SELECT dbo.CheckTonTaiNhomTruong('{nhom.TenNhom}', {nhom.MaDA})";
+            SqlCommand cmd = new SqlCommand(sqlStr, conn);
+            conn.Open();
+            int result = Convert.ToInt32(cmd.ExecuteScalar());
+            conn.Close();
+            if (result == 0)
             {
-                new SqlParameter("@TenNhom",SqlDbType.VarChar){Value=nhom.TenNhom},
-                new SqlParameter("@MaDA", SqlDbType.Int) { Value = nhom.MaDA}
-            };
-            int result = dbconn.ExecuteFunction("CheckTonTaiNhomTruong", parame);
-            if (result == 1)
-            {
-                return true;
+                return false;
             }
             else
             {
-                return false;
-
+                return true;
             }
         }
     }

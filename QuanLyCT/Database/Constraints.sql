@@ -6,7 +6,7 @@ CREATE OR ALTER VIEW vw_nhanvien_trong_duan
 AS
 SELECT 
 	NV.MaNV, CONCAT(HovaTenDem,' ',Ten) AS HoTen, ChucVu, Levels,
-	TM.TenNhom, TM.MaDA, TM.CapPerDay
+	TM.TenNhom, TM.MaDA, TM.SoGioMotNg
 FROM NHANVIEN NV
 JOIN NHOM TM ON TM.MaNV = NV.MaNV
 GO
@@ -393,25 +393,23 @@ END
 GO
 
 --17. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
-CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON NHOM
-AFTER DELETE
+CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
+INSTEAD OF DELETE
 AS
-DECLARE @manv VARCHAR(10), @mada INT, @tennhom VARCHAR(20), @countNhomThamGia INT, @countTVNhom INT, @checkNhomTruong INT
-SELECT @manv=d.MaNV, @mada=d.MaDA, @tennhom=d.TenNhom
+DECLARE @mada INT, @tennhom VARCHAR(20), @countTVNhom INT
+SELECT @mada=d.MaDA, @tennhom=d.TenNhom
 FROM deleted d
 BEGIN
 	--Lấy số lượng thành viên của nhóm trong dự án
 	SELECT @countTVNhom=COUNT(*) FROM NHOM
 	WHERE TenNhom=@tennhom AND MaDA=@mada
-	--Kiểm tra nhân viên đó là trưởng nhóm hay không
-	SELECT @checkNhomTruong=COUNT(*) FROM TRUONGNHOM
-	WHERE TenNhom=@tennhom AND MaDA=@mada AND MaNV=@manv
 
-	--Kiểm tra nếu nhân viên đó còn tham gia nhóm nào khác trong DUAN hay không ?
-	--Nếu nhân viên đó là nhóm trưởng và nhóm còn thành viên thì không được xóa
-	IF  @countTVNhom = 0 AND @checkNhomTruong > 0	
+	--Nếu nhóm ko còn thành viên thì được xóa trưởng nhóm
+	IF  @countTVNhom = 0
 	BEGIN
 		DELETE FROM TRUONGNHOM WHERE MaDA=@mada AND TenNhom=@tennhom
 	END
+	ELSE
+		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
 GO
