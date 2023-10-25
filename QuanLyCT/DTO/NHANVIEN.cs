@@ -23,6 +23,11 @@ namespace QLCongTy.DTO
             this.NHOMs = new HashSet<NHOM>();
             this.TRUONGNHOMs = new HashSet<TRUONGNHOM>();
         }
+        public NHANVIEN(string matKhau, string taiKhoan)
+        {
+            this.MatKhau = matKhau;
+            this.MaTaiKhoan= taiKhoan;
+        }
     
         public string MaNV { get; set; }
         public string HovaTenDem { get; set; }
