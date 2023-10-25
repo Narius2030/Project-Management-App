@@ -26,5 +26,11 @@ namespace QLCongTy.DAO
 
             return check;
         }
+
+        public DataTable DSNhanVien()
+        {
+            string sqlStr = "SELECT * FROM NHANVIEN";
+            return Dbc.ExecuteQuery(sqlStr);
+        }
     }
 }
