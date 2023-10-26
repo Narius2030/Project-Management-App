@@ -142,28 +142,53 @@ BEGIN
 END;
 GO
 
---Kiểm tra tồn tại nhiệm vụ tiên quyết trước khi xóa nhiệm vụ
---CREATE OR ALTER FUNCTION CheckXoaFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaNhiemVu varchar(10))
---AS
---BEGIN 
-
-
---Kiểm tra tồn tại nhiệm vụ tiên quyết trước
-CREATE OR ALTER FUNCTION CheckFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaTienQuyet varchar(10))
+--Kiểm tra công việc tiên quyết 
+CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
+    @macongviec INT
+AS
+BEGIN
+	declare @matienquyet int
+    select @matienquyet=cvtq.MaCV From CONGVIEC as cv,CONGVIEC as cvtq
+	where cv.MaCV=cvtq.CVTienQuyet and cv.MaCV= @macongviec
+    BEGIN
+        UPDATE CONGVIEC
+        SET CVTienQuyet = NULL
+        WHERE CONGVIEC.MaCV =@matienquyet
+    END
+END
+go
+--CẬp nhật timetask
+CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10))
 RETURNS INT
 AS
-BEGIN 
-	DECLARE @Result INT
-	IF EXISTS (SELECT NV.MaNV, NV.MaCV, NV.MaNhiemVu, NV.MaTienQuyet, NV.TrangThai, NV.TenNhiemVu, NV.ThoiGianLamThucTe, NV.ThoiGianUocTinh
-				FROM NHIEMVU NV
-				INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
-				INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
-				INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
-				INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-				WHERE DA.MaDA = 8 AND GD.MaGiaiDoan = '01DA08' AND CV.MaCV = 1 AND N.TenNhom = 'Front-End' AND NV.MaNV = 'NV002' AND NV.MaNhiemVu = '01CV01')
-		SET @Result = 1
-    ELSE
-        SET @Result = 0
-    RETURN @Result
-END;
+BEGIN
+
+	declare @manv varchar(10)
+	declare @mada int
+	declare @magiaidoan varchar(10)
+	declare @timetask  varchar(10)
+	select   @manv=NHANVIEN.MaNV,@mada=DUAN.MaDA,@magiaidoan=GIAIDOAN.MaGiaiDoan,
+	@timetask=sum(NHIEMVU.ThoiGianUocTinh) 
+	From NHIEMVU
+	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
+	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
+	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
+	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
+	where NHIEMVU.TrangThai='Done'
+	group by NHANVIEN.MaNV,DUAN.MaDA,GIAIDOAN.MaGiaiDoan
+	having NHANVIEN.MaNV=@manhanvien
+	return @timetask
+END
+
+--Xoá nhiệm vụ
+go
+CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
+@manv VARCHAR(10)
+AS
+BEGIN
+	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
+		SELECT * FROM NHIEMVU TQ
+		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
+	))
+END
 GO
