@@ -596,13 +596,16 @@ namespace QLCongTy.QLDuAn
                 MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
 
             };
-            if(cvd.RemoveJob(cv)==1)
+            cvd.KiemTraCongViecTienQuyet(cv);
             {
-                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }    
-            else
-            {
-                MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                if (cvd.RemoveJob(cv) == 1)
+                {
+                    MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }
             }
             LoadCongViec();
         }
@@ -631,23 +634,9 @@ namespace QLCongTy.QLDuAn
             }    
         }
 
-        private void btnPhanCV_Click(object sender, EventArgs e)
-        {
-            NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, cboNhiemVuTienQuyet.SelectedValue.ToString(), "Pending", Convert.ToInt32(nudThoiGianUocTinh.Value), txtNhiemVu.Texts, null, ltlTitleNhiemVu.Text.Substring(0, 5), Convert.ToInt32(txtCongViec.Texts));
-            nvDao.ThemNhiemVu(nv);
-        }
-
-        private void LoadGVDSPhanNhiemVu()
-        {
-            gvDSNhiemVu.DataSource = nvDao.DSNhiemVuNhom(8, "01DA08", 1, "Front-End");
-            gvDSNhiemVu.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-        }
-
-
-
         private void btnNhiemVu_Click(object sender, EventArgs e)
         {
-            fNhiemVu fnhiemvu = new fNhiemVu();
+            fNhiemVu fnhiemvu = new fNhiemVu("", da.MaDA, null, 0, nhom.TenNhom);
             fnhiemvu.TopLevel = false;
             tpPhanNhiemVu.Controls.Add(fnhiemvu);
             fnhiemvu.FormBorderStyle = FormBorderStyle.None;

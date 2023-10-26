@@ -1,4 +1,5 @@
-﻿using QLCongTy.NhanSu;
+﻿using QLCongTy.DTO;
+using QLCongTy.NhanSu;
 using QLCongTy.QLDuAn;
 using QLCongTy.Views.NhanSu;
 using System;
@@ -16,7 +17,7 @@ namespace QLCongTy
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fQLDuAn());
+            Application.Run(new fNhiemVu("NV002", 8, "01DA08", 1, "Front-End"));
         }
     }
 }
