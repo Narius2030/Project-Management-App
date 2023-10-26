@@ -61,6 +61,8 @@ go
 
 
 --###Triggers
+
+--???????????
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create or alter trigger tr_addUocLuong on NHOM
 AFTER INSERT AS
@@ -217,7 +219,7 @@ GO
 
 --14.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 --NOTE
-CREATE OR ALTER TRIGGER tr_ktr_ngaynghi_giaidoan
+CREATE TRIGGER tr_ktr_ngaynghi_giaidoan
 ON DIEMDANH
 AFTER INSERT
 AS
@@ -238,8 +240,6 @@ BEGIN
 	END
 END;
 GO
-
---18.Xóa UOCLUONG của nhan vien trong 1 DUAN trong SPRINT đó SAU KHI xóa khỏi NHOM
 
 --16. Tạo uocluong mới cho từng nhanvien trong duan theo giaidoan mới tạo
 CREATE OR ALTER TRIGGER tr_themUocLuong ON GIAIDOAN
@@ -262,6 +262,7 @@ BEGIN
 	CLOSE cursor_nhomDA;
 END
 GO
+
 --17. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
 CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
 INSTEAD OF DELETE
@@ -284,4 +285,3 @@ BEGIN
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
 GO
-
