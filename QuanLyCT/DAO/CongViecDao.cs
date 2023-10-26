@@ -64,7 +64,6 @@ namespace QLCongTy.DAO
                     return 1;
                 }
                 return 0;
-
             }
         }
         public int UpdateJob(CONGVIEC cv)
@@ -91,6 +90,15 @@ namespace QLCongTy.DAO
                     return 0;
                 }
             }
+        }
+        //Tesst SP
+        public void KiemTraCongViecTienQuyet(CONGVIEC cv)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@macongviec",SqlDbType.Int){Value=cv.MaCV}
+            };
+            dbC.ExecuteProcedure("sp_KiemTraCongViec", parameters);
         }
     }
 }

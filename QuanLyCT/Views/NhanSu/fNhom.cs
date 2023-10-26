@@ -113,5 +113,11 @@ namespace QLCongTy.Views.NhanSu
             LoadGVTruongNhom();
             LoadTVNhom();
         }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            fNhiemVu fnhiemvu = new fNhiemVu(txtMaNV.Texts, nhom.MaDA, null, 0,nhom.TenNhom); // string MaNV, int MaDA, string MaGiaiDoan, int MaCV, string TenNhom);
+            fnhiemvu.Show();
+        }
     }
 }

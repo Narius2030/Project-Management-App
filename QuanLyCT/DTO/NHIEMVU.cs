@@ -20,6 +20,18 @@ namespace QLCongTy.DTO
             this.NHIEMVU1 = new HashSet<NHIEMVU>();
         }
     
+        public NHIEMVU(string maNhiemVu, string maTienQuyet, string trangThai, int? thoiGianLamThucTe, string tenNhiemVu, int? thoiGianUocTinh, string maNV, int? maCV)
+        {
+            MaNhiemVu = maNhiemVu;
+            MaTienQuyet = maTienQuyet;
+            TrangThai = trangThai;
+            ThoiGianLamThucTe = thoiGianLamThucTe;
+            TenNhiemVu = tenNhiemVu;
+            ThoiGianUocTinh = thoiGianUocTinh;
+            MaNV = maNV;
+            MaCV = maCV;
+        }
+
         public string MaNhiemVu { get; set; }
         public string MaTienQuyet { get; set; }
         public string TrangThai { get; set; }
