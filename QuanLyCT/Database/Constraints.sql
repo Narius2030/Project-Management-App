@@ -61,6 +61,8 @@ go
 
 
 --###Triggers
+
+--???????????
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create or alter trigger tr_addUocLuong on NHOM
 AFTER INSERT AS
@@ -239,8 +241,6 @@ BEGIN
 END;
 GO
 
---18.Xóa UOCLUONG của nhan vien trong 1 DUAN trong SPRINT đó SAU KHI xóa khỏi NHOM
-
 --16. Tạo uocluong mới cho từng nhanvien trong duan theo giaidoan mới tạo
 CREATE OR ALTER TRIGGER tr_themUocLuong ON GIAIDOAN
 AFTER INSERT
@@ -285,4 +285,3 @@ BEGIN
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
 GO
-

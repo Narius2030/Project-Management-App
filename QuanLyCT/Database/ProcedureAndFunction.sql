@@ -98,7 +98,36 @@ begin
 	CONGVIEC.MaCV=@macongviec
 end
 GO
+--Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
+CREATE OR ALTER	PROCEDURE sp_TimTruongNhom
+@tennhom nvarchar(20),@mada int
+as
+begin 
+	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+                                FROM TRUONGNHOM TN
+                                INNER JOIN NHOM N
+                                ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
+								INNER JOIN NHANVIEN NV
+                                 on  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
+								 WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+end
 
+go
+
+--xem danh sách thành viên trong 1 dự án trong 1 nhóm
+CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
+@mada int, @tennhom nvarchar(20)
+as
+begin
+SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+                                FROM NHOM N
+                                INNER JOIN NHANVIEN NV
+                                ON N.MaNV = NV.MaNV
+                                WHERE N.MaDA = @mada AND N.TenNhom = @tennhom
+end
+
+go
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trịS
 CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
 RETURNS INT
 AS
@@ -111,3 +140,55 @@ BEGIN
         SET @Result = 0
     RETURN @Result
 END;
+GO
+
+--Kiểm tra công việc tiên quyết 
+CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
+    @macongviec INT
+AS
+BEGIN
+	declare @matienquyet int
+    select @matienquyet=cvtq.MaCV From CONGVIEC as cv,CONGVIEC as cvtq
+	where cv.MaCV=cvtq.CVTienQuyet and cv.MaCV= @macongviec
+    BEGIN
+        UPDATE CONGVIEC
+        SET CVTienQuyet = NULL
+        WHERE CONGVIEC.MaCV =@matienquyet
+    END
+END
+go
+--CẬp nhật timetask
+CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10))
+RETURNS INT
+AS
+BEGIN
+
+	declare @manv varchar(10)
+	declare @mada int
+	declare @magiaidoan varchar(10)
+	declare @timetask  varchar(10)
+	select   @manv=NHANVIEN.MaNV,@mada=DUAN.MaDA,@magiaidoan=GIAIDOAN.MaGiaiDoan,
+	@timetask=sum(NHIEMVU.ThoiGianUocTinh) 
+	From NHIEMVU
+	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
+	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
+	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
+	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
+	where NHIEMVU.TrangThai='Done'
+	group by NHANVIEN.MaNV,DUAN.MaDA,GIAIDOAN.MaGiaiDoan
+	having NHANVIEN.MaNV=@manhanvien
+	return @timetask
+END
+GO
+
+-- Kiểm tra nhiệm vụ tiên quyết trước khi xóa
+CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
+@manv VARCHAR(10)
+AS
+BEGIN
+	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
+		SELECT * FROM NHIEMVU TQ
+		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
+	))
+END
+GO
