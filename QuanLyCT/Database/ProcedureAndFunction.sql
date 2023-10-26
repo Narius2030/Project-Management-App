@@ -140,3 +140,30 @@ BEGIN
         SET @Result = 0
     RETURN @Result
 END;
+GO
+
+--Kiểm tra tồn tại nhiệm vụ tiên quyết trước khi xóa nhiệm vụ
+--CREATE OR ALTER FUNCTION CheckXoaFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaNhiemVu varchar(10))
+--AS
+--BEGIN 
+
+
+--Kiểm tra tồn tại nhiệm vụ tiên quyết trước
+CREATE OR ALTER FUNCTION CheckFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaTienQuyet varchar(10))
+RETURNS INT
+AS
+BEGIN 
+	DECLARE @Result INT
+	IF EXISTS (SELECT NV.MaNV, NV.MaCV, NV.MaNhiemVu, NV.MaTienQuyet, NV.TrangThai, NV.TenNhiemVu, NV.ThoiGianLamThucTe, NV.ThoiGianUocTinh
+				FROM NHIEMVU NV
+				INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+				INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
+				INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
+				INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+				WHERE DA.MaDA = 8 AND GD.MaGiaiDoan = '01DA08' AND CV.MaCV = 1 AND N.TenNhom = 'Front-End' AND NV.MaNV = 'NV002' AND NV.MaNhiemVu = '01CV01')
+		SET @Result = 1
+    ELSE
+        SET @Result = 0
+    RETURN @Result
+END;
+GO
