@@ -35,7 +35,11 @@ namespace QLCongTy.Views.NhanSu
         }
         public void ReadLoadTimeTask()
         {
-            pgbThucTeNV.Value = nvDao.CapNhatTimeTask(this.MaNV);
+            pgbThucTeNV.Value = nvDao.CapNhatTimeTask(this.MaNV,this.MaDA,this.MaCV,this.MaGiaiDoan);
+        }
+        public void SumTask()
+        {
+            sumtask.Text = (nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaCV, this.MaGiaiDoan)).ToString()+" hrs";
         }
         public fNhiemVu()
         {
@@ -53,6 +57,7 @@ namespace QLCongTy.Views.NhanSu
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
             ReadLoadTimeTask();
+            SumTask();
         }
 
         private void LoadGVDSPhanNhiemVu()
@@ -254,6 +259,18 @@ namespace QLCongTy.Views.NhanSu
                 ReLoad();
                 ReadLoadTimeTask();
             }
+        }
+
+        private void cbcapnhattranthai_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbcapnhattranthai.Checked) 
+            {
+                numthoigianthucte.Enabled=true;
+            }
+            else
+            {
+                numthoigianthucte.Enabled = false;
+            }   
         }
     }
 }

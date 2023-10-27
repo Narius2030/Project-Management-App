@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using QLCongTy.DTO;
-using System.Windows;
 using QLCongTy.Views.NhanSu;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace QLCongTy.DAO
 {
@@ -111,18 +111,51 @@ namespace QLCongTy.DAO
             }
             else
             {
-                MessageBox.Show("Nhân viên chưa được phân công nhiệm vụ nào");
+                MessageBox.Show("Nhân viên chưa được phân công nhiệm vụ nào", "Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 return "00" + "CV" + MaCV.ToString("D2") + "DA" + MaDA.ToString("D2");
             }
         }
-        public int CapNhatTimeTask(string manv)
+        public int CapNhatTimeTask(string manv,int maduan,int macongviec,string magiaidoan)
         {
+            int ketqua;
             SqlParameter[] sp = new SqlParameter[]
             {
-                new SqlParameter("@manhanvien", SqlDbType.VarChar, 20) { Value = manv }
+                new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
+                new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
+                new SqlParameter("@macongviec", SqlDbType.Int) { Value = macongviec },
+                new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
             };
-
-            int ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask(@manhanvien)", sp,false));
+            try
+            {
+                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask (@manhanvien,@maduan,@macongviec,@magiaidoan)", sp, false));
+            }
+            catch
+            (Exception )
+            {
+                MessageBox.Show("Nhân viên chưa được phân công nhiệm vụ nào ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ketqua = 0;
+            }
+            return ketqua;
+        }
+        public int TongTimeTask(string manv, int maduan, int macongviec, string magiaidoan)
+        {
+            int ketqua;
+            SqlParameter[] sp = new SqlParameter[]
+            {
+                new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
+                new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
+                new SqlParameter("@macongviec", SqlDbType.Int) { Value = macongviec },
+                new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
+            };
+            try
+            {
+                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_TongTimeTask (@manhanvien,@maduan,@macongviec,@magiaidoan)", sp, false));
+            }
+            catch
+            (Exception)
+            { 
+                ketqua = 0;
+            }
             return ketqua;
         }
         public int KiemTraNhiemVuTienQuyet(string manhiemvu)
