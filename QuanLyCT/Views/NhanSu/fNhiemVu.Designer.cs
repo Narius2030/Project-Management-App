@@ -51,15 +51,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pnThongTinDA = new System.Windows.Forms.Panel();
-            this.btnChuyenDoi = new FontAwesome.Sharp.IconButton();
-            this.pnlTienDoChiTiet = new System.Windows.Forms.Panel();
             this.pnlTienDo = new System.Windows.Forms.Panel();
             this.ctProgressBar1 = new QLCongTy.CTProgressBar();
             this.label5 = new System.Windows.Forms.Label();
+            this.pnlTienDoChiTiet = new System.Windows.Forms.Panel();
             this.pgbUocTinhNV = new QLCongTy.CTProgressBar();
             this.pgbThucTeNV = new QLCongTy.CTProgressBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnChuyenDoi = new FontAwesome.Sharp.IconButton();
             this.cboCongViec = new System.Windows.Forms.ComboBox();
             this.cboMaGiaiDoan = new System.Windows.Forms.ComboBox();
             this.txtMaDA = new QLCongTy.CTTextBox();
@@ -74,8 +74,8 @@
             this.pnPCNhom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThoiGianUocTinh)).BeginInit();
             this.pnThongTinDA.SuspendLayout();
-            this.pnlTienDoChiTiet.SuspendLayout();
             this.pnlTienDo.SuspendLayout();
+            this.pnlTienDoChiTiet.SuspendLayout();
             this.pnTitle.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -421,35 +421,11 @@
             this.pnThongTinDA.Size = new System.Drawing.Size(1263, 139);
             this.pnThongTinDA.TabIndex = 90;
             // 
-            // btnChuyenDoi
-            // 
-            this.btnChuyenDoi.BackColor = System.Drawing.Color.Transparent;
-            this.btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOff;
-            this.btnChuyenDoi.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnChuyenDoi.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnChuyenDoi.Location = new System.Drawing.Point(1188, 54);
-            this.btnChuyenDoi.Name = "btnChuyenDoi";
-            this.btnChuyenDoi.Size = new System.Drawing.Size(62, 40);
-            this.btnChuyenDoi.TabIndex = 103;
-            this.btnChuyenDoi.UseVisualStyleBackColor = false;
-            this.btnChuyenDoi.Click += new System.EventHandler(this.btnChuyenDoi_Click);
-            // 
-            // pnlTienDoChiTiet
-            // 
-            this.pnlTienDoChiTiet.Controls.Add(this.pgbUocTinhNV);
-            this.pnlTienDoChiTiet.Controls.Add(this.pgbThucTeNV);
-            this.pnlTienDoChiTiet.Controls.Add(this.label1);
-            this.pnlTienDoChiTiet.Controls.Add(this.label2);
-            this.pnlTienDoChiTiet.Location = new System.Drawing.Point(677, 14);
-            this.pnlTienDoChiTiet.Name = "pnlTienDoChiTiet";
-            this.pnlTienDoChiTiet.Size = new System.Drawing.Size(505, 112);
-            this.pnlTienDoChiTiet.TabIndex = 116;
-            // 
             // pnlTienDo
             // 
             this.pnlTienDo.Controls.Add(this.ctProgressBar1);
             this.pnlTienDo.Controls.Add(this.label5);
-            this.pnlTienDo.Location = new System.Drawing.Point(679, 14);
+            this.pnlTienDo.Location = new System.Drawing.Point(677, 14);
             this.pnlTienDo.Name = "pnlTienDo";
             this.pnlTienDo.Size = new System.Drawing.Size(505, 112);
             this.pnlTienDo.TabIndex = 117;
@@ -482,6 +458,17 @@
             this.label5.Size = new System.Drawing.Size(84, 27);
             this.label5.TabIndex = 102;
             this.label5.Text = "Tiến độ";
+            // 
+            // pnlTienDoChiTiet
+            // 
+            this.pnlTienDoChiTiet.Controls.Add(this.pgbUocTinhNV);
+            this.pnlTienDoChiTiet.Controls.Add(this.pgbThucTeNV);
+            this.pnlTienDoChiTiet.Controls.Add(this.label1);
+            this.pnlTienDoChiTiet.Controls.Add(this.label2);
+            this.pnlTienDoChiTiet.Location = new System.Drawing.Point(677, 14);
+            this.pnlTienDoChiTiet.Name = "pnlTienDoChiTiet";
+            this.pnlTienDoChiTiet.Size = new System.Drawing.Size(505, 112);
+            this.pnlTienDoChiTiet.TabIndex = 116;
             // 
             // pgbUocTinhNV
             // 
@@ -540,6 +527,19 @@
             this.label2.Size = new System.Drawing.Size(98, 27);
             this.label2.TabIndex = 102;
             this.label2.Text = "Ước tính";
+            // 
+            // btnChuyenDoi
+            // 
+            this.btnChuyenDoi.BackColor = System.Drawing.Color.Transparent;
+            this.btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOff;
+            this.btnChuyenDoi.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnChuyenDoi.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnChuyenDoi.Location = new System.Drawing.Point(1188, 54);
+            this.btnChuyenDoi.Name = "btnChuyenDoi";
+            this.btnChuyenDoi.Size = new System.Drawing.Size(62, 40);
+            this.btnChuyenDoi.TabIndex = 103;
+            this.btnChuyenDoi.UseVisualStyleBackColor = false;
+            this.btnChuyenDoi.Click += new System.EventHandler(this.btnChuyenDoi_Click);
             // 
             // cboCongViec
             // 
@@ -702,10 +702,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudThoiGianUocTinh)).EndInit();
             this.pnThongTinDA.ResumeLayout(false);
             this.pnThongTinDA.PerformLayout();
-            this.pnlTienDoChiTiet.ResumeLayout(false);
-            this.pnlTienDoChiTiet.PerformLayout();
             this.pnlTienDo.ResumeLayout(false);
             this.pnlTienDo.PerformLayout();
+            this.pnlTienDoChiTiet.ResumeLayout(false);
+            this.pnlTienDoChiTiet.PerformLayout();
             this.pnTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
