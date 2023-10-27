@@ -195,6 +195,12 @@
     <Compile Include="Views\QLDuAn\FQLDuAn.Designer.cs">
       <DependentUpon>FQLDuAn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\QLDuAn\fTaiNguyen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QLDuAn\fTaiNguyen.Designer.cs">
+      <DependentUpon>fTaiNguyen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\QLDuAn\FTaoDuAn.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\QLDuAn\FQLDuAn.resx">
       <DependentUpon>FQLDuAn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QLDuAn\fTaiNguyen.resx">
+      <DependentUpon>fTaiNguyen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\QLDuAn\FTaoDuAn.resx">
       <DependentUpon>FTaoDuAn.cs</DependentUpon>

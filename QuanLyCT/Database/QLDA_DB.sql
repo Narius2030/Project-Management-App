@@ -167,7 +167,6 @@ INSERT INTO DUAN (TenDA, TienDo, NgayKT, NgayBD, ChiPhi, TrangThai, MaPM) VALUES
 (N'Phần mềm ql số liệu khí hậu', 0, '2023-12-30', '2023-10-15', '150000', 'Planning', 'NV007');
 GO
 
-
 INSERT INTO GIAIDOAN (MaGiaiDoan, NoiDung, NgayKT, NgayBD, MaDA) VALUES
 ('01DA03', N'Database', '2023-10-30', '2023-09-01', 3),
 ('01DA04', N'Database', '2023-09-30', '2023-09-01', 4),

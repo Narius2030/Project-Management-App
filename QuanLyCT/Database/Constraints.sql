@@ -38,8 +38,16 @@ FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN GIAIDOAN SP ON SP.MaGiaiDoan = UL.MaGiaiDoan
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
+--4.View liên quan đến nhiệm vụ của nhóm
 go
-
+Create Or ALter View  v_DanhSachNhiemVuNhom as 
+SELECT DA.MaDA,GD.MaGiaiDoan,CV.MaCV,N.TenNhom,NV.MaNhiemVu , TenNhiemVu , NV.TrangThai , MaTienQuyet, NV.ThoiGianUocTinh, NV.ThoiGianLamThucTe 
+                            FROM NHIEMVU NV
+                            INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+                            INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
+                            INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
+                            INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+go
 --###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
@@ -61,6 +69,8 @@ go
 
 
 --###Triggers
+
+--???????????
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create or alter trigger tr_addUocLuong on NHOM
 AFTER INSERT AS
@@ -217,7 +227,7 @@ GO
 
 --14.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 --NOTE
-CREATE OR ALTER TRIGGER tr_ktr_ngaynghi_giaidoan
+CREATE TRIGGER tr_ktr_ngaynghi_giaidoan
 ON DIEMDANH
 AFTER INSERT
 AS
@@ -238,8 +248,6 @@ BEGIN
 	END
 END;
 GO
-
---18.Xóa UOCLUONG của nhan vien trong 1 DUAN trong SPRINT đó SAU KHI xóa khỏi NHOM
 
 --16. Tạo uocluong mới cho từng nhanvien trong duan theo giaidoan mới tạo
 CREATE OR ALTER TRIGGER tr_themUocLuong ON GIAIDOAN
@@ -262,6 +270,7 @@ BEGIN
 	CLOSE cursor_nhomDA;
 END
 GO
+
 --17. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
 CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
 INSTEAD OF DELETE
@@ -284,4 +293,3 @@ BEGIN
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
 GO
-

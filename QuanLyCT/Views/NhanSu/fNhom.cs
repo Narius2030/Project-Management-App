@@ -52,7 +52,7 @@ namespace QLCongTy.Views.NhanSu
 
         private void cboNhom_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            lblTitleNhom.Text = cboDuAn.SelectedValue.ToString() + " - " + cboNhom.SelectedValue.ToString();
             nhom.TenNhom = cboNhom.SelectedValue.ToString();
             LoadGVTruongNhom();
             LoadTVNhom();
