@@ -7,22 +7,37 @@ BEGIN
 	WHERE MaTaiKhoan = @matk AND MatKhau = @matkhau
 END
 GO
---Kiểm Tra  Giai đoạn đã hoàn thành chưa  trước khi tạo cái khác
-CREATE or alter PROCEDURE sp_KiemTraGiaiDoan
+
+--Kiểm Tra Giai đoạn đã hoàn thành chưa trước khi tạo cái khác
+CREATE OR ALTER PROCEDURE sp_KiemTraGiaiDoan
     @maduan int,
     @MaGiaiDoan VARCHAR(255)
 AS
 BEGIN
-    SELECT DA.MaDA,GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
+    SELECT DA.MaDA, GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
     FROM CongViec CV
     INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
     INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-    WHERE CV.TrangThai != 'Done'
-      AND CV.MaGiaiDoan = @MaGiaiDoan
-      AND DA.MaDA = @maduan
-	 group by DA.MaDA,GD.MaGiaiDoan
+    WHERE CV.TrangThai != 'Done' AND CV.MaGiaiDoan = @MaGiaiDoan AND DA.MaDA = @maduan
+	GROUP BY DA.MaDA,GD.MaGiaiDoan
 END
 GO
+--Function return table
+CREATE OR ALTER FUNCTION sfn_KiemTraGiaiDoan(@maduan int, @MaGiaiDoan VARCHAR(255))
+RETURNS TABLE
+AS
+RETURN (
+	SELECT DA.MaDA, GD.MaGiaiDoan, COUNT(CV.MaCV) as [số lượng công việc]
+    FROM CongViec CV
+    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
+    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+    WHERE CV.TrangThai != 'Done' AND CV.MaGiaiDoan = @MaGiaiDoan AND DA.MaDA = @maduan
+	GROUP BY DA.MaDA,GD.MaGiaiDoan
+)
+GO
+
+--SELECT * FROM dbo.sfn_KiemTraGiaiDoan(3, '01DA03')
+
 --Kiểm Tra  Giai đoạn trước đã có công việc trước khi tạo giai đoạn mới
 CREATE OR ALTER PROCEDURE sp_KiemTraGiaiDoanTruoc
     @MaDuAn INT,
@@ -76,8 +91,9 @@ begin
 		set @ketqua=0
 		update CongViec set CongViec.TienDo=@ketqua where CongViec.MaCV =@MaCV 
 end
+GO
+
 --Procedure Cập Nhật Trạng Thái
-go
 CREATE OR ALTER Procedure sp_UpdateTrangThai
 @macongviec int ,@trangthai varchar(20) output
 as
@@ -98,21 +114,47 @@ begin
 	CONGVIEC.MaCV=@macongviec
 end
 GO
+
+-- Kiểm tra nhiệm vụ tiên quyết trước khi xóa
+CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
+@manv VARCHAR(10)
+AS
+BEGIN
+	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
+		SELECT * FROM NHIEMVU TQ
+		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
+	))
+END
+GO
+
 --Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
 CREATE OR ALTER	PROCEDURE sp_TimTruongNhom
 @tennhom nvarchar(20),@mada int
 as
 begin 
 	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-                                FROM TRUONGNHOM TN
-                                INNER JOIN NHOM N
-                                ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
-								INNER JOIN NHANVIEN NV
-                                 on  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
-								 WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+    FROM TRUONGNHOM TN
+    INNER JOIN NHOM N
+    ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
+	INNER JOIN NHANVIEN NV
+        ON  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
+		WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
 end
-
-go
+GO
+--Function
+CREATE OR ALTER FUNCTION sfn_TimTruongNhom(@tennhom nvarchar(20), @mada int)
+RETURNS TABLE
+AS
+RETURN (
+	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+    FROM TRUONGNHOM TN
+    INNER JOIN NHOM N
+    ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
+	INNER JOIN NHANVIEN NV
+        ON  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
+		WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+)
+GO
 
 --xem danh sách thành viên trong 1 dự án trong 1 nhóm
 CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
@@ -120,26 +162,11 @@ CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
 as
 begin
 SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-                                FROM NHOM N
-                                INNER JOIN NHANVIEN NV
-                                ON N.MaNV = NV.MaNV
-                                WHERE N.MaDA = @mada AND N.TenNhom = @tennhom
+    FROM NHOM N
+    INNER JOIN NHANVIEN NV
+    ON N.MaNV = NV.MaNV
+    WHERE N.MaDA = @mada AND N.TenNhom = @tennhom
 end
-
-go
---Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trịS
-CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
-RETURNS INT
-AS
-BEGIN
-    DECLARE @Result INT
-
-    IF EXISTS (SELECT 1 FROM TRUONGNHOM WHERE TenNhom = @TenNhom AND MaDA = @MaDA)
-        SET @Result = 1
-    ELSE
-        SET @Result = 0
-    RETURN @Result
-END;
 GO
 
 --Kiểm tra công việc tiên quyết 
@@ -156,7 +183,25 @@ BEGIN
         WHERE CONGVIEC.MaCV =@matienquyet
     END
 END
-go
+GO
+
+
+--### Hàm
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trịS
+CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Result INT
+
+    IF EXISTS (SELECT 1 FROM TRUONGNHOM WHERE TenNhom = @TenNhom AND MaDA = @MaDA)
+        SET @Result = 1
+    ELSE
+        SET @Result = 0
+    RETURN @Result
+END;
+GO
+
 --CẬp nhật timetask
 CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10))
 RETURNS INT
@@ -226,14 +271,22 @@ GO
 
 --SELECT dbo.sfn_TimThoiGianNghi('NV002', '01DA03')
 
--- Kiểm tra nhiệm vụ tiên quyết trước khi xóa
-CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
-@manv VARCHAR(10)
+--Kiểm tra tồn tại nhiệm vụ tiên quyết trước
+CREATE OR ALTER FUNCTION CheckFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaTienQuyet varchar(10))
+RETURNS INT
 AS
-BEGIN
-	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
-		SELECT * FROM NHIEMVU TQ
-		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
-	))
-END
+BEGIN 
+	DECLARE @Result INT
+	IF EXISTS (SELECT NV.MaNV, NV.MaCV, NV.MaNhiemVu, NV.MaTienQuyet, NV.TrangThai, NV.TenNhiemVu, NV.ThoiGianLamThucTe, NV.ThoiGianUocTinh
+				FROM NHIEMVU NV
+				INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+				INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
+				INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
+				INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+				WHERE DA.MaDA = 8 AND GD.MaGiaiDoan = '01DA08' AND CV.MaCV = 1 AND N.TenNhom = 'Front-End' AND NV.MaNV = 'NV002' AND NV.MaNhiemVu = '01CV01')
+		SET @Result = 1
+    ELSE
+        SET @Result = 0
+    RETURN @Result
+END;
 GO

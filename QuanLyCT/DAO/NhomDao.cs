@@ -53,13 +53,18 @@ namespace QLCongTy.DAO
         }
         public DataTable laydanhsachnhom(int mada)
         {
-            string sqlStr = $"select distinct (TenNhom) From NHOM where NHOM.MaDA={mada} ";
+            string sqlStr = $"select distinct (TenNhom) From NHOM where NHOM.MaDA={mada}";
             return dbconn.ExecuteQuery(sqlStr);
         }
         public DataTable dsThanhVienNhom(int mada, string tennhom)
         {
-            string sqlStr = $"SELECT * FROM NHOM WHERE MaDA = {mada} AND TenNhom = '{tennhom}'";
-            return dbconn.ExecuteQuery(sqlStr);
+
+            SqlParameter[] parame = new SqlParameter[]
+            {
+                new SqlParameter("@mada",SqlDbType.Int){Value=mada},
+                new SqlParameter("@tennhom",SqlDbType.NVarChar,20){Value=tennhom}
+            };
+            return dbconn.ExecuteProcedure("sp_dstvmotnhomtrongmotduan", parame);
         }
         public Boolean KiemTraTonTaiNhomTruong(NHOM nhom)
         {
@@ -76,6 +81,13 @@ namespace QLCongTy.DAO
             {
                 return true;
             }
+        }
+
+
+        public DataTable XacDinhTruongNhom(NHOM nhom)
+        {
+            string sqlStr = $"SELECT MaNV FROM TRUONGNHOM WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}'";
+            return dbconn.ExecuteQuery(sqlStr);
         }
     }
 }

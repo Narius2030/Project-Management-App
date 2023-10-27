@@ -67,5 +67,10 @@ namespace QLCongTy.DAO
                             FROM NHANVIEN WHERE Levels='{level}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
+         public DataTable DSDuAn()
+        {
+            string sqlStr = $"SELECT CONCAT(MaDA, ' - ', TenDA) as TenDA, MaDA FROM DUAN";
+            return dbconn.ExecuteQuery(sqlStr);
+        }
     }
 }

@@ -7,11 +7,14 @@ using System.Windows.Forms.DataVisualization.Charting;
 using QLCongTy.DAO;
 using QLCongTy.DTO;
 using System.Collections.Generic;
+using QLCongTy.Views.NhanSu;
+using System.Windows.Controls.Primitives;
 
 namespace QLCongTy.QLDuAn
 {
     public partial class fQLDuAn : Form
     {  
+        NhiemVuDao nvDao = new NhiemVuDao();
         DuAnDao daDao = new DuAnDao();
         GiaiDoanDao gdD =new GiaiDoanDao();
         DUAN da = new DUAN();
@@ -28,7 +31,6 @@ namespace QLCongTy.QLDuAn
             gvNhanSu.AllowUserToAddRows = false;
             gvNLDA.AllowUserToAddRows = false;
         }
-
         #region ReLoad Something
         void LoadDataGiaiDoan()
         {
@@ -57,10 +59,10 @@ namespace QLCongTy.QLDuAn
         }
         void LoadTabPages()
         {
-            foreach (TabPage tab in tabQLDA.TabPages)
+            foreach (TabPage tab in tpNhom.TabPages)
             {
                 if (tab.TabIndex != 0)
-                    tabQLDA.Controls.Remove(tab);
+                    tpNhom.Controls.Remove(tab);
             }
         }
         void LoadDataCboTimKiem()
@@ -115,8 +117,8 @@ namespace QLCongTy.QLDuAn
         private void btnPhanCong_Click(object sender, EventArgs e)
         {
             LoadTabPages();
-            tabQLDA.Controls.Add(tpChiaGianDoan);
-            tabQLDA.SelectedIndex = 1;
+            tpNhom.Controls.Add(tpChiaGianDoan);
+            tpNhom.SelectedIndex = 1;
 
             //Điền thông tin giai đoạn
             lblDuAn.Text = da.MaDA.ToString() + "_" + da.TenDA;
@@ -125,8 +127,8 @@ namespace QLCongTy.QLDuAn
         private void btnTuyenNV_Click(object sender, EventArgs e)
         {
             LoadTabPages();
-            tabQLDA.Controls.Add(tpTuyenNL);
-            tabQLDA.SelectedIndex = 1;
+            tpNhom.Controls.Add(tpTuyenNL);
+            tpNhom.SelectedIndex = 1;
 
             //Điền thông tin giai đoạn
             txtMaDA.Texts = da.MaDA.ToString();
@@ -142,7 +144,7 @@ namespace QLCongTy.QLDuAn
         }
         private void btnXoaNVkhoiDA_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Bạn chắc chắn muốn loại nhân viên khỏi dự án ?", "Xác nhận", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show($"Bạn chắc chắn muốn loại nhân viên {nhom.MaNV} khỏi dự án {nhom.MaDA}", "Xác nhận", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 if (cbNhomTruong.Checked == false)
@@ -431,8 +433,8 @@ namespace QLCongTy.QLDuAn
                 {
                     MaGiaiDoan = txtMaGD.Texts,
                     NoiDung = txtNoiDung.Texts,
-                    NgayBD = dtpNgayBD.Value,
-                    NgayKT = dtpNgayKT.Value,
+                    NgayBD = dtpNgayBD.Value.Date,
+                    NgayKT = dtpNgayKT.Value.Date,
                     MaDA = da.MaDA
                 };
                 DataTable kq = gdD.CheckGiaiDoan(gd);
@@ -454,9 +456,9 @@ namespace QLCongTy.QLDuAn
                     MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Thêm Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Thêm Thất Bại"+ex.Message, "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
 
         }
@@ -520,8 +522,8 @@ namespace QLCongTy.QLDuAn
         private void vbTaoCV_Click(object sender, EventArgs e)
         {
             LoadTabPages();
-            tabQLDA.Controls.Add(tpPhanCongViec);
-            tabQLDA.SelectedIndex = 1;
+            tpNhom.Controls.Add(tpPhanCongViec);
+            tpNhom.SelectedIndex = 1;
             LoadDuLieuNhom();
             LoadCongViec();
         }
@@ -627,6 +629,32 @@ namespace QLCongTy.QLDuAn
             {
                 MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }    
+        }
+
+        private void btnPhanCV_Click(object sender, EventArgs e)
+        {
+            NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, cboNhiemVuTienQuyet.SelectedValue.ToString(), "Pending", Convert.ToInt32(nudThoiGianUocTinh.Value), txtNhiemVu.Texts, null, ltlTitleNhiemVu.Text.Substring(0, 5), Convert.ToInt32(txtCongViec.Texts));
+            nvDao.ThemNhiemVu(nv);
+        }
+
+        private void LoadGVDSPhanNhiemVu()
+        {
+            gvDSNhiemVu.DataSource = nvDao.DSNhiemVuNhom(8, "01DA08", 1, "Front-End");
+            gvDSNhiemVu.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+
+
+
+        private void btnNhiemVu_Click(object sender, EventArgs e)
+        {
+            fNhiemVu fnhiemvu = new fNhiemVu();
+            fnhiemvu.TopLevel = false;
+            tpPhanNhiemVu.Controls.Add(fnhiemvu);
+            fnhiemvu.FormBorderStyle = FormBorderStyle.None;
+            fnhiemvu.Show();
+            LoadTabPages();
+            tpNhom.Controls.Add(tpPhanNhiemVu);
+            tpNhom.SelectedIndex = 1;
         }
     }
 }

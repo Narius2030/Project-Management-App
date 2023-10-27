@@ -44,18 +44,8 @@ namespace QLCongTy.DAO
         {
             using (QLDAEntities qlhs = new QLDAEntities())
             {
-                CONGVIEC congviec = new CONGVIEC()
-                {
-                    TrangThai = cv.TrangThai,
-                    CVTienQuyet = cv.CVTienQuyet,
-                    TenCV = cv.TenCV,
-                    TienDo = cv.TienDo,
-                    TenNhom = cv.TenNhom,
-                    MaDA = cv.MaDA,
-                    MaGiaiDoan = cv.MaGiaiDoan,
-
-                };
-                qlhs.CONGVIECs.Add(congviec);
+                
+                qlhs.CONGVIECs.Add(cv);
                 qlhs.SaveChanges();
             }
         }
