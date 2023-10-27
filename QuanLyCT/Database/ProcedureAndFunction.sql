@@ -59,13 +59,13 @@ begin
 	select @soluongnvhoanthanh= count(NHIEMVU.MaNhiemVu)
 	From CONGVIEC ,NHIEMVU,GIAIDOAN
 	where NHIEMVU.MaCV=CONGVIEC.MaCV
-	and GIAIDOAN.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
+	and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
 	and NHIEMVU.TrangThai='Done'
 	and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
 	select  @soluongnhiemvu= count(NHIEMVU.MaNhiemVu)
 	From CONGVIEC ,NHIEMVU,GIAIDOAN
 	where NHIEMVU.MaCV=CONGVIEC.MaCV
-	and GIAIDOAN.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
+	and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
 	and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
 	if(@soluongnvhoanthanh >0)
 	begin
@@ -140,66 +140,10 @@ BEGIN
         SET @Result = 0
     RETURN @Result
 END;
-GO
 
---Kiểm tra công việc tiên quyết 
-CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
-    @macongviec INT
-AS
-BEGIN
-<<<<<<< HEAD
-	declare @matienquyet int
-    select @matienquyet=cvtq.MaCV From CONGVIEC as cv,CONGVIEC as cvtq
-	where cv.MaCV=cvtq.CVTienQuyet and cv.MaCV= @macongviec
-    BEGIN
-        UPDATE CONGVIEC
-        SET CVTienQuyet = NULL
-        WHERE CONGVIEC.MaCV =@matienquyet
-=======
-	DECLARE @Result INT
-	IF EXISTS (SELECT NV.MaNV, NV.MaCV, NV.MaNhiemVu, NV.MaTienQuyet, NV.TrangThai, NV.TenNhiemVu, NV.ThoiGianLamThucTe, NV.ThoiGianUocTinh
-				FROM NHIEMVU NV
-				INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
-				INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
-				INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
-				INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-				WHERE DA.MaDA = @MaDA AND GD.MaGiaiDoan = @MaGiaiDoan AND CV.MaCV = @MaCV AND N.TenNhom = @TenNhom AND NV.MaNV = @MaNhanVien AND NV.MaNhiemVu = @MaTienQuyet)
-		SET @Result = 1
-    ELSE
-        SET @Result = 0
-    RETURN @Result
-END;
 GO
-
---Xóa hết NhiemVu trước khi xóa CongViec
-CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
-@manhiemvu VARCHAR(10)
-AS
-BEGIN
-	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
-		SELECT * FROM NHIEMVU TQ
-		WHERE TQ.MaNhiemVu=@manhiemvu AND TQ.MaNhiemVu = NV.MaTienQuyet
-	))
-END
-GO
-
 --Procedure Huy
---Kiểm Tra Nhiệm Vụ tiên quyết trước khi xoá
-CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
-    @manhiemvu varchar(10)
-AS
-BEGIN
-	declare @matienquyet varchar(10)
-    select @matienquyet=nvtq.MaNhiemVu From NHIEMVU as nv,NHIEMVU as nvtq
-	where nv.MaNhiemVu=nvtq.MaTienQuyet and nv.MaNhiemVu= @manhiemvu
-    BEGIN
-        UPDATE NHIEMVU
-        SET  MaTienQuyet = NULL
-        WHERE NHIEMVU.MaNhiemVu =@matienquyet
->>>>>>> a6996b332cf4bad4b19894765b0604cc65e1f6dc
-    END
-END
-go
+
 --CẬp nhật timetask
 CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10))
 RETURNS INT
@@ -222,43 +166,7 @@ BEGIN
 	having NHANVIEN.MaNV=@manhanvien
 	return @timetask
 END
-
-
-
-
 go
-----Kiểm tra tồn tại nhiệm vụ tiên quyết trước
---CREATE OR ALTER FUNCTION CheckFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaTienQuyet varchar(10))
---RETURNS INT
---AS
---BEGIN
---	DECLARE @Result INT
---	IF EXISTS (SELECT NV.MaNV, NV.MaCV, NV.MaNhiemVu, NV.MaTienQuyet, NV.TrangThai, NV.TenNhiemVu, NV.ThoiGianLamThucTe, NV.ThoiGianUocTinh
---				FROM NHIEMVU NV
---				INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
---				INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
---				INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
---				INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
---				WHERE DA.MaDA = @MaDA AND GD.MaGiaiDoan = @MaGiaiDoan AND CV.MaCV = @MaCV AND N.TenNhom = @TenNhom AND NV.MaNV = @MaNhanVien AND NV.MaNhiemVu = @MaTienQuyet)
---		SET @Result = 1
---    ELSE
---        SET @Result = 0
---    RETURN @Result
---END;
---GO
-
-----Xóa hết NhiemVu trước khi xóa CongViec
---CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
---@manhiemvu VARCHAR(10)
---AS
---BEGIN
---	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
---		SELECT * FROM NHIEMVU TQ
---		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
---	))
---END
---GO
-
 --Kiểm Tra Nhiệm Vụ tiên quyết trước khi xoá
 CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
     @manhiemvu varchar(10)
@@ -290,10 +198,3 @@ BEGIN
 END
 GO
 
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> a6996b332cf4bad4b19894765b0604cc65e1f6dc

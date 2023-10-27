@@ -38,8 +38,16 @@ FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN GIAIDOAN SP ON SP.MaGiaiDoan = UL.MaGiaiDoan
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
+--4.View liên quan đến nhiệm vụ của nhóm
 go
-
+Create Or ALter View  v_DanhSachNhiemVuNhom as 
+SELECT DA.MaDA,GD.MaGiaiDoan,CV.MaCV,N.TenNhom,NV.MaNhiemVu , TenNhiemVu , NV.TrangThai , MaTienQuyet, NV.ThoiGianUocTinh, NV.ThoiGianLamThucTe 
+                            FROM NHIEMVU NV
+                            INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+                            INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
+                            INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
+                            INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+go
 --###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
