@@ -23,13 +23,13 @@ namespace QLCongTy.Views.NhanSu
         NhomDao nDao = new NhomDao();
         NhiemVuDao nvDao = new NhiemVuDao();
         NHIEMVU nv = new NHIEMVU();
-        public fNhiemVu(string MaNV, int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
+        GiaiDoanDao gdDao = new GiaiDoanDao();
+        CongViecDao cvDao = new CongViecDao();
+        public fNhiemVu(string MaNV, int MaDA, string TenNhom)
         {
             InitializeComponent();
             this.MaNV = MaNV;
             this.MaDA = MaDA;
-            this.MaGiaiDoan = MaGiaiDoan;
-            this.MaCV = MaCV;
             this.TenNhom = TenNhom;
         }
 
@@ -44,9 +44,9 @@ namespace QLCongTy.Views.NhanSu
             nv.MaNV = this.MaNV;
             lblTitleNhiemVu.Text = this.MaNV;
             txtMaDA.Texts = this.MaDA.ToString();
-            txtMaGiaiDoan.Texts = this.MaGiaiDoan;
             txtTenNhom.Texts = this.TenNhom;
-            txtCongViec.Texts = this.MaCV.ToString();
+            LoadCboGiaiDoan();
+            LoadCboCongViec();
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
         }
@@ -59,13 +59,29 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnPhanCV_Click(object sender, EventArgs e)
         {
-            NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(txtCongViec.Texts));
+            NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(cboCongViec.SelectedValue.ToString()));
             if (cbTienQuyet.Checked)
             {
                 nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
             }
             nvDao.ThemNhiemVu(nv);
             ReLoad();
+        }
+
+        private void LoadCboGiaiDoan()
+        {
+            DataTable source = gdDao.GetListSprint(this.MaDA);
+            cboMaGiaiDoan.DisplayMember = "MaGiaiDoan";
+            cboMaGiaiDoan.ValueMember = "MaGiaiDoan";
+            cboMaGiaiDoan.DataSource = source;
+        }
+
+        private void LoadCboCongViec()
+        {
+            DataTable source = cvDao.GetListJob(this.MaDA, this.MaGiaiDoan);
+            cboCongViec.DisplayMember = "TenCV";
+            cboCongViec.ValueMember = "MaCV";
+            cboCongViec.DataSource = source;
         }
 
         private void LoadCboTienQuyet()
@@ -79,17 +95,32 @@ namespace QLCongTy.Views.NhanSu
         private void btnXoaNhiemVu_Click(object sender, EventArgs e)
         {
             //Procedure chưa setnull được và hiện một exception nhưng kh ảnh hưởng quá trình xóa
-            //nvDao.SetNullTienQuyet(nv);
+            nvDao.SetNullTienQuyet(nv);
             nvDao.XoaNhiemVu(nv);
             ReLoad();
         }
 
         private void btnTaoNhiemVu_Click(object sender, EventArgs e)
         {
-            string maNVSauCung = nvDao.NhiemVuMoiNhat(this.MaDA, this.MaGiaiDoan, this.MaCV, this.TenNhom);
-            string MaNVMoi = getMaNhiemVuMoi(maNVSauCung);
-            txtMaNhiemVu.Texts = MaNVMoi;
-            txtNhiemVu.Texts = "";
+            if (cboCongViec.Text == "--Chưa có công việc--")
+            {
+                DialogResult dialogResult = MessageBox.Show("Phân công việc trước khi giao nhiệm vụ", "Thông báo", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //Xử lý gọi chức năng phân nhiệm vụ
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    MessageBox.Show("Chọn công việc khác để phân công");
+                }
+            }
+            else
+            {
+                string maNVSauCung = nvDao.NhiemVuMoiNhat(this.MaDA, this.MaGiaiDoan, this.MaCV, this.TenNhom);
+                string MaNVMoi = getMaNhiemVuMoi(maNVSauCung);
+                txtMaNhiemVu.Texts = MaNVMoi;
+                txtNhiemVu.Texts = "";
+            }
         }
 
         public String getMaNhiemVuMoi(String MaNhiemVu)
@@ -135,10 +166,37 @@ namespace QLCongTy.Views.NhanSu
 
         private void ReLoad()
         {
-            txtMaNhiemVu.Texts = "";
-            txtNhiemVu.Texts = "";
+            ClearTextBox();
+            LoadCboGiaiDoan();
+            LoadCboCongViec();
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
+        }
+
+        private void ClearTextBox()
+        {
+            txtMaNhiemVu.Texts = "";
+            txtNhiemVu.Texts = "";
+        }
+
+        private void cboMaGiaiDoan_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboCongViec.Text = "--Chưa có công việc--";
+            this.MaGiaiDoan = cboMaGiaiDoan.SelectedValue.ToString();
+            LoadCboCongViec();
+            ClearTextBox();
+        }
+
+        private void cboCongViec_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.MaCV = Convert.ToInt32(cboCongViec.SelectedValue);
+            ClearTextBox();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
         }
     }
 }

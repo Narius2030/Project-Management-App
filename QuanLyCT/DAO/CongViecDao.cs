@@ -23,7 +23,7 @@ namespace QLCongTy.DAO
             {
                 new SqlParameter("@MaCV",SqlDbType.Int){Value =macongviec},
                 new SqlParameter("@magiaidoan ",SqlDbType.VarChar,20){Value =magiaidoan},
-                new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output }
+                new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output}
             };
             dbC.ExecuteProcedure("sp_TinhTienDoCv", parameters);
             double ketqua = Convert.ToDouble(parameters[2].Value);

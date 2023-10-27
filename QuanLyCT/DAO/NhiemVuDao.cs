@@ -119,9 +119,9 @@ namespace QLCongTy.DAO
         {
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@manhiemvu",SqlDbType.Int){Value=nv.MaNhiemVu}
+                new SqlParameter("@manhiemvu",SqlDbType.VarChar, 10){Value=nv.MaNhiemVu}
             };
-            dbconn.ExecuteProcedure("sp_UpdateTrangThai", parameters);
+            dbconn.ExecuteProcedure("sp_KiemTraNhiemVu", parameters);
         }
     }
 }

@@ -62,6 +62,7 @@
             this.gvDSThanhVien = new System.Windows.Forms.DataGridView();
             this.artanPannel7 = new ArtanComponent.ArtanPannel();
             this.label14 = new System.Windows.Forms.Label();
+            this.pnlShowNhiemVu = new System.Windows.Forms.Panel();
             this.panel3.SuspendLayout();
             this.artanPannel9.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -609,15 +610,22 @@
             this.label14.Text = "NHÓM - MÃ DA";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pnlShowNhiemVu
+            // 
+            this.pnlShowNhiemVu.Location = new System.Drawing.Point(0, 0);
+            this.pnlShowNhiemVu.Name = "pnlShowNhiemVu";
+            this.pnlShowNhiemVu.Size = new System.Drawing.Size(1337, 772);
+            this.pnlShowNhiemVu.TabIndex = 95;
+            // 
             // fNhom
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1337, 772);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.artanPannel7);
+            this.Controls.Add(this.pnlShowNhiemVu);
             this.Name = "fNhom";
             this.Text = "fNhom";
             this.Load += new System.EventHandler(this.fNhom_Load);
@@ -665,5 +673,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cboDuAn;
         private VBButton btnDoiTruongNhom;
+        private System.Windows.Forms.Panel pnlShowNhiemVu;
     }
 }

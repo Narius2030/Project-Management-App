@@ -636,7 +636,7 @@ namespace QLCongTy.QLDuAn
 
         private void btnNhiemVu_Click(object sender, EventArgs e)
         {
-            fNhiemVu fnhiemvu = new fNhiemVu("", da.MaDA, null, 0, nhom.TenNhom);
+            fNhiemVu fnhiemvu = new fNhiemVu("", da.MaDA, nhom.TenNhom);
             fnhiemvu.TopLevel = false;
             tpPhanNhiemVu.Controls.Add(fnhiemvu);
             fnhiemvu.FormBorderStyle = FormBorderStyle.None;

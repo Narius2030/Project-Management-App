@@ -183,19 +183,18 @@ END
 GO
 
 --Procedure Huy
-CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVuTienQuyet
-    @manhiemvvu VARCHAR(10),
-    @check INT OUTPUT
+--Kiểm Tra Nhiệm Vụ tiên quyết trước khi xoá
+CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
+    @manhiemvu varchar(10)
 AS
 BEGIN
-    SET @check = 1;
-    
-    IF EXISTS (SELECT 1 FROM NHIEMVU WHERE NHIEMVU.MaTienQuyet = @manhiemvvu)
+	declare @matienquyet varchar(10)
+    select @matienquyet=nvtq.MaNhiemVu From NHIEMVU as nv,NHIEMVU as nvtq
+	where nv.MaNhiemVu=nvtq.MaTienQuyet and nv.MaNhiemVu= @manhiemvu
     BEGIN
         UPDATE NHIEMVU
-        SET MaTienQuyet = NULL
-        WHERE NHIEMVU.MaTienQuyet = @manhiemvvu;
-        SET @check = 0;
+        SET  MaTienQuyet = NULL
+        WHERE NHIEMVU.MaNhiemVu =@matienquyet
     END
 END
 go
@@ -214,6 +213,8 @@ BEGIN
     END
 END
 GO
+
+
 
 
 
