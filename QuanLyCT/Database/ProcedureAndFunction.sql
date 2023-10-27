@@ -167,7 +167,7 @@ BEGIN
 	declare @mada int
 	declare @magiaidoan varchar(10)
 	declare @timetask  varchar(10)
-	select   @manv=NHANVIEN.MaNV,@mada=DUAN.MaDA,@magiaidoan=GIAIDOAN.MaGiaiDoan,
+	select  @manv=NHANVIEN.MaNV,@mada=DUAN.MaDA,@magiaidoan=GIAIDOAN.MaGiaiDoan,
 	@timetask=sum(NHIEMVU.ThoiGianUocTinh) 
 	From NHIEMVU
 	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
@@ -180,6 +180,51 @@ BEGIN
 	return @timetask
 END
 GO
+
+--Cập nhật TimeSprint
+CREATE OR ALTER FUNCTION sfn_CapNhatTimeSprint (@magiaidoan VARCHAR(20), @maDA INT, @soGioNg INT)
+RETURNS DECIMAL
+AS
+BEGIN
+	DECLARE @sumDays INT, @capPerDay DECIMAL
+
+	--TÍnh số ngày trong giai đoạn đang chọn
+	SELECT 
+		@sumDays=DATEDIFF(DAY, NgayBD, NgayKT)
+	FROM GIAIDOAN
+	WHERE MaGiaiDoan=@magiaidoan AND MaDA =@maDA
+	GROUP BY MaGiaiDoan, NgayBD, NgayKT
+
+	RETURN @sumDays * @soGioNg
+END
+GO
+
+--SELECT dbo.sfn_CapNhatTimeSprint('01DA03', 3, 8)
+
+--Tìm số giờ nghỉ trong một giai đoạn của dự án
+CREATE OR ALTER FUNCTION sfn_TimThoiGianNghi(@manhanvien varchar(10), @magiaidoan VARCHAR(20),  @soGioNg INT)
+RETURNS DECIMAL
+AS
+BEGIN
+	DECLARE @sumThoiGianNghi DECIMAL
+
+	-- Tìm số ngày nghỉ trong giaidoan của duan
+	SELECT 
+		@sumThoiGianNghi=(COUNT(dd.MaNV)*@soGioNg)
+	FROM DIEMDANH dd
+	JOIN NHOM n ON n.MaNV = dd.MaNV
+	JOIN GIAIDOAN gd ON gd.MaDA = n.MaDA
+	WHERE gd.MaGiaiDoan=@magiaidoan AND dd.MaNV=@manhanvien AND (dd.Ngay BETWEEN gd.NgayBD AND gd.NgayKT)
+	GROUP BY dd.MaNV
+
+	IF @sumThoiGianNghi IS NULL
+		SET @sumThoiGianNghi = 0
+
+	RETURN @sumThoiGianNghi
+END
+GO
+
+--SELECT dbo.sfn_TimThoiGianNghi('NV002', '01DA03')
 
 -- Kiểm tra nhiệm vụ tiên quyết trước khi xóa
 CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet

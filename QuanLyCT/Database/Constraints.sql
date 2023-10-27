@@ -1,5 +1,5 @@
 ﻿-- ###Views
---c) Những PM và Team Leader chưa được phân công
+--Những PM và Team Leader chưa được phân công
 CREATE OR ALTER VIEW vw_khongla_pm
 AS
 SELECT *
@@ -26,19 +26,15 @@ WHERE NOT EXISTS(
 )
 GO
 
---3. Xem thông tin ngày nghỉ của nhân viên 
---a)Thông tin ngày nghỉ của nhân viên trong từng Sprint của dự án
+--Xem danh sách ngày nghỉ
 CREATE OR ALTER VIEW vw_ngaynghi_trong_duan
 AS
 SELECT 
-	DD.MaNV,
-	UL.MaGiaiDoan, UL.MaDA, UL.SoNgayNghi, UL.TimeSprint, UL.TimeTasks, 
-	SP.NgayBD AS BDSprint, SP.NgayKT AS KTSprint
-FROM DIEMDANH DD
-JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
-JOIN GIAIDOAN SP ON SP.MaGiaiDoan = UL.MaGiaiDoan
-WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
-go
+		dd.*, n.TenNhom, n.SoGioMotNg, gd.MaDA, gd.MaGiaiDoan, gd.NgayBD, gd.NgayKT
+FROM DIEMDANH dd
+JOIN NHOM n ON n.MaNV = dd.MaNV
+JOIN GIAIDOAN gd ON gd.MaDA = n.MaDA
+GO
 
 --###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
@@ -219,7 +215,7 @@ GO
 
 --14.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 --NOTE
-CREATE TRIGGER tr_ktr_ngaynghi_giaidoan
+CREATE OR ALTER TRIGGER tr_ktr_ngaynghi_giaidoan
 ON DIEMDANH
 AFTER INSERT
 AS
