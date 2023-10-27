@@ -8,10 +8,11 @@ namespace QLCongTy
     internal class DBConnection
     {
         public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
-        public object ExecuteFunction(string functionName, SqlParameter[] parameters)
+        public object ExecuteFunction(string functionName, SqlParameter[] parameters, bool returnTable)
         {
             SqlCommand cmd = new SqlCommand(functionName, conn);
-            cmd.CommandType = CommandType.Text; 
+            cmd.CommandType = CommandType.Text;
+
             if (parameters != null)
             {
                 foreach (SqlParameter parameter in parameters)
@@ -19,16 +20,25 @@ namespace QLCongTy
                     cmd.Parameters.Add(parameter);
                 }
             }
-
             try
             {
                 conn.Open();
-                object result = cmd.ExecuteScalar(); 
-                return result;
+                if (returnTable==true)
+                {
+                    DataTable resultTable = new DataTable();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    resultTable.Load(reader);
+                    return resultTable; 
+                }
+                else
+                {
+                    object result = cmd.ExecuteScalar();
+                    return result;
+                }
             }
             catch (Exception exc)
             {
-                MessageBox.Show("Thực thi thất bại\n" + exc.Message, "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Thuc thi that bai\n" + exc.Message);
                 return null;
             }
             finally
@@ -36,6 +46,7 @@ namespace QLCongTy
                 conn.Close();
             }
         }
+
 
         public void ExecuteCommand(string sqlStr)
         {

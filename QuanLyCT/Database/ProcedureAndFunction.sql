@@ -142,7 +142,6 @@ BEGIN
 END;
 
 GO
---Procedure Huy
 
 --CẬp nhật timetask
 CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10))
@@ -150,12 +149,8 @@ RETURNS INT
 AS
 BEGIN
 
-	declare @manv varchar(10)
-	declare @mada int
-	declare @magiaidoan varchar(10)
 	declare @timetask  varchar(10)
-	select   @manv=NHANVIEN.MaNV,@mada=DUAN.MaDA,@magiaidoan=GIAIDOAN.MaGiaiDoan,
-	@timetask=sum(NHIEMVU.ThoiGianUocTinh) 
+	select @timetask=sum(NHIEMVU.ThoiGianUocTinh) 
 	From NHIEMVU
 	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
 	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
@@ -167,7 +162,7 @@ BEGIN
 	return @timetask
 END
 go
---Kiểm Tra Nhiệm Vụ tiên quyết trước khi xoá
+--Kiểm Tra Nhiệm Vụ Tiên Quyết để xoá đi nó cần phải cập nhật Nhiệm Vụ có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
 CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
     @manhiemvu varchar(10)
 AS
@@ -182,7 +177,7 @@ BEGIN
     END
 END
 go
---Kiểm Tra Công Việc Tiên Quyết để xoá
+--Kiểm Tra Công Việc Tiên Quyết để xoá đi nó cần phải cập nhật công việc có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
 CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
     @macongviec INT
 AS
@@ -197,4 +192,19 @@ BEGIN
     END
 END
 GO
-
+--Kiểm Tra Trạng Thái Nhiệm Vụ Tiên Quyết đã hoàn thành chưa thì mới làm nhiệm vụ hiện tại
+Create or Alter Procedure sp_KiemTraNhiemVuTienQuyet
+@manv varchar(10), @check int output 
+as
+begin
+	if exists (select nvtq.MaTienQuyet From NHIEMVU as nv ,NHIEMVU as nvtq
+		where nv.MaNhiemVu=nvtq.MaTienQuyet
+		and nvtq.MaNhiemVu=@manv and nv.TrangThai='Done')
+	 begin
+		 set @check=1
+	 end
+	else
+	begin
+		 set @check=0
+	end
+end

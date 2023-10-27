@@ -91,7 +91,6 @@ namespace QLCongTy.DAO
                 }
             }
         }
-        //Tesst SP
         public void KiemTraCongViecTienQuyet(CONGVIEC cv)
         {
             SqlParameter[] parameters = new SqlParameter[]

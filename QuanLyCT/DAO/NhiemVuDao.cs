@@ -8,6 +8,7 @@ using QLCongTy.DTO;
 using System.Windows;
 using QLCongTy.Views.NhanSu;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace QLCongTy.DAO
 {
@@ -19,13 +20,8 @@ namespace QLCongTy.DAO
         public DataTable DSNhiemVuNhom(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@" select MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
-<<<<<<< HEAD
-                            ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
-                           WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
-=======
                  ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
                 WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
->>>>>>> 77a7700835bb23a1e36602c20935a6d05b8d555e
             return dbconn.ExecuteQuery(sqlStr);
         }
 
@@ -44,7 +40,37 @@ namespace QLCongTy.DAO
                 }
             }
         }
-
+        public int SuaNhiemVu(NHIEMVU nv)
+        {
+            using(QLDAEntities entity = new QLDAEntities())
+            {
+                try
+                {
+                    var query=from q in entity.NHIEMVUs
+                              where q.MaNhiemVu == nv.MaNhiemVu
+                               select q;
+                    NHIEMVU kq=query.FirstOrDefault();
+                    if(kq != null) 
+                    {
+                        kq.TrangThai = nv.TrangThai;
+                        kq.ThoiGianLamThucTe = nv.ThoiGianLamThucTe;
+                        kq.TenNhiemVu = nv.TenNhiemVu;
+                        entity.SaveChanges() ;
+                        return 1;
+                    }
+                    else
+                    {
+                        return 0;
+                    }    
+                   
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Thuc Thi That Bai: {ex.Message}");
+                    return 0;
+                }
+            }    
+        }
         public int XoaNhiemVu(NHIEMVU nv)
         {
             using (QLDAEntities entityf = new QLDAEntities())
@@ -66,32 +92,19 @@ namespace QLCongTy.DAO
         public DataTable DSNhiemVu(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@"SELECT CONCAT(MaNhiemVu, ' - ' , TenNhiemVu) AS NhiemVu, MaNhiemVu
-<<<<<<< HEAD
-                            FROM v_DanhSachNhiemVuNhom
-                            WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
-                            ORDER BY MaNhiemVu";
-=======
-                 FROM v_DanhSachNhiemVuNhom
-                 WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
-                 ORDER BY MaNhiemVu";
->>>>>>> 77a7700835bb23a1e36602c20935a6d05b8d555e
+                     FROM v_DanhSachNhiemVuNhom
+                     WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
+                     ORDER BY MaNhiemVu";
             return dbconn.ExecuteQuery(sqlStr);
         }
 
         public string NhiemVuMoiNhat(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@"SELECT Top 1 MaNhiemVu
-<<<<<<< HEAD
-                            FROM v_DanhSachNhiemVuNhom
-                            WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
-                            ORDER BY MaNhiemVu DESC";
-            DataTable result =  dbconn.ExecuteQuery(sqlStr);
-=======
                 FROM v_DanhSachNhiemVuNhom
                 WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
                 ORDER BY MaNhiemVu DESC";
             DataTable result = dbconn.ExecuteQuery(sqlStr);
->>>>>>> 77a7700835bb23a1e36602c20935a6d05b8d555e
             if (result.Rows.Count > 0)
             {
                 return result.Rows[0]["MaNhiemVu"].ToString();
@@ -102,7 +115,29 @@ namespace QLCongTy.DAO
                 return "00" + "CV" + MaCV.ToString("D2") + "DA" + MaDA.ToString("D2");
             }
         }
+        public int CapNhatTimeTask(string manv)
+        {
+            SqlParameter[] sp = new SqlParameter[]
+            {
+                new SqlParameter("@manhanvien", SqlDbType.VarChar, 20) { Value = manv }
+            };
 
+            int ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask(@manhanvien)", sp,false));
+            return ketqua;
+        }
+        public int KiemTraNhiemVuTienQuyet(string manhiemvu)
+        {
+            SqlParameter[] sp = new SqlParameter[]
+            {
+                  new SqlParameter("@manv",SqlDbType.VarChar, 10){Value=manhiemvu},
+                  new SqlParameter("@check",SqlDbType.Real){Direction = ParameterDirection.Output}
+
+            };
+            dbconn.ExecuteProcedure("sp_KiemTraNhiemVuTienQuyet", sp);
+            int ketqua = Convert.ToInt32(sp[1].Value);
+            return ketqua;
+            
+        }
         public void SetNullTienQuyet(NHIEMVU nv)
         {
             SqlParameter[] parameters = new SqlParameter[]
