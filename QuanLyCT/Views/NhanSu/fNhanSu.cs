@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLCongTy.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +14,7 @@ namespace QLCongTy.NhanSu
 {
     public partial class FNhanSu : Form
     {
-       
+       NhanVienDao nvDao = new NhanVienDao();
         public FNhanSu()
         {
             InitializeComponent();
@@ -21,7 +22,7 @@ namespace QLCongTy.NhanSu
 
         private void FNhanSu_Load(object sender, EventArgs e)
         {
-          
+            LoadGVNhanSu();
             DoiTenGV();
             GetCboPB();
             //GetCboCV();
@@ -43,6 +44,11 @@ namespace QLCongTy.NhanSu
         private void DoiTenGV()
         {
             
+        }
+
+        private void LoadGVNhanSu()
+        {
+            gvNhanSu.DataSource = nvDao.DSNhanVien();
         }
         #endregion
 

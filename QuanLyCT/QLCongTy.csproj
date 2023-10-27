@@ -195,17 +195,17 @@
     <Compile Include="Views\QLDuAn\FQLDuAn.Designer.cs">
       <DependentUpon>FQLDuAn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\QLDuAn\fTaiNguyen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QLDuAn\fTaiNguyen.Designer.cs">
+      <DependentUpon>fTaiNguyen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\QLDuAn\FTaoDuAn.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\QLDuAn\FTaoDuAn.Designer.cs">
       <DependentUpon>FTaoDuAn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\QLNhom\FQLNhanVienPB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\QLNhom\FQLNhanVienPB.designer.cs">
-      <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Views\Custome_control\CustomComboBox.resx">
       <DependentUpon>CustomComboBox.cs</DependentUpon>
@@ -239,11 +239,11 @@
     <EmbeddedResource Include="Views\QLDuAn\FQLDuAn.resx">
       <DependentUpon>FQLDuAn.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\QLDuAn\fTaiNguyen.resx">
+      <DependentUpon>fTaiNguyen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\QLDuAn\FTaoDuAn.resx">
       <DependentUpon>FTaoDuAn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\QLNhom\FQLNhanVienPB.resx">
-      <DependentUpon>FQLNhanVienPB.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="DTO\QLDACongTyPM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

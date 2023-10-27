@@ -7,26 +7,30 @@ using System.Windows.Forms.DataVisualization.Charting;
 using QLCongTy.DAO;
 using QLCongTy.DTO;
 using System.Collections.Generic;
+using QLCongTy.Views.NhanSu;
+using System.Windows.Controls.Primitives;
 
 namespace QLCongTy.QLDuAn
 {
     public partial class fQLDuAn : Form
     {  
+        NhiemVuDao nvDao = new NhiemVuDao();
         DuAnDao daDao = new DuAnDao();
         GiaiDoanDao gdD =new GiaiDoanDao();
         DUAN da = new DUAN();
+        NHOM nhom = new NHOM();
         NhomDao nd = new NhomDao();
         GIAIDOAN gd=new GIAIDOAN();
         CongViecDao cvd=new CongViecDao();
+        TruongNhomDao tnDao = new TruongNhomDao();
         public fQLDuAn()
         {
             InitializeComponent();
             //Ẩn dòng cuối cùng của DatagridView
             gvQLDuAn.AllowUserToAddRows = false;
-            gvNLCTy.AllowUserToAddRows = false;
+            gvNhanSu.AllowUserToAddRows = false;
             gvNLDA.AllowUserToAddRows = false;
         }
-
         #region ReLoad Something
         void LoadDataGiaiDoan()
         {
@@ -35,7 +39,7 @@ namespace QLCongTy.QLDuAn
         void LoadDataNhanLuc()
         {
             gvNLDA.DataSource = daDao.getNhanLucDA(da.MaDA);
-            gvNLCTy.DataSource = daDao.getNhanLucCty();
+            gvNhanSu.DataSource = daDao.getNhanLucCty();
         }
         void LoadDuLieuNhom()
         {
@@ -49,19 +53,32 @@ namespace QLCongTy.QLDuAn
             txtmaduan.Texts = (da.MaDA).ToString();
             gvDSPhanCong.DataSource = cvd.GetListJob(da.MaDA, txtMaGD.Texts);
         }
+        public void LoadDataDA()
+        {
+            gvQLDuAn.DataSource = daDao.getProjectList();
+        }
         void LoadTabPages()
         {
-            foreach (TabPage tab in tabQLDA.TabPages)
+            foreach (TabPage tab in tpNhom.TabPages)
             {
                 if (tab.TabIndex != 0)
-                    tabQLDA.Controls.Remove(tab);
+                    tpNhom.Controls.Remove(tab);
             }
         }
+        void LoadDataCboTimKiem()
+        {
+            foreach(DataGridViewRow row in gvQLDuAn.Rows)
+            {
+                cboFindMaDA.Items.Add($"{row.Cells["MaDA"].Value} - {row.Cells["TenDA"].Value}");
+            }
+        }
+
         #endregion
 
         private void fQLDuAn_Load(object sender, EventArgs e)
         {
-           gvQLDuAn.DataSource = daDao.getProjectList();
+            LoadDataDA();
+            LoadDataCboTimKiem();
         }
         public void LoadCboFind()
         {
@@ -69,28 +86,39 @@ namespace QLCongTy.QLDuAn
         }
         private void btnThem_Click(object sender, EventArgs e)
         {
-           
+            FTaoDuAn fTaoDuAn = new FTaoDuAn(da, btnThem.Text);
+            fTaoDuAn.Show();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            try
+            {
+                daDao.removeDuAn(da.MaDA);
+                MessageBox.Show("Thao tác thành công");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadDataDA();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            
+            FTaoDuAn fTaoDuAn = new FTaoDuAn(da, btnSua.Text);
+            fTaoDuAn.Show();
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
 
         }
-
         private void btnPhanCong_Click(object sender, EventArgs e)
         {
             LoadTabPages();
-            tabQLDA.Controls.Add(tpChiaGianDoan);
-            tabQLDA.SelectedIndex = 1;
+            tpNhom.Controls.Add(tpChiaGianDoan);
+            tpNhom.SelectedIndex = 1;
 
             //Điền thông tin giai đoạn
             lblDuAn.Text = da.MaDA.ToString() + "_" + da.TenDA;
@@ -99,8 +127,8 @@ namespace QLCongTy.QLDuAn
         private void btnTuyenNV_Click(object sender, EventArgs e)
         {
             LoadTabPages();
-            tabQLDA.Controls.Add(tpTuyenNL);
-            tabQLDA.SelectedIndex = 1;
+            tpNhom.Controls.Add(tpTuyenNL);
+            tpNhom.SelectedIndex = 1;
 
             //Điền thông tin giai đoạn
             txtMaDA.Texts = da.MaDA.ToString();
@@ -114,23 +142,55 @@ namespace QLCongTy.QLDuAn
             }
             return false;
         }
-
-        private void btnFilter_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnXoaNVkhoiDA_Click(object sender, EventArgs e)
         {
-            
+            DialogResult dialogResult = MessageBox.Show($"Bạn chắc chắn muốn loại nhân viên {nhom.MaNV} khỏi dự án {nhom.MaDA}", "Xác nhận", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (cbNhomTruong.Checked == false)
+                {
+                    daDao.removeThanhVienDA(nhom);
+                }
+                else
+                {
+                    TRUONGNHOM tn = new TRUONGNHOM() {TenNhom=nhom.TenNhom, MaDA=nhom.MaDA, MaNV=nhom.MaNV};
+                    daDao.removeTruongNhomDA(tn);
+                }
+            }
+            LoadDataNhanLuc();
         }
-
-        private void btnThemNVvaoDA_Click(object sender, EventArgs e)
+        private void btnThemVaoNhom_Click(object sender, EventArgs e)
         {
-            DataGridViewRow row = gvNLCTy.SelectedRows[0];            
-            NHOM nhom = new NHOM(row.Cells["MaNV"].Value.ToString(), cboNhom.Text, int.Parse(txtMaDA.Texts), 0);
-            nd.ThemThanhVien(nhom);
-            MessageBox.Show("Thêm thành viên thành công");
+            nhom.MaNV = txtNhomTruong.Texts;
+            nhom.MaDA = int.Parse(txtMaDA.Texts);
+            nhom.TenNhom = cboNhom.Text;
+            nhom.SoGioMotNg = 0;
+            if (cbNhomTruong.Checked == true)
+            {
+                TRUONGNHOM tn = new TRUONGNHOM();
+                tn.MaNV = txtNhomTruong.Texts;
+                tn.MaDA = int.Parse(txtMaDA.Texts);
+                tn.TenNhom = cboNhom.Text;
+                nd.ThemTruongNhom(tn);
+                nd.ThemThanhVien(nhom);
+                MessageBox.Show("Thêm nhóm trưởng thành công");
+            }
+            else
+            {
+                if (nd.KiemTraTonTaiNhomTruong(nhom))
+                {
+                    nd.ThemThanhVien(nhom);
+                    MessageBox.Show("Thêm thành viên thành công");
+                }
+                else
+                {
+                    MessageBox.Show("Cần có nhóm trưởng trước khi thêm thành viên vào nhóm");
+                }
+            }
+        }
+        private void btnLoc_Click(object sender, EventArgs e)
+        {
+            gvNhanSu.DataSource = daDao.FilterLevel(cboTrinhDo.Text);
         }
 
         private void cboTrinhDo_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,7 +199,7 @@ namespace QLCongTy.QLDuAn
         }
         private void ReloadCboFind_Click(object sender, EventArgs e)
         {
-            
+            LoadDataDA();
         }
 
         private void btnThongKe_Click(object sender, EventArgs e)
@@ -173,6 +233,8 @@ namespace QLCongTy.QLDuAn
                 if(propertyInfo.PropertyType!=typeof(ICollection<GIAIDOAN>)
                     && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) 
                     && propertyInfo.PropertyType!=typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
+                //MessageBox.Show(propertyInfo.Name.ToString());
+                if (propertyInfo.PropertyType != typeof(ICollection<GIAIDOAN>) && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) && propertyInfo.PropertyType != typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN)) 
                 {
                     if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
                     {
@@ -191,22 +253,59 @@ namespace QLCongTy.QLDuAn
                         propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
                     }
                 }
-       
                 i++;
             }
-
             //Đổ data ra Datagridview TTPhancong
             LoadDataGiaiDoan();
         }
         private void gvPCDuAn_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           
-        }
-        private void gvNhanLuc_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-          
+            DataGridViewRow row = gvNLDA.SelectedRows[0];
+            nhom.MaNV = row.Cells["MaNV"].Value.ToString();
+            nhom.TenNhom = row.Cells["TenNhom"].Value.ToString();
+            nhom.MaDA = da.MaDA;
+            try
+            {
+                if (nhom.MaNV == nd.FindTruongNhom(nhom).Rows[0]["MaNV"].ToString())
+                {
+                    cbNhomTruong.Checked = true;
+                }
+            }
+            catch (Exception)
+            {
+                cbNhomTruong.Checked = false;
+            }
         }
 
+        private void cboNhom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Hiển thị danh sách thành viên nhóm khi chọn tên nhóm trong combobox
+            //LoadDataNhanLuc();
+            //gvNLDA.DataSource = nd.dsThanhVienNhom(da.MaDA, cboNhom.ToString());
+        }
+
+        private void cbNhomTruong_CheckedChanged(object sender, EventArgs e)
+        {
+            ShowNhomTruong_ThanhVien();
+        }
+
+        public void ShowNhomTruong_ThanhVien()
+        {
+            if (cbNhomTruong.Checked == false)
+            {
+                gvNLDA.DataSource = daDao.getNhanLucDA(da.MaDA);
+            }
+            else
+            {
+                gvNLDA.DataSource = tnDao.laydanhsachnhomtruong(da.MaDA);
+            }
+        }
+
+        private void gvNhanSu_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewRow row = gvNhanSu.SelectedRows[0];
+            txtNhomTruong.Texts = row.Cells["MaNV"].Value.ToString();
+        }
         #endregion
 
         #region Timer cho Sidebar 
@@ -216,7 +315,7 @@ namespace QLCongTy.QLDuAn
         {
             if (sidebarExpand)
             {
-                pnlTiendo.Height -= 50;
+                pnlTiendo.Height -= 5;
                 if (pnlTiendo.Height == pnlTiendo.MinimumSize.Height)
                 {
                     sidebarExpand = false;
@@ -225,12 +324,25 @@ namespace QLCongTy.QLDuAn
             }
             else
             {
-                pnlTiendo.Height += 50;
+                pnlTiendo.Height += 5;
                 if (pnlTiendo.Height == pnlTiendo.MaximumSize.Height)
                 {
                     sidebarExpand = true;
                     tmShowTiendo.Stop();
                 }
+            }
+        }
+
+        double valuePercent = 0;
+        private void tmProgressBar_Tick(object sender, EventArgs e)
+        {
+            if (pbTienDoGD.Value == valuePercent)
+            {
+                tmProgressBar.Stop();
+            }
+            if (pbTienDoGD.Value + 5 <= valuePercent)
+            {
+                pbTienDoGD.Value += 5;
             }
         }
 
@@ -268,8 +380,8 @@ namespace QLCongTy.QLDuAn
             gvQLDuAn.Columns[5].HeaderText = "Bắt Đầu";
             gvQLDuAn.Columns[6].HeaderText = "Kết Thúc";
             gvQLDuAn.Columns[7].HeaderText = "Trạng Thái";
-            gvNLCTy.Columns[0].HeaderText = "Mã Nhân Viên";
-            gvNLCTy.Columns[1].HeaderText = "Trình Độ";
+            gvNhanSu.Columns[0].HeaderText = "Mã Nhân Viên";
+            gvNhanSu.Columns[1].HeaderText = "Trình Độ";
         }
         private void gvQLDuAn_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -321,8 +433,8 @@ namespace QLCongTy.QLDuAn
                 {
                     MaGiaiDoan = txtMaGD.Texts,
                     NoiDung = txtNoiDung.Texts,
-                    NgayBD = dtpNgayBD.Value,
-                    NgayKT = dtpNgayKT.Value,
+                    NgayBD = dtpNgayBD.Value.Date,
+                    NgayKT = dtpNgayKT.Value.Date,
                     MaDA = da.MaDA
                 };
                 DataTable kq = gdD.CheckGiaiDoan(gd);
@@ -344,9 +456,9 @@ namespace QLCongTy.QLDuAn
                     MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Thêm Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Thêm Thất Bại"+ex.Message, "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
 
         }
@@ -410,8 +522,8 @@ namespace QLCongTy.QLDuAn
         private void vbTaoCV_Click(object sender, EventArgs e)
         {
             LoadTabPages();
-            tabQLDA.Controls.Add(tpPhanCongViec);
-            tabQLDA.SelectedIndex = 1;
+            tpNhom.Controls.Add(tpPhanCongViec);
+            tpNhom.SelectedIndex = 1;
             LoadDuLieuNhom();
             LoadCongViec();
         }
@@ -437,7 +549,9 @@ namespace QLCongTy.QLDuAn
                     double tiendoValue;
                     if (Double.TryParse(txttiendo.Texts, out tiendoValue))
                     {
-                        pbTienDoGD.Value = (int)tiendoValue;
+                        pbTienDoGD.Value = 0;
+                        valuePercent = (double)tiendoValue;
+                        tmProgressBar.Start();
                     }
                 }
                 LoadCongViec();
@@ -482,13 +596,16 @@ namespace QLCongTy.QLDuAn
                 MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
 
             };
-            if(cvd.RemoveJob(cv)==1)
+            cvd.KiemTraCongViecTienQuyet(cv);
             {
-                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }    
-            else
-            {
-                MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                if (cvd.RemoveJob(cv) == 1)
+                {
+                    MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }
             }
             LoadCongViec();
         }
@@ -515,6 +632,18 @@ namespace QLCongTy.QLDuAn
             {
                 MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }    
+        }
+
+        private void btnNhiemVu_Click(object sender, EventArgs e)
+        {
+            fNhiemVu fnhiemvu = new fNhiemVu("", da.MaDA, nhom.TenNhom);
+            fnhiemvu.TopLevel = false;
+            tpPhanNhiemVu.Controls.Add(fnhiemvu);
+            fnhiemvu.FormBorderStyle = FormBorderStyle.None;
+            fnhiemvu.Show();
+            LoadTabPages();
+            tpNhom.Controls.Add(tpPhanNhiemVu);
+            tpNhom.SelectedIndex = 1;
         }
     }
 }

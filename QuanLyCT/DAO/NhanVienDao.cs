@@ -26,5 +26,24 @@ namespace QLCongTy.DAO
 
             return check;
         }
+
+        public DataTable DSNhanVien()
+        {
+            string sqlStr = "SELECT * FROM NHANVIEN";
+            return Dbc.ExecuteQuery(sqlStr);
+        }
+        public string HoTenNhanVien(string manv)
+        {
+            string sqlStr = $"SELECT CONCAT(MaNV, '-', HovaTenDem,' ', Ten) AS HoTenNV FROM NHANVIEN WHERE MaNV = '{manv}'";
+            DataTable result =  Dbc.ExecuteQuery(sqlStr);
+            if (result.Rows.Count > 0)
+            {
+                return result.Rows[0][0].ToString();
+            }
+            else
+            {
+                return $"Không tồn tại nhân viên có mã {manv}";
+            }
+        }
     }
 }

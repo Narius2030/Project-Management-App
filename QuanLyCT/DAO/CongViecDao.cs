@@ -23,7 +23,7 @@ namespace QLCongTy.DAO
             {
                 new SqlParameter("@MaCV",SqlDbType.Int){Value =macongviec},
                 new SqlParameter("@magiaidoan ",SqlDbType.VarChar,20){Value =magiaidoan},
-                new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output }
+                new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output}
             };
             dbC.ExecuteProcedure("sp_TinhTienDoCv", parameters);
             double ketqua = Convert.ToDouble(parameters[2].Value);
@@ -44,18 +44,8 @@ namespace QLCongTy.DAO
         {
             using (QLDAEntities qlhs = new QLDAEntities())
             {
-                CONGVIEC congviec = new CONGVIEC()
-                {
-                    TrangThai = cv.TrangThai,
-                    CVTienQuyet = cv.CVTienQuyet,
-                    TenCV = cv.TenCV,
-                    TienDo = cv.TienDo,
-                    TenNhom = cv.TenNhom,
-                    MaDA = cv.MaDA,
-                    MaGiaiDoan = cv.MaGiaiDoan,
-
-                };
-                qlhs.CONGVIECs.Add(congviec);
+                
+                qlhs.CONGVIECs.Add(cv);
                 qlhs.SaveChanges();
             }
         }
@@ -74,7 +64,6 @@ namespace QLCongTy.DAO
                     return 1;
                 }
                 return 0;
-
             }
         }
         public int UpdateJob(CONGVIEC cv)
@@ -101,6 +90,15 @@ namespace QLCongTy.DAO
                     return 0;
                 }
             }
+        }
+        //Tesst SP
+        public void KiemTraCongViecTienQuyet(CONGVIEC cv)
+        {
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@macongviec",SqlDbType.Int){Value=cv.MaCV}
+            };
+            dbC.ExecuteProcedure("sp_KiemTraCongViec", parameters);
         }
     }
 }

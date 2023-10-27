@@ -4,7 +4,7 @@ CREATE OR ALTER PROCEDURE sp_ktrDangNhap
 AS
 BEGIN
 	SELECT @check=COUNT(*) FROM NHANVIEN
-	WHERE TaiKhoan = @matk AND MatKhau = @matkhau
+	WHERE MaTaiKhoan = @matk AND MatKhau = @matkhau
 END
 GO
 --Kiểm Tra  Giai đoạn đã hoàn thành chưa  trước khi tạo cái khác
@@ -59,13 +59,13 @@ begin
 	select @soluongnvhoanthanh= count(NHIEMVU.MaNhiemVu)
 	From CONGVIEC ,NHIEMVU,GIAIDOAN
 	where NHIEMVU.MaCV=CONGVIEC.MaCV
-	and GIAIDOAN.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
+	and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
 	and NHIEMVU.TrangThai='Done'
 	and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
 	select  @soluongnhiemvu= count(NHIEMVU.MaNhiemVu)
 	From CONGVIEC ,NHIEMVU,GIAIDOAN
 	where NHIEMVU.MaCV=CONGVIEC.MaCV
-	and GIAIDOAN.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
+	and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
 	and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
 	if(@soluongnvhoanthanh >0)
 	begin
@@ -78,7 +78,7 @@ begin
 end
 --Procedure Cập Nhật Trạng Thái
 go
-Create Procedure sp_UpdateTrangThai
+CREATE OR ALTER Procedure sp_UpdateTrangThai
 @macongviec int ,@trangthai varchar(20) output
 as
 begin
@@ -97,3 +97,104 @@ begin
 	select @trangthai=CONGVIEC.TrangThai From CONGVIEC where 
 	CONGVIEC.MaCV=@macongviec
 end
+GO
+--Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
+CREATE OR ALTER	PROCEDURE sp_TimTruongNhom
+@tennhom nvarchar(20),@mada int
+as
+begin 
+	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+                                FROM TRUONGNHOM TN
+                                INNER JOIN NHOM N
+                                ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
+								INNER JOIN NHANVIEN NV
+                                 on  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
+								 WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+end
+
+go
+
+--xem danh sách thành viên trong 1 dự án trong 1 nhóm
+CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
+@mada int, @tennhom nvarchar(20)
+as
+begin
+SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+                                FROM NHOM N
+                                INNER JOIN NHANVIEN NV
+                                ON N.MaNV = NV.MaNV
+                                WHERE N.MaDA = @mada AND N.TenNhom = @tennhom
+end
+
+go
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trịS
+CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Result INT
+
+    IF EXISTS (SELECT 1 FROM TRUONGNHOM WHERE TenNhom = @TenNhom AND MaDA = @MaDA)
+        SET @Result = 1
+    ELSE
+        SET @Result = 0
+    RETURN @Result
+END;
+
+GO
+--Procedure Huy
+
+--CẬp nhật timetask
+CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10))
+RETURNS INT
+AS
+BEGIN
+
+	declare @manv varchar(10)
+	declare @mada int
+	declare @magiaidoan varchar(10)
+	declare @timetask  varchar(10)
+	select   @manv=NHANVIEN.MaNV,@mada=DUAN.MaDA,@magiaidoan=GIAIDOAN.MaGiaiDoan,
+	@timetask=sum(NHIEMVU.ThoiGianUocTinh) 
+	From NHIEMVU
+	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
+	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
+	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
+	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
+	where NHIEMVU.TrangThai='Done'
+	group by NHANVIEN.MaNV,DUAN.MaDA,GIAIDOAN.MaGiaiDoan
+	having NHANVIEN.MaNV=@manhanvien
+	return @timetask
+END
+go
+--Kiểm Tra Nhiệm Vụ tiên quyết trước khi xoá
+CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
+    @manhiemvu varchar(10)
+AS
+BEGIN
+	declare @matienquyet varchar(10)
+    select @matienquyet=nvtq.MaNhiemVu From NHIEMVU as nv,NHIEMVU as nvtq
+	where nv.MaNhiemVu=nvtq.MaTienQuyet and nv.MaNhiemVu= @manhiemvu
+    BEGIN
+        UPDATE NHIEMVU
+        SET  MaTienQuyet = NULL
+        WHERE NHIEMVU.MaNhiemVu =@matienquyet
+    END
+END
+go
+--Kiểm Tra Công Việc Tiên Quyết để xoá
+CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
+    @macongviec INT
+AS
+BEGIN
+	declare @matienquyet int
+    select @matienquyet=cvtq.MaCV From CONGVIEC as cv,CONGVIEC as cvtq
+	where cv.MaCV=cvtq.CVTienQuyet and cv.MaCV= @macongviec
+    BEGIN
+        UPDATE CONGVIEC
+        SET CVTienQuyet = NULL
+        WHERE CONGVIEC.MaCV =@matienquyet
+    END
+END
+GO
+

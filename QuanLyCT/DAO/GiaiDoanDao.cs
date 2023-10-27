@@ -23,14 +23,7 @@ namespace QLCongTy.DAO
         {
             using (QLDAEntities entityf = new QLDAEntities())
             {
-                giaidoan = new GIAIDOAN()
-                {
-                    MaGiaiDoan = giaidoan.MaGiaiDoan,
-                    NoiDung = giaidoan.NoiDung,
-                    NgayBD = giaidoan.NgayBD,
-                    NgayKT = giaidoan.NgayKT,
-                    MaDA = giaidoan.MaDA
-                };
+                
                 entityf.GIAIDOANs.Add(giaidoan);
                 entityf.SaveChanges();
             }
@@ -117,7 +110,6 @@ namespace QLCongTy.DAO
                 new SqlParameter("@MaGiaiDoan", SqlDbType.VarChar) { Value = MaGiaiDoanTruoc }
             };
             return dbC.ExecuteProcedure("sp_KiemTraGiaiDoan", parame);
-
         }
         public String getMaGiaiDoanTruoc(String maGD)
         {

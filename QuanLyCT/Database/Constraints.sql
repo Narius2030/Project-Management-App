@@ -1,26 +1,4 @@
 ﻿-- ###Views
-
--- 1.Xem danh sách nhân viên và nhóm
---a)Tất cả
-CREATE OR ALTER VIEW vw_nhanvien_trong_duan
-AS
-SELECT 
-	NV.MaNV, CONCAT(HovaTenDem,' ',Ten) AS HoTen, ChucVu, Levels,
-	TM.TenNhom, TM.MaDA, TM.CapPerDay
-FROM NHANVIEN NV
-JOIN NHOM TM ON TM.MaNV = NV.MaNV
-GO
-
---b)Trưởng nhóm
-CREATE OR ALTER VIEW vw_truongnhom_trong_duan
-AS
-SELECT
-	NV.MaNV, CONCAT(HovaTenDem,' ',Ten) AS HoTen, ChucVu, Levels,
-	TLD.TenNhom, TLD.MaDA
-FROM TRUONGNHOM TLD
-JOIN NHANVIEN NV ON NV.MaNV = TLD.MaNV
-GO
-
 --c) Những PM và Team Leader chưa được phân công
 CREATE OR ALTER VIEW vw_khongla_pm
 AS
@@ -48,54 +26,6 @@ WHERE NOT EXISTS(
 )
 GO
 
---2.Xem nội dung nhiệm vụ thuộc 1 công việc 
---a)Tất cả công việc
-CREATE OR ALTER VIEW vw_congviec_nhiemvu
-AS
-SELECT 
-	MaNhiemVu, NHV.TrangThai AS TTNhiemvu, TenNhiemVu, ThoiGianLamThucTe, ThoiGianUocTinh, MaTienQuyet, MaNV,
-	CV.*
-FROM CONGVIEC CV
-JOIN NHIEMVU NHV ON NHV.MaCV = CV.MaCV
-GO
-
---b)Nhiệm vụ và công việc tiên quyết của một dự án
-CREATE OR ALTER VIEW vw_congviec_tienquyet
-AS
-SELECT 
-	afCV.*,
-	bfCV.MaCV AS MaCVTQ, bfCV.TenCV AS TenCVTQ, bfCV.TienDo AS TienDoTQ, bfCV.TrangThai AS TrangThaiTQ
-FROM CONGVIEC afCV
-JOIN CONGVIEC bfCV ON bfCV.MaCV = afCV.CVTienQuyet
-GO
-
-CREATE OR ALTER VIEW vw_nhiemvu_tienquyet
-AS
-SELECT 
-	afNV.*,
-	bfNV.MaNV AS MaNVTQ, bfNV.TenNhiemVu AS TenNVTQ, bfNV.TrangThai AS TrangThaiTQ
-FROM NHIEMVU afNV
-JOIN NHIEMVU bfNV ON bfNV.MaNhiemVu = afNV.MaTienQuyet
-GO
---c)Những công việc đang sắp trễ tiến độ
-CREATE OR ALTER VIEW vw_cvtre
-AS
-SELECT cv.MaDA, cv.MaCV, cv.TenCV, cv.MaGiaiDoan, cv.TenNhom, cv.TrangThai
-FROM CONGVIEC cv
-JOIN GIAIDOAN spt ON cv.MaGiaiDoan = spt.MaGiaiDoan
-WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND cv.TrangThai != 'Done'
-GO
-
---d) Show thông tin bao nhiêu nhiệm vụ đang trễ tiến độ trong mỗi công việc của  từng một dự án
-CREATE OR ALTER VIEW vw_nvtrehan_cv_da
-AS
-SELECT nv.MaNhiemVu, nv.TenNhiemVu, nv.TrangThai, cv.MaCV, spt.MaDA, nv.MaNV, GETDATE() as HomNay, spt.NgayKT
-FROM NHIEMVU nv
-JOIN CONGVIEC cv ON cv.MaCV = nv.MaCV
-JOIN GIAIDOAN spt ON cv.MaGiaiDoan = spt.MaGiaiDoan
-WHERE spt.NgayKT <= DATEADD(day, 4, CONVERT(DATE, GETDATE())) AND spt.NgayKT > CONVERT(DATE, GETDATE()) AND nv.TrangThai != 'Done'
-GO
-
 --3. Xem thông tin ngày nghỉ của nhân viên 
 --a)Thông tin ngày nghỉ của nhân viên trong từng Sprint của dự án
 CREATE OR ALTER VIEW vw_ngaynghi_trong_duan
@@ -108,8 +38,16 @@ FROM DIEMDANH DD
 JOIN UOCLUONG UL ON UL.MaNV = DD.MaNV
 JOIN GIAIDOAN SP ON SP.MaGiaiDoan = UL.MaGiaiDoan
 WHERE DD.Ngay BETWEEN NgayBD AND NgayKT
+--4.View liên quan đến nhiệm vụ của nhóm
 go
-
+Create Or ALter View  v_DanhSachNhiemVuNhom as 
+SELECT DA.MaDA,GD.MaGiaiDoan,CV.MaCV,N.TenNhom,NV.MaNhiemVu , TenNhiemVu , NV.TrangThai , MaTienQuyet, NV.ThoiGianUocTinh, NV.ThoiGianLamThucTe 
+                            FROM NHIEMVU NV
+                            INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+                            INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
+                            INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
+                            INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+go
 --###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
@@ -131,15 +69,23 @@ go
 
 
 --###Triggers
+
+--???????????
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create or alter trigger tr_addUocLuong on NHOM
 AFTER INSERT AS
+DECLARE @manv VARCHAR(10), @magd VARCHAR(10), @mada INT
+SELECT @manv=i.MaNV, @mada=i.MaDA
+FROM inserted i 
 BEGIN
-   insert into UOCLUONG
-   select i.MaNV, i.MaDA, GIAIDOAN.MaGiaiDoan, NULL, NULL, NULL 
-   from inserted AS i
-	 join GIAIDOAN on i.MaDA= GIAIDOAN.MaDA
-   where GIAIDOAN.NgayKT >= GETDATE()
+	if not exists(select * from UOCLUONG ul 
+		where ul.MaNV = @manv AND ul.MaDA = @mada AND ul.MaGiaiDoan = (SELECT TOP 1 MaGiaiDoan FROM GIAIDOAN WHERE GIAIDOAN.MaDA = @mada ORDER BY MaGiaiDoan DESC))
+		--Nếu nhân viên ko tồn tại trong giai đoạn mới nhất (đang làm việc) tại dự án đó thì tạo mới 1 hàng UOCLUONG
+		insert into UOCLUONG
+		select i.MaNV, i.MaDA, GIAIDOAN.MaGiaiDoan, NULL, NULL, NULL 
+		from inserted AS i
+			join GIAIDOAN on i.MaDA= GIAIDOAN.MaDA
+		where GIAIDOAN.MaGiaiDoan = (SELECT TOP 1 MaGiaiDoan FROM GIAIDOAN WHERE GIAIDOAN.MaDA = i.MaDA ORDER BY MaGiaiDoan DESC)
 END;
 GO
 
@@ -157,62 +103,18 @@ BEGIN
 END;
 GO
 
---3.Cập nhật trạng thái dự án (update) sau khi cập nhật tiến độ (%)
-CREATE OR ALTER TRIGGER tr_Update_Trangthai
-ON DUAN
-AFTER UPDATE
-AS
-BEGIN
-	DECLARE @MADA VARCHAR(10)
-	SELECT @MADA=inserted.MaDA FROM inserted
-    IF EXISTS ( SELECT * FROM inserted WHERE TienDo = 100
-    )
-    BEGIN
-        UPDATE DUAN
-        SET TrangThai = 'Done'
-        FROM DUAN
-        WHERE DUAN.MaDA=@MADA
-    END
-	ELSE
-	BEGIN
-        RAISERROR('Không thể cập nhật dự án',16,2)
-        ROLLBACK TRAN
-    END;
-END
-GO
-
---4.Kiểm tra tính hợp lệ khi thiệt lập giai đoạn mới (update) cho dự án dựa trên trạng thái
-CREATE OR ALTER TRIGGER tr_CheckGiaiDoan
-ON DUAN
-AFTER UPDATE
-AS
-BEGIN
-    IF EXISTS (
-        SELECT *
-        FROM deleted as i
-        WHERE i.TrangThai <> 'Done' and i.TienDo <> 100
-    )
-    BEGIN
-        RAISERROR('Không thể thiết lập giai đoạn mới có thể do nhiệm vụ vẫn chưa được hoàn thành', 16, 1)
-        ROLLBACK TRAN
-    END
-END;
-GO
-
 --5 Xóa NhiemVu trước khi xóa CongViec
 CREATE OR ALTER TRIGGER deleteCongViec on CONGVIEC
 AFTER DELETE AS
+DECLARE @macv INT
 BEGIN
-    IF exists (SELECT *FROM NHIEMVU as nv join deleted on deleted.MaCV = nv.MaCV 
-	                   WHERE nv.TrangThai not in ('Done'))
-	BEGIN
-	      RAISERROR('Không thể xóa công việc vì nhiệm vụ chưa được hoàn thành!', 16, 1)
-          ROLLBACK TRAN
-    END
+	--DELETE FROM NHIEMVU WHERE MaCV IS NULL AND (SELECT )
+	SELECT * FROM NHIEMVU NV
+	JOIN NHIEMVU TQ ON TQ.MaTienQuyet = NV.MaNhiemVu
 END
 GO
 
---6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết và công việc tiên quyết trước đó thì không được làm nhiệm vụ hiện tại
+--6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết trong cùng 1 công việc trước đó thì không được làm nhiệm vụ hiện tại
 CREATE OR ALTER TRIGGER tr_kiemtra_tienquyet ON NHIEMVU
 AFTER UPDATE
 AS
@@ -229,42 +131,6 @@ BEGIN
 	--Nếu kiểm tra nvtq chưa Done thì trả về giá trị cũ
 	RAISERROR('Nhiệm vụ tiên quyết chưa hoàn thành',16,1)
 	ROLLBACK TRAN
-END
-GO
-
---7) Kiểm tra nếu nhân viên được chỉ định làm PM nhưng đang làm PM cho dự án khác thì hủy chỉ định
-CREATE OR ALTER TRIGGER tr_chidinh_PM ON DUAN
-AFTER INSERT, UPDATE
-AS
-DECLARE @pm INT, @mada int=0, @madaNew int
-	--Kiểm tra MaPM mới cập nhật có tồn tại trong DUAN hay chưa
-SELECT @pm=soluong FROM (
-	SELECT COUNT(new.MaPM) AS soluong
-	FROM inserted new, DUAN
-	WHERE new.MaPM = DUAN.MaPM
-) AS Q
-IF (@pm > 1)
-BEGIN
-	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
-	ROLLBACK TRAN;
-END
-GO
-
---8) Kiểm tra nếu nhân viên được chỉ định làm Team Leader nhưng đang làm Team Leader cho nhóm/dự án khác thì hủy chỉ định
-CREATE OR ALTER TRIGGER tr_chidinh_teamleader ON TRUONGNHOM
-AFTER INSERT, UPDATE
-AS
-DECLARE @tl INT, @mada int=0, @madaNew int
-	--Kiểm tra Team Leader mới cập nhật có tồn tại trong TEAMLEADER hay chưa
-SELECT @tl = soluong FROM (
-	SELECT COUNT(new.MaNV) as soluong
-	FROM inserted new JOIN TRUONGNHOM
-	ON new.MaDA = TRUONGNHOM.MaDA AND new.MaNV = TRUONGNHOM.MaNV
-) AS Q
-IF (@tl > 1)
-BEGIN
-	RAISERROR('Người này đang quản lý nhóm khác trong dự án này', 16, 1)
-	ROLLBACK TRAN;
 END
 GO
 
@@ -325,7 +191,7 @@ BEGIN
 	WHERE @NgayNghi <= GIAIDOAN.NgayKT AND @NgayNghi >= GIAIDOAN.NgayBD;
 
 	--Lấy CapPerDay theo mã NV
-	SELECT @CapPerDay = NHOM.CapPerDay
+	SELECT @CapPerDay = NHOM.SoGioMotNg
 	FROM NHOM
 	WHERE @MaNV = NHOM.MaNV AND @MaDA = NHOM.MaDA;
 
@@ -381,4 +247,49 @@ BEGIN
 		)
 	END
 END;
+GO
+
+--16. Tạo uocluong mới cho từng nhanvien trong duan theo giaidoan mới tạo
+CREATE OR ALTER TRIGGER tr_themUocLuong ON GIAIDOAN
+AFTER INSERT
+AS
+DECLARE @manv VARCHAR(10), @magd VARCHAR(10), @mada INT
+SELECT @mada=i.MaDA, @magd=i.MaGiaiDoan
+FROM inserted i 
+BEGIN
+	DECLARE cursor_nhomDA CURSOR
+	FOR SELECT DISTINCT MaNV FROM NHOM WHERE MaDA=@mada
+	
+	OPEN cursor_nhomDA
+	FETCH NEXT FROM cursor_nhomDA INTO @manv
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		insert into UOCLUONG VALUES(@manv, @mada, @magd, 0, 0, 0)
+		FETCH NEXT FROM cursor_nhomDA INTO @manv
+	END
+	CLOSE cursor_nhomDA;
+END
+GO
+
+--17. Xóa trưởng nhóm trong NHOM và TRUONGNHOM
+CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
+INSTEAD OF DELETE
+AS
+DECLARE @mada INT, @tennhom VARCHAR(20), @countTVNhom INT, @matn VARCHAR(10)
+SELECT @mada=d.MaDA, @tennhom=d.TenNhom, @matn=d.MaNV
+FROM deleted d
+BEGIN
+	DELETE FROM NHOM WHERE MaDA=@mada AND TenNhom=@tennhom AND MaNV=@matn
+	--Lấy số lượng thành viên của nhóm trong dự án
+	SELECT @countTVNhom=COUNT(*) FROM NHOM
+	WHERE TenNhom=@tennhom AND MaDA=@mada
+	PRINT @countTVNHOM
+	--Nếu nhóm ko còn thành viên thì được xóa trưởng nhóm
+	IF  @countTVNhom = 0
+	BEGIN
+		DELETE FROM TRUONGNHOM WHERE MaDA=@mada AND TenNhom=@tennhom
+	END
+	ELSE
+		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
+END
 GO
