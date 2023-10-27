@@ -2,6 +2,7 @@
 using QLCongTy.NhanSu;
 using QLCongTy.QLDuAn;
 using QLCongTy.Views.NhanSu;
+using QLCongTy.Views.QLDuAn;
 using System;
 using System.Windows.Forms;
 
@@ -17,7 +18,7 @@ namespace QLCongTy
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fMainMenu());
+            Application.Run(new fQLDuAn());
         }
     }
 }

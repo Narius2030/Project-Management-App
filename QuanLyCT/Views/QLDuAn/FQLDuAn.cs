@@ -9,6 +9,7 @@ using QLCongTy.DTO;
 using System.Collections.Generic;
 using QLCongTy.Views.NhanSu;
 using System.Windows.Controls.Primitives;
+using QLCongTy.Views.QLDuAn;
 
 namespace QLCongTy.QLDuAn
 {
@@ -634,15 +635,15 @@ namespace QLCongTy.QLDuAn
             }    
         }
 
-        private void btnNhiemVu_Click(object sender, EventArgs e)
+        private void btnCapTaiNguyen_Click(object sender, EventArgs e)
         {
-            fNhiemVu fnhiemvu = new fNhiemVu("", da.MaDA, nhom.TenNhom);
-            fnhiemvu.TopLevel = false;
-            tpPhanNhiemVu.Controls.Add(fnhiemvu);
-            fnhiemvu.FormBorderStyle = FormBorderStyle.None;
-            fnhiemvu.Show();
+            fTaiNguyen ftnguyen = new fTaiNguyen(da.MaDA);
+            ftnguyen.TopLevel = false;
+            tpTaiNguyen.Controls.Add(ftnguyen);
+            ftnguyen.FormBorderStyle = FormBorderStyle.None;
+            ftnguyen.Show();
             LoadTabPages();
-            tpNhom.Controls.Add(tpPhanNhiemVu);
+            tpNhom.Controls.Add(tpTaiNguyen);
             tpNhom.SelectedIndex = 1;
         }
     }

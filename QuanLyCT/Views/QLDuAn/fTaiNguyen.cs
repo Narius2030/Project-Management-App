@@ -15,9 +15,13 @@ namespace QLCongTy.Views.QLDuAn
     public partial class fTaiNguyen : Form
     {
         TaiNguyenDao tnguyenDao = new TaiNguyenDao();
-        public fTaiNguyen()
+        private int MaDA;
+        public fTaiNguyen(int MaDA)
         {
+            this.MaDA = MaDA;
             InitializeComponent();
+            LoadGVCapTaiNguyen();
+            LoadGVTaiNguyen();
         }
 
         private void cboNhiemVuTienQuyet_SelectedIndexChanged(object sender, EventArgs e)
@@ -32,12 +36,34 @@ namespace QLCongTy.Views.QLDuAn
 
         private void LoadGVCapTaiNguyen()
         {
-            gvTaiNguyenDA.DataSource = tnguyenDao.LoadTNDuAn();
+            gvTaiNguyenDA.DataSource = tnguyenDao.LoadTNDuAn(MaDA);
         }
 
         private void LoadGVTaiNguyen()
         {
             gvDSTaiNguyen.DataSource = tnguyenDao.DSTaiNguyen();
+        }
+
+        private void btnCapTN_Click(object sender, EventArgs e)
+        {
+            TAINGUYEN tnguyen = new TAINGUYEN(txtMaTaiNguyen.Texts, txtTenTaiNguyen.Texts, txtLoaiTaiNguyen.Texts);
+            tnguyenDao.ThemTaiNguyen(this.MaDA, tnguyen.MaTN);
+            LoadGVCapTaiNguyen();
+        }
+
+        private void gvDSTaiNguyen_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+            else
+            {
+                DataGridViewRow row = gvDSTaiNguyen.Rows[e.RowIndex];
+                txtMaTaiNguyen.Texts = row.Cells[0].Value.ToString();
+                txtTenTaiNguyen.Texts = row.Cells[1].Value.ToString();
+                txtLoaiTaiNguyen.Texts = row.Cells[2].Value.ToString();
+            }
         }
     }
 }

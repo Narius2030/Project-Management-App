@@ -65,7 +65,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tmShowTiendo = new System.Windows.Forms.Timer(this.components);
             this.tmProgressBar = new System.Windows.Forms.Timer(this.components);
-            this.tpPhanNhiemVu = new System.Windows.Forms.TabPage();
             this.tpChiaGianDoan = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnupdate = new QLCongTy.VBButton();
@@ -91,7 +90,6 @@
             this.lblDuAn = new System.Windows.Forms.Label();
             this.tpPhanCongViec = new System.Windows.Forms.TabPage();
             this.btnxoapc = new System.Windows.Forms.Panel();
-            this.btnNhiemVu = new QLCongTy.VBButton();
             this.btnxoacv = new QLCongTy.VBButton();
             this.btnupdatepc = new QLCongTy.VBButton();
             this.lblreload = new QLCongTy.VBLabel();
@@ -150,6 +148,7 @@
             this.artanPannel2 = new ArtanComponent.ArtanPannel();
             this.gvQLDuAn = new System.Windows.Forms.DataGridView();
             this.pnTop = new System.Windows.Forms.Panel();
+            this.btnCapTaiNguyen = new QLCongTy.VBButton();
             this.cboFindMaDA = new QLCongTy.Custome_control.CTComboBox();
             this.btnTuyenNV = new QLCongTy.VBButton();
             this.btnSua = new QLCongTy.VBButton();
@@ -166,6 +165,7 @@
             this.artanPannel5 = new ArtanComponent.ArtanPannel();
             this.gvTTPhancong = new System.Windows.Forms.DataGridView();
             this.tpNhom = new System.Windows.Forms.TabControl();
+            this.tpTaiNguyen = new System.Windows.Forms.TabPage();
             this.tpChiaGianDoan.SuspendLayout();
             this.panel3.SuspendLayout();
             this.artanPannel9.SuspendLayout();
@@ -215,16 +215,6 @@
             // tmProgressBar
             // 
             this.tmProgressBar.Tick += new System.EventHandler(this.tmProgressBar_Tick);
-            // 
-            // tpPhanNhiemVu
-            // 
-            this.tpPhanNhiemVu.Location = new System.Drawing.Point(4, 40);
-            this.tpPhanNhiemVu.Name = "tpPhanNhiemVu";
-            this.tpPhanNhiemVu.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPhanNhiemVu.Size = new System.Drawing.Size(1331, 764);
-            this.tpPhanNhiemVu.TabIndex = 4;
-            this.tpPhanNhiemVu.Text = "Phân Nhiệm Vụ";
-            this.tpPhanNhiemVu.UseVisualStyleBackColor = true;
             // 
             // tpChiaGianDoan
             // 
@@ -636,7 +626,6 @@
             // btnxoapc
             // 
             this.btnxoapc.BackColor = System.Drawing.Color.White;
-            this.btnxoapc.Controls.Add(this.btnNhiemVu);
             this.btnxoapc.Controls.Add(this.btnxoacv);
             this.btnxoapc.Controls.Add(this.btnupdatepc);
             this.btnxoapc.Controls.Add(this.lblreload);
@@ -647,26 +636,6 @@
             this.btnxoapc.Name = "btnxoapc";
             this.btnxoapc.Size = new System.Drawing.Size(1284, 443);
             this.btnxoapc.TabIndex = 88;
-            // 
-            // btnNhiemVu
-            // 
-            this.btnNhiemVu.BackColor = System.Drawing.Color.Azure;
-            this.btnNhiemVu.BackgroundColor = System.Drawing.Color.Azure;
-            this.btnNhiemVu.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.btnNhiemVu.BorderRadius = 3;
-            this.btnNhiemVu.BorderSize = 2;
-            this.btnNhiemVu.FlatAppearance.BorderSize = 0;
-            this.btnNhiemVu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNhiemVu.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
-            this.btnNhiemVu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnNhiemVu.Location = new System.Drawing.Point(1052, 366);
-            this.btnNhiemVu.Name = "btnNhiemVu";
-            this.btnNhiemVu.Size = new System.Drawing.Size(130, 43);
-            this.btnNhiemVu.TabIndex = 98;
-            this.btnNhiemVu.Text = "Nhiệm Vụ";
-            this.btnNhiemVu.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnNhiemVu.UseVisualStyleBackColor = false;
-            this.btnNhiemVu.Click += new System.EventHandler(this.btnNhiemVu_Click);
             // 
             // btnxoacv
             // 
@@ -1783,6 +1752,7 @@
             // pnTop
             // 
             this.pnTop.BackColor = System.Drawing.Color.White;
+            this.pnTop.Controls.Add(this.btnCapTaiNguyen);
             this.pnTop.Controls.Add(this.cboFindMaDA);
             this.pnTop.Controls.Add(this.btnTuyenNV);
             this.pnTop.Controls.Add(this.btnSua);
@@ -1795,6 +1765,26 @@
             this.pnTop.Name = "pnTop";
             this.pnTop.Size = new System.Drawing.Size(1325, 233);
             this.pnTop.TabIndex = 88;
+            // 
+            // btnCapTaiNguyen
+            // 
+            this.btnCapTaiNguyen.BackColor = System.Drawing.Color.Azure;
+            this.btnCapTaiNguyen.BackgroundColor = System.Drawing.Color.Azure;
+            this.btnCapTaiNguyen.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnCapTaiNguyen.BorderRadius = 3;
+            this.btnCapTaiNguyen.BorderSize = 2;
+            this.btnCapTaiNguyen.FlatAppearance.BorderSize = 0;
+            this.btnCapTaiNguyen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCapTaiNguyen.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCapTaiNguyen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnCapTaiNguyen.Location = new System.Drawing.Point(1007, 146);
+            this.btnCapTaiNguyen.Name = "btnCapTaiNguyen";
+            this.btnCapTaiNguyen.Size = new System.Drawing.Size(186, 49);
+            this.btnCapTaiNguyen.TabIndex = 90;
+            this.btnCapTaiNguyen.Text = "Cấp Tài Nguyên";
+            this.btnCapTaiNguyen.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnCapTaiNguyen.UseVisualStyleBackColor = false;
+            this.btnCapTaiNguyen.Click += new System.EventHandler(this.btnCapTaiNguyen_Click);
             // 
             // cboFindMaDA
             // 
@@ -1825,7 +1815,7 @@
             this.btnTuyenNV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTuyenNV.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTuyenNV.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnTuyenNV.Location = new System.Drawing.Point(905, 146);
+            this.btnTuyenNV.Location = new System.Drawing.Point(791, 146);
             this.btnTuyenNV.Name = "btnTuyenNV";
             this.btnTuyenNV.Size = new System.Drawing.Size(186, 49);
             this.btnTuyenNV.TabIndex = 88;
@@ -1845,7 +1835,7 @@
             this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSua.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSua.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnSua.Location = new System.Drawing.Point(530, 146);
+            this.btnSua.Location = new System.Drawing.Point(416, 146);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(130, 49);
             this.btnSua.TabIndex = 78;
@@ -1881,7 +1871,7 @@
             this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoa.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnXoa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnXoa.Location = new System.Drawing.Point(370, 146);
+            this.btnXoa.Location = new System.Drawing.Point(256, 146);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(130, 49);
             this.btnXoa.TabIndex = 77;
@@ -1901,7 +1891,7 @@
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThem.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnThem.Location = new System.Drawing.Point(215, 146);
+            this.btnThem.Location = new System.Drawing.Point(101, 146);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(130, 49);
             this.btnThem.TabIndex = 76;
@@ -1921,7 +1911,7 @@
             this.btnPhanGiaiDoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPhanGiaiDoan.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhanGiaiDoan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnPhanGiaiDoan.Location = new System.Drawing.Point(690, 146);
+            this.btnPhanGiaiDoan.Location = new System.Drawing.Point(576, 146);
             this.btnPhanGiaiDoan.Name = "btnPhanGiaiDoan";
             this.btnPhanGiaiDoan.Size = new System.Drawing.Size(186, 49);
             this.btnPhanGiaiDoan.TabIndex = 80;
@@ -2129,13 +2119,23 @@
             this.tpNhom.Controls.Add(this.tpTuyenNL);
             this.tpNhom.Controls.Add(this.tpPhanCongViec);
             this.tpNhom.Controls.Add(this.tpChiaGianDoan);
-            this.tpNhom.Controls.Add(this.tpPhanNhiemVu);
+            this.tpNhom.Controls.Add(this.tpTaiNguyen);
             this.tpNhom.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tpNhom.Location = new System.Drawing.Point(4, 0);
             this.tpNhom.Name = "tpNhom";
             this.tpNhom.SelectedIndex = 0;
             this.tpNhom.Size = new System.Drawing.Size(1339, 808);
             this.tpNhom.TabIndex = 56;
+            // 
+            // tpTaiNguyen
+            // 
+            this.tpTaiNguyen.Location = new System.Drawing.Point(4, 40);
+            this.tpTaiNguyen.Name = "tpTaiNguyen";
+            this.tpTaiNguyen.Padding = new System.Windows.Forms.Padding(3);
+            this.tpTaiNguyen.Size = new System.Drawing.Size(1331, 764);
+            this.tpTaiNguyen.TabIndex = 5;
+            this.tpTaiNguyen.Text = "Tài nguyên";
+            this.tpTaiNguyen.UseVisualStyleBackColor = true;
             // 
             // fQLDuAn
             // 
@@ -2201,7 +2201,6 @@
         #endregion
         private System.Windows.Forms.Timer tmShowTiendo;
         private System.Windows.Forms.Timer tmProgressBar;
-        private System.Windows.Forms.TabPage tpPhanNhiemVu;
         private System.Windows.Forms.TabPage tpChiaGianDoan;
         private System.Windows.Forms.Panel panel3;
         private VBButton btnupdate;
@@ -2227,7 +2226,6 @@
         private System.Windows.Forms.Label lblDuAn;
         private System.Windows.Forms.TabPage tpPhanCongViec;
         private System.Windows.Forms.Panel btnxoapc;
-        private VBButton btnNhiemVu;
         private VBButton btnxoacv;
         private VBButton btnupdatepc;
         private VBLabel lblreload;
@@ -2302,5 +2300,7 @@
         private ArtanComponent.ArtanPannel artanPannel5;
         private System.Windows.Forms.DataGridView gvTTPhancong;
         private System.Windows.Forms.TabControl tpNhom;
+        private VBButton btnCapTaiNguyen;
+        private System.Windows.Forms.TabPage tpTaiNguyen;
     }
 }
