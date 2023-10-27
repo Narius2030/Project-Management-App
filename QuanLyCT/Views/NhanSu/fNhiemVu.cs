@@ -25,6 +25,7 @@ namespace QLCongTy.Views.NhanSu
         NHIEMVU nv = new NHIEMVU();
         GiaiDoanDao gdDao = new GiaiDoanDao();
         CongViecDao cvDao = new CongViecDao();
+        NhanVienDao nvienDao = new NhanVienDao();
         public fNhiemVu(string MaNV, int MaDA, string TenNhom)
         {
             InitializeComponent();
@@ -42,7 +43,7 @@ namespace QLCongTy.Views.NhanSu
         {
             nv.MaCV = this.MaCV;
             nv.MaNV = this.MaNV;
-            lblTitleNhiemVu.Text = this.MaNV;
+            lblTitleNhiemVu.Text = nvienDao.HoTenNhanVien(this.MaNV);
             txtMaDA.Texts = this.MaDA.ToString();
             txtTenNhom.Texts = this.TenNhom;
             LoadCboGiaiDoan();
@@ -57,7 +58,7 @@ namespace QLCongTy.Views.NhanSu
             gvDSNhiemVu.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
-        private void btnPhanCV_Click(object sender, EventArgs e)
+        private void btnPhanNV_Click(object sender, EventArgs e)
         {
             NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(cboCongViec.SelectedValue.ToString()));
             if (cbTienQuyet.Checked)
@@ -195,8 +196,9 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnBack_Click(object sender, EventArgs e)
         {
+            Form nhom = Application.OpenForms["fNhom"];
+            nhom.Controls["pnlShowNhiemVu"].SendToBack();
             this.Close();
-
         }
     }
 }

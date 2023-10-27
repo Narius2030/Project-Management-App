@@ -19,8 +19,13 @@ namespace QLCongTy.DAO
         public DataTable DSNhiemVuNhom(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@" select MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
+<<<<<<< HEAD
                             ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
                            WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
+=======
+                 ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
+                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
+>>>>>>> 77a7700835bb23a1e36602c20935a6d05b8d555e
             return dbconn.ExecuteQuery(sqlStr);
         }
 
@@ -61,19 +66,32 @@ namespace QLCongTy.DAO
         public DataTable DSNhiemVu(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@"SELECT CONCAT(MaNhiemVu, ' - ' , TenNhiemVu) AS NhiemVu, MaNhiemVu
+<<<<<<< HEAD
                             FROM v_DanhSachNhiemVuNhom
                             WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
                             ORDER BY MaNhiemVu";
+=======
+                 FROM v_DanhSachNhiemVuNhom
+                 WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
+                 ORDER BY MaNhiemVu";
+>>>>>>> 77a7700835bb23a1e36602c20935a6d05b8d555e
             return dbconn.ExecuteQuery(sqlStr);
         }
 
         public string NhiemVuMoiNhat(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@"SELECT Top 1 MaNhiemVu
+<<<<<<< HEAD
                             FROM v_DanhSachNhiemVuNhom
                             WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
                             ORDER BY MaNhiemVu DESC";
             DataTable result =  dbconn.ExecuteQuery(sqlStr);
+=======
+                FROM v_DanhSachNhiemVuNhom
+                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'
+                ORDER BY MaNhiemVu DESC";
+            DataTable result = dbconn.ExecuteQuery(sqlStr);
+>>>>>>> 77a7700835bb23a1e36602c20935a6d05b8d555e
             if (result.Rows.Count > 0)
             {
                 return result.Rows[0]["MaNhiemVu"].ToString();

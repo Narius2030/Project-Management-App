@@ -8,5 +8,6 @@ namespace QLCongTy.DAO
 {
     internal class TaiNguyenDao
     {
+
     }
 }

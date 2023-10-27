@@ -97,3 +97,4 @@ D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\EntityFramework.SqlSer
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\bin\Debug\QLCongTy.pdb
 C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.Custome_control.CTComboBox.resources
+D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.Views.QLDuAn.fTaiNguyen.resources
