@@ -142,7 +142,6 @@ BEGIN
 END;
 GO
 
-<<<<<<< HEAD
 --Kiểm tra công việc tiên quyết 
 CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
     @macongviec INT
@@ -181,76 +180,58 @@ BEGIN
 	return @timetask
 END
 
---Xoá nhiệm vụ
+
+
+
 go
-CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
-@manv VARCHAR(10)
-=======
---Kiểm tra tồn tại nhiệm vụ tiên quyết trước khi xóa nhiệm vụ
---CREATE OR ALTER FUNCTION CheckXoaFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaNhiemVu varchar(10))
+----Kiểm tra tồn tại nhiệm vụ tiên quyết trước
+--CREATE OR ALTER FUNCTION CheckFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaTienQuyet varchar(10))
+--RETURNS INT
 --AS
---BEGIN 
+--BEGIN
+--	DECLARE @Result INT
+--	IF EXISTS (SELECT NV.MaNV, NV.MaCV, NV.MaNhiemVu, NV.MaTienQuyet, NV.TrangThai, NV.TenNhiemVu, NV.ThoiGianLamThucTe, NV.ThoiGianUocTinh
+--				FROM NHIEMVU NV
+--				INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+--				INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
+--				INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
+--				INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+--				WHERE DA.MaDA = @MaDA AND GD.MaGiaiDoan = @MaGiaiDoan AND CV.MaCV = @MaCV AND N.TenNhom = @TenNhom AND NV.MaNV = @MaNhanVien AND NV.MaNhiemVu = @MaTienQuyet)
+--		SET @Result = 1
+--    ELSE
+--        SET @Result = 0
+--    RETURN @Result
+--END;
+--GO
 
+----Xóa hết NhiemVu trước khi xóa CongViec
+--CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
+--@manhiemvu VARCHAR(10)
+--AS
+--BEGIN
+--	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
+--		SELECT * FROM NHIEMVU TQ
+--		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
+--	))
+--END
+--GO
 
-
-
---Kiểm tra tồn tại nhiệm vụ tiên quyết trước
-CREATE OR ALTER FUNCTION CheckFKNhiemVuTienQuyet(@MaDA INT, @MaGiaiDoan varchar(10), @MaCV varchar(10), @TenNhom VARCHAR(100), @MaNhanVien varchar(10), @MaTienQuyet varchar(10))
-RETURNS INT
+--Kiểm Tra Nhiệm Vụ tiên quyết trước khi xoá
+CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
+    @manhiemvu varchar(10)
 AS
 BEGIN
-	DECLARE @Result INT
-	IF EXISTS (SELECT NV.MaNV, NV.MaCV, NV.MaNhiemVu, NV.MaTienQuyet, NV.TrangThai, NV.TenNhiemVu, NV.ThoiGianLamThucTe, NV.ThoiGianUocTinh
-				FROM NHIEMVU NV
-				INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
-				INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
-				INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
-				INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-				WHERE DA.MaDA = @MaDA AND GD.MaGiaiDoan = @MaGiaiDoan AND CV.MaCV = @MaCV AND N.TenNhom = @TenNhom AND NV.MaNV = @MaNhanVien AND NV.MaNhiemVu = @MaTienQuyet)
-		SET @Result = 1
-    ELSE
-        SET @Result = 0
-    RETURN @Result
-END;
-GO
-
---Xóa hết NhiemVu trước khi xóa CongViec
-CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
-@manhiemvu VARCHAR(10)
->>>>>>> 82024f8a0bd25d8400e9071b7b482e0c2c75ff6b
-AS
-BEGIN
-	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
-		SELECT * FROM NHIEMVU TQ
-<<<<<<< HEAD
-		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
-	))
-END
-GO
-=======
-		WHERE TQ.MaNhiemVu=@manhiemvu AND TQ.MaNhiemVu = NV.MaTienQuyet
-	))
-END
-GO
-
---Procedure Huy
-CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVuTienQuyet
-    @manhiemvvu VARCHAR(10),
-    @check INT OUTPUT
-AS
-BEGIN
-    SET @check = 1;
-    
-    IF EXISTS (SELECT 1 FROM NHIEMVU WHERE NHIEMVU.MaTienQuyet = @manhiemvvu)
+	declare @matienquyet varchar(10)
+    select @matienquyet=nvtq.MaNhiemVu From NHIEMVU as nv,NHIEMVU as nvtq
+	where nv.MaNhiemVu=nvtq.MaTienQuyet and nv.MaNhiemVu= @manhiemvu
     BEGIN
         UPDATE NHIEMVU
-        SET MaTienQuyet = NULL
-        WHERE NHIEMVU.MaTienQuyet = @manhiemvvu;
-        SET @check = 0;
+        SET  MaTienQuyet = NULL
+        WHERE NHIEMVU.MaNhiemVu =@matienquyet
     END
 END
 go
-
+--Kiểm Tra Công Việc Tiên Quyết để xoá
 CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
     @macongviec INT
 AS
@@ -267,5 +248,3 @@ END
 GO
 
 
-
->>>>>>> 82024f8a0bd25d8400e9071b7b482e0c2c75ff6b
