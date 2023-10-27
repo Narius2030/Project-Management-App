@@ -71,6 +71,9 @@ namespace QLCongTy.Views.NhanSu
 
         private void LoadCboGiaiDoan()
         {
+            //
+            //Kết thêm giá trị TenNhom để lọc ra giai đoạn của nhóm đó
+            //
             DataTable source = gdDao.GetListSprint(this.MaDA);
             cboMaGiaiDoan.DisplayMember = "MaGiaiDoan";
             cboMaGiaiDoan.ValueMember = "MaGiaiDoan";
@@ -103,6 +106,9 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnTaoNhiemVu_Click(object sender, EventArgs e)
         {
+            //
+            // Khi add nhiệm vụ phải kiểm tra giai đoạn đó là mới nhất
+            //
             if (cboCongViec.Text == "--Chưa có công việc--")
             {
                 DialogResult dialogResult = MessageBox.Show("Phân công việc trước khi giao nhiệm vụ", "Thông báo", MessageBoxButtons.YesNo);
@@ -191,6 +197,7 @@ namespace QLCongTy.Views.NhanSu
         private void cboCongViec_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.MaCV = Convert.ToInt32(cboCongViec.SelectedValue);
+            LoadCboTienQuyet();
             ClearTextBox();
         }
 
@@ -199,6 +206,24 @@ namespace QLCongTy.Views.NhanSu
             Form nhom = Application.OpenForms["fNhom"];
             nhom.Controls["pnlShowNhiemVu"].SendToBack();
             this.Close();
+        }
+
+        private void btnChuyenDoi_Click(object sender, EventArgs e)
+        {
+            if (btnChuyenDoi.IconChar == FontAwesome.Sharp.IconChar.ToggleOn)
+            {
+                btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOff;
+                pnlTienDo.BringToFront();
+                pnlTienDoChiTiet.SendToBack();
+                pnlTienDoChiTiet.Visible = false;
+            }
+            else
+            {
+                btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOn;
+                pnlTienDo.SendToBack();
+                pnlTienDoChiTiet.BringToFront();
+                pnlTienDoChiTiet.Visible = true;
+            }
         }
     }
 }

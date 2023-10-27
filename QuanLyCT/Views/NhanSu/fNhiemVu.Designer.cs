@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnPhanCong = new System.Windows.Forms.Panel();
             this.btnXoaNhiemVu = new FontAwesome.Sharp.IconButton();
             this.btnTaoNhiemVu = new FontAwesome.Sharp.IconButton();
@@ -51,14 +51,19 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.pnThongTinDA = new System.Windows.Forms.Panel();
+            this.btnChuyenDoi = new FontAwesome.Sharp.IconButton();
+            this.pnlTienDoChiTiet = new System.Windows.Forms.Panel();
+            this.pnlTienDo = new System.Windows.Forms.Panel();
+            this.ctProgressBar1 = new QLCongTy.CTProgressBar();
+            this.label5 = new System.Windows.Forms.Label();
+            this.pgbUocTinhNV = new QLCongTy.CTProgressBar();
+            this.pgbThucTeNV = new QLCongTy.CTProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.cboCongViec = new System.Windows.Forms.ComboBox();
             this.cboMaGiaiDoan = new System.Windows.Forms.ComboBox();
             this.txtMaDA = new QLCongTy.CTTextBox();
             this.txtTenNhom = new QLCongTy.CTTextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.pgbUocTinhNV = new QLCongTy.CTProgressBar();
-            this.pgbThucTeNV = new QLCongTy.CTProgressBar();
             this.label13 = new System.Windows.Forms.Label();
             this.pnTitle = new ArtanComponent.ArtanPannel();
             this.btnBack = new FontAwesome.Sharp.IconButton();
@@ -69,6 +74,8 @@
             this.pnPCNhom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudThoiGianUocTinh)).BeginInit();
             this.pnThongTinDA.SuspendLayout();
+            this.pnlTienDoChiTiet.SuspendLayout();
+            this.pnlTienDo.SuspendLayout();
             this.pnTitle.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,37 +171,37 @@
             this.gvDSNhiemVu.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gvDSNhiemVu.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
             this.gvDSNhiemVu.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(96)))), ((int)(((byte)(232)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(232)))), ((int)(((byte)(253)))));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(96)))), ((int)(((byte)(232)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(232)))), ((int)(((byte)(253)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvDSNhiemVu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(96)))), ((int)(((byte)(232)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(232)))), ((int)(((byte)(253)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(113)))), ((int)(((byte)(96)))), ((int)(((byte)(232)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(232)))), ((int)(((byte)(253)))));
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvDSNhiemVu.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gvDSNhiemVu.ColumnHeadersHeight = 35;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(229)))), ((int)(((byte)(253)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(101)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gvDSNhiemVu.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(254)))), ((int)(((byte)(254)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(229)))), ((int)(((byte)(253)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(101)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvDSNhiemVu.DefaultCellStyle = dataGridViewCellStyle2;
             this.gvDSNhiemVu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gvDSNhiemVu.EnableHeadersVisualStyles = false;
             this.gvDSNhiemVu.GridColor = System.Drawing.Color.Silver;
             this.gvDSNhiemVu.Location = new System.Drawing.Point(10, 10);
             this.gvDSNhiemVu.Name = "gvDSNhiemVu";
             this.gvDSNhiemVu.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(93)))), ((int)(((byte)(230)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(229)))), ((int)(((byte)(252)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(94)))), ((int)(((byte)(229)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(229)))), ((int)(((byte)(253)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvDSNhiemVu.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(93)))), ((int)(((byte)(230)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(229)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(94)))), ((int)(((byte)(229)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(229)))), ((int)(((byte)(253)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvDSNhiemVu.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.gvDSNhiemVu.RowHeadersVisible = false;
             this.gvDSNhiemVu.RowHeadersWidth = 51;
             this.gvDSNhiemVu.RowTemplate.Height = 24;
@@ -398,22 +405,141 @@
             // pnThongTinDA
             // 
             this.pnThongTinDA.BackColor = System.Drawing.Color.White;
+            this.pnThongTinDA.Controls.Add(this.pnlTienDo);
+            this.pnThongTinDA.Controls.Add(this.pnlTienDoChiTiet);
+            this.pnThongTinDA.Controls.Add(this.btnChuyenDoi);
             this.pnThongTinDA.Controls.Add(this.cboCongViec);
             this.pnThongTinDA.Controls.Add(this.cboMaGiaiDoan);
             this.pnThongTinDA.Controls.Add(this.txtMaDA);
             this.pnThongTinDA.Controls.Add(this.txtTenNhom);
             this.pnThongTinDA.Controls.Add(this.label7);
-            this.pnThongTinDA.Controls.Add(this.label2);
             this.pnThongTinDA.Controls.Add(this.label12);
-            this.pnThongTinDA.Controls.Add(this.label1);
-            this.pnThongTinDA.Controls.Add(this.pgbUocTinhNV);
-            this.pnThongTinDA.Controls.Add(this.pgbThucTeNV);
             this.pnThongTinDA.Controls.Add(this.label6);
             this.pnThongTinDA.Controls.Add(this.label13);
             this.pnThongTinDA.Location = new System.Drawing.Point(22, 86);
             this.pnThongTinDA.Name = "pnThongTinDA";
             this.pnThongTinDA.Size = new System.Drawing.Size(1263, 139);
             this.pnThongTinDA.TabIndex = 90;
+            // 
+            // btnChuyenDoi
+            // 
+            this.btnChuyenDoi.BackColor = System.Drawing.Color.Transparent;
+            this.btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOff;
+            this.btnChuyenDoi.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnChuyenDoi.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnChuyenDoi.Location = new System.Drawing.Point(1188, 54);
+            this.btnChuyenDoi.Name = "btnChuyenDoi";
+            this.btnChuyenDoi.Size = new System.Drawing.Size(62, 40);
+            this.btnChuyenDoi.TabIndex = 103;
+            this.btnChuyenDoi.UseVisualStyleBackColor = false;
+            this.btnChuyenDoi.Click += new System.EventHandler(this.btnChuyenDoi_Click);
+            // 
+            // pnlTienDoChiTiet
+            // 
+            this.pnlTienDoChiTiet.Controls.Add(this.pgbUocTinhNV);
+            this.pnlTienDoChiTiet.Controls.Add(this.pgbThucTeNV);
+            this.pnlTienDoChiTiet.Controls.Add(this.label1);
+            this.pnlTienDoChiTiet.Controls.Add(this.label2);
+            this.pnlTienDoChiTiet.Location = new System.Drawing.Point(677, 14);
+            this.pnlTienDoChiTiet.Name = "pnlTienDoChiTiet";
+            this.pnlTienDoChiTiet.Size = new System.Drawing.Size(505, 112);
+            this.pnlTienDoChiTiet.TabIndex = 116;
+            // 
+            // pnlTienDo
+            // 
+            this.pnlTienDo.Controls.Add(this.ctProgressBar1);
+            this.pnlTienDo.Controls.Add(this.label5);
+            this.pnlTienDo.Location = new System.Drawing.Point(679, 14);
+            this.pnlTienDo.Name = "pnlTienDo";
+            this.pnlTienDo.Size = new System.Drawing.Size(505, 112);
+            this.pnlTienDo.TabIndex = 117;
+            // 
+            // ctProgressBar1
+            // 
+            this.ctProgressBar1.ChannelColor = System.Drawing.Color.LightSteelBlue;
+            this.ctProgressBar1.ChannelHeight = 6;
+            this.ctProgressBar1.ForeBackColor = System.Drawing.Color.DarkOrange;
+            this.ctProgressBar1.ForeColor = System.Drawing.Color.White;
+            this.ctProgressBar1.Location = new System.Drawing.Point(131, 33);
+            this.ctProgressBar1.Name = "ctProgressBar1";
+            this.ctProgressBar1.ShowMaximun = false;
+            this.ctProgressBar1.ShowValue = QLCongTy.TextPosition.Center;
+            this.ctProgressBar1.Size = new System.Drawing.Size(351, 30);
+            this.ctProgressBar1.SliderColor = System.Drawing.Color.Chartreuse;
+            this.ctProgressBar1.SliderHeight = 10;
+            this.ctProgressBar1.SymbolAfter = "hrs";
+            this.ctProgressBar1.SymbolBefore = "";
+            this.ctProgressBar1.TabIndex = 100;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(12, 40);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 27);
+            this.label5.TabIndex = 102;
+            this.label5.Text = "Tiến độ";
+            // 
+            // pgbUocTinhNV
+            // 
+            this.pgbUocTinhNV.ChannelColor = System.Drawing.Color.LightSteelBlue;
+            this.pgbUocTinhNV.ChannelHeight = 6;
+            this.pgbUocTinhNV.ForeBackColor = System.Drawing.Color.DarkOrange;
+            this.pgbUocTinhNV.ForeColor = System.Drawing.Color.White;
+            this.pgbUocTinhNV.Location = new System.Drawing.Point(134, 68);
+            this.pgbUocTinhNV.Name = "pgbUocTinhNV";
+            this.pgbUocTinhNV.ShowMaximun = false;
+            this.pgbUocTinhNV.ShowValue = QLCongTy.TextPosition.Center;
+            this.pgbUocTinhNV.Size = new System.Drawing.Size(351, 30);
+            this.pgbUocTinhNV.SliderColor = System.Drawing.Color.Chartreuse;
+            this.pgbUocTinhNV.SliderHeight = 10;
+            this.pgbUocTinhNV.SymbolAfter = "hrs";
+            this.pgbUocTinhNV.SymbolBefore = "";
+            this.pgbUocTinhNV.TabIndex = 100;
+            // 
+            // pgbThucTeNV
+            // 
+            this.pgbThucTeNV.ChannelColor = System.Drawing.Color.LightSteelBlue;
+            this.pgbThucTeNV.ChannelHeight = 6;
+            this.pgbThucTeNV.ForeBackColor = System.Drawing.Color.DarkOrange;
+            this.pgbThucTeNV.ForeColor = System.Drawing.Color.White;
+            this.pgbThucTeNV.Location = new System.Drawing.Point(134, 9);
+            this.pgbThucTeNV.Name = "pgbThucTeNV";
+            this.pgbThucTeNV.ShowMaximun = false;
+            this.pgbThucTeNV.ShowValue = QLCongTy.TextPosition.Center;
+            this.pgbThucTeNV.Size = new System.Drawing.Size(351, 30);
+            this.pgbThucTeNV.SliderColor = System.Drawing.Color.Chartreuse;
+            this.pgbThucTeNV.SliderHeight = 10;
+            this.pgbThucTeNV.SymbolAfter = "hrs";
+            this.pgbThucTeNV.SymbolBefore = "";
+            this.pgbThucTeNV.TabIndex = 99;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(12, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 27);
+            this.label1.TabIndex = 101;
+            this.label1.Text = "Thực tế";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(12, 71);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 27);
+            this.label2.TabIndex = 102;
+            this.label2.Text = "Ước tính";
             // 
             // cboCongViec
             // 
@@ -499,64 +625,6 @@
             this.txtTenNhom.Texts = "";
             this.txtTenNhom.UnderlinedStyle = false;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(711, 84);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 27);
-            this.label2.TabIndex = 102;
-            this.label2.Text = "Ước tính";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(711, 28);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 27);
-            this.label1.TabIndex = 101;
-            this.label1.Text = "Thực tế";
-            // 
-            // pgbUocTinhNV
-            // 
-            this.pgbUocTinhNV.ChannelColor = System.Drawing.Color.LightSteelBlue;
-            this.pgbUocTinhNV.ChannelHeight = 6;
-            this.pgbUocTinhNV.ForeBackColor = System.Drawing.Color.DarkOrange;
-            this.pgbUocTinhNV.ForeColor = System.Drawing.Color.White;
-            this.pgbUocTinhNV.Location = new System.Drawing.Point(833, 81);
-            this.pgbUocTinhNV.Name = "pgbUocTinhNV";
-            this.pgbUocTinhNV.ShowMaximun = false;
-            this.pgbUocTinhNV.ShowValue = QLCongTy.TextPosition.Center;
-            this.pgbUocTinhNV.Size = new System.Drawing.Size(389, 30);
-            this.pgbUocTinhNV.SliderColor = System.Drawing.Color.Chartreuse;
-            this.pgbUocTinhNV.SliderHeight = 10;
-            this.pgbUocTinhNV.SymbolAfter = "hrs";
-            this.pgbUocTinhNV.SymbolBefore = "";
-            this.pgbUocTinhNV.TabIndex = 100;
-            // 
-            // pgbThucTeNV
-            // 
-            this.pgbThucTeNV.ChannelColor = System.Drawing.Color.LightSteelBlue;
-            this.pgbThucTeNV.ChannelHeight = 6;
-            this.pgbThucTeNV.ForeBackColor = System.Drawing.Color.DarkOrange;
-            this.pgbThucTeNV.ForeColor = System.Drawing.Color.White;
-            this.pgbThucTeNV.Location = new System.Drawing.Point(833, 22);
-            this.pgbThucTeNV.Name = "pgbThucTeNV";
-            this.pgbThucTeNV.ShowMaximun = false;
-            this.pgbThucTeNV.ShowValue = QLCongTy.TextPosition.Center;
-            this.pgbThucTeNV.Size = new System.Drawing.Size(389, 30);
-            this.pgbThucTeNV.SliderColor = System.Drawing.Color.Chartreuse;
-            this.pgbThucTeNV.SliderHeight = 10;
-            this.pgbThucTeNV.SymbolAfter = "hrs";
-            this.pgbThucTeNV.SymbolBefore = "";
-            this.pgbThucTeNV.TabIndex = 99;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -634,6 +702,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudThoiGianUocTinh)).EndInit();
             this.pnThongTinDA.ResumeLayout(false);
             this.pnThongTinDA.PerformLayout();
+            this.pnlTienDoChiTiet.ResumeLayout(false);
+            this.pnlTienDoChiTiet.PerformLayout();
+            this.pnlTienDo.ResumeLayout(false);
+            this.pnlTienDo.PerformLayout();
             this.pnTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -673,5 +745,10 @@
         private System.Windows.Forms.ComboBox cboCongViec;
         private System.Windows.Forms.ComboBox cboMaGiaiDoan;
         private FontAwesome.Sharp.IconButton btnBack;
+        private System.Windows.Forms.Panel pnlTienDoChiTiet;
+        private FontAwesome.Sharp.IconButton btnChuyenDoi;
+        private System.Windows.Forms.Panel pnlTienDo;
+        private CTProgressBar ctProgressBar1;
+        private System.Windows.Forms.Label label5;
     }
 }
