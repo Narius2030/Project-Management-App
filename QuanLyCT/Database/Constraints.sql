@@ -256,6 +256,7 @@ BEGIN
 		FETCH NEXT FROM cursor_nhomDA INTO @manv
 	END
 	CLOSE cursor_nhomDA;
+	DEALLOCATE cursor_nhomDA
 END
 GO
 
@@ -281,3 +282,36 @@ BEGIN
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
 GO
+
+--18. Kiểm tra nhân viên trong cùng dự án có cùng Số giờ làm một ngày
+CREATE OR ALTER TRIGGER tr_ktr_soGioMotNg ON NHOM
+AFTER INSERT
+AS
+DECLARE @manv VARCHAR(10), @soGioNg DECIMAL, @mada INT, @currentSoGioNg DECIMAL, @check INT
+SELECT @manv=i.MaNV, @soGioNg=i.SoGioMotNg, @mada=i.MaDA
+FROM inserted i
+--Kiểm tra Số giờ làm việc trong một dự án của một nhân viên
+SELECT @check=COUNT(*) FROM NHOM
+WHERE MaNV=@manv AND MaDA=@mada
+IF @check > 0
+BEGIN
+	DECLARE cursor_nhomDA CURSOR
+	FOR SELECT SoGioMotNg FROM NHOM WHERE MaDA=@mada AND MaNV=@manv
+
+	SET @check = 1
+	OPEN cursor_nhomDA
+	FETCH NEXT FROM cursor_nhomDA INTO @currentSoGioNg
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF @currentSoGioNg != @soGioNg
+			SET @check = 0
+			BREAK;
+	END
+	CLOSE cursor_nhomDA
+	DEALLOCATE cursor_nhomDA
+	IF @check = 0
+		RAISERROR('Thời gian làm việc một ngày trong một dự án không hợp lệ', 16, 1)
+END
+GO
+
+--INSERT INTO NHOM VALUES('NV003', 'Front-End', 3, 9)

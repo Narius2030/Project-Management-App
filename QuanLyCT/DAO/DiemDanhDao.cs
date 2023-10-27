@@ -61,7 +61,7 @@ namespace QLCongTy.DAO
                 MessageBox.Show(soGioNghi.ToString());
 
                 // Tính Time Sprint
-                double res = soGioLam + soGioNghi;
+                double res = soGioLam - soGioNghi;
                 MessageBox.Show(res.ToString());
 
                 //Cập nhật UOCLUONG cho NhanVien sau khi nghỉ
