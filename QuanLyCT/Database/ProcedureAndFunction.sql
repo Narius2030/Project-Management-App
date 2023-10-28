@@ -144,7 +144,7 @@ END;
 GO
 
 --CẬp nhật timetask
-CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10),@maduan int ,@macongviec int,@magiaidoan varchar(10))
+CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10),@maduan int ,@magiaidoan varchar(10))
 RETURNS INT
 AS
 BEGIN
@@ -156,14 +156,14 @@ BEGIN
 	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
 	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
 	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan and @macongviec=CONGVIEC.MaCV
-			and @magiaidoan=GIAIDOAN.MaGiaiDoan
+	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
+			and GIAIDOAN.MaGiaiDoan=@magiaidoan
 			and NHIEMVU.TrangThai='Done'
 	return @timetask
 END
 Go
 --Tính Tổng Time Task
-CREATE OR ALTER FUNCTION sfn_TongTimeTask (@manhanvien varchar(10),@maduan int ,@macongviec int,@magiaidoan varchar(10))
+CREATE OR ALTER FUNCTION sfn_SumTimeTask (@manhanvien varchar(10),@maduan int ,@magiaidoan varchar(10))
 RETURNS INT
 AS
 BEGIN
@@ -175,8 +175,8 @@ BEGIN
 	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
 	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
 	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan and @macongviec=CONGVIEC.MaCV
-			and @magiaidoan=GIAIDOAN.MaGiaiDoan
+	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
+			and GIAIDOAN.MaGiaiDoan=@magiaidoan
 	return @timetask
 END
 go

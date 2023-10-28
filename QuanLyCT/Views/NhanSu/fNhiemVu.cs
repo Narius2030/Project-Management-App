@@ -33,13 +33,11 @@ namespace QLCongTy.Views.NhanSu
             this.MaDA = MaDA;
             this.TenNhom = TenNhom;
         }
-        public void ReadLoadTimeTask()
+        public void TimeTask()
         {
-            pgbThucTeNV.Value = nvDao.CapNhatTimeTask(this.MaNV,this.MaDA,this.MaCV,this.MaGiaiDoan);
-        }
-        public void SumTask()
-        {
-            sumtask.Text = (nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaCV, this.MaGiaiDoan)).ToString()+" hrs";
+            pgbThucTeNV.Value= nvDao.CapNhatTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan);
+            pgbThucTeNV.Maximum = nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan);
+
         }
         public fNhiemVu()
         {
@@ -56,8 +54,7 @@ namespace QLCongTy.Views.NhanSu
             LoadCboCongViec();
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
-            ReadLoadTimeTask();
-            SumTask();
+            TimeTask();
         }
 
         private void LoadGVDSPhanNhiemVu()
@@ -75,7 +72,7 @@ namespace QLCongTy.Views.NhanSu
             }
             nvDao.ThemNhiemVu(nv);
             ReLoad();
-            ReadLoadTimeTask();
+            TimeTask();
         }
 
         private void LoadCboGiaiDoan()
@@ -115,7 +112,7 @@ namespace QLCongTy.Views.NhanSu
             {
                 MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
-            ReadLoadTimeTask();
+            TimeTask();
         }
 
         private void btnTaoNhiemVu_Click(object sender, EventArgs e)
@@ -170,7 +167,7 @@ namespace QLCongTy.Views.NhanSu
                 numthoigianthucte.Value = string.IsNullOrEmpty(row.Cells[5].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[5].Value);
                 nv.ThoiGianUocTinh = string.IsNullOrEmpty(row.Cells[4].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[4].Value);
                 nudThoiGianUocTinh.Value = Convert.ToInt32(nv.ThoiGianUocTinh);
-                ReadLoadTimeTask();
+                TimeTask();
 
             }
         }
@@ -257,7 +254,7 @@ namespace QLCongTy.Views.NhanSu
             if (nvDao.SuaNhiemVu(nv) == 1)
             {
                 ReLoad();
-                ReadLoadTimeTask();
+                TimeTask();
             }
         }
 

@@ -115,41 +115,38 @@ namespace QLCongTy.DAO
                 return "00" + "CV" + MaCV.ToString("D2") + "DA" + MaDA.ToString("D2");
             }
         }
-        public int CapNhatTimeTask(string manv,int maduan,int macongviec,string magiaidoan)
+        public int CapNhatTimeTask(string manv,int maduan,string magiaidoan)
         {
             int ketqua;
             SqlParameter[] sp = new SqlParameter[]
             {
                 new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
                 new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
-                new SqlParameter("@macongviec", SqlDbType.Int) { Value = macongviec },
                 new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
             };
             try
             {
-                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask (@manhanvien,@maduan,@macongviec,@magiaidoan)", sp, false));
+                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
             }
             catch
             (Exception )
             {
-                MessageBox.Show("Nhân viên chưa được phân công nhiệm vụ nào ", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 ketqua = 0;
             }
             return ketqua;
         }
-        public int TongTimeTask(string manv, int maduan, int macongviec, string magiaidoan)
+        public int TongTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
             SqlParameter[] sp = new SqlParameter[]
             {
                 new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
                 new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
-                new SqlParameter("@macongviec", SqlDbType.Int) { Value = macongviec },
                 new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
             };
             try
             {
-                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_TongTimeTask (@manhanvien,@maduan,@macongviec,@magiaidoan)", sp, false));
+                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_SumTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
             }
             catch
             (Exception)
