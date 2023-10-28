@@ -35,7 +35,7 @@ namespace QLCongTy.QLDuAn
         #region ReLoad Something
         void LoadDataGiaiDoan()
         {
-            gvDSGiaiDoan.DataSource = gdD.GetListSprint(da.MaDA);
+            gvDSGiaiDoan.DataSource = gdD.GetListSprint(da.MaDA,1);
         }
         void LoadDataNhanLuc()
         {
@@ -590,27 +590,6 @@ namespace QLCongTy.QLDuAn
 
         }
 
-        private void btnxoacv_Click(object sender, EventArgs e)
-        {
-            CONGVIEC cv = new CONGVIEC()
-            {
-                MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
-
-            };
-            cvd.KiemTraCongViecTienQuyet(cv);
-            {
-                if (cvd.RemoveJob(cv) == 1)
-                {
-                    MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }
-            }
-            LoadCongViec();
-        }
-
         private void btnupdatepc_Click(object sender, EventArgs e)
         {
             CONGVIEC cv = new CONGVIEC()
@@ -645,6 +624,24 @@ namespace QLCongTy.QLDuAn
             LoadTabPages();
             tpNhom.Controls.Add(tpTaiNguyen);
             tpNhom.SelectedIndex = 1;
+        }
+
+        private void btnxoacv_Click(object sender, EventArgs e)
+        {
+            CONGVIEC cv = new CONGVIEC()
+            {
+                MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0
+            };
+            cvd.KiemTraCongViecTienQuyet(cv);
+            if(cvd.RemoveJob(cv) == 1) 
+            {
+                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadCongViec();
+            }
+            else
+            {
+                MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }    
         }
     }
 }

@@ -26,6 +26,7 @@ namespace QLCongTy.Views.NhanSu
         GiaiDoanDao gdDao = new GiaiDoanDao();
         CongViecDao cvDao = new CongViecDao();
         NhanVienDao nvienDao = new NhanVienDao();
+        UocLuongDao ulDao = new UocLuongDao();
         public fNhiemVu(string MaNV, int MaDA, string TenNhom)
         {
             InitializeComponent();
@@ -33,12 +34,19 @@ namespace QLCongTy.Views.NhanSu
             this.MaDA = MaDA;
             this.TenNhom = TenNhom;
         }
-
+        public void TimeTask()
+        {
+            pgbThucTeNV.Maximum = nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan);
+            pgbThucTeNV.Value = pgbThucTeNV.Maximum - nvDao.CapNhatTimeTask(this.MaNV,this.MaDA,this.MaGiaiDoan);
+            pgbTienDoCaNhan.Value = 0;
+            pgbTienDoCaNhan.Maximum = 100;
+            pgbUocTinhNV.Maximum = ulDao.GetTimeSprint(this.MaDA, this.MaNV);
+            //pgbUocTinhNV.Value = ;
+        }
         public fNhiemVu()
         {
 
         }
-
         private void fNhiemVu_Load(object sender, EventArgs e)
         {
             nv.MaCV = this.MaCV;
@@ -50,6 +58,7 @@ namespace QLCongTy.Views.NhanSu
             LoadCboCongViec();
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
+            TimeTask();
         }
 
         private void LoadGVDSPhanNhiemVu()
@@ -67,14 +76,13 @@ namespace QLCongTy.Views.NhanSu
             }
             nvDao.ThemNhiemVu(nv);
             ReLoad();
+            TimeTask();
+            ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
         }
 
         private void LoadCboGiaiDoan()
         {
-            //
-            //Kết thêm giá trị TenNhom để lọc ra giai đoạn của nhóm đó
-            //
-            DataTable source = gdDao.GetListSprint(this.MaDA);
+            DataTable source = gdDao.GetListSprint(this.MaDA,2);
             cboMaGiaiDoan.DisplayMember = "MaGiaiDoan";
             cboMaGiaiDoan.ValueMember = "MaGiaiDoan";
             cboMaGiaiDoan.DataSource = source;
@@ -98,27 +106,34 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnXoaNhiemVu_Click(object sender, EventArgs e)
         {
-            //Procedure chưa setnull được và hiện một exception nhưng kh ảnh hưởng quá trình xóa
             nvDao.SetNullTienQuyet(nv);
-            nvDao.XoaNhiemVu(nv);
-            ReLoad();
+
+            if (nvDao.XoaNhiemVu(nv) == 1)
+            {
+                ReLoad();
+                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
+            TimeTask();
         }
 
-        private void btnTaoNhiemVu_Click(object sender, EventArgs e)
+
+
+        private void btnTaoMaNhiemVu_Click(object sender, EventArgs e)
         {
-            //
-            // Khi add nhiệm vụ phải kiểm tra giai đoạn đó là mới nhất
-            //
             if (cboCongViec.Text == "--Chưa có công việc--")
             {
                 DialogResult dialogResult = MessageBox.Show("Phân công việc trước khi giao nhiệm vụ", "Thông báo", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    //Xử lý gọi chức năng phân nhiệm vụ
+
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                    MessageBox.Show("Chọn công việc khác để phân công");
+                    MessageBox.Show("Chọn công việc khác để phân công", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -154,8 +169,13 @@ namespace QLCongTy.Views.NhanSu
                 nv.TenNhiemVu = row.Cells[1].Value.ToString();
                 nv.TrangThai = row.Cells[2].Value.ToString();
                 nv.MaTienQuyet = row.Cells[3].Value.ToString();
-                nv.ThoiGianUocTinh = Convert.ToInt32(row.Cells[4].Value);
-                //nv.ThoiGianLamThucTe = Convert.ToInt32(row.Cells[5].Value);
+                nudThoiGianThucTe.Value = 0;
+                nv.ThoiGianUocTinh = 0;
+                nudThoiGianThucTe.Value = string.IsNullOrEmpty(row.Cells[5].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[5].Value);
+                nv.ThoiGianUocTinh = string.IsNullOrEmpty(row.Cells[4].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[4].Value);
+                nudThoiGianUocTinh.Value = Convert.ToInt32(nv.ThoiGianUocTinh);
+                TimeTask();
+
             }
         }
 
@@ -174,8 +194,6 @@ namespace QLCongTy.Views.NhanSu
         private void ReLoad()
         {
             ClearTextBox();
-            LoadCboGiaiDoan();
-            LoadCboCongViec();
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
         }
@@ -192,11 +210,20 @@ namespace QLCongTy.Views.NhanSu
             this.MaGiaiDoan = cboMaGiaiDoan.SelectedValue.ToString();
             LoadCboCongViec();
             ClearTextBox();
+            if(cboMaGiaiDoan.SelectedIndex==0)
+            {
+                btnPhanNV.Enabled = true;
+            }
+            else
+            {
+                btnPhanNV.Enabled= false;
+            }    
         }
 
         private void cboCongViec_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.MaCV = Convert.ToInt32(cboCongViec.SelectedValue);
+            LoadGVDSPhanNhiemVu();
             LoadCboTienQuyet();
             ClearTextBox();
         }
@@ -214,16 +241,86 @@ namespace QLCongTy.Views.NhanSu
             {
                 btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOff;
                 pnlTienDo.BringToFront();
-                pnlTienDoChiTiet.SendToBack();
-                pnlTienDoChiTiet.Visible = false;
+                TimeTask();
+                pgbUocTinhNV.Value = 0;
+                pgbThucTeNV.Value = 0;
             }
             else
             {
                 btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOn;
                 pnlTienDo.SendToBack();
-                pnlTienDoChiTiet.BringToFront();
-                pnlTienDoChiTiet.Visible = true;
+                TimeTask();
+                pgbTienDoCaNhan.Value= 0;
             }
+        }
+        private void btnsua_Click(object sender, EventArgs e)
+        {
+            ShowHideUpdateControl();
+        }
+
+        private void btnCapNhat_Click(object sender, EventArgs e)
+        {
+            string trangthai = "Pending";
+            if (nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts) == 1)
+            {
+                trangthai = "Doing";
+            }
+            if (Convert.ToInt32(nudThoiGianThucTe.Value) != 0)
+            {
+                trangthai = "Done";
+            }
+            NHIEMVU nv = new NHIEMVU()
+            {
+                ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value),
+                TenNhiemVu = txtNhiemVu.Texts,
+                MaNhiemVu = txtMaNhiemVu.Texts,
+                TrangThai = trangthai
+            };
+            if (cbTienQuyet.Checked)
+            {
+                nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
+            }
+            if (nvDao.SuaNhiemVu(nv) == 1)
+            {
+                ReLoad();
+                TimeTask();
+            }
+        }
+
+        private void ckbDone_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckbDone.Checked)
+            {
+                lblThoiGianThucTe.Enabled = true;
+                nudThoiGianThucTe.Enabled = true;
+            }
+            else
+            {
+                lblThoiGianThucTe.Enabled = false;
+                nudThoiGianThucTe.Enabled = false;
+            }
+        }
+
+        public void ShowHideUpdateControl()
+        {
+            if (btnCapNhat.Visible)
+            {
+                btnPhanNV.Visible = true;
+                btnCapNhat.Visible = false;
+                lblThoiGianThucTe.Visible = false;
+                nudThoiGianThucTe.Visible = false;
+                ckbDone.Checked = false;
+                ckbDone.Visible = false;
+            }
+            else
+            {
+                btnPhanNV.Visible = false;
+                btnCapNhat.Visible = true;
+                lblThoiGianThucTe.Visible = true;
+                nudThoiGianThucTe.Visible = true;
+                ckbDone.Visible = true;
+            }
+            
         }
     }
 }

@@ -24,19 +24,18 @@ namespace QLCongTy.NhanSu
         {
             LoadGVNhanSu();
             DoiTenGV();
-            GetCboPB();
-            //GetCboCV();
+            GetCboLevels();
+            GetCboChucVu();
 
-            //Thống kê
             ThongKeLuong();
             ThongKeCLNL();
         }
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-           
-            cboChucVu.Text = "";
-            cboGioiTinh.Text = "";
+            cboChucVu.Text = string.Empty;
+            cboLevels.Text = string.Empty;
+            LoadGVNhanSu();
         }
 
         #region Tương tác với Datagridview
@@ -52,22 +51,7 @@ namespace QLCongTy.NhanSu
         }
         #endregion
 
-        #region Các chức năng phổ biến
-        private void cboPhongBan_SelectedIndexChanged(object sender, EventArgs e)
-        {
-          
-        }
-
-        private void cboChucVu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void cboGioiTinh_SelectedIndexChanged(object sender, EventArgs e)
-        {
-         
-        }
-
+        #region Nut chuc nang
         private void btnThem_Click(object sender, EventArgs e)
         {
            
@@ -193,7 +177,6 @@ namespace QLCongTy.NhanSu
         private void gvNhanSu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow r = gvNhanSu.SelectedRows[0];
-
             //txtMaNV.Texts = r.Cells[0].Value.ToString();
             //txtHoDem.Texts = r.Cells[1].Value.ToString();
             //txtTenNV.Texts = r.Cells[2].Value.ToString();
@@ -208,11 +191,31 @@ namespace QLCongTy.NhanSu
             //cboTrinhdo.Text = r.Cells[11].Value.ToString();
         }
 
-        private void GetCboPB()
+        private void GetCboLevels()
         {
-          
-            //cboPB.DisplayMember = "TenPB";
-            //cboPB.ValueMember = "MaPB";
+            DataTable source = nvDao.GetDSLevels();
+            cboLevels.DisplayMember = "Levels";
+            cboLevels.ValueMember = "Levels";
+            cboLevels.DataSource = source;
+        }
+
+        private void GetCboChucVu()
+        {
+            DataTable source = nvDao.GetDSChucVu();
+            cboChucVu.DisplayMember = "ChucVu";
+            cboChucVu.ValueMember = "ChucVu";
+            cboChucVu.DataSource = source;
+        }
+        //Ham loi, chua loc duoc
+        private void cboLevels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            gvNhanSu.DataSource = nvDao.LocLevels(cboLevels.SelectedItem.ToString());
+        }
+
+        //Ham loi, chua loc duoc
+        private void cboChucVu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            gvNhanSu.DataSource = nvDao.LocChucVu(cboChucVu.SelectedItem.ToString());
         }
     }
 }

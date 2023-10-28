@@ -15,9 +15,16 @@ namespace QLCongTy.DAO
     public class GiaiDoanDao
     {
         DBConnection dbC = new DBConnection();
-        public DataTable GetListSprint(int mada)
+        public DataTable GetListSprint(int mada,int check)
         {
-            return dbC.ExecuteQuery($"Select * From GiaiDoan WHERE MaDA={mada}");
+            if (check == 1)
+            {
+                return dbC.ExecuteQuery($"Select * From GiaiDoan WHERE MaDA={mada}");
+            }
+            else
+            {
+                return dbC.ExecuteQuery($"select * From GiaiDoan Where MaDA={mada} order by GIAIDOAN.MaGiaiDoan desc");
+            }
         }
         public void ThemGiaiDoan(GIAIDOAN giaidoan)
         {

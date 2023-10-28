@@ -800,6 +800,8 @@
             // 
             this.txtLuongcb.BackColor = System.Drawing.Color.White;
             this.txtLuongcb.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtLuongcb.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtLuongcb.BorderRadius = 0;
             this.txtLuongcb.BorderSize = 2;
             this.txtLuongcb.Enabled = false;
             this.txtLuongcb.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -810,7 +812,9 @@
             this.txtLuongcb.Name = "txtLuongcb";
             this.txtLuongcb.Padding = new System.Windows.Forms.Padding(7);
             this.txtLuongcb.PasswordChar = false;
-            this.txtLuongcb.Size = new System.Drawing.Size(152, 48);
+            this.txtLuongcb.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtLuongcb.PlaceholderText = "";
+            this.txtLuongcb.Size = new System.Drawing.Size(152, 52);
             this.txtLuongcb.TabIndex = 88;
             this.txtLuongcb.Texts = "";
             this.txtLuongcb.UnderlinedStyle = false;
@@ -865,6 +869,8 @@
             // 
             this.txtLuongthuong.BackColor = System.Drawing.Color.White;
             this.txtLuongthuong.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtLuongthuong.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtLuongthuong.BorderRadius = 0;
             this.txtLuongthuong.BorderSize = 2;
             this.txtLuongthuong.Enabled = false;
             this.txtLuongthuong.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -875,7 +881,9 @@
             this.txtLuongthuong.Name = "txtLuongthuong";
             this.txtLuongthuong.Padding = new System.Windows.Forms.Padding(7);
             this.txtLuongthuong.PasswordChar = false;
-            this.txtLuongthuong.Size = new System.Drawing.Size(152, 48);
+            this.txtLuongthuong.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtLuongthuong.PlaceholderText = "";
+            this.txtLuongthuong.Size = new System.Drawing.Size(152, 52);
             this.txtLuongthuong.TabIndex = 86;
             this.txtLuongthuong.Texts = "";
             this.txtLuongthuong.UnderlinedStyle = false;
@@ -930,6 +938,8 @@
             // 
             this.txtLuongphat.BackColor = System.Drawing.Color.White;
             this.txtLuongphat.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtLuongphat.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtLuongphat.BorderRadius = 0;
             this.txtLuongphat.BorderSize = 2;
             this.txtLuongphat.Enabled = false;
             this.txtLuongphat.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -940,7 +950,9 @@
             this.txtLuongphat.Name = "txtLuongphat";
             this.txtLuongphat.Padding = new System.Windows.Forms.Padding(7);
             this.txtLuongphat.PasswordChar = false;
-            this.txtLuongphat.Size = new System.Drawing.Size(152, 48);
+            this.txtLuongphat.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtLuongphat.PlaceholderText = "";
+            this.txtLuongphat.Size = new System.Drawing.Size(152, 52);
             this.txtLuongphat.TabIndex = 84;
             this.txtLuongphat.Texts = "";
             this.txtLuongphat.UnderlinedStyle = false;
@@ -965,6 +977,8 @@
             // 
             this.txtLuongcthuc.BackColor = System.Drawing.Color.White;
             this.txtLuongcthuc.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtLuongcthuc.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtLuongcthuc.BorderRadius = 0;
             this.txtLuongcthuc.BorderSize = 2;
             this.txtLuongcthuc.Enabled = false;
             this.txtLuongcthuc.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -975,7 +989,9 @@
             this.txtLuongcthuc.Name = "txtLuongcthuc";
             this.txtLuongcthuc.Padding = new System.Windows.Forms.Padding(7);
             this.txtLuongcthuc.PasswordChar = false;
-            this.txtLuongcthuc.Size = new System.Drawing.Size(216, 48);
+            this.txtLuongcthuc.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtLuongcthuc.PlaceholderText = "";
+            this.txtLuongcthuc.Size = new System.Drawing.Size(216, 52);
             this.txtLuongcthuc.TabIndex = 83;
             this.txtLuongcthuc.Texts = "";
             this.txtLuongcthuc.UnderlinedStyle = false;
@@ -1060,6 +1076,8 @@
             // 
             this.txtSoNgayLam.BackColor = System.Drawing.Color.White;
             this.txtSoNgayLam.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtSoNgayLam.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtSoNgayLam.BorderRadius = 0;
             this.txtSoNgayLam.BorderSize = 2;
             this.txtSoNgayLam.Enabled = false;
             this.txtSoNgayLam.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1070,7 +1088,9 @@
             this.txtSoNgayLam.Name = "txtSoNgayLam";
             this.txtSoNgayLam.Padding = new System.Windows.Forms.Padding(7);
             this.txtSoNgayLam.PasswordChar = false;
-            this.txtSoNgayLam.Size = new System.Drawing.Size(86, 48);
+            this.txtSoNgayLam.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtSoNgayLam.PlaceholderText = "";
+            this.txtSoNgayLam.Size = new System.Drawing.Size(86, 52);
             this.txtSoNgayLam.TabIndex = 81;
             this.txtSoNgayLam.Texts = "";
             this.txtSoNgayLam.UnderlinedStyle = false;
@@ -1079,6 +1099,8 @@
             // 
             this.txtSoNgayNghi.BackColor = System.Drawing.Color.White;
             this.txtSoNgayNghi.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtSoNgayNghi.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtSoNgayNghi.BorderRadius = 0;
             this.txtSoNgayNghi.BorderSize = 2;
             this.txtSoNgayNghi.Enabled = false;
             this.txtSoNgayNghi.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1089,7 +1111,9 @@
             this.txtSoNgayNghi.Name = "txtSoNgayNghi";
             this.txtSoNgayNghi.Padding = new System.Windows.Forms.Padding(7);
             this.txtSoNgayNghi.PasswordChar = false;
-            this.txtSoNgayNghi.Size = new System.Drawing.Size(86, 48);
+            this.txtSoNgayNghi.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtSoNgayNghi.PlaceholderText = "";
+            this.txtSoNgayNghi.Size = new System.Drawing.Size(86, 52);
             this.txtSoNgayNghi.TabIndex = 80;
             this.txtSoNgayNghi.Texts = "";
             this.txtSoNgayNghi.UnderlinedStyle = false;
@@ -1098,6 +1122,8 @@
             // 
             this.txtSoNgayNghiPhep.BackColor = System.Drawing.Color.White;
             this.txtSoNgayNghiPhep.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtSoNgayNghiPhep.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtSoNgayNghiPhep.BorderRadius = 0;
             this.txtSoNgayNghiPhep.BorderSize = 2;
             this.txtSoNgayNghiPhep.Enabled = false;
             this.txtSoNgayNghiPhep.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1108,7 +1134,9 @@
             this.txtSoNgayNghiPhep.Name = "txtSoNgayNghiPhep";
             this.txtSoNgayNghiPhep.Padding = new System.Windows.Forms.Padding(7);
             this.txtSoNgayNghiPhep.PasswordChar = false;
-            this.txtSoNgayNghiPhep.Size = new System.Drawing.Size(86, 48);
+            this.txtSoNgayNghiPhep.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtSoNgayNghiPhep.PlaceholderText = "";
+            this.txtSoNgayNghiPhep.Size = new System.Drawing.Size(86, 52);
             this.txtSoNgayNghiPhep.TabIndex = 79;
             this.txtSoNgayNghiPhep.Texts = "";
             this.txtSoNgayNghiPhep.UnderlinedStyle = false;
@@ -1117,6 +1145,8 @@
             // 
             this.txtSoDuAnHoanThanh.BackColor = System.Drawing.Color.White;
             this.txtSoDuAnHoanThanh.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.txtSoDuAnHoanThanh.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtSoDuAnHoanThanh.BorderRadius = 0;
             this.txtSoDuAnHoanThanh.BorderSize = 2;
             this.txtSoDuAnHoanThanh.Enabled = false;
             this.txtSoDuAnHoanThanh.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1127,7 +1157,9 @@
             this.txtSoDuAnHoanThanh.Name = "txtSoDuAnHoanThanh";
             this.txtSoDuAnHoanThanh.Padding = new System.Windows.Forms.Padding(7);
             this.txtSoDuAnHoanThanh.PasswordChar = false;
-            this.txtSoDuAnHoanThanh.Size = new System.Drawing.Size(86, 48);
+            this.txtSoDuAnHoanThanh.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtSoDuAnHoanThanh.PlaceholderText = "";
+            this.txtSoDuAnHoanThanh.Size = new System.Drawing.Size(86, 52);
             this.txtSoDuAnHoanThanh.TabIndex = 78;
             this.txtSoDuAnHoanThanh.Texts = "";
             this.txtSoDuAnHoanThanh.UnderlinedStyle = false;
