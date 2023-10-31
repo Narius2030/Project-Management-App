@@ -9,6 +9,46 @@ namespace QLCongTy
     internal class DBConnection
     {
         public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
+        public object ExecuteFunction(string functionName, SqlParameter[] parameters, bool returnTable)
+        {
+            SqlCommand cmd = new SqlCommand(functionName, conn);
+            cmd.CommandType = CommandType.Text;
+
+            if (parameters != null)
+            {
+                foreach (SqlParameter parameter in parameters)
+                {
+                    cmd.Parameters.Add(parameter);
+                }
+            }
+            try
+            {
+                conn.Open();
+                if (returnTable==true)
+                {
+                    DataTable resultTable = new DataTable();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    resultTable.Load(reader);
+                    return resultTable; 
+                }
+                else
+                {
+                    object result = cmd.ExecuteScalar();
+                    return result;
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Thuc thi that bai\n" + exc.Message);
+                return null;
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+
         public void ExecuteCommand(string sqlStr)
         {
             try
@@ -106,7 +146,7 @@ namespace QLCongTy
             }
             return dataSet;
         }
-        public object ExecuteScalar(string sqlStr)
+        public object GetItem(string sqlStr)
         {
             object result = new object();
             try

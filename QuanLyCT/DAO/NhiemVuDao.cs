@@ -19,9 +19,10 @@ namespace QLCongTy.DAO
 
         public DataTable DSNhiemVuNhom(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
-            string sqlStr = $@" select MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
-                 ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
-                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
+            string sqlStr = $@" select 
+                                    MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
+                                    ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
+                                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
 
@@ -139,11 +140,6 @@ namespace QLCongTy.DAO
         public int CapNhatTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
-<<<<<<< HEAD
-            try
-            {
-                ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_CapNhatTimeTask('{manv}',{maduan},'{magiaidoan}')"));
-=======
             SqlParameter[] sp = new SqlParameter[]
             {
                  new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
@@ -153,7 +149,6 @@ namespace QLCongTy.DAO
             try
             {
                 ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
->>>>>>> a79a95679aeedc453d4726c6bcc1c04b296440d5
             }
             catch
             (Exception)
@@ -165,11 +160,6 @@ namespace QLCongTy.DAO
         public int TongTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
-<<<<<<< HEAD
-            try
-            {
-                ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_SumTimeTask('{manv}',{maduan},'{magiaidoan}')"));
-=======
             SqlParameter[] sp = new SqlParameter[]
             {
                  new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
@@ -179,7 +169,6 @@ namespace QLCongTy.DAO
             try
             {
                 ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_SumTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
->>>>>>> a79a95679aeedc453d4726c6bcc1c04b296440d5
             }
             catch
             (Exception)
