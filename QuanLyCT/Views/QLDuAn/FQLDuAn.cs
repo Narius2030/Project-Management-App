@@ -9,6 +9,7 @@ using QLCongTy.DTO;
 using System.Collections.Generic;
 using QLCongTy.Views.NhanSu;
 using System.Windows.Controls.Primitives;
+using QLCongTy.Views.QLDuAn;
 
 namespace QLCongTy.QLDuAn
 {
@@ -611,6 +612,18 @@ namespace QLCongTy.QLDuAn
             {
                 MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }    
+        }
+
+        private void btnCapTaiNguyen_Click(object sender, EventArgs e)
+        {
+            fTaiNguyen ftnguyen = new fTaiNguyen(da.MaDA);
+            ftnguyen.TopLevel = false;
+            tpTaiNguyen.Controls.Add(ftnguyen);
+            ftnguyen.FormBorderStyle = FormBorderStyle.None;
+            ftnguyen.Show();
+            LoadTabPages();
+            tpNhom.Controls.Add(tpTaiNguyen);
+            tpNhom.SelectedIndex = 1;
         }
 
         private void btnxoacv_Click(object sender, EventArgs e)

@@ -26,6 +26,7 @@ namespace QLCongTy.Views.NhanSu
         GiaiDoanDao gdDao = new GiaiDoanDao();
         CongViecDao cvDao = new CongViecDao();
         NhanVienDao nvienDao = new NhanVienDao();
+        UocLuongDao ulDao = new UocLuongDao();
         public fNhiemVu(string MaNV, int MaDA, string TenNhom)
         {
             InitializeComponent();
@@ -35,9 +36,12 @@ namespace QLCongTy.Views.NhanSu
         }
         public void TimeTask()
         {
-            pgbThucTeNV.Value= nvDao.CapNhatTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan);
             pgbThucTeNV.Maximum = nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan);
-
+            pgbThucTeNV.Value = pgbThucTeNV.Maximum - nvDao.CapNhatTimeTask(this.MaNV,this.MaDA,this.MaGiaiDoan);
+            pgbTienDoCaNhan.Value = 0;
+            pgbTienDoCaNhan.Maximum = 100;
+            pgbUocTinhNV.Maximum = ulDao.GetTimeSprint(this.MaDA, this.MaNV);
+            //pgbUocTinhNV.Value = ;
         }
         public fNhiemVu()
         {
@@ -73,6 +77,7 @@ namespace QLCongTy.Views.NhanSu
             nvDao.ThemNhiemVu(nv);
             ReLoad();
             TimeTask();
+            ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
         }
 
         private void LoadCboGiaiDoan()
@@ -115,18 +120,20 @@ namespace QLCongTy.Views.NhanSu
             TimeTask();
         }
 
-        private void btnTaoNhiemVu_Click(object sender, EventArgs e)
+
+
+        private void btnTaoMaNhiemVu_Click(object sender, EventArgs e)
         {
             if (cboCongViec.Text == "--Chưa có công việc--")
             {
                 DialogResult dialogResult = MessageBox.Show("Phân công việc trước khi giao nhiệm vụ", "Thông báo", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
-                   
+
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                    MessageBox.Show("Chọn công việc khác để phân công","Thông Báo",MessageBoxButtons.RetryCancel,MessageBoxIcon.Warning);
+                    MessageBox.Show("Chọn công việc khác để phân công", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
                 }
             }
             else
@@ -162,9 +169,9 @@ namespace QLCongTy.Views.NhanSu
                 nv.TenNhiemVu = row.Cells[1].Value.ToString();
                 nv.TrangThai = row.Cells[2].Value.ToString();
                 nv.MaTienQuyet = row.Cells[3].Value.ToString();
-                numthoigianthucte.Value = 0;
+                nudThoiGianThucTe.Value = 0;
                 nv.ThoiGianUocTinh = 0;
-                numthoigianthucte.Value = string.IsNullOrEmpty(row.Cells[5].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[5].Value);
+                nudThoiGianThucTe.Value = string.IsNullOrEmpty(row.Cells[5].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[5].Value);
                 nv.ThoiGianUocTinh = string.IsNullOrEmpty(row.Cells[4].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[4].Value);
                 nudThoiGianUocTinh.Value = Convert.ToInt32(nv.ThoiGianUocTinh);
                 TimeTask();
@@ -187,8 +194,6 @@ namespace QLCongTy.Views.NhanSu
         private void ReLoad()
         {
             ClearTextBox();
-            LoadCboGiaiDoan();
-            LoadCboCongViec();
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
         }
@@ -218,6 +223,7 @@ namespace QLCongTy.Views.NhanSu
         private void cboCongViec_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.MaCV = Convert.ToInt32(cboCongViec.SelectedValue);
+            LoadGVDSPhanNhiemVu();
             LoadCboTienQuyet();
             ClearTextBox();
         }
@@ -229,23 +235,46 @@ namespace QLCongTy.Views.NhanSu
             this.Close();
         }
 
+        private void btnChuyenDoi_Click(object sender, EventArgs e)
+        {
+            if (btnChuyenDoi.IconChar == FontAwesome.Sharp.IconChar.ToggleOn)
+            {
+                btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOff;
+                pnlTienDo.BringToFront();
+                TimeTask();
+                pgbUocTinhNV.Value = 0;
+                pgbThucTeNV.Value = 0;
+            }
+            else
+            {
+                btnChuyenDoi.IconChar = FontAwesome.Sharp.IconChar.ToggleOn;
+                pnlTienDo.SendToBack();
+                TimeTask();
+                pgbTienDoCaNhan.Value= 0;
+            }
+        }
         private void btnsua_Click(object sender, EventArgs e)
         {
+            ShowHideUpdateControl();
+        }
+
+        private void btnCapNhat_Click(object sender, EventArgs e)
+        {
             string trangthai = "Pending";
-            if(nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts)==1)
+            if (nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts) == 1)
             {
                 trangthai = "Doing";
             }
-            if (Convert.ToInt32(numthoigianthucte.Value) !=0)
+            if (Convert.ToInt32(nudThoiGianThucTe.Value) != 0)
             {
                 trangthai = "Done";
             }
             NHIEMVU nv = new NHIEMVU()
             {
-                ThoiGianLamThucTe = Convert.ToInt32(numthoigianthucte.Value),
+                ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value),
                 TenNhiemVu = txtNhiemVu.Texts,
                 MaNhiemVu = txtMaNhiemVu.Texts,
-                TrangThai=trangthai
+                TrangThai = trangthai
             };
             if (cbTienQuyet.Checked)
             {
@@ -258,16 +287,40 @@ namespace QLCongTy.Views.NhanSu
             }
         }
 
-        private void cbcapnhattranthai_CheckedChanged(object sender, EventArgs e)
+        private void ckbDone_CheckedChanged(object sender, EventArgs e)
         {
-            if(cbcapnhattranthai.Checked) 
+            if (ckbDone.Checked)
             {
-                numthoigianthucte.Enabled=true;
+                lblThoiGianThucTe.Enabled = true;
+                nudThoiGianThucTe.Enabled = true;
             }
             else
             {
-                numthoigianthucte.Enabled = false;
-            }   
+                lblThoiGianThucTe.Enabled = false;
+                nudThoiGianThucTe.Enabled = false;
+            }
+        }
+
+        public void ShowHideUpdateControl()
+        {
+            if (btnCapNhat.Visible)
+            {
+                btnPhanNV.Visible = true;
+                btnCapNhat.Visible = false;
+                lblThoiGianThucTe.Visible = false;
+                nudThoiGianThucTe.Visible = false;
+                ckbDone.Checked = false;
+                ckbDone.Visible = false;
+            }
+            else
+            {
+                btnPhanNV.Visible = false;
+                btnCapNhat.Visible = true;
+                lblThoiGianThucTe.Visible = true;
+                nudThoiGianThucTe.Visible = true;
+                ckbDone.Visible = true;
+            }
+            
         }
     }
 }

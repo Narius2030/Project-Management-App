@@ -140,9 +140,111 @@ BEGIN
         SET @Result = 0
     RETURN @Result
 END;
-
 GO
 
+--Kiểm Tra Nhiệm Vụ Tiên Quyết để xoá đi nó cần phải cập nhật Nhiệm Vụ có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
+CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
+    @manhiemvu varchar(10)
+AS
+BEGIN
+	declare @matienquyet varchar(10)
+    select @matienquyet=nvtq.MaNhiemVu From NHIEMVU as nv,NHIEMVU as nvtq
+	where nv.MaNhiemVu=nvtq.MaTienQuyet and nv.MaNhiemVu= @manhiemvu
+    BEGIN
+        UPDATE NHIEMVU
+        SET  MaTienQuyet = NULL
+        WHERE NHIEMVU.MaNhiemVu =@matienquyet
+    END
+END
+go
+--Kiểm Tra Công Việc Tiên Quyết để xoá đi nó cần phải cập nhật công việc có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
+CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
+    @macongviec INT
+AS
+BEGIN
+	declare @matienquyet int
+    select @matienquyet=cvtq.MaCV From CONGVIEC as cv,CONGVIEC as cvtq
+	where cv.MaCV=cvtq.CVTienQuyet and cv.MaCV= @macongviec
+    BEGIN
+        UPDATE CONGVIEC
+        SET CVTienQuyet = NULL
+        WHERE CONGVIEC.MaCV =@matienquyet
+    END
+END
+GO
+--Cập nhật TimeSprint
+CREATE OR ALTER FUNCTION sfn_CapNhatTimeSprint (@magiaidoan VARCHAR(20), @maDA INT, @soGioNg INT)
+RETURNS DECIMAL
+AS
+BEGIN
+	DECLARE @sumDays INT, @capPerDay DECIMAL
+
+	--TÍnh số ngày trong giai đoạn đang chọn
+	SELECT 
+		@sumDays=DATEDIFF(DAY, NgayBD, NgayKT)
+	FROM GIAIDOAN
+	WHERE MaGiaiDoan=@magiaidoan AND MaDA =@maDA
+	GROUP BY MaGiaiDoan, NgayBD, NgayKT
+
+	RETURN @sumDays * @soGioNg
+END
+GO
+
+--SELECT dbo.sfn_CapNhatTimeSprint('01DA03', 3, 8)
+
+--Tìm số giờ nghỉ trong một giai đoạn của dự án
+CREATE OR ALTER FUNCTION sfn_TimThoiGianNghi(@manhanvien varchar(10), @magiaidoan VARCHAR(20),  @soGioNg INT)
+RETURNS DECIMAL
+AS
+BEGIN
+	DECLARE @sumThoiGianNghi DECIMAL
+
+	-- Tìm số ngày nghỉ trong giaidoan của duan
+	SELECT 
+		@sumThoiGianNghi=(COUNT(dd.MaNV)*@soGioNg)
+	FROM DIEMDANH dd
+	JOIN NHOM n ON n.MaNV = dd.MaNV
+	JOIN GIAIDOAN gd ON gd.MaDA = n.MaDA
+	WHERE gd.MaGiaiDoan=@magiaidoan AND dd.MaNV=@manhanvien AND (dd.Ngay BETWEEN gd.NgayBD AND gd.NgayKT)
+	GROUP BY dd.MaNV
+
+	IF @sumThoiGianNghi IS NULL
+		SET @sumThoiGianNghi = 0
+
+	RETURN @sumThoiGianNghi
+END
+GO
+
+--SELECT dbo.sfn_TimThoiGianNghi('NV002', '01DA03')
+
+-- Kiểm tra nhiệm vụ tiên quyết trước khi xóa
+CREATE OR ALTER PROCEDURE sp_setNullNVTienQuyet
+@manv VARCHAR(10)
+AS
+BEGIN
+	UPDATE NHIEMVU SET MaTienQuyet=NULL WHERE MaNhiemVu IN (SELECT MaNhiemVu FROM NHIEMVU NV WHERE EXISTS (
+		SELECT * FROM NHIEMVU TQ
+		WHERE TQ.MaNhiemVu=@manv AND TQ.MaNhiemVu = NV.MaTienQuyet
+	))
+END
+GO
+--Kiểm Tra Trạng Thái Nhiệm Vụ Tiên Quyết đã hoàn thành chưa thì mới làm nhiệm vụ hiện tại
+Create or Alter Procedure sp_KiemTraNhiemVuTienQuyet
+@manv varchar(10), @check int output 
+as
+begin
+	if exists (select nvtq.MaTienQuyet From NHIEMVU as nv ,NHIEMVU as nvtq
+		where nv.MaNhiemVu=nvtq.MaTienQuyet
+		and nvtq.MaNhiemVu=@manv and nv.TrangThai='Done')
+	 begin
+		 set @check=1
+	 end
+	else
+	begin
+		 set @check=0
+	end
+end
+GO
 --CẬp nhật timetask
 CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10),@maduan int ,@magiaidoan varchar(10))
 RETURNS INT
@@ -179,50 +281,3 @@ BEGIN
 			and GIAIDOAN.MaGiaiDoan=@magiaidoan
 	return @timetask
 END
-go
---Kiểm Tra Nhiệm Vụ Tiên Quyết để xoá đi nó cần phải cập nhật Nhiệm Vụ có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
-CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
-    @manhiemvu varchar(10)
-AS
-BEGIN
-	declare @matienquyet varchar(10)
-    select @matienquyet=nvtq.MaNhiemVu From NHIEMVU as nv,NHIEMVU as nvtq
-	where nv.MaNhiemVu=nvtq.MaTienQuyet and nv.MaNhiemVu= @manhiemvu
-    BEGIN
-        UPDATE NHIEMVU
-        SET  MaTienQuyet = NULL
-        WHERE NHIEMVU.MaNhiemVu =@matienquyet
-    END
-END
-go
---Kiểm Tra Công Việc Tiên Quyết để xoá đi nó cần phải cập nhật công việc có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
-CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
-    @macongviec INT
-AS
-BEGIN
-	declare @matienquyet int
-    select @matienquyet=cvtq.MaCV From CONGVIEC as cv,CONGVIEC as cvtq
-	where cv.MaCV=cvtq.CVTienQuyet and cv.MaCV= @macongviec
-    BEGIN
-        UPDATE CONGVIEC
-        SET CVTienQuyet = NULL
-        WHERE CONGVIEC.MaCV =@matienquyet
-    END
-END
-GO
---Kiểm Tra Trạng Thái Nhiệm Vụ Tiên Quyết đã hoàn thành chưa thì mới làm nhiệm vụ hiện tại
-Create or Alter Procedure sp_KiemTraNhiemVuTienQuyet
-@manv varchar(10), @check int output 
-as
-begin
-	if exists (select nvtq.MaTienQuyet From NHIEMVU as nv ,NHIEMVU as nvtq
-		where nv.MaNhiemVu=nvtq.MaTienQuyet
-		and nvtq.MaNhiemVu=@manv and nv.TrangThai='Done')
-	 begin
-		 set @check=1
-	 end
-	else
-	begin
-		 set @check=0
-	end
-end

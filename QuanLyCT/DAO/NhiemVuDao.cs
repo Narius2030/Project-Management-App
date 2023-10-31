@@ -115,46 +115,6 @@ namespace QLCongTy.DAO
                 return "00" + "CV" + MaCV.ToString("D2") + "DA" + MaDA.ToString("D2");
             }
         }
-        public int CapNhatTimeTask(string manv,int maduan,string magiaidoan)
-        {
-            int ketqua;
-            SqlParameter[] sp = new SqlParameter[]
-            {
-                new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
-                new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
-                new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
-            };
-            try
-            {
-                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
-            }
-            catch
-            (Exception )
-            {
-                ketqua = 0;
-            }
-            return ketqua;
-        }
-        public int TongTimeTask(string manv, int maduan, string magiaidoan)
-        {
-            int ketqua;
-            SqlParameter[] sp = new SqlParameter[]
-            {
-                new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
-                new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
-                new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
-            };
-            try
-            {
-                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_SumTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
-            }
-            catch
-            (Exception)
-            { 
-                ketqua = 0;
-            }
-            return ketqua;
-        }
         public int KiemTraNhiemVuTienQuyet(string manhiemvu)
         {
             SqlParameter[] sp = new SqlParameter[]
@@ -175,6 +135,34 @@ namespace QLCongTy.DAO
                 new SqlParameter("@manhiemvu",SqlDbType.VarChar, 10){Value=nv.MaNhiemVu}
             };
             dbconn.ExecuteProcedure("sp_KiemTraNhiemVu", parameters);
+        }
+        public int CapNhatTimeTask(string manv, int maduan, string magiaidoan)
+        {
+            int ketqua;
+            try
+            {
+                ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_CapNhatTimeTask('{manv}',{maduan},'{magiaidoan}')"));
+            }
+            catch
+            (Exception)
+            {
+                ketqua = 0;
+            }
+            return ketqua;
+        }
+        public int TongTimeTask(string manv, int maduan, string magiaidoan)
+        {
+            int ketqua;
+            try
+            {
+                ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_SumTimeTask('{manv}',{maduan},'{magiaidoan}')"));
+            }
+            catch
+            (Exception)
+            {
+                ketqua = 0;
+            }
+            return ketqua;
         }
     }
 }

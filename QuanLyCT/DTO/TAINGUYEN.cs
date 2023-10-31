@@ -11,7 +11,7 @@ namespace QLCongTy.DTO
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class TAINGUYEN
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +19,13 @@ namespace QLCongTy.DTO
         {
             this.DUANs = new HashSet<DUAN>();
         }
-    
+
+        public TAINGUYEN(string MaTN, string TenTN, string LoaiTaiNguyen)
+        {
+            this.MaTN = MaTN;
+            this.TenTN = TenTN;
+            this.LoaiTaiNguyen= LoaiTaiNguyen;
+        }
         public string MaTN { get; set; }
         public string TenTN { get; set; }
         public string LoaiTaiNguyen { get; set; }

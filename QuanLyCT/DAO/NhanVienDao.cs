@@ -32,6 +32,7 @@ namespace QLCongTy.DAO
             string sqlStr = "SELECT * FROM NHANVIEN";
             return Dbc.ExecuteQuery(sqlStr);
         }
+
         public string HoTenNhanVien(string manv)
         {
             string sqlStr = $"SELECT CONCAT(MaNV, '-', HovaTenDem,' ', Ten) AS HoTenNV FROM NHANVIEN WHERE MaNV = '{manv}'";
@@ -44,6 +45,28 @@ namespace QLCongTy.DAO
             {
                 return $"Không tồn tại nhân viên có mã {manv}";
             }
+        }
+
+        public DataTable GetDSLevels()
+        {
+            string sqlStr = $@"SELECT DISTINCT Levels FROM NHANVIEN";
+            return Dbc.ExecuteQuery(sqlStr);
+        }
+
+        public DataTable GetDSChucVu()
+        {
+            string sqlStr = $@"SELECT DISTINCT ChucVu FROM NHANVIEN";
+            return Dbc.ExecuteQuery(sqlStr);
+        }
+        public DataTable LocLevels(string levels)
+        {
+            string sqlStr = $"SELECT * FROM NHANVIEN WHERE Levels = '{levels}'";
+            return Dbc.ExecuteQuery(sqlStr);
+        }
+        public DataTable LocChucVu(string chucvu)
+        {
+            string sqlStr = $"SELECT * FROM NHANVIEN WHERE ChucVu = '{chucvu}'";
+            return Dbc.ExecuteQuery(sqlStr);
         }
     }
 }
