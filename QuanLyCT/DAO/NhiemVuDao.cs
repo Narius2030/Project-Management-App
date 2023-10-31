@@ -139,9 +139,21 @@ namespace QLCongTy.DAO
         public int CapNhatTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
+<<<<<<< HEAD
             try
             {
                 ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_CapNhatTimeTask('{manv}',{maduan},'{magiaidoan}')"));
+=======
+            SqlParameter[] sp = new SqlParameter[]
+            {
+                 new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
+                 new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
+                 new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
+            };
+            try
+            {
+                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
+>>>>>>> a79a95679aeedc453d4726c6bcc1c04b296440d5
             }
             catch
             (Exception)
@@ -153,9 +165,21 @@ namespace QLCongTy.DAO
         public int TongTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
+<<<<<<< HEAD
             try
             {
                 ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_SumTimeTask('{manv}',{maduan},'{magiaidoan}')"));
+=======
+            SqlParameter[] sp = new SqlParameter[]
+            {
+                 new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
+                 new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
+                 new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
+            };
+            try
+            {
+                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_SumTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
+>>>>>>> a79a95679aeedc453d4726c6bcc1c04b296440d5
             }
             catch
             (Exception)

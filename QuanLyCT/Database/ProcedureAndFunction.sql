@@ -172,6 +172,33 @@ BEGIN
     END
 END
 GO
+<<<<<<< HEAD
+=======
+--CẬp nhật timetask
+CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10))
+RETURNS INT
+AS
+BEGIN
+
+	declare @manv varchar(10)
+	declare @mada int
+	declare @magiaidoan varchar(10)
+	declare @timetask  varchar(10)
+	select  @manv=NHANVIEN.MaNV,@mada=DUAN.MaDA,@magiaidoan=GIAIDOAN.MaGiaiDoan,
+	@timetask=sum(NHIEMVU.ThoiGianUocTinh) 
+	From NHIEMVU
+	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
+	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
+	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
+	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
+	where NHIEMVU.TrangThai='Done'
+	group by NHANVIEN.MaNV,DUAN.MaDA,GIAIDOAN.MaGiaiDoan
+	having NHANVIEN.MaNV=@manhanvien
+	return @timetask
+END
+GO
+
+>>>>>>> a79a95679aeedc453d4726c6bcc1c04b296440d5
 --Cập nhật TimeSprint
 CREATE OR ALTER FUNCTION sfn_CapNhatTimeSprint (@magiaidoan VARCHAR(20), @maDA INT, @soGioNg INT)
 RETURNS DECIMAL
