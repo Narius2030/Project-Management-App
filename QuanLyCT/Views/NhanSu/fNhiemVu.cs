@@ -285,6 +285,7 @@ namespace QLCongTy.Views.NhanSu
                 ReLoad();
                 TimeTask();
             }
+            ShowHideUpdateControl();
         }
 
         private void ckbDone_CheckedChanged(object sender, EventArgs e)

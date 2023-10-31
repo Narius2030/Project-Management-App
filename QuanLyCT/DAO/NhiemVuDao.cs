@@ -161,9 +161,9 @@ namespace QLCongTy.DAO
             int ketqua;
             SqlParameter[] sp = new SqlParameter[]
             {
-         new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
-         new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
-         new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
+                 new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
+                 new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
+                 new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
             };
             try
             {
