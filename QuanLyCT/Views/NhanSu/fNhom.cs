@@ -52,7 +52,7 @@ namespace QLCongTy.Views.NhanSu
 
         private void cboNhom_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            lblTitleNhom.Text = cboDuAn.SelectedValue.ToString() + " - " + cboNhom.SelectedValue.ToString();
             nhom.TenNhom = cboNhom.SelectedValue.ToString();
             LoadGVTruongNhom();
             LoadTVNhom();
@@ -116,7 +116,13 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            fNhiemVu fnhiemvu = new fNhiemVu(txtMaNV.Texts, nhom.MaDA, null, 0,nhom.TenNhom); // string MaNV, int MaDA, string MaGiaiDoan, int MaCV, string TenNhom);
+            fNhiemVu fnhiemvu = new fNhiemVu(txtMaNV.Texts, nhom.MaDA, nhom.TenNhom); // string MaNV, int MaDA, string MaGiaiDoan, int MaCV, string TenNhom);
+            pnlShowNhiemVu.BringToFront();
+            fnhiemvu.TopLevel = false;
+            fnhiemvu.FormBorderStyle = FormBorderStyle.None;
+            fnhiemvu.Size = pnlShowNhiemVu.Size;
+            fnhiemvu.Dock = DockStyle.Fill;
+            pnlShowNhiemVu.Controls.Add(fnhiemvu);
             fnhiemvu.Show();
         }
     }

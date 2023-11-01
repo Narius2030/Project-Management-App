@@ -35,25 +35,26 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnDoiTruongNhom = new QLCongTy.VBButton();
-            this.txtThoiGianLamViec = new QLCongTy.CTTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtLevels = new QLCongTy.CTTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtChucVu = new QLCongTy.CTTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtMaNV = new QLCongTy.CTTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnThem = new QLCongTy.VBButton();
-            this.txtTenNV = new QLCongTy.CTTextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.artanPannel9 = new ArtanComponent.ArtanPannel();
-            this.label15 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.cboDuAn = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.cboNhom = new System.Windows.Forms.ComboBox();
+            this.pnlShowNhiemVu = new System.Windows.Forms.Panel();
+            this.btnDoiTruongNhom = new QLCongTy.VBButton();
+            this.txtThoiGianLamViec = new QLCongTy.CTTextBox();
+            this.txtLevels = new QLCongTy.CTTextBox();
+            this.txtChucVu = new QLCongTy.CTTextBox();
+            this.txtMaNV = new QLCongTy.CTTextBox();
+            this.btnThem = new QLCongTy.VBButton();
+            this.txtTenNV = new QLCongTy.CTTextBox();
+            this.artanPannel9 = new ArtanComponent.ArtanPannel();
+            this.label15 = new System.Windows.Forms.Label();
             this.vbLabel1 = new QLCongTy.VBLabel();
             this.artanPannel1 = new ArtanComponent.ArtanPannel();
             this.gvTruongNhom = new System.Windows.Forms.DataGridView();
@@ -61,10 +62,10 @@
             this.artanPannel8 = new ArtanComponent.ArtanPannel();
             this.gvDSThanhVien = new System.Windows.Forms.DataGridView();
             this.artanPannel7 = new ArtanComponent.ArtanPannel();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lblTitleNhom = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
-            this.artanPannel9.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.artanPannel9.SuspendLayout();
             this.artanPannel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvTruongNhom)).BeginInit();
             this.artanPannel8.SuspendLayout();
@@ -92,6 +93,149 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(391, 604);
             this.panel3.TabIndex = 94;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(16, 406);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(191, 26);
+            this.label4.TabIndex = 103;
+            this.label4.Text = "Thời gian làm/ngày";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(14, 333);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(72, 26);
+            this.label3.TabIndex = 101;
+            this.label3.Text = "Levels";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(14, 260);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 26);
+            this.label2.TabIndex = 99;
+            this.label2.Text = "Chức vụ";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(14, 110);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(139, 26);
+            this.label1.TabIndex = 97;
+            this.label1.Text = "Mã nhân viên";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.Black;
+            this.label16.Location = new System.Drawing.Point(14, 185);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(101, 26);
+            this.label16.TabIndex = 88;
+            this.label16.Text = "Họ và tên";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.cboDuAn);
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.cboNhom);
+            this.panel1.Controls.Add(this.vbLabel1);
+            this.panel1.Controls.Add(this.artanPannel1);
+            this.panel1.Controls.Add(this.vbLabel3);
+            this.panel1.Controls.Add(this.artanPannel8);
+            this.panel1.Location = new System.Drawing.Point(29, 135);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(856, 607);
+            this.panel1.TabIndex = 93;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(20, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(106, 26);
+            this.label5.TabIndex = 97;
+            this.label5.Text = "Tên dự án";
+            // 
+            // cboDuAn
+            // 
+            this.cboDuAn.FormattingEnabled = true;
+            this.cboDuAn.Items.AddRange(new object[] {
+            "BUSINESS ANALYST",
+            "UI/UX DESIGNER",
+            "DEVOPS",
+            "TESTER",
+            "DATABASE",
+            "BACK-END",
+            "FRONT-END",
+            "SECURITY"});
+            this.cboDuAn.Location = new System.Drawing.Point(147, 32);
+            this.cboDuAn.Name = "cboDuAn";
+            this.cboDuAn.Size = new System.Drawing.Size(340, 24);
+            this.cboDuAn.TabIndex = 96;
+            this.cboDuAn.SelectedIndexChanged += new System.EventHandler(this.cboDuAn_SelectedIndexChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(517, 32);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(70, 26);
+            this.label11.TabIndex = 95;
+            this.label11.Text = "Nhóm";
+            // 
+            // cboNhom
+            // 
+            this.cboNhom.FormattingEnabled = true;
+            this.cboNhom.Items.AddRange(new object[] {
+            "BUSINESS ANALYST",
+            "UI/UX DESIGNER",
+            "DEVOPS",
+            "TESTER",
+            "DATABASE",
+            "BACK-END",
+            "FRONT-END",
+            "SECURITY"});
+            this.cboNhom.Location = new System.Drawing.Point(615, 32);
+            this.cboNhom.Name = "cboNhom";
+            this.cboNhom.Size = new System.Drawing.Size(164, 24);
+            this.cboNhom.TabIndex = 94;
+            this.cboNhom.SelectedIndexChanged += new System.EventHandler(this.cboNhom_SelectedIndexChanged);
+            // 
+            // pnlShowNhiemVu
+            // 
+            this.pnlShowNhiemVu.Location = new System.Drawing.Point(0, 0);
+            this.pnlShowNhiemVu.Name = "pnlShowNhiemVu";
+            this.pnlShowNhiemVu.Size = new System.Drawing.Size(1337, 772);
+            this.pnlShowNhiemVu.TabIndex = 95;
             // 
             // btnDoiTruongNhom
             // 
@@ -135,18 +279,6 @@
             this.txtThoiGianLamViec.Texts = "hrs/ngày";
             this.txtThoiGianLamViec.UnderlinedStyle = false;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(16, 406);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(191, 26);
-            this.label4.TabIndex = 103;
-            this.label4.Text = "Thời gian làm/ngày";
-            // 
             // txtLevels
             // 
             this.txtLevels.BackColor = System.Drawing.Color.White;
@@ -168,18 +300,6 @@
             this.txtLevels.TabIndex = 102;
             this.txtLevels.Texts = "";
             this.txtLevels.UnderlinedStyle = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(14, 333);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 26);
-            this.label3.TabIndex = 101;
-            this.label3.Text = "Levels";
             // 
             // txtChucVu
             // 
@@ -203,18 +323,6 @@
             this.txtChucVu.Texts = "";
             this.txtChucVu.UnderlinedStyle = false;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(14, 260);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 26);
-            this.label2.TabIndex = 99;
-            this.label2.Text = "Chức vụ";
-            // 
             // txtMaNV
             // 
             this.txtMaNV.BackColor = System.Drawing.Color.White;
@@ -236,18 +344,6 @@
             this.txtMaNV.TabIndex = 98;
             this.txtMaNV.Texts = "NV001";
             this.txtMaNV.UnderlinedStyle = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(14, 110);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 26);
-            this.label1.TabIndex = 97;
-            this.label1.Text = "Mã nhân viên";
             // 
             // btnThem
             // 
@@ -291,18 +387,6 @@
             this.txtTenNV.Texts = "Nguyen Van A";
             this.txtTenNV.UnderlinedStyle = false;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(14, 185);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(101, 26);
-            this.label16.TabIndex = 88;
-            this.label16.Text = "Họ và tên";
-            // 
             // artanPannel9
             // 
             this.artanPannel9.BackColor = System.Drawing.Color.White;
@@ -331,82 +415,6 @@
             this.label15.TabIndex = 1;
             this.label15.Text = "Thông tin thành viên";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.cboDuAn);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.cboNhom);
-            this.panel1.Controls.Add(this.vbLabel1);
-            this.panel1.Controls.Add(this.artanPannel1);
-            this.panel1.Controls.Add(this.vbLabel3);
-            this.panel1.Controls.Add(this.artanPannel8);
-            this.panel1.Location = new System.Drawing.Point(29, 135);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(856, 607);
-            this.panel1.TabIndex = 93;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(20, 28);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 26);
-            this.label5.TabIndex = 97;
-            this.label5.Text = "Tên dự án";
-            // 
-            // cboDuAn
-            // 
-            this.cboDuAn.FormattingEnabled = true;
-            this.cboDuAn.Items.AddRange(new object[] {
-            "BUSINESS ANALYST",
-            "UI/UX DESIGNER",
-            "DEVOPS",
-            "TESTER",
-            "DATABASE",
-            "BACK-END",
-            "FRONT-END",
-            "SECURITY"});
-            this.cboDuAn.Location = new System.Drawing.Point(132, 32);
-            this.cboDuAn.Name = "cboDuAn";
-            this.cboDuAn.Size = new System.Drawing.Size(340, 24);
-            this.cboDuAn.TabIndex = 96;
-            this.cboDuAn.SelectedIndexChanged += new System.EventHandler(this.cboDuAn_SelectedIndexChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(493, 32);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 26);
-            this.label11.TabIndex = 95;
-            this.label11.Text = "Nhóm";
-            // 
-            // cboNhom
-            // 
-            this.cboNhom.FormattingEnabled = true;
-            this.cboNhom.Items.AddRange(new object[] {
-            "BUSINESS ANALYST",
-            "UI/UX DESIGNER",
-            "DEVOPS",
-            "TESTER",
-            "DATABASE",
-            "BACK-END",
-            "FRONT-END",
-            "SECURITY"});
-            this.cboNhom.Location = new System.Drawing.Point(569, 32);
-            this.cboNhom.Name = "cboNhom";
-            this.cboNhom.Size = new System.Drawing.Size(164, 24);
-            this.cboNhom.TabIndex = 94;
-            this.cboNhom.SelectedIndexChanged += new System.EventHandler(this.cboNhom_SelectedIndexChanged);
             // 
             // vbLabel1
             // 
@@ -584,7 +592,7 @@
             // 
             this.artanPannel7.BackColor = System.Drawing.Color.White;
             this.artanPannel7.BorderRadius = 0;
-            this.artanPannel7.Controls.Add(this.label14);
+            this.artanPannel7.Controls.Add(this.lblTitleNhom);
             this.artanPannel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.artanPannel7.ForeColor = System.Drawing.Color.Black;
             this.artanPannel7.GradientAngle = 90F;
@@ -596,36 +604,36 @@
             this.artanPannel7.Size = new System.Drawing.Size(1337, 72);
             this.artanPannel7.TabIndex = 92;
             // 
-            // label14
+            // lblTitleNhom
             // 
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label14.Location = new System.Drawing.Point(10, 10);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(1317, 52);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "NHÓM - MÃ DA";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTitleNhom.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitleNhom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTitleNhom.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitleNhom.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTitleNhom.Location = new System.Drawing.Point(10, 10);
+            this.lblTitleNhom.Name = "lblTitleNhom";
+            this.lblTitleNhom.Size = new System.Drawing.Size(1317, 52);
+            this.lblTitleNhom.TabIndex = 1;
+            this.lblTitleNhom.Text = "NHÓM - MÃ DA";
+            this.lblTitleNhom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fNhom
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
             this.ClientSize = new System.Drawing.Size(1337, 772);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.artanPannel7);
+            this.Controls.Add(this.pnlShowNhiemVu);
             this.Name = "fNhom";
             this.Text = "fNhom";
             this.Load += new System.EventHandler(this.fNhom_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.artanPannel9.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.artanPannel9.ResumeLayout(false);
             this.artanPannel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvTruongNhom)).EndInit();
             this.artanPannel8.ResumeLayout(false);
@@ -647,7 +655,7 @@
         private ArtanComponent.ArtanPannel artanPannel8;
         private System.Windows.Forms.DataGridView gvDSThanhVien;
         private ArtanComponent.ArtanPannel artanPannel7;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblTitleNhom;
         private VBLabel vbLabel1;
         private ArtanComponent.ArtanPannel artanPannel1;
         private System.Windows.Forms.DataGridView gvTruongNhom;
@@ -665,5 +673,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cboDuAn;
         private VBButton btnDoiTruongNhom;
+        private System.Windows.Forms.Panel pnlShowNhiemVu;
     }
 }

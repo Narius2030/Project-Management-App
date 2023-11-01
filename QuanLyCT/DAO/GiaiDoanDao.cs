@@ -15,9 +15,16 @@ namespace QLCongTy.DAO
     public class GiaiDoanDao
     {
         DBConnection dbC = new DBConnection();
-        public DataTable GetListSprint(int mada)
+        public DataTable GetListSprint(int mada,int check)
         {
-            return dbC.ExecuteQuery($"Select * From GiaiDoan WHERE MaDA={mada}");
+            if (check == 1)
+            {
+                return dbC.ExecuteQuery($"Select * From GiaiDoan WHERE MaDA={mada}");
+            }
+            else
+            {
+                return dbC.ExecuteQuery($"select * From GiaiDoan Where MaDA={mada} order by GIAIDOAN.MaGiaiDoan desc");
+            }
         }
         public void ThemGiaiDoan(GIAIDOAN giaidoan)
         {
@@ -75,9 +82,9 @@ namespace QLCongTy.DAO
         public Boolean CheckGiaiDoanTruoc(GIAIDOAN gd)
         {
             String MaGiaiDoanTruoc = getMaGiaiDoanTruoc(gd.MaGiaiDoan);
-            if (MaGiaiDoanTruoc == "Không có dự án trước đó")
+            if (MaGiaiDoanTruoc == "Không có giai đoạn trước đó")
             {
-                return false;
+                return true;
             }
             SqlParameter[] parame = new SqlParameter[]
             {
@@ -104,12 +111,7 @@ namespace QLCongTy.DAO
         public DataTable CheckGiaiDoan(GIAIDOAN gd)
         {
             String MaGiaiDoanTruoc = getMaGiaiDoanTruoc(gd.MaGiaiDoan);
-            SqlParameter[] parame = new SqlParameter[]
-            {
-                new SqlParameter("@maduan",SqlDbType.Int){Value=gd.MaDA},
-                new SqlParameter("@MaGiaiDoan", SqlDbType.VarChar) { Value = MaGiaiDoanTruoc }
-            };
-            return dbC.ExecuteProcedure("sp_KiemTraGiaiDoan", parame);
+            return dbC.ExecuteQuery($"SELECT * FROM dbo.sfn_KiemTraGiaiDoan({gd.MaDA}, '{MaGiaiDoanTruoc}')");
         }
         public String getMaGiaiDoanTruoc(String maGD)
         {

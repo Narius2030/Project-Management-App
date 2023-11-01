@@ -9,6 +9,7 @@ using QLCongTy.DTO;
 using System.Collections.Generic;
 using QLCongTy.Views.NhanSu;
 using System.Windows.Controls.Primitives;
+using QLCongTy.Views.QLDuAn;
 
 namespace QLCongTy.QLDuAn
 {
@@ -34,7 +35,7 @@ namespace QLCongTy.QLDuAn
         #region ReLoad Something
         void LoadDataGiaiDoan()
         {
-            gvDSGiaiDoan.DataSource = gdD.GetListSprint(da.MaDA);
+            gvDSGiaiDoan.DataSource = gdD.GetListSprint(da.MaDA,1);
         }
         void LoadDataNhanLuc()
         {
@@ -589,24 +590,6 @@ namespace QLCongTy.QLDuAn
 
         }
 
-        private void btnxoacv_Click(object sender, EventArgs e)
-        {
-            CONGVIEC cv = new CONGVIEC()
-            {
-                MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
-
-            };
-            if(cvd.RemoveJob(cv)==1)
-            {
-                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }    
-            else
-            {
-                MessageBox.Show("Xoa Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-            }
-            LoadCongViec();
-        }
-
         private void btnupdatepc_Click(object sender, EventArgs e)
         {
             CONGVIEC cv = new CONGVIEC()
@@ -631,30 +614,34 @@ namespace QLCongTy.QLDuAn
             }    
         }
 
-        private void btnPhanCV_Click(object sender, EventArgs e)
+        private void btnCapTaiNguyen_Click(object sender, EventArgs e)
         {
-            NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, cboNhiemVuTienQuyet.SelectedValue.ToString(), "Pending", Convert.ToInt32(nudThoiGianUocTinh.Value), txtNhiemVu.Texts, null, ltlTitleNhiemVu.Text.Substring(0, 5), Convert.ToInt32(txtCongViec.Texts));
-            nvDao.ThemNhiemVu(nv);
-        }
-
-        private void LoadGVDSPhanNhiemVu()
-        {
-            gvDSNhiemVu.DataSource = nvDao.DSNhiemVuNhom(8, "01DA08", 1, "Front-End");
-            gvDSNhiemVu.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-        }
-
-
-
-        private void btnNhiemVu_Click(object sender, EventArgs e)
-        {
-            fNhiemVu fnhiemvu = new fNhiemVu();
-            fnhiemvu.TopLevel = false;
-            tpPhanNhiemVu.Controls.Add(fnhiemvu);
-            fnhiemvu.FormBorderStyle = FormBorderStyle.None;
-            fnhiemvu.Show();
+            fTaiNguyen ftnguyen = new fTaiNguyen(da.MaDA);
+            ftnguyen.TopLevel = false;
+            tpTaiNguyen.Controls.Add(ftnguyen);
+            ftnguyen.FormBorderStyle = FormBorderStyle.None;
+            ftnguyen.Show();
             LoadTabPages();
-            tpNhom.Controls.Add(tpPhanNhiemVu);
+            tpNhom.Controls.Add(tpTaiNguyen);
             tpNhom.SelectedIndex = 1;
+        }
+
+        private void btnxoacv_Click(object sender, EventArgs e)
+        {
+            CONGVIEC cv = new CONGVIEC()
+            {
+                MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0
+            };
+            cvd.KiemTraCongViecTienQuyet(cv);
+            if(cvd.RemoveJob(cv) == 1) 
+            {
+                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadCongViec();
+            }
+            else
+            {
+                MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }    
         }
     }
 }

@@ -40,6 +40,7 @@ namespace QLCongTy
         private void fMainMenu_Load(object sender, EventArgs e)
         {
             tmCurrentTime.Start();
+            lblTenNV.Text = nvD.HoTenNhanVien(MaNV);
             //Cập nhật bảng chấm công
         }
 

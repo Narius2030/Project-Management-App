@@ -58,7 +58,6 @@ namespace QLCongTy.DAO
         }
         public DataTable dsThanhVienNhom(int mada, string tennhom)
         {
-
             SqlParameter[] parame = new SqlParameter[]
             {
                 new SqlParameter("@mada",SqlDbType.Int){Value=mada},
@@ -69,10 +68,8 @@ namespace QLCongTy.DAO
         public Boolean KiemTraTonTaiNhomTruong(NHOM nhom)
         {
             string sqlStr = $"SELECT dbo.CheckTonTaiNhomTruong('{nhom.TenNhom}', {nhom.MaDA})";
-            SqlCommand cmd = new SqlCommand(sqlStr, conn);
-            conn.Open();
-            int result = Convert.ToInt32(cmd.ExecuteScalar());
-            conn.Close();
+            int result = Convert.ToInt32(dbconn.ExecuteQuery(sqlStr).Rows[0][0]);
+            MessageBox.Show(result.ToString());
             if (result == 0)
             {
                 return false;
@@ -82,7 +79,6 @@ namespace QLCongTy.DAO
                 return true;
             }
         }
-
 
         public DataTable XacDinhTruongNhom(NHOM nhom)
         {

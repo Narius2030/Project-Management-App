@@ -37,28 +37,6 @@ namespace QLCongTy
             gvChecksang.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
-        private void btnSubmitSang_Click(object sender, EventArgs e)
-        {
-            //Thông báo
-            dd = new DIEMDANH()
-            {
-                Ngay = dtpNgayNghi.Value.Date,
-                MaNV = txtMaNV.Texts,
-                NoiDung = cboNoiDungNghi.Texts
-            };
-            try
-            {
-                diemdanhDao.TinhTimeSprint(dd.MaNV);
-                diemdanhDao.ThemNgayNghi(dd);
-                MessageBox.Show("Điểm danh thành công!");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            LoadDataDiemDanh();
-        }
-
         private void tpCheckSang_Click(object sender, EventArgs e)
         {
 
@@ -82,6 +60,27 @@ namespace QLCongTy
                 TenNhom = row.Cells["TenNhom"].Value.ToString(),
                 SoGioMotNg = int.Parse(row.Cells["SoGioMotNg"].Value.ToString())
             };
+        }
+
+        private void btnSubmitNghi_Click(object sender, EventArgs e)
+        {
+            dd = new DIEMDANH()
+            {
+                Ngay = dtpNgayNghi.Value.Date,
+                MaNV = txtMaNV.Texts,
+                NoiDung = cboNoiDungNghi.Texts
+            };
+            try
+            {
+                diemdanhDao.ThemNgayNghi(dd);
+                diemdanhDao.TinhTimeSprint(dd.MaNV);
+                MessageBox.Show("Điểm danh thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            LoadDataDiemDanh();
         }
     }
 }
