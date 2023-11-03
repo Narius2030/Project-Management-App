@@ -82,9 +82,9 @@ namespace QLCongTy.DAO
         public Boolean CheckGiaiDoanTruoc(GIAIDOAN gd)
         {
             String MaGiaiDoanTruoc = getMaGiaiDoanTruoc(gd.MaGiaiDoan);
-            if (MaGiaiDoanTruoc == "Không có dự án trước đó")
+            if (MaGiaiDoanTruoc == "Không có giai đoạn trước đó")
             {
-                return false;
+                return true;
             }
             SqlParameter[] parame = new SqlParameter[]
             {

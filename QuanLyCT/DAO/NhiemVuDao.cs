@@ -17,11 +17,13 @@ namespace QLCongTy.DAO
         public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
         DBConnection dbconn = new DBConnection();
 
-        public DataTable DSNhiemVuNhom(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
+        public DataTable DSNhiemVuNhom(string MaNV, int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
-            string sqlStr = $@" select MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
-                 ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
-                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
+            string sqlStr = $@" select 
+                                    MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
+                                    ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] 
+                                From v_DanhSachNhiemVuNhom
+                                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
 
@@ -139,15 +141,10 @@ namespace QLCongTy.DAO
         public int CapNhatTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
-            SqlParameter[] sp = new SqlParameter[]
-            {
-                 new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
-                 new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
-                 new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
-            };
+
             try
             {
-                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_CapNhatTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
+                ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_CapNhatTimeTask('{manv}',{maduan},'{magiaidoan}')"));
             }
             catch
             (Exception)
@@ -159,15 +156,9 @@ namespace QLCongTy.DAO
         public int TongTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
-            SqlParameter[] sp = new SqlParameter[]
-            {
-                 new SqlParameter("@manhanvien", SqlDbType.VarChar, 10) { Value = manv },
-                 new SqlParameter("@maduan", SqlDbType.Int) { Value = maduan },
-                 new SqlParameter("@magiaidoan", SqlDbType.VarChar, 10) { Value = magiaidoan }
-            };
             try
             {
-                ketqua = Convert.ToInt32(dbconn.ExecuteFunction("SELECT dbo.sfn_SumTimeTask(@manhanvien,@maduan,@magiaidoan)", sp, false));
+                ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_SumTimeTask('{manv}',{maduan},'{magiaidoan}')"));
             }
             catch
             (Exception)

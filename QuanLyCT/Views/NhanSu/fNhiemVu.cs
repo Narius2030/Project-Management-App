@@ -63,7 +63,7 @@ namespace QLCongTy.Views.NhanSu
 
         private void LoadGVDSPhanNhiemVu()
         {
-            gvDSNhiemVu.DataSource = nvDao.DSNhiemVuNhom(this.MaDA, this.MaGiaiDoan, this.MaCV, this.TenNhom);
+            gvDSNhiemVu.DataSource = nvDao.DSNhiemVuNhom(this.MaNV, this.MaDA, this.MaGiaiDoan, this.MaCV, this.TenNhom);
             gvDSNhiemVu.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
@@ -119,8 +119,6 @@ namespace QLCongTy.Views.NhanSu
             }
             TimeTask();
         }
-
-
 
         private void btnTaoMaNhiemVu_Click(object sender, EventArgs e)
         {
@@ -261,7 +259,7 @@ namespace QLCongTy.Views.NhanSu
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
             nv.TrangThai = "Doing";
-            nv.TenNhiemVu = txtTenNhom.Texts;
+            nv.TenNhiemVu = txtNhiemVu.Texts;
 
             if (ckbDone.Checked && Convert.ToInt32(nudThoiGianThucTe.Value) != 0)
             {

@@ -20,23 +20,18 @@ namespace QLCongTy.DAO
 
         public void xoaTruongNhom(NHOM nhom)
         {
-            string sqlStr = $@"DELETE FROM TRUONGNHOM WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}' AND MaNV = '{nhom.MaNV}'";
+            string sqlStr = $@"UPDATE TRUONGNHOM SET MaNV=NULL WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}'";
             dbconn.ExecuteCommand(sqlStr);
         }
 
         public DataTable timTruongNhom(NHOM nhom)
         {
-            SqlParameter[] parame = new SqlParameter[]
-            {
-                new SqlParameter("@tennhom",SqlDbType.NVarChar,20){Value=nhom.TenNhom},
-                new SqlParameter("@mada",SqlDbType.Int){Value=nhom.MaDA}
-            };
-            return dbconn.ExecuteProcedure("sp_TimTruongNhom", parame);
+            return dbconn.ExecuteQuery($"select * From dbo.sfn_TimTruongNhom('{nhom.TenNhom}',{nhom.MaDA})");
         }
 
-        public void DoiTruongNhom(string MaTruongNhomMoi, string MaTruongNhomCu, NHOM nhom)
+        public void DoiTruongNhom(string MaTruongNhomMoi, NHOM nhom)
         {
-            string sqlStr = $@"UPDATE TRUONGNHOM SET MaNV = '{MaTruongNhomMoi}' WHERE MaNV = '{MaTruongNhomCu}' AND TenNhom = '{nhom.TenNhom}' AND MaDA = '{nhom.MaDA}'";
+            string sqlStr = $@"UPDATE TRUONGNHOM SET MaNV = '{MaTruongNhomMoi}' WHERE TenNhom = '{nhom.TenNhom}' AND MaDA = '{nhom.MaDA}'";
             dbconn.ExecuteCommand(sqlStr);
         }
     }

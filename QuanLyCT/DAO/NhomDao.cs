@@ -79,11 +79,16 @@ namespace QLCongTy.DAO
                 return true;
             }
         }
-
         public DataTable XacDinhTruongNhom(NHOM nhom)
         {
             string sqlStr = $"SELECT MaNV FROM TRUONGNHOM WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}'";
             return dbconn.ExecuteQuery(sqlStr);
+        }
+        public int FindSoGioMotNg(string manv)
+        {
+            string sqlStr = $@"SELECT DISTINCT(SoGioMotNg) FROM NHOM WHERE MaNV='{manv}'";
+            int ketqua = Convert.ToInt32(dbconn.ExecuteScalar(sqlStr));
+            return ketqua;
         }
     }
 }

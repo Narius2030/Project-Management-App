@@ -1,30 +1,25 @@
-﻿-- ###Views
---Những PM và Team Leader chưa được phân công
-CREATE OR ALTER VIEW vw_khongla_pm
-AS
-SELECT *
-FROM NHANVIEN NV
-WHERE NOT EXISTS(
-	SELECT *
-	FROM DUAN AS pm
-	WHERE pm.MaPM = NV.MaNV
-) AND NOT EXISTS(
-	SELECT *
-	FROM TRUONGNHOM AS tn
-	WHERE tn.MaNV = NV.MaNV
-) AND NV.ChucVu != 'CEO'
-GO
-
-CREATE OR ALTER VIEW vw_khongla_truongnhom
+﻿--###Views
+--Xem danh sách nhân viên không là giám đốc
+CREATE OR ALTER VIEW vw_khongla_giamdoc
 AS
 SELECT *
 FROM NHANVIEN NV
 WHERE NOT EXISTS(
 	SELECT *
 	FROM TRUONGNHOM tl
-	WHERE tl.MaNV = NV.MaNV OR NV.ChucVu IN('CEO', 'PM')
+	WHERE tl.MaNV = NV.MaNV OR NV.ChucVu IN('CEO')
 )
 GO
+
+--Xem danh sách trưởng nhóm của các dự án
+CREATE OR ALTER VIEW vw_truongnhom_trong_duan
+AS
+SELECT
+	NV.MaNV, CONCAT(HovaTenDem,' ',Ten) AS HoTen, ChucVu, Levels,
+	TLD.TenNhom, TLD.MaDA
+FROM TRUONGNHOM TLD
+JOIN NHANVIEN NV ON NV.MaNV = TLD.MaNV
+GO 
 
 --Xem danh sách ngày nghỉ
 CREATE OR ALTER VIEW vw_ngaynghi_trong_duan
@@ -35,27 +30,29 @@ FROM DIEMDANH dd
 JOIN NHOM n ON n.MaNV = dd.MaNV
 JOIN GIAIDOAN gd ON gd.MaDA = n.MaDA
 GO
---4.View liên quan đến nhiệm vụ của nhóm
-go
+
+--View liên quan đến nhiệm vụ của nhóm
 Create Or ALter View  v_DanhSachNhiemVuNhom as 
-SELECT DA.MaDA,GD.MaGiaiDoan,CV.MaCV,N.TenNhom,NV.MaNhiemVu , TenNhiemVu , NV.TrangThai , MaTienQuyet, NV.ThoiGianUocTinh, NV.ThoiGianLamThucTe 
-                            FROM NHIEMVU NV
-                            INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
-                            INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N.MaNV
-                            INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
-                            INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-go
+SELECT 
+	NV.MaNV, CV.MaDA,GD.MaGiaiDoan,CV.MaCV,N.TenNhom,NV.MaNhiemVu , TenNhiemVu , NV.TrangThai , MaTienQuyet, NV.ThoiGianUocTinh, NV.ThoiGianLamThucTe 
+FROM NHIEMVU NV
+INNER JOIN NHOM N ON N.MaNV = NV.MaNV
+INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
+GO
+
+>>>>>>> 963c9759f1767d67b02ef141b63cf9e7eed7492f
 --###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
 ALTER TABLE DUAN ADD CONSTRAINT CHECK_TIENDODA CHECK (TienDo <=100 and TienDo>=0)
 
---câu 2 :check Tên nhân viên và levels không chứa ký tự đặc biệt và số; SDT không chứa ký tự chữ cái
+--câu 2: check Tên nhân viên và levels không chứa ký tự đặc biệt và số; SDT không chứa ký tự chữ cái
 
 ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_TENNV CHECK(Ten NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
 ALTER TABLE NHANVIEN ADD CONSTRAINT  CHECK_LEVELS CHECK(levels NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
 ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_SDT CHECK(SDT not LIKE '[a-zA-Z_!@#$%^&*()<>?/|}{~:]%]');
---câu 3 :Mã nhân viên viết theo công thức: 2 ký tự đầu là “NV” + 3 ký tự số nguyên dương
+--câu 3: Mã nhân viên viết theo công thức: 2 ký tự đầu là “NV” + 3 ký tự số nguyên dương
 
 ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(SUBSTRING(MANV, 3, 3) AS INT) > 0 AND CAST(SUBSTRING(MANV, 3, 3) AS INT) <= 999);
 go
@@ -150,28 +147,6 @@ BEGIN
 END
 GO
 
--- ########Sai CMNR test làm đeo gì ########
---13.Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
---CREATE OR ALTER TRIGGER tr_update_timetasks ON NHIEMVU
---AFTER INSERT, UPDATE
---AS
---BEGIN
---    -- Khai báo biến
---    DECLARE @ThoiGianUocTinh INT
---	DECLARE @MANHANVIEN VARCHAR(10)
---	DECLARE @MASPRINT VARCHAR(10)
---	DECLARE @MADA VARCHAR(10)
---    -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
---	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaGiaiDoan, @MADA=CONGVIEC.MaDA, @ThoiGianUocTinh=inserted.ThoiGianUocTinh 
---	FROM  inserted, NHANVIEN, CONGVIEC
---	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
---	--Cập nhật timetasks
---    UPDATE UOCLUONG
---    SET TimeTasks =  TimeTasks- @ThoiGianUocTinh
---    WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaGiaiDoan=@MASPRINT  
---END
---go
-
 --14.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 --NOTE
 CREATE OR ALTER TRIGGER tr_ktr_ngaynghi_giaidoan
@@ -182,8 +157,8 @@ BEGIN
 	DECLARE @MaNV VARCHAR(10);
 	DECLARE @NgayNghi DATE;
 
-	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
-	FROM DIEMDANH;
+	SELECT @NgayNghi = i.Ngay, @MaNV = i.MaNV
+	FROM inserted i;
 	BEGIN
 		UPDATE UOCLUONG
 		SET SoNgayNghi = SoNgayNghi + 1

@@ -43,23 +43,19 @@ namespace QLCongTy.DAO
                 int mada = int.Parse(row["MaDA"].ToString());
                 int soGioMotNg = int.Parse(row["SoGioMotNg"].ToString());
                 string magd = row["MaGiaiDoan"].ToString();
-                MessageBox.Show(mada.ToString() + magd);
 
                 // Thực hiện tính số thời gian giai đoạn đang làm
                 sqlStr = $"SELECT dbo.sfn_CapNhatTimeSprint('{magd}', {mada}, {soGioMotNg})";
                 SqlCommand cmd = new SqlCommand(sqlStr, conn);
-                double soGioLam = double.Parse(dbconn.GetItem(sqlStr).ToString());
-                //MessageBox.Show(soGioLam.ToString());
+                double soGioLam = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
                 // Thực hiện tính số thời gian nghỉ trúng phải giai đoạn đang làm
                 sqlStr = $"SELECT dbo.sfn_TimThoiGianNghi('{manv}', '{magd}', {soGioMotNg})";
                 cmd = new SqlCommand(sqlStr, conn);
-                double soGioNghi = double.Parse(dbconn.GetItem(sqlStr).ToString());
-                //MessageBox.Show(soGioNghi.ToString());
+                double soGioNghi = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
                 // Tính Time Sprint
                 double res = soGioLam - soGioNghi;
-                MessageBox.Show(res.ToString());
 
                 //Cập nhật UOCLUONG cho NhanVien sau khi nghỉ
                 sqlStr = $@"UPDATE UOCLUONG SET TimeSprint={res} WHERE MaNV='{manv}' AND MaGiaiDoan='{magd}' AND MaDA={mada}";

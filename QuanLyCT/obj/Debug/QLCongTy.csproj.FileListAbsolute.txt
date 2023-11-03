@@ -99,3 +99,7 @@ D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CoreCo
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.csproj.CopyComplete
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.exe
 D:\HCMUTE\Namba\HK01\DBMS\Project\QLDA\QuanLyCT\obj\Debug\QLCongTy.pdb
+<<<<<<< HEAD
+=======
+C:\Education\Uni\Database\RDMS\Final_Project\source\QuanLyCT\obj\Debug\QLCongTy.Views.QLDuAn.fTaiNguyen.resources
+>>>>>>> 963c9759f1767d67b02ef141b63cf9e7eed7492f

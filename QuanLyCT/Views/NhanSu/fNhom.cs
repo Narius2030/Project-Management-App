@@ -109,7 +109,7 @@ namespace QLCongTy.Views.NhanSu
         private void btnDoiTruongNhom_Click(object sender, EventArgs e)
         {
             string MaNVTruongNhom = nDao.XacDinhTruongNhom(nhom).Rows[0]["MaNV"].ToString();
-            tnDao.DoiTruongNhom(txtMaNV.Texts, MaNVTruongNhom, nhom);
+            tnDao.DoiTruongNhom(txtMaNV.Texts, nhom);
             LoadGVTruongNhom();
             LoadTVNhom();
         }
