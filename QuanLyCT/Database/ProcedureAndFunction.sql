@@ -7,22 +7,7 @@ BEGIN
 	WHERE MaTaiKhoan = @matk AND MatKhau = @matkhau
 END
 GO
---Kiểm Tra  Giai đoạn đã hoàn thành chưa  trước khi tạo cái khác
-CREATE or alter PROCEDURE sp_KiemTraGiaiDoan
-    @maduan int,
-    @MaGiaiDoan VARCHAR(255)
-AS
-BEGIN
-    SELECT DA.MaDA,GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
-    FROM CongViec CV
-    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
-    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-    WHERE CV.TrangThai != 'Done'
-      AND CV.MaGiaiDoan = @MaGiaiDoan
-      AND DA.MaDA = @maduan
-	 group by DA.MaDA,GD.MaGiaiDoan
-END
-GO
+
 --Kiểm Tra  Giai đoạn trước đã có công việc trước khi tạo giai đoạn mới
 CREATE OR ALTER PROCEDURE sp_KiemTraGiaiDoanTruoc
     @MaDuAn INT,
@@ -98,21 +83,7 @@ begin
 	CONGVIEC.MaCV=@macongviec
 end
 GO
---Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
-CREATE OR ALTER	PROCEDURE sp_TimTruongNhom
-@tennhom nvarchar(20),@mada int
-as
-begin 
-	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-                                FROM TRUONGNHOM TN
-                                INNER JOIN NHOM N
-                                ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
-								INNER JOIN NHANVIEN NV
-                                 on  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
-								 WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
-end
 
-go
 
 --xem danh sách thành viên trong 1 dự án trong 1 nhóm
 CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
@@ -305,3 +276,44 @@ BEGIN
 			and GIAIDOAN.MaGiaiDoan=@magiaidoan
 	return @timetask
 END
+GO
+
+--Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
+--Function
+CREATE OR ALTER FUNCTION sfn_TimTruongNhom(@tennhom nvarchar(20), @mada int)
+RETURNS TABLE
+AS
+RETURN (
+	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+    FROM TRUONGNHOM TN
+    INNER JOIN NHOM N
+    ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
+	INNER JOIN NHANVIEN NV
+        ON  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
+		WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+)
+GO
+
+--Function
+CREATE OR ALTER FUNCTION sfn_KiemTraGiaiDoan(@mada int, @MaGiaiDoan VARCHAR(255))
+RETURNS @table TABLE 
+(
+	MaDA INT,
+	MaGiaiDoan VARCHAR(255),
+	SoLuongCongViec INT
+)
+AS
+BEGIN
+	INSERT INTO @table
+	SELECT DA.MaDA,GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
+    FROM CongViec CV
+    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
+    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+    WHERE CV.TrangThai != 'Done'
+      AND CV.MaGiaiDoan = @MaGiaiDoan
+      AND DA.MaDA = @mada
+	  group by DA.MaDA,GD.MaGiaiDoan
+	return
+END
+GO
+

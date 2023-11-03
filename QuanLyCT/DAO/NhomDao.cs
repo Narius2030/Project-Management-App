@@ -80,7 +80,6 @@ namespace QLCongTy.DAO
             }
         }
 
-
         public DataTable XacDinhTruongNhom(NHOM nhom)
         {
             string sqlStr = $"SELECT MaNV FROM TRUONGNHOM WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}'";

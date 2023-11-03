@@ -58,16 +58,11 @@ ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_SDT CHECK(SDT not LIKE '[a-zA-Z_!@#$%^
 --câu 3 :Mã nhân viên viết theo công thức: 2 ký tự đầu là “NV” + 3 ký tự số nguyên dương
 
 ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(SUBSTRING(MANV, 3, 3) AS INT) > 0 AND CAST(SUBSTRING(MANV, 3, 3) AS INT) <= 999);
-
--- câu 4 :Trong UOCLUONG, Time Sprint >= Time Tasks
-
-Alter Table UocLuong add constraint CHECK_TIMESP_TIMETASK CHECK(TimeSprint >=TimeTasks)
 go
 
 
 --###Triggers
 
---???????????
 --1.Thêm mới thông tin trong bảng UOCLUONG (insert) khi thêm một nhân viên mới vào nhóm trong một dự án
 create or alter trigger tr_addUocLuong on NHOM
 AFTER INSERT AS
@@ -98,17 +93,6 @@ BEGIN
         ROLLBACK TRAN;
     END
 END;
-GO
-
---5 Xóa NhiemVu trước khi xóa CongViec
-CREATE OR ALTER TRIGGER deleteCongViec on CONGVIEC
-AFTER DELETE AS
-DECLARE @macv INT
-BEGIN
-	--DELETE FROM NHIEMVU WHERE MaCV IS NULL AND (SELECT )
-	SELECT * FROM NHIEMVU NV
-	JOIN NHIEMVU TQ ON TQ.MaTienQuyet = NV.MaNhiemVu
-END
 GO
 
 --6 Kiểm tra thứ tự nhiệm vụ tiên quyết, nếu chưa hoàn thành nhiệm vụ tiên quyết trong cùng 1 công việc trước đó thì không được làm nhiệm vụ hiện tại
@@ -166,61 +150,27 @@ BEGIN
 END
 GO
 
---12)Thiết lập lại thời gian timesprint khi có nhân viên xin nghỉ
-CREATE OR ALTER TRIGGER tr_update_timesprint
-ON DIEMDANH
-AFTER INSERT
-AS
-BEGIN
-	DECLARE @MaNV VARCHAR(10);
-	DECLARE @NgayNghi DATE;
-	DECLARE @MaGiaiDoan VARCHAR(15);
-	DECLARE @CapPerDay INT;
-	DECLARE @MaDA INT;
-
-	--Lấy ngày nghỉ, mã nhân viên
-	SELECT @NgayNghi = DIEMDANH.Ngay, @MaNV = MaNV
-	FROM DIEMDANH;
-
-	--Lấy mã sprint và mã DA có ngày nghỉ thuộc sprint
-	SELECT @MaGiaiDoan = GIAIDOAN.MaGiaiDoan, @MaDA = GIAIDOAN.MaDA
-	FROM GIAIDOAN
-	WHERE @NgayNghi <= GIAIDOAN.NgayKT AND @NgayNghi >= GIAIDOAN.NgayBD;
-
-	--Lấy CapPerDay theo mã NV
-	SELECT @CapPerDay = NHOM.SoGioMotNg
-	FROM NHOM
-	WHERE @MaNV = NHOM.MaNV AND @MaDA = NHOM.MaDA;
-
-	IF @MaGiaiDoan IS NOT NULL
-	BEGIN
-		UPDATE UOCLUONG
-		SET TimeSprint = TimeSprint - @CapPerDay
-		WHERE @MaNV = UOCLUONG.MaNV AND @MaGiaiDoan = UOCLUONG.MaGiaiDoan AND @MaDA = UOCLUONG.MaDA;
-	END
-END;
-GO
-
+-- ########Sai CMNR test làm đeo gì ########
 --13.Thiết lập lại thời gian Time Tasks khi có nhiệm vụ được hoàn thành xong
-CREATE OR ALTER TRIGGER tr_update_timetasks ON NHIEMVU
-AFTER INSERT, UPDATE
-AS
-BEGIN
-    -- Khai báo biến
-    DECLARE @ThoiGianUocTinh INT
-	DECLARE @MANHANVIEN VARCHAR(10)
-	DECLARE @MASPRINT VARCHAR(10)
-	DECLARE @MADA VARCHAR(10)
-    -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
-	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaGiaiDoan, @MADA=CONGVIEC.MaDA, @ThoiGianUocTinh=inserted.ThoiGianUocTinh 
-	FROM  inserted, NHANVIEN, CONGVIEC
-	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
-	--Cập nhật timetasks
-    UPDATE UOCLUONG
-    SET TimeTasks =  TimeTasks- @ThoiGianUocTinh
-    WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaGiaiDoan=@MASPRINT  
-END
-GO
+--CREATE OR ALTER TRIGGER tr_update_timetasks ON NHIEMVU
+--AFTER INSERT, UPDATE
+--AS
+--BEGIN
+--    -- Khai báo biến
+--    DECLARE @ThoiGianUocTinh INT
+--	DECLARE @MANHANVIEN VARCHAR(10)
+--	DECLARE @MASPRINT VARCHAR(10)
+--	DECLARE @MADA VARCHAR(10)
+--    -- tìm thời gian hoàn thành  nhiệm vụ Của  NHÂN VIÊN mới thêm hoặc mới cập nhật
+--	SELECT @MANHANVIEN=NHANVIEN.MaNV,@MASPRINT=CONGVIEC.MaGiaiDoan, @MADA=CONGVIEC.MaDA, @ThoiGianUocTinh=inserted.ThoiGianUocTinh 
+--	FROM  inserted, NHANVIEN, CONGVIEC
+--	WHERE inserted.MaNV=NHANVIEN.MaNV AND CONGVIEC.MaCV=inserted.MaCV AND inserted.TrangThai='done'
+--	--Cập nhật timetasks
+--    UPDATE UOCLUONG
+--    SET TimeTasks =  TimeTasks- @ThoiGianUocTinh
+--    WHERE MaNV = @MaNhanVien AND MaDA=@MADA AND MaGiaiDoan=@MASPRINT  
+--END
+--go
 
 --14.Trigger kiểm tra nếu nhân viên nghỉ đúng thời gian Sprint nào thì cộng SoNgayNghi Sprint của nhân viên đó lên 1
 --NOTE

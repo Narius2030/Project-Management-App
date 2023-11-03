@@ -31,10 +31,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tpCheckSang = new System.Windows.Forms.TabPage();
-            this.tabDiemdanh = new System.Windows.Forms.TabControl();
             this.artanPannel7 = new ArtanComponent.ArtanPannel();
             this.label14 = new System.Windows.Forms.Label();
             this.pnlThongtinCheckIn = new ArtanComponent.ArtanPannel();
+            this.cboNoiDungNghi = new QLCongTy.Custome_control.CTComboBox();
             this.btnSubmitNghi = new QLCongTy.VBButton();
             this.dtpNgayNghi = new QLCongTy.CTDateTimePicker();
             this.txtMaNV = new QLCongTy.CTTextBox();
@@ -42,13 +42,13 @@
             this.gvChecksang = new System.Windows.Forms.DataGridView();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.cboNoiDungNghi = new QLCongTy.Custome_control.CTComboBox();
+            this.tabDiemdanh = new System.Windows.Forms.TabControl();
             this.tpCheckSang.SuspendLayout();
-            this.tabDiemdanh.SuspendLayout();
             this.artanPannel7.SuspendLayout();
             this.pnlThongtinCheckIn.SuspendLayout();
             this.pnlgridviewsang.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvChecksang)).BeginInit();
+            this.tabDiemdanh.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpCheckSang
@@ -66,17 +66,6 @@
             this.tpCheckSang.TabIndex = 0;
             this.tpCheckSang.Text = "Buổi Sáng ";
             this.tpCheckSang.Click += new System.EventHandler(this.tpCheckSang_Click);
-            // 
-            // tabDiemdanh
-            // 
-            this.tabDiemdanh.Controls.Add(this.tpCheckSang);
-            this.tabDiemdanh.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabDiemdanh.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabDiemdanh.Location = new System.Drawing.Point(0, 0);
-            this.tabDiemdanh.Name = "tabDiemdanh";
-            this.tabDiemdanh.SelectedIndex = 0;
-            this.tabDiemdanh.Size = new System.Drawing.Size(1355, 819);
-            this.tabDiemdanh.TabIndex = 0;
             // 
             // artanPannel7
             // 
@@ -127,6 +116,28 @@
             this.pnlThongtinCheckIn.Size = new System.Drawing.Size(1191, 601);
             this.pnlThongtinCheckIn.TabIndex = 51;
             // 
+            // cboNoiDungNghi
+            // 
+            this.cboNoiDungNghi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.cboNoiDungNghi.BorderColor = System.Drawing.Color.White;
+            this.cboNoiDungNghi.BorderSize = 3;
+            this.cboNoiDungNghi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.cboNoiDungNghi.ForeColor = System.Drawing.Color.Transparent;
+            this.cboNoiDungNghi.FormattingEnabled = true;
+            this.cboNoiDungNghi.IconColor = System.Drawing.Color.White;
+            this.cboNoiDungNghi.Items.AddRange(new object[] {
+            "Nghỉ ốm",
+            "Nghỉ phép",
+            "Nghỉ thai sản"});
+            this.cboNoiDungNghi.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
+            this.cboNoiDungNghi.ListTextColor = System.Drawing.Color.DimGray;
+            this.cboNoiDungNghi.Location = new System.Drawing.Point(562, 45);
+            this.cboNoiDungNghi.MinimumSize = new System.Drawing.Size(200, 0);
+            this.cboNoiDungNghi.Name = "cboNoiDungNghi";
+            this.cboNoiDungNghi.Size = new System.Drawing.Size(200, 28);
+            this.cboNoiDungNghi.TabIndex = 90;
+            this.cboNoiDungNghi.Texts = "";
+            // 
             // btnSubmitNghi
             // 
             this.btnSubmitNghi.BackColor = System.Drawing.Color.Azure;
@@ -145,7 +156,7 @@
             this.btnSubmitNghi.Text = "Submit";
             this.btnSubmitNghi.TextColor = System.Drawing.Color.Black;
             this.btnSubmitNghi.UseVisualStyleBackColor = false;
-            this.btnSubmitNghi.Click += new System.EventHandler(this.btnSubmitSang_Click);
+            this.btnSubmitNghi.Click += new System.EventHandler(this.btnSubmitNghi_Click);
             // 
             // dtpNgayNghi
             // 
@@ -261,27 +272,16 @@
             this.label10.TabIndex = 29;
             this.label10.Text = "Mã Nhân viên ";
             // 
-            // cboNoiDungNghi
+            // tabDiemdanh
             // 
-            this.cboNoiDungNghi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.cboNoiDungNghi.BorderColor = System.Drawing.Color.White;
-            this.cboNoiDungNghi.BorderSize = 3;
-            this.cboNoiDungNghi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.cboNoiDungNghi.ForeColor = System.Drawing.Color.Transparent;
-            this.cboNoiDungNghi.FormattingEnabled = true;
-            this.cboNoiDungNghi.IconColor = System.Drawing.Color.White;
-            this.cboNoiDungNghi.Items.AddRange(new object[] {
-            "Nghỉ ốm",
-            "Nghỉ phép",
-            "Nghỉ thai sản"});
-            this.cboNoiDungNghi.ListBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(228)))), ((int)(((byte)(245)))));
-            this.cboNoiDungNghi.ListTextColor = System.Drawing.Color.DimGray;
-            this.cboNoiDungNghi.Location = new System.Drawing.Point(562, 45);
-            this.cboNoiDungNghi.MinimumSize = new System.Drawing.Size(200, 0);
-            this.cboNoiDungNghi.Name = "cboNoiDungNghi";
-            this.cboNoiDungNghi.Size = new System.Drawing.Size(200, 28);
-            this.cboNoiDungNghi.TabIndex = 90;
-            this.cboNoiDungNghi.Texts = "";
+            this.tabDiemdanh.Controls.Add(this.tpCheckSang);
+            this.tabDiemdanh.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabDiemdanh.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabDiemdanh.Location = new System.Drawing.Point(0, 0);
+            this.tabDiemdanh.Name = "tabDiemdanh";
+            this.tabDiemdanh.SelectedIndex = 0;
+            this.tabDiemdanh.Size = new System.Drawing.Size(1355, 819);
+            this.tabDiemdanh.TabIndex = 0;
             // 
             // fCheckin_Checkout
             // 
@@ -294,11 +294,11 @@
             this.Text = "Checkin_Checkout";
             this.Load += new System.EventHandler(this.fCheckin_Checkout_Load);
             this.tpCheckSang.ResumeLayout(false);
-            this.tabDiemdanh.ResumeLayout(false);
             this.artanPannel7.ResumeLayout(false);
             this.pnlThongtinCheckIn.ResumeLayout(false);
             this.pnlgridviewsang.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvChecksang)).EndInit();
+            this.tabDiemdanh.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

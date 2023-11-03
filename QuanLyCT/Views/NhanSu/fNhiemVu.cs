@@ -169,11 +169,10 @@ namespace QLCongTy.Views.NhanSu
                 nv.TenNhiemVu = row.Cells[1].Value.ToString();
                 nv.TrangThai = row.Cells[2].Value.ToString();
                 nv.MaTienQuyet = row.Cells[3].Value.ToString();
-                nudThoiGianThucTe.Value = 0;
-                nv.ThoiGianUocTinh = 0;
-                nudThoiGianThucTe.Value = string.IsNullOrEmpty(row.Cells[5].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[5].Value);
-                nv.ThoiGianUocTinh = string.IsNullOrEmpty(row.Cells[4].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[4].Value);
-                nudThoiGianUocTinh.Value = Convert.ToInt32(nv.ThoiGianUocTinh);
+                //nudThoiGianThucTe.Value = string.IsNullOrEmpty(row.Cells[5].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[5].Value);
+                //nv.ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value);
+                nudThoiGianUocTinh.Value = string.IsNullOrEmpty(row.Cells[4].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[4].Value);
+                nv.ThoiGianUocTinh = Convert.ToInt32(nudThoiGianUocTinh.Value);
                 TimeTask();
 
             }
@@ -193,6 +192,7 @@ namespace QLCongTy.Views.NhanSu
 
         private void ReLoad()
         {
+            cbTienQuyet.Checked = false;
             ClearTextBox();
             LoadCboTienQuyet();
             LoadGVDSPhanNhiemVu();
@@ -260,30 +260,39 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
-            string trangthai = "Pending";
+            nv.TrangThai = "Doing";
+            nv.TenNhiemVu = txtTenNhom.Texts;
+
+            if (ckbDone.Checked && Convert.ToInt32(nudThoiGianThucTe.Value) != 0)
+            {
+                nv.ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value);
+                nv.TrangThai = "Done";
+            }
+
             if (nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts) == 1)
             {
-                trangthai = "Doing";
+                if (nvDao.SuaNhiemVu(nv) == 1)
+                {
+                    ReLoad();
+                    TimeTask();
+                }
             }
-            if (Convert.ToInt32(nudThoiGianThucTe.Value) != 0)
+            else
             {
-                trangthai = "Done";
-            }
-            NHIEMVU nv = new NHIEMVU()
-            {
-                ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value),
-                TenNhiemVu = txtNhiemVu.Texts,
-                MaNhiemVu = txtMaNhiemVu.Texts,
-                TrangThai = trangthai
-            };
-            if (cbTienQuyet.Checked)
-            {
-                nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
-            }
-            if (nvDao.SuaNhiemVu(nv) == 1)
-            {
-                ReLoad();
-                TimeTask();
+                if (!string.IsNullOrEmpty(nv.MaTienQuyet))
+                {
+                    MessageBox.Show(nv.MaTienQuyet);
+                    ReLoad();
+                    return;
+                } 
+                else
+                {
+                    if (nvDao.SuaNhiemVu(nv) == 1)
+                    {
+                        ReLoad();
+                        TimeTask();
+                    }
+                }
             }
             ShowHideUpdateControl();
         }
