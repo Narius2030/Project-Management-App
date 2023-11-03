@@ -121,6 +121,7 @@
             this.btnXoaNVkhoiDA = new QLCongTy.VBButton();
             this.pnlThongtinCheckIn = new ArtanComponent.ArtanPannel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnXoaNT = new QLCongTy.VBButton();
             this.cbNhomTruong = new System.Windows.Forms.CheckBox();
             this.txtNhomTruong = new QLCongTy.CTTextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -1264,12 +1265,33 @@
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.btnXoaNT);
             this.panel4.Controls.Add(this.cbNhomTruong);
             this.panel4.Controls.Add(this.txtNhomTruong);
             this.panel4.Location = new System.Drawing.Point(410, 19);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(233, 102);
+            this.panel4.Size = new System.Drawing.Size(301, 102);
             this.panel4.TabIndex = 91;
+            // 
+            // btnXoaNT
+            // 
+            this.btnXoaNT.BackColor = System.Drawing.Color.Azure;
+            this.btnXoaNT.BackgroundColor = System.Drawing.Color.Azure;
+            this.btnXoaNT.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnXoaNT.BorderRadius = 3;
+            this.btnXoaNT.BorderSize = 2;
+            this.btnXoaNT.FlatAppearance.BorderSize = 0;
+            this.btnXoaNT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXoaNT.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
+            this.btnXoaNT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnXoaNT.Location = new System.Drawing.Point(193, 50);
+            this.btnXoaNT.Name = "btnXoaNT";
+            this.btnXoaNT.Size = new System.Drawing.Size(103, 35);
+            this.btnXoaNT.TabIndex = 92;
+            this.btnXoaNT.Text = "Xóa";
+            this.btnXoaNT.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnXoaNT.UseVisualStyleBackColor = false;
+            this.btnXoaNT.Click += new System.EventHandler(this.btnXoaNT_Click);
             // 
             // cbNhomTruong
             // 
@@ -1300,7 +1322,7 @@
             this.txtNhomTruong.PasswordChar = false;
             this.txtNhomTruong.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtNhomTruong.PlaceholderText = "";
-            this.txtNhomTruong.Size = new System.Drawing.Size(185, 35);
+            this.txtNhomTruong.Size = new System.Drawing.Size(164, 35);
             this.txtNhomTruong.TabIndex = 91;
             this.txtNhomTruong.Texts = "";
             this.txtNhomTruong.UnderlinedStyle = false;
@@ -1341,7 +1363,6 @@
             this.cboNhom.Name = "cboNhom";
             this.cboNhom.Size = new System.Drawing.Size(181, 39);
             this.cboNhom.TabIndex = 82;
-            this.cboNhom.SelectedIndexChanged += new System.EventHandler(this.cboNhom_SelectedIndexChanged);
             // 
             // txtMaDA
             // 
@@ -2291,5 +2312,6 @@
         private System.Windows.Forms.TabControl tpNhom;
         private VBButton btnCapTaiNguyen;
         private System.Windows.Forms.TabPage tpTaiNguyen;
+        private VBButton btnXoaNT;
     }
 }

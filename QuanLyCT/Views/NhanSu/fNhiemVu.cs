@@ -120,8 +120,6 @@ namespace QLCongTy.Views.NhanSu
             TimeTask();
         }
 
-
-
         private void btnTaoMaNhiemVu_Click(object sender, EventArgs e)
         {
             if (cboCongViec.Text == "--Chưa có công việc--")
@@ -268,7 +266,7 @@ namespace QLCongTy.Views.NhanSu
                 nv.ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value);
                 nv.TrangThai = "Done";
             }
-
+            MessageBox.Show(nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts).ToString());
             if (nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts) == 1)
             {
                 if (nvDao.SuaNhiemVu(nv) == 1)

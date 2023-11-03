@@ -151,12 +151,13 @@ as
 begin
 	if exists (select nvtq.MaTienQuyet From NHIEMVU as nv ,NHIEMVU as nvtq
 		where nv.MaNhiemVu=nvtq.MaTienQuyet
-		and nvtq.MaNhiemVu=@manv and nv.TrangThai='Done')
-	 begin
-		 set @check=1
-	 end
+		and nvtq.MaNhiemVu='02CV11DA11' and nv.TrangThai='Done')
 	begin
-		 set @check=0
+		set @check=1
+	end
+	else
+	begin
+		set @check=0
 	end
 end
 GO
