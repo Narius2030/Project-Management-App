@@ -47,12 +47,12 @@ namespace QLCongTy.DAO
                 // Thực hiện tính số thời gian giai đoạn đang làm
                 sqlStr = $"SELECT dbo.sfn_CapNhatTimeSprint('{magd}', {mada}, {soGioMotNg})";
                 SqlCommand cmd = new SqlCommand(sqlStr, conn);
-                double soGioLam = double.Parse(dbconn.GetItem(sqlStr).ToString());
+                double soGioLam = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
                 // Thực hiện tính số thời gian nghỉ trúng phải giai đoạn đang làm
                 sqlStr = $"SELECT dbo.sfn_TimThoiGianNghi('{manv}', '{magd}', {soGioMotNg})";
                 cmd = new SqlCommand(sqlStr, conn);
-                double soGioNghi = double.Parse(dbconn.GetItem(sqlStr).ToString());
+                double soGioNghi = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
                 // Tính Time Sprint
                 double res = soGioLam - soGioNghi;

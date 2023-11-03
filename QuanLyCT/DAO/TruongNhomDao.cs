@@ -26,12 +26,7 @@ namespace QLCongTy.DAO
 
         public DataTable timTruongNhom(NHOM nhom)
         {
-            SqlParameter[] parame = new SqlParameter[]
-            {
-                new SqlParameter("@tennhom",SqlDbType.NVarChar,20){Value=nhom.TenNhom},
-                new SqlParameter("@mada",SqlDbType.Int){Value=nhom.MaDA}
-            };
-            return dbconn.ExecuteProcedure("sp_TimTruongNhom", parame);
+            return dbconn.ExecuteQuery($"select *From dbo.sfn_TimTruongNhom('{nhom.TenNhom}',{nhom.MaDA})");
         }
 
         public void DoiTruongNhom(string MaTruongNhomMoi, string MaTruongNhomCu, NHOM nhom)

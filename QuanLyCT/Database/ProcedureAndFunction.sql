@@ -1,6 +1,6 @@
 ﻿
 --####Procedure and Function####
---Procedure Đăng Nhập kiểm tra có tồn tại tài khoản không
+--Procedure Đăng Nhập kiểm tra có tồn tại tài khoản không *
 CREATE OR ALTER PROCEDURE sp_ktrDangNhap
 @matk VARCHAR(20), @matkhau VARCHAR(20), @check INT OUTPUT
 AS
@@ -10,7 +10,7 @@ BEGIN
 END
 GO
 
---Xem danh sách thành viên trong 1 dự án trong 1 nhóm
+--Xem danh sách thành viên trong 1 dự án trong 1 nhóm *
 CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
 @mada int, @tennhom nvarchar(20)
 as
@@ -23,7 +23,8 @@ SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N
 end
 GO
 
---PROCEDURE CẬP nhật tiến độ công việc dựa trên (tổng số lượng nhiệm vụ hoàn thành x100)/tổng số lượng nhiệm vụ trong 1 giai đoạn 
+--PROCEDURE CẬP nhật tiến độ công việc dựa trên (tổng số lượng nhiệm vụ hoàn thành x100)/tổng số lượng
+--nhiệm vụ trong 1 giai đoạn *
 CREATE OR ALTER PROCEDURE sp_TinhTienDoCV
 @MaCV int, @magiaidoan varchar(20),@ketqua REAL OUTPUT
 as 
@@ -58,7 +59,7 @@ begin
 end
 GO
 
---Procedure Cập nhật trạng thái dựa trên tiến độ vừa được cập nhật ở trên
+--Procedure Cập nhật trạng thái dựa trên tiến độ vừa được cập nhật ở trên*
 
 CREATE OR ALTER Procedure sp_UpdateTrangThai
 @macongviec int ,@trangthai varchar(20) output
@@ -82,7 +83,8 @@ begin
 End
 GO
 
---Kiểm Tra Công Việc Tiên Quyết để xoá đi nó cần phải cập nhật công việc có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
+--Kiểm Tra Công Việc Tiên Quyết để xoá đi nó cần phải cập nhật công việc có
+--mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu*
 CREATE OR ALTER PROCEDURE sp_KiemTraCongViec
     @macongviec INT
 AS
@@ -98,7 +100,8 @@ BEGIN
 END
 GO
 
---Kiểm Tra Nhiệm Vụ Tiên Quyết để xoá đi nó cần phải cập nhật Nhiệm Vụ có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu
+--Kiểm Tra Nhiệm Vụ Tiên Quyết để xoá đi nó cần phải cập nhật Nhiệm Vụ
+--có mã tiên quyết tham chiếu dến nó và set null cho mã tham chiếu *
 CREATE OR ALTER PROCEDURE sp_KiemTraNhiemVu
     @manhiemvu varchar(10)
 AS
@@ -114,7 +117,7 @@ BEGIN
 END
 GO
 
---Kiểm Tra giai đoạn trước đã có công việc trước khi tạo giai đoạn mới
+--Kiểm Tra giai đoạn trước đã có công việc trước khi tạo giai đoạn mới*
 CREATE OR ALTER PROCEDURE sp_KiemTraGiaiDoanTruoc
     @MaDuAn INT,
     @MaGiaiDoan VARCHAR(255)
@@ -141,7 +144,7 @@ BEGIN
 END
 GO
 
---Kiểm Tra Trạng Thái Nhiệm Vụ Tiên Quyết đã hoàn thành chưa thì mới làm nhiệm vụ hiện tại
+--Kiểm Tra Trạng Thái Nhiệm Vụ Tiên Quyết đã hoàn thành chưa thì mới làm nhiệm vụ hiện tại*
 Create or Alter Procedure sp_KiemTraNhiemVuTienQuyet
 @manv varchar(10), @check int output 
 as
@@ -159,7 +162,7 @@ end
 GO
 
 --####View####
---Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trị
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trị*
 CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
 RETURNS INT
 AS
@@ -174,7 +177,7 @@ BEGIN
 END;
 GO
 
---Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
+--Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào*
 CREATE OR ALTER FUNCTION sfn_TimTruongNhom(@tennhom nvarchar(20), @mada int)
 RETURNS TABLE
 AS
@@ -189,7 +192,7 @@ RETURN (
 )
 GO
 
---Function Kiểm tra giai đoạn đã hoàn thành hay chưa 
+--Function Kiểm tra giai đoạn đã hoàn thành hay chưa *
 CREATE OR ALTER FUNCTION sfn_KiemTraGiaiDoan(@mada int, @MaGiaiDoan VARCHAR(255))
 RETURNS @table TABLE 
 (
@@ -212,7 +215,7 @@ BEGIN
 END
 GO
 
---Tính tổng time task dựa trên thời gian ước tính của  tất cả nhiệm vụ được giao 
+--Tính tổng time task dựa trên thời gian ước tính của  tất cả nhiệm vụ được giao *
 CREATE OR ALTER FUNCTION sfn_SumTimeTask (@manhanvien varchar(10),@maduan int ,@magiaidoan varchar(10))
 RETURNS INT
 AS
@@ -231,7 +234,7 @@ BEGIN
 END
 GO
 
---Cập nhật timetask dựa trên thời gian ước tính của tất cả nhiệm vụ đã hoàn thành 
+--Cập nhật timetask dựa trên thời gian ước tính của tất cả nhiệm vụ đã hoàn thành *
 CREATE OR ALTER FUNCTION sfn_CapNhatTimeTask (@manhanvien varchar(10),@maduan int ,@magiaidoan varchar(10))
 RETURNS INT
 AS
