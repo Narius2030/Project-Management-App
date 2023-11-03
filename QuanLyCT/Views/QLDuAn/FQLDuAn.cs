@@ -165,7 +165,7 @@ namespace QLCongTy.QLDuAn
             nhom.MaNV = txtNhomTruong.Texts;
             nhom.MaDA = int.Parse(txtMaDA.Texts);
             nhom.TenNhom = cboNhom.Text;
-            nhom.SoGioMotNg = 0;
+            nhom.SoGioMotNg = Int32.Parse(txtSoGioMotNg.Texts);
             if (cbNhomTruong.Checked == true)
             {
                 TRUONGNHOM tn = new TRUONGNHOM();
@@ -269,7 +269,8 @@ namespace QLCongTy.QLDuAn
             {
                 if (nhom.MaNV == nd.FindTruongNhom(nhom).Rows[0]["MaNV"].ToString())
                 {
-                    cbNhomTruong.Checked = true;
+                    //cbNhomTruong.Checked = true;
+                    txtNhomTruong.Texts = nhom.MaNV;
                 }
             }
             catch (Exception)
@@ -278,12 +279,6 @@ namespace QLCongTy.QLDuAn
             }
         }
 
-        private void cboNhom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Hiển thị danh sách thành viên nhóm khi chọn tên nhóm trong combobox
-            //LoadDataNhanLuc();
-            //gvNLDA.DataSource = nd.dsThanhVienNhom(da.MaDA, cboNhom.ToString());
-        }
 
         private void cbNhomTruong_CheckedChanged(object sender, EventArgs e)
         {
@@ -306,6 +301,8 @@ namespace QLCongTy.QLDuAn
         {
             DataGridViewRow row = gvNhanSu.SelectedRows[0];
             txtNhomTruong.Texts = row.Cells["MaNV"].Value.ToString();
+            //...
+            txtSoGioMotNg.Texts = nd.FindSoGioMotNg(row.Cells["MaNV"].Value.ToString()).ToString();
         }
         #endregion
 
@@ -642,6 +639,11 @@ namespace QLCongTy.QLDuAn
             {
                 MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }    
+        }
+        private void btnXoaNT_Click(object sender, EventArgs e)
+        {
+            tnDao.xoaTruongNhom(nhom);
+            LoadDataNhanLuc();
         }
     }
 }

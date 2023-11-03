@@ -9,8 +9,11 @@ namespace QLCongTy
     internal class DBConnection
     {
         public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
+<<<<<<< HEAD
         
 
+=======
+>>>>>>> d0a845557af48923a7114dddfc282bb9c463914c
 
         public void ExecuteCommand(string sqlStr)
         {

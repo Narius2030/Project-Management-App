@@ -17,11 +17,16 @@ namespace QLCongTy.DAO
         public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
         DBConnection dbconn = new DBConnection();
 
-        public DataTable DSNhiemVuNhom(int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
+        public DataTable DSNhiemVuNhom(string MaNV, int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@" select 
                                     MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
+<<<<<<< HEAD
                                     ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] From v_DanhSachNhiemVuNhom
+=======
+                                    ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] 
+                                From v_DanhSachNhiemVuNhom
+>>>>>>> d0a845557af48923a7114dddfc282bb9c463914c
                                 WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
@@ -140,6 +145,10 @@ namespace QLCongTy.DAO
         public int CapNhatTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d0a845557af48923a7114dddfc282bb9c463914c
             try
             {
                 ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_CapNhatTimeTask('{manv}',{maduan},'{magiaidoan}')"));

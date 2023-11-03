@@ -30,6 +30,7 @@ FROM DIEMDANH dd
 JOIN NHOM n ON n.MaNV = dd.MaNV
 JOIN GIAIDOAN gd ON gd.MaDA = n.MaDA
 GO
+<<<<<<< HEAD
 --View liên quan đến nhiệm vụ của nhóm
 go
 Create Or ALter View  v_DanhSachNhiemVuNhom as 
@@ -41,6 +42,20 @@ INNER JOIN NHOM N ON CV.TenNhom = N.TenNhom AND CV.MaDA = N.MaDA AND NV.MaNV = N
 INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan AND CV.MaDA = GD.MaDA
 INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
 go
+=======
+
+--View liên quan đến nhiệm vụ của nhóm
+Create Or ALter View  v_DanhSachNhiemVuNhom as 
+SELECT 
+	NV.MaNV, CV.MaDA,GD.MaGiaiDoan,CV.MaCV,N.TenNhom,NV.MaNhiemVu , TenNhiemVu , NV.TrangThai , MaTienQuyet, NV.ThoiGianUocTinh, NV.ThoiGianLamThucTe 
+FROM NHIEMVU NV
+INNER JOIN NHOM N ON N.MaNV = NV.MaNV
+INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
+INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
+GO
+
+>>>>>>> 963c9759f1767d67b02ef141b63cf9e7eed7492f
+>>>>>>> d0a845557af48923a7114dddfc282bb9c463914c
 --###Constraints CHECK
 -- câu 1: check tiến độ công việc và tiến độ dự án
 ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)

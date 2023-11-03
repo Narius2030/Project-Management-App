@@ -121,6 +121,7 @@
             this.btnXoaNVkhoiDA = new QLCongTy.VBButton();
             this.pnlThongtinCheckIn = new ArtanComponent.ArtanPannel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnXoaNT = new QLCongTy.VBButton();
             this.cbNhomTruong = new System.Windows.Forms.CheckBox();
             this.txtNhomTruong = new QLCongTy.CTTextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -163,6 +164,8 @@
             this.gvTTPhancong = new System.Windows.Forms.DataGridView();
             this.tpNhom = new System.Windows.Forms.TabControl();
             this.tpTaiNguyen = new System.Windows.Forms.TabPage();
+            this.txtSoGioMotNg = new QLCongTy.CTTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tpChiaGianDoan.SuspendLayout();
             this.panel3.SuspendLayout();
             this.artanPannel9.SuspendLayout();
@@ -1151,9 +1154,9 @@
             this.pnlPCDA.BackColor = System.Drawing.Color.White;
             this.pnlPCDA.Controls.Add(this.artanPannel3);
             this.pnlPCDA.Controls.Add(this.btnXoaNVkhoiDA);
-            this.pnlPCDA.Location = new System.Drawing.Point(33, 298);
+            this.pnlPCDA.Location = new System.Drawing.Point(33, 315);
             this.pnlPCDA.Name = "pnlPCDA";
-            this.pnlPCDA.Size = new System.Drawing.Size(729, 435);
+            this.pnlPCDA.Size = new System.Drawing.Size(729, 418);
             this.pnlPCDA.TabIndex = 57;
             // 
             // artanPannel3
@@ -1166,10 +1169,10 @@
             this.artanPannel3.GradientAngle = 90F;
             this.artanPannel3.GradientBttomColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
             this.artanPannel3.GradientTopcolor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.artanPannel3.Location = new System.Drawing.Point(20, 96);
+            this.artanPannel3.Location = new System.Drawing.Point(20, 74);
             this.artanPannel3.Name = "artanPannel3";
             this.artanPannel3.Padding = new System.Windows.Forms.Padding(10);
-            this.artanPannel3.Size = new System.Drawing.Size(691, 301);
+            this.artanPannel3.Size = new System.Drawing.Size(691, 328);
             this.artanPannel3.TabIndex = 82;
             // 
             // gvNLDA
@@ -1219,7 +1222,7 @@
             this.gvNLDA.RowHeadersWidth = 51;
             this.gvNLDA.RowTemplate.Height = 24;
             this.gvNLDA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvNLDA.Size = new System.Drawing.Size(671, 281);
+            this.gvNLDA.Size = new System.Drawing.Size(671, 308);
             this.gvNLDA.TabIndex = 2;
             this.gvNLDA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPCDuAn_CellClick);
             // 
@@ -1234,7 +1237,7 @@
             this.btnXoaNVkhoiDA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoaNVkhoiDA.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
             this.btnXoaNVkhoiDA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnXoaNVkhoiDA.Location = new System.Drawing.Point(571, 17);
+            this.btnXoaNVkhoiDA.Location = new System.Drawing.Point(571, 14);
             this.btnXoaNVkhoiDA.Name = "btnXoaNVkhoiDA";
             this.btnXoaNVkhoiDA.Size = new System.Drawing.Size(130, 50);
             this.btnXoaNVkhoiDA.TabIndex = 81;
@@ -1247,6 +1250,8 @@
             // 
             this.pnlThongtinCheckIn.BackColor = System.Drawing.Color.White;
             this.pnlThongtinCheckIn.BorderRadius = 0;
+            this.pnlThongtinCheckIn.Controls.Add(this.txtSoGioMotNg);
+            this.pnlThongtinCheckIn.Controls.Add(this.label2);
             this.pnlThongtinCheckIn.Controls.Add(this.panel4);
             this.pnlThongtinCheckIn.Controls.Add(this.label11);
             this.pnlThongtinCheckIn.Controls.Add(this.cboNhom);
@@ -1256,20 +1261,41 @@
             this.pnlThongtinCheckIn.GradientAngle = 90F;
             this.pnlThongtinCheckIn.GradientBttomColor = System.Drawing.Color.White;
             this.pnlThongtinCheckIn.GradientTopcolor = System.Drawing.Color.White;
-            this.pnlThongtinCheckIn.Location = new System.Drawing.Point(33, 122);
+            this.pnlThongtinCheckIn.Location = new System.Drawing.Point(33, 101);
             this.pnlThongtinCheckIn.Name = "pnlThongtinCheckIn";
-            this.pnlThongtinCheckIn.Size = new System.Drawing.Size(729, 146);
+            this.pnlThongtinCheckIn.Size = new System.Drawing.Size(729, 186);
             this.pnlThongtinCheckIn.TabIndex = 86;
             // 
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.btnXoaNT);
             this.panel4.Controls.Add(this.cbNhomTruong);
             this.panel4.Controls.Add(this.txtNhomTruong);
             this.panel4.Location = new System.Drawing.Point(410, 19);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(233, 102);
+            this.panel4.Size = new System.Drawing.Size(301, 142);
             this.panel4.TabIndex = 91;
+            // 
+            // btnXoaNT
+            // 
+            this.btnXoaNT.BackColor = System.Drawing.Color.Azure;
+            this.btnXoaNT.BackgroundColor = System.Drawing.Color.Azure;
+            this.btnXoaNT.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnXoaNT.BorderRadius = 3;
+            this.btnXoaNT.BorderSize = 2;
+            this.btnXoaNT.FlatAppearance.BorderSize = 0;
+            this.btnXoaNT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXoaNT.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
+            this.btnXoaNT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnXoaNT.Location = new System.Drawing.Point(193, 50);
+            this.btnXoaNT.Name = "btnXoaNT";
+            this.btnXoaNT.Size = new System.Drawing.Size(103, 35);
+            this.btnXoaNT.TabIndex = 92;
+            this.btnXoaNT.Text = "Xóa";
+            this.btnXoaNT.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnXoaNT.UseVisualStyleBackColor = false;
+            this.btnXoaNT.Click += new System.EventHandler(this.btnXoaNT_Click);
             // 
             // cbNhomTruong
             // 
@@ -1300,7 +1326,7 @@
             this.txtNhomTruong.PasswordChar = false;
             this.txtNhomTruong.PlaceholderColor = System.Drawing.Color.DarkGray;
             this.txtNhomTruong.PlaceholderText = "";
-            this.txtNhomTruong.Size = new System.Drawing.Size(185, 35);
+            this.txtNhomTruong.Size = new System.Drawing.Size(164, 35);
             this.txtNhomTruong.TabIndex = 91;
             this.txtNhomTruong.Texts = "";
             this.txtNhomTruong.UnderlinedStyle = false;
@@ -1311,7 +1337,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(75, 90);
+            this.label11.Location = new System.Drawing.Point(75, 78);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(70, 26);
             this.label11.TabIndex = 83;
@@ -1337,11 +1363,10 @@
             "BACK-END",
             "FRONT-END",
             "SECURITY"});
-            this.cboNhom.Location = new System.Drawing.Point(151, 82);
+            this.cboNhom.Location = new System.Drawing.Point(151, 70);
             this.cboNhom.Name = "cboNhom";
             this.cboNhom.Size = new System.Drawing.Size(181, 39);
             this.cboNhom.TabIndex = 82;
-            this.cboNhom.SelectedIndexChanged += new System.EventHandler(this.cboNhom_SelectedIndexChanged);
             // 
             // txtMaDA
             // 
@@ -2126,6 +2151,40 @@
             this.tpTaiNguyen.Text = "Tài nguyên";
             this.tpTaiNguyen.UseVisualStyleBackColor = true;
             // 
+            // txtSoGioMotNg
+            // 
+            this.txtSoGioMotNg.BackColor = System.Drawing.Color.White;
+            this.txtSoGioMotNg.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtSoGioMotNg.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtSoGioMotNg.BorderRadius = 0;
+            this.txtSoGioMotNg.BorderSize = 2;
+            this.txtSoGioMotNg.Enabled = false;
+            this.txtSoGioMotNg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoGioMotNg.ForeColor = System.Drawing.Color.Black;
+            this.txtSoGioMotNg.Location = new System.Drawing.Point(197, 126);
+            this.txtSoGioMotNg.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSoGioMotNg.Multiline = false;
+            this.txtSoGioMotNg.Name = "txtSoGioMotNg";
+            this.txtSoGioMotNg.Padding = new System.Windows.Forms.Padding(7);
+            this.txtSoGioMotNg.PasswordChar = false;
+            this.txtSoGioMotNg.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtSoGioMotNg.PlaceholderText = "";
+            this.txtSoGioMotNg.Size = new System.Drawing.Size(135, 35);
+            this.txtSoGioMotNg.TabIndex = 93;
+            this.txtSoGioMotNg.Texts = "";
+            this.txtSoGioMotNg.UnderlinedStyle = false;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(14, 131);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(176, 30);
+            this.label2.TabIndex = 92;
+            this.label2.Text = "So gio mot ngay";
+            // 
             // fQLDuAn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2291,5 +2350,8 @@
         private System.Windows.Forms.TabControl tpNhom;
         private VBButton btnCapTaiNguyen;
         private System.Windows.Forms.TabPage tpTaiNguyen;
+        private VBButton btnXoaNT;
+        private CTTextBox txtSoGioMotNg;
+        private System.Windows.Forms.Label label2;
     }
 }

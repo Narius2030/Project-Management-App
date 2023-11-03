@@ -161,8 +161,21 @@ begin
 end
 GO
 
---####View####
---Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trị*
+
+--xem danh sách thành viên trong 1 dự án trong 1 nhóm
+CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
+@mada int, @tennhom nvarchar(20)
+as
+begin
+SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+                                FROM NHOM N
+                                INNER JOIN NHANVIEN NV
+                                ON N.MaNV = NV.MaNV
+                                WHERE N.MaDA = @mada AND N.TenNhom = @tennhom
+end
+
+go
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trịS
 CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
 RETURNS INT
 AS
@@ -292,6 +305,78 @@ BEGIN
 	GROUP BY MaGiaiDoan, NgayBD, NgayKT
 
 	RETURN @sumDays * @soGioNg
+END
+GO
+
+	declare @timetask  varchar(10)
+	select @timetask=sum(NHIEMVU.ThoiGianUocTinh) 
+	From NHIEMVU
+	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
+	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
+	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
+	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
+	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
+			and GIAIDOAN.MaGiaiDoan=@magiaidoan
+			and NHIEMVU.TrangThai='Done'
+	return @timetask
+END
+
+Go
+--Tính Tổng Time Task
+CREATE OR ALTER FUNCTION sfn_SumTimeTask (@manhanvien varchar(10),@maduan int ,@magiaidoan varchar(10))
+RETURNS INT
+AS
+BEGIN
+
+	declare @timetask  varchar(10)
+	select @timetask=sum(NHIEMVU.ThoiGianUocTinh) 
+	From NHIEMVU
+	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
+	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
+	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
+	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
+	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
+			and GIAIDOAN.MaGiaiDoan=@magiaidoan
+	return @timetask
+END
+GO
+
+--Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
+--Function
+CREATE OR ALTER FUNCTION sfn_TimTruongNhom(@tennhom nvarchar(20), @mada int)
+RETURNS TABLE
+AS
+RETURN (
+	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
+    FROM TRUONGNHOM TN
+    INNER JOIN NHOM N
+    ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
+	INNER JOIN NHANVIEN NV
+        ON  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
+		WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+)
+GO
+
+--Function
+CREATE OR ALTER FUNCTION sfn_KiemTraGiaiDoan(@mada int, @MaGiaiDoan VARCHAR(255))
+RETURNS @table TABLE 
+(
+	MaDA INT,
+	MaGiaiDoan VARCHAR(255),
+	SoLuongCongViec INT
+)
+AS
+BEGIN
+	INSERT INTO @table
+	SELECT DA.MaDA,GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
+    FROM CongViec CV
+    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
+    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
+    WHERE CV.TrangThai != 'Done'
+      AND CV.MaGiaiDoan = @MaGiaiDoan
+      AND DA.MaDA = @mada
+	  group by DA.MaDA,GD.MaGiaiDoan
+	return
 END
 GO
 
