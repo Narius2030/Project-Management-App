@@ -7,6 +7,30 @@ begin
 	where UOCLUONG.MaGiaiDoan=@magd and UOCLUONG.MaDA=@mada
 end
 Go
+--Tính Tiến Độ Dự Án trong 1 sprint bằng tổng số  công việc thuộc 1 sprint trong 1 dự án x100 /tổng số công việc trong 1 dự án thuộc spirnt đó 
+ Create Or Alter Procedure sp_TinhTienDoDuAn
+ @mada int,@magiaidoan varchar(10),@ketqua REAL OUTPUT
+ as
+ begin
+	--Tìm tổng số công việc trong 1 sprint
+	declare @tongsocongviec int 
+	select @tongsocongviec=COUNT(CONGVIEC.MaCV) From DUAN join CONGVIEC 
+	on CONGVIEC.MaDA=DUAN.MaDA
+	join GIAIDOAN 
+	on GIAIDOAN.MaGiaiDoan=CONGVIEC.MaGiaiDoan
+	where DUAN.MaDA=@mada and GIAIDOAN.MaGiaiDoan=@magiaidoan
+
+	--Tìm tổng số công việc hoàn thành trong 1 sprint
+	declare @tongsocvhoanthanh int 
+	select @tongsocvhoanthanh=COUNT(CONGVIEC.MaCV) From DUAN join CONGVIEC 
+	on CONGVIEC.MaDA=DUAN.MaDA
+	join GIAIDOAN 
+	on GIAIDOAN.MaGiaiDoan=CONGVIEC.MaGiaiDoan
+	where DUAN.MaDA=@mada and GIAIDOAN.MaGiaiDoan=@magiaidoan
+	and CONGVIEC.TrangThai='Done'
+	set @ketqua=(@tongsocvhoanthanh*100)/(@tongsocongviec)
+end
+Go
 --####Procedure####
 --Procedure Đăng Nhập kiểm tra có tồn tại tài khoản không *
 CREATE OR ALTER PROCEDURE sp_ktrDangNhap

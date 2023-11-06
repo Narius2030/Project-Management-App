@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace QLCongTy.DAO
 {
@@ -25,6 +27,28 @@ namespace QLCongTy.DAO
                             JOIN NHOM n ON n.MaNV = nv.MaNV
                             WHERE n.MaDA = {mada}";
             return dbconn.ExecuteQuery(sqlStr);
+        }
+        public double UpdateTienDo(int mada,string magiaidoan)
+        {
+            double ketqua;
+            try
+            {
+               
+                SqlParameter[] parameters = new SqlParameter[]
+               {
+                new SqlParameter("mada",SqlDbType.Int){Value =mada},
+                new SqlParameter("@magiaidoan ",SqlDbType.VarChar,10){Value =magiaidoan},
+                new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output}
+               };
+                dbconn.ExecuteProcedure("sp_TinhTienDoDuAn", parameters);
+                ketqua = Convert.ToDouble(parameters[2].Value);
+
+            }
+            catch(Exception ) 
+            {
+                ketqua = 0;
+            }
+            return ketqua;
         }
         public DataTable getNhanLucCty()
         {

@@ -1,28 +1,24 @@
-﻿using System;
-using System.Drawing;
-using System.Data;
-using System.Reflection;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using QLCongTy.DAO;
+﻿using QLCongTy.DAO;
 using QLCongTy.DTO;
-using System.Collections.Generic;
-using QLCongTy.Views.NhanSu;
-using System.Windows.Controls.Primitives;
 using QLCongTy.Views.QLDuAn;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace QLCongTy.QLDuAn
 {
     public partial class fQLDuAn : Form
-    {  
+    {
         NhiemVuDao nvDao = new NhiemVuDao();
         DuAnDao daDao = new DuAnDao();
-        GiaiDoanDao gdD =new GiaiDoanDao();
+        GiaiDoanDao gdD = new GiaiDoanDao();
         DUAN da = new DUAN();
         NHOM nhom = new NHOM();
         NhomDao nd = new NhomDao();
-        GIAIDOAN gd=new GIAIDOAN();
-        CongViecDao cvd=new CongViecDao();
+        GIAIDOAN gd = new GIAIDOAN();
+        CongViecDao cvd = new CongViecDao();
         TruongNhomDao tnDao = new TruongNhomDao();
         public fQLDuAn()
         {
@@ -35,7 +31,7 @@ namespace QLCongTy.QLDuAn
         #region ReLoad Something
         void LoadDataGiaiDoan()
         {
-            gvDSGiaiDoan.DataSource = gdD.GetListSprint(da.MaDA,1);
+            gvDSGiaiDoan.DataSource = gdD.GetListSprint(da.MaDA, 1);
         }
         void LoadDataNhanLuc()
         {
@@ -68,7 +64,7 @@ namespace QLCongTy.QLDuAn
         }
         void LoadDataCboTimKiem()
         {
-            foreach(DataGridViewRow row in gvQLDuAn.Rows)
+            foreach (DataGridViewRow row in gvQLDuAn.Rows)
             {
                 cboFindMaDA.Items.Add($"{row.Cells["MaDA"].Value} - {row.Cells["TenDA"].Value}");
             }
@@ -83,7 +79,7 @@ namespace QLCongTy.QLDuAn
         }
         public void LoadCboFind()
         {
-            
+
         }
         private void btnThem_Click(object sender, EventArgs e)
         {
@@ -98,7 +94,7 @@ namespace QLCongTy.QLDuAn
                 daDao.removeDuAn(da.MaDA);
                 MessageBox.Show("Thao tác thành công");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -133,7 +129,7 @@ namespace QLCongTy.QLDuAn
 
             //Điền thông tin giai đoạn
             txtMaDA.Texts = da.MaDA.ToString();
-            lblThongtinDA.Text=da.MaDA.ToString();
+            lblThongtinDA.Text = da.MaDA.ToString();
             LoadDataNhanLuc();
         }
         private bool CheckQuyen(string MaTruongDA)
@@ -155,7 +151,7 @@ namespace QLCongTy.QLDuAn
                 }
                 else
                 {
-                    TRUONGNHOM tn = new TRUONGNHOM() {TenNhom=nhom.TenNhom, MaDA=nhom.MaDA, MaNV=nhom.MaNV};
+                    TRUONGNHOM tn = new TRUONGNHOM() { TenNhom = nhom.TenNhom, MaDA = nhom.MaDA, MaNV = nhom.MaNV };
                     daDao.removeTruongNhomDA(tn);
                 }
             }
@@ -163,7 +159,7 @@ namespace QLCongTy.QLDuAn
         }
         private void btnThemVaoNhom_Click(object sender, EventArgs e)
         {
-         
+
             try
             {
                 nhom.MaNV = txtNhomTruong.Texts;
@@ -206,7 +202,7 @@ namespace QLCongTy.QLDuAn
 
         private void cboTrinhDo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
         private void ReloadCboFind_Click(object sender, EventArgs e)
         {
@@ -241,29 +237,29 @@ namespace QLCongTy.QLDuAn
             foreach (var propertyInfo in type.GetProperties())
             {
                 //MessageBox.Show(propertyInfo.Name);
-                if(propertyInfo.PropertyType!=typeof(ICollection<GIAIDOAN>)
-                    && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) 
-                    && propertyInfo.PropertyType!=typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
-                //MessageBox.Show(propertyInfo.Name.ToString());
-                if (propertyInfo.PropertyType != typeof(ICollection<GIAIDOAN>) && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) && propertyInfo.PropertyType != typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN)) 
-                {
-                    if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                if (propertyInfo.PropertyType != typeof(ICollection<GIAIDOAN>)
+                    && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>)
+                    && propertyInfo.PropertyType != typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
+                    //MessageBox.Show(propertyInfo.Name.ToString());
+                    if (propertyInfo.PropertyType != typeof(ICollection<GIAIDOAN>) && propertyInfo.PropertyType != typeof(ICollection<TRUONGNHOM>) && propertyInfo.PropertyType != typeof(ICollection<TAINGUYEN>) && propertyInfo.PropertyType != typeof(NHANVIEN))
                     {
-                        propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                        if (propertyInfo.PropertyType == typeof(Nullable<System.DateTime>))
+                        {
+                            propertyInfo.SetValue(da, DateTime.Parse(r.Cells[i].Value.ToString()));
+                        }
+                        else if (propertyInfo.PropertyType == typeof(string))
+                        {
+                            propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
+                        }
+                        else if (propertyInfo.PropertyType == typeof(Nullable<float>))
+                        {
+                            propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
+                        }
+                        else
+                        {
+                            propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
+                        }
                     }
-                    else if (propertyInfo.PropertyType == typeof(string))
-                    {
-                        propertyInfo.SetValue(da, r.Cells[i].Value.ToString());
-                    }
-                    else if (propertyInfo.PropertyType == typeof(Nullable<float>))
-                    {
-                        propertyInfo.SetValue(da, float.Parse(r.Cells[i].Value.ToString()));
-                    }
-                    else
-                    {
-                        propertyInfo.SetValue(da, int.Parse(r.Cells[i].Value.ToString()));
-                    }
-                }
                 i++;
             }
             //Đổ data ra Datagridview TTPhancong
@@ -361,7 +357,7 @@ namespace QLCongTy.QLDuAn
 
         public void VeBDTienDoCN()
         {
-            
+
         }
 
         public void VeBDTienDoDA()
@@ -371,7 +367,7 @@ namespace QLCongTy.QLDuAn
         //Vẽ biểu đồ tổng tiến độ dự án
         public void VeBDTongTienDoDA()
         {
-            
+
         }
 
         #endregion
@@ -418,10 +414,10 @@ namespace QLCongTy.QLDuAn
 
         private void gvDSGiaiDoan_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex == -1)
+            if (e.RowIndex == -1)
             {
                 return;
-            }    
+            }
             else
             {
                 DataGridViewRow row = gvDSGiaiDoan.Rows[e.RowIndex];
@@ -429,8 +425,10 @@ namespace QLCongTy.QLDuAn
                 dtpNgayBD.Value = Convert.ToDateTime(row.Cells[2].Value.ToString());
                 dtpNgayKT.Value = Convert.ToDateTime(row.Cells[3].Value.ToString());
                 txtNoiDung.Texts = row.Cells[1].Value.ToString();
+                double ketqua = daDao.UpdateTienDo(da.MaDA, row.Cells[0].Value.ToString());
+                MessageBox.Show($"Tiến Độ Dự Án Trong Sprint {txtMaGD.Texts} Là:{ketqua}%","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
 
-            }   
+            }
         }
 
         private void btnadd_Click(object sender, EventArgs e)
@@ -461,10 +459,10 @@ namespace QLCongTy.QLDuAn
                 }
                 else
                 {
-                    MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
                 MessageBox.Show("Thêm Thất Bại.Bạn Hãy Làm theo quy trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
@@ -508,7 +506,7 @@ namespace QLCongTy.QLDuAn
                     NgayKT = dtpNgayKT.Value,
                     MaDA = da.MaDA
                 };
-                if (gdD.SuaGiaiDoan(gd) == 1 )
+                if (gdD.SuaGiaiDoan(gd) == 1)
                 {
                     LoadDataGiaiDoan();
                     MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -516,7 +514,7 @@ namespace QLCongTy.QLDuAn
                 else
                 {
                     MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }    
+                }
             }
             catch (Exception)
             {
@@ -573,7 +571,7 @@ namespace QLCongTy.QLDuAn
             {
                 txttiendo, txtmacongviec,txttrangthai,txttienquyet
             };
-            foreach(CTTextBox t in list) 
+            foreach (CTTextBox t in list)
             {
                 t.Texts = "";
             }
@@ -582,7 +580,7 @@ namespace QLCongTy.QLDuAn
 
         private void btnthemcv_Click(object sender, EventArgs e)
         {
-            if(txtmaduan.Texts==null || txtmagiaidoan==null || txtmagiaidoan.Texts== "VD: 01DA01")
+            if (txtmaduan.Texts == null || txtmagiaidoan == null || txtmagiaidoan.Texts == "VD: 01DA01")
             {
                 MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
                 return;
@@ -602,7 +600,7 @@ namespace QLCongTy.QLDuAn
                 cvd.AddJob(cv);
                 LoadCongViec();
             }
-            catch(Exception )
+            catch (Exception)
             {
                 MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
@@ -680,12 +678,17 @@ namespace QLCongTy.QLDuAn
             {
                 MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
-        
+
         }
         private void btnXoaNT_Click(object sender, EventArgs e)
         {
             tnDao.xoaTruongNhom(nhom);
             LoadDataNhanLuc();
+        }
+
+        private void gvDSGiaiDoan_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
