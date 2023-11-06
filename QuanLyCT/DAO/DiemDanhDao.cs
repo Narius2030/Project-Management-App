@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QLCongTy.DTO;
 using System.Data;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using QLCongTy.DTO;
-using QLCongTy.Views.NhanSu;
 
 namespace QLCongTy.DAO
 {

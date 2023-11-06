@@ -116,10 +116,24 @@
             this.txtmavaten = new System.Windows.Forms.Label();
             this.tpTuyenNL = new System.Windows.Forms.TabPage();
             this.pnlPCDA = new System.Windows.Forms.Panel();
+            this.vbLabel2 = new QLCongTy.VBLabel();
             this.artanPannel3 = new ArtanComponent.ArtanPannel();
             this.gvNLDA = new System.Windows.Forms.DataGridView();
             this.btnXoaNVkhoiDA = new QLCongTy.VBButton();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.vbLabel1 = new QLCongTy.VBLabel();
+            this.btnLoc = new QLCongTy.VBButton();
+            this.btnThemVaoNhom = new QLCongTy.VBButton();
+            this.artanPannel1 = new ArtanComponent.ArtanPannel();
+            this.gvNhanSu = new System.Windows.Forms.DataGridView();
+            this.artanPannel4 = new ArtanComponent.ArtanPannel();
+            this.gvNLCTy = new System.Windows.Forms.DataGridView();
+            this.btnThemNVvaoDA = new QLCongTy.VBButton();
+            this.cboTrinhDo = new System.Windows.Forms.ComboBox();
+            this.btnFilter = new QLCongTy.VBButton();
             this.pnlThongtinCheckIn = new ArtanComponent.ArtanPannel();
+            this.txtSoGioMotNg = new QLCongTy.CTTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnXoaNT = new QLCongTy.VBButton();
             this.cbNhomTruong = new System.Windows.Forms.CheckBox();
@@ -130,16 +144,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.PnlDonxinnghi = new ArtanComponent.ArtanPannel();
             this.lblThongtinDA = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.btnLoc = new QLCongTy.VBButton();
-            this.btnThemVaoNhom = new QLCongTy.VBButton();
-            this.artanPannel1 = new ArtanComponent.ArtanPannel();
-            this.gvNhanSu = new System.Windows.Forms.DataGridView();
-            this.artanPannel4 = new ArtanComponent.ArtanPannel();
-            this.gvNLCTy = new System.Windows.Forms.DataGridView();
-            this.btnThemNVvaoDA = new QLCongTy.VBButton();
-            this.cboTrinhDo = new System.Windows.Forms.ComboBox();
-            this.btnFilter = new QLCongTy.VBButton();
             this.tpQLDA = new System.Windows.Forms.TabPage();
             this.pnBot = new System.Windows.Forms.Panel();
             this.pnThongTin = new System.Windows.Forms.Panel();
@@ -182,14 +186,14 @@
             this.pnlPCDA.SuspendLayout();
             this.artanPannel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNLDA)).BeginInit();
-            this.pnlThongtinCheckIn.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.PnlDonxinnghi.SuspendLayout();
             this.panel5.SuspendLayout();
             this.artanPannel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNhanSu)).BeginInit();
             this.artanPannel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gvNLCTy)).BeginInit();
+            this.pnlThongtinCheckIn.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.PnlDonxinnghi.SuspendLayout();
             this.tpQLDA.SuspendLayout();
             this.pnBot.SuspendLayout();
             this.pnThongTin.SuspendLayout();
@@ -1136,9 +1140,9 @@
             // 
             this.tpTuyenNL.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
             this.tpTuyenNL.Controls.Add(this.pnlPCDA);
+            this.tpTuyenNL.Controls.Add(this.panel5);
             this.tpTuyenNL.Controls.Add(this.pnlThongtinCheckIn);
             this.tpTuyenNL.Controls.Add(this.PnlDonxinnghi);
-            this.tpTuyenNL.Controls.Add(this.panel5);
             this.tpTuyenNL.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.tpTuyenNL.Location = new System.Drawing.Point(4, 40);
             this.tpTuyenNL.Name = "tpTuyenNL";
@@ -1150,27 +1154,47 @@
             // pnlPCDA
             // 
             this.pnlPCDA.BackColor = System.Drawing.Color.White;
+            this.pnlPCDA.Controls.Add(this.vbLabel2);
             this.pnlPCDA.Controls.Add(this.artanPannel3);
             this.pnlPCDA.Controls.Add(this.btnXoaNVkhoiDA);
-            this.pnlPCDA.Location = new System.Drawing.Point(33, 298);
+            this.pnlPCDA.Location = new System.Drawing.Point(33, 315);
             this.pnlPCDA.Name = "pnlPCDA";
-            this.pnlPCDA.Size = new System.Drawing.Size(729, 435);
+            this.pnlPCDA.Size = new System.Drawing.Size(729, 418);
             this.pnlPCDA.TabIndex = 57;
+            // 
+            // vbLabel2
+            // 
+            this.vbLabel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.vbLabel2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.vbLabel2.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbLabel2.BorderRadius = 0;
+            this.vbLabel2.BorderSize = 0;
+            this.vbLabel2.FlatAppearance.BorderSize = 0;
+            this.vbLabel2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbLabel2.ForeColor = System.Drawing.Color.White;
+            this.vbLabel2.Location = new System.Drawing.Point(20, 37);
+            this.vbLabel2.Name = "vbLabel2";
+            this.vbLabel2.Size = new System.Drawing.Size(287, 43);
+            this.vbLabel2.TabIndex = 88;
+            this.vbLabel2.Text = "  Bảng nhân viên dự án";
+            this.vbLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbLabel2.TextColor = System.Drawing.Color.White;
+            this.vbLabel2.UseVisualStyleBackColor = false;
             // 
             // artanPannel3
             // 
             this.artanPannel3.BackColor = System.Drawing.Color.White;
-            this.artanPannel3.BorderRadius = 30;
+            this.artanPannel3.BorderRadius = 0;
             this.artanPannel3.Controls.Add(this.gvNLDA);
             this.artanPannel3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.artanPannel3.ForeColor = System.Drawing.Color.Black;
             this.artanPannel3.GradientAngle = 90F;
             this.artanPannel3.GradientBttomColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
             this.artanPannel3.GradientTopcolor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.artanPannel3.Location = new System.Drawing.Point(20, 96);
+            this.artanPannel3.Location = new System.Drawing.Point(20, 74);
             this.artanPannel3.Name = "artanPannel3";
             this.artanPannel3.Padding = new System.Windows.Forms.Padding(10);
-            this.artanPannel3.Size = new System.Drawing.Size(691, 301);
+            this.artanPannel3.Size = new System.Drawing.Size(691, 328);
             this.artanPannel3.TabIndex = 82;
             // 
             // gvNLDA
@@ -1220,7 +1244,7 @@
             this.gvNLDA.RowHeadersWidth = 51;
             this.gvNLDA.RowTemplate.Height = 24;
             this.gvNLDA.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvNLDA.Size = new System.Drawing.Size(671, 281);
+            this.gvNLDA.Size = new System.Drawing.Size(671, 308);
             this.gvNLDA.TabIndex = 2;
             this.gvNLDA.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvPCDuAn_CellClick);
             // 
@@ -1235,7 +1259,7 @@
             this.btnXoaNVkhoiDA.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoaNVkhoiDA.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
             this.btnXoaNVkhoiDA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnXoaNVkhoiDA.Location = new System.Drawing.Point(571, 17);
+            this.btnXoaNVkhoiDA.Location = new System.Drawing.Point(571, 14);
             this.btnXoaNVkhoiDA.Name = "btnXoaNVkhoiDA";
             this.btnXoaNVkhoiDA.Size = new System.Drawing.Size(130, 50);
             this.btnXoaNVkhoiDA.TabIndex = 81;
@@ -1244,192 +1268,10 @@
             this.btnXoaNVkhoiDA.UseVisualStyleBackColor = false;
             this.btnXoaNVkhoiDA.Click += new System.EventHandler(this.btnXoaNVkhoiDA_Click);
             // 
-            // pnlThongtinCheckIn
-            // 
-            this.pnlThongtinCheckIn.BackColor = System.Drawing.Color.White;
-            this.pnlThongtinCheckIn.BorderRadius = 0;
-            this.pnlThongtinCheckIn.Controls.Add(this.panel4);
-            this.pnlThongtinCheckIn.Controls.Add(this.label11);
-            this.pnlThongtinCheckIn.Controls.Add(this.cboNhom);
-            this.pnlThongtinCheckIn.Controls.Add(this.txtMaDA);
-            this.pnlThongtinCheckIn.Controls.Add(this.label10);
-            this.pnlThongtinCheckIn.ForeColor = System.Drawing.Color.Black;
-            this.pnlThongtinCheckIn.GradientAngle = 90F;
-            this.pnlThongtinCheckIn.GradientBttomColor = System.Drawing.Color.White;
-            this.pnlThongtinCheckIn.GradientTopcolor = System.Drawing.Color.White;
-            this.pnlThongtinCheckIn.Location = new System.Drawing.Point(33, 122);
-            this.pnlThongtinCheckIn.Name = "pnlThongtinCheckIn";
-            this.pnlThongtinCheckIn.Size = new System.Drawing.Size(729, 146);
-            this.pnlThongtinCheckIn.TabIndex = 86;
-            // 
-            // panel4
-            // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.btnXoaNT);
-            this.panel4.Controls.Add(this.cbNhomTruong);
-            this.panel4.Controls.Add(this.txtNhomTruong);
-            this.panel4.Location = new System.Drawing.Point(410, 19);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(301, 102);
-            this.panel4.TabIndex = 91;
-            // 
-            // btnXoaNT
-            // 
-            this.btnXoaNT.BackColor = System.Drawing.Color.Azure;
-            this.btnXoaNT.BackgroundColor = System.Drawing.Color.Azure;
-            this.btnXoaNT.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.btnXoaNT.BorderRadius = 3;
-            this.btnXoaNT.BorderSize = 2;
-            this.btnXoaNT.FlatAppearance.BorderSize = 0;
-            this.btnXoaNT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXoaNT.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
-            this.btnXoaNT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnXoaNT.Location = new System.Drawing.Point(193, 50);
-            this.btnXoaNT.Name = "btnXoaNT";
-            this.btnXoaNT.Size = new System.Drawing.Size(103, 35);
-            this.btnXoaNT.TabIndex = 92;
-            this.btnXoaNT.Text = "Xóa";
-            this.btnXoaNT.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnXoaNT.UseVisualStyleBackColor = false;
-            this.btnXoaNT.Click += new System.EventHandler(this.btnXoaNT_Click);
-            // 
-            // cbNhomTruong
-            // 
-            this.cbNhomTruong.AutoSize = true;
-            this.cbNhomTruong.Location = new System.Drawing.Point(22, 8);
-            this.cbNhomTruong.Name = "cbNhomTruong";
-            this.cbNhomTruong.Size = new System.Drawing.Size(186, 35);
-            this.cbNhomTruong.TabIndex = 5;
-            this.cbNhomTruong.Text = "Nhóm Trưởng";
-            this.cbNhomTruong.UseVisualStyleBackColor = true;
-            this.cbNhomTruong.CheckedChanged += new System.EventHandler(this.cbNhomTruong_CheckedChanged);
-            // 
-            // txtNhomTruong
-            // 
-            this.txtNhomTruong.BackColor = System.Drawing.Color.White;
-            this.txtNhomTruong.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.txtNhomTruong.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.txtNhomTruong.BorderRadius = 0;
-            this.txtNhomTruong.BorderSize = 2;
-            this.txtNhomTruong.Enabled = false;
-            this.txtNhomTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNhomTruong.ForeColor = System.Drawing.Color.Black;
-            this.txtNhomTruong.Location = new System.Drawing.Point(22, 50);
-            this.txtNhomTruong.Margin = new System.Windows.Forms.Padding(4);
-            this.txtNhomTruong.Multiline = false;
-            this.txtNhomTruong.Name = "txtNhomTruong";
-            this.txtNhomTruong.Padding = new System.Windows.Forms.Padding(7);
-            this.txtNhomTruong.PasswordChar = false;
-            this.txtNhomTruong.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtNhomTruong.PlaceholderText = "";
-            this.txtNhomTruong.Size = new System.Drawing.Size(164, 35);
-            this.txtNhomTruong.TabIndex = 91;
-            this.txtNhomTruong.Texts = "";
-            this.txtNhomTruong.UnderlinedStyle = false;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(75, 90);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(70, 26);
-            this.label11.TabIndex = 83;
-            this.label11.Text = "Nhóm";
-            // 
-            // cboNhom
-            // 
-            this.cboNhom.FormattingEnabled = true;
-            this.cboNhom.Items.AddRange(new object[] {
-            "BUSINESS ANALYST",
-            "UI/UX DESIGNER",
-            "DEVOPS",
-            "TESTER",
-            "DATABASE",
-            "BACK-END",
-            "FRONT-END",
-            "SECURITY",
-            "BUSINESS ANALYST",
-            "UI/UX DESIGNER",
-            "DEVOPS",
-            "TESTER",
-            "DATABASE",
-            "BACK-END",
-            "FRONT-END",
-            "SECURITY"});
-            this.cboNhom.Location = new System.Drawing.Point(151, 82);
-            this.cboNhom.Name = "cboNhom";
-            this.cboNhom.Size = new System.Drawing.Size(181, 39);
-            this.cboNhom.TabIndex = 82;
-            // 
-            // txtMaDA
-            // 
-            this.txtMaDA.BackColor = System.Drawing.Color.White;
-            this.txtMaDA.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.txtMaDA.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.txtMaDA.BorderRadius = 0;
-            this.txtMaDA.BorderSize = 2;
-            this.txtMaDA.Enabled = false;
-            this.txtMaDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaDA.ForeColor = System.Drawing.Color.Black;
-            this.txtMaDA.Location = new System.Drawing.Point(197, 23);
-            this.txtMaDA.Margin = new System.Windows.Forms.Padding(4);
-            this.txtMaDA.Multiline = false;
-            this.txtMaDA.Name = "txtMaDA";
-            this.txtMaDA.Padding = new System.Windows.Forms.Padding(7);
-            this.txtMaDA.PasswordChar = false;
-            this.txtMaDA.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.txtMaDA.PlaceholderText = "";
-            this.txtMaDA.Size = new System.Drawing.Size(135, 35);
-            this.txtMaDA.TabIndex = 59;
-            this.txtMaDA.Texts = "";
-            this.txtMaDA.UnderlinedStyle = false;
-            // 
-            // label10
-            // 
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(69, 28);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(176, 30);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "Mã Dự Án";
-            // 
-            // PnlDonxinnghi
-            // 
-            this.PnlDonxinnghi.BackColor = System.Drawing.Color.White;
-            this.PnlDonxinnghi.BorderRadius = 0;
-            this.PnlDonxinnghi.Controls.Add(this.lblThongtinDA);
-            this.PnlDonxinnghi.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PnlDonxinnghi.ForeColor = System.Drawing.Color.Black;
-            this.PnlDonxinnghi.GradientAngle = 90F;
-            this.PnlDonxinnghi.GradientBttomColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.PnlDonxinnghi.GradientTopcolor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.PnlDonxinnghi.Location = new System.Drawing.Point(3, 3);
-            this.PnlDonxinnghi.Name = "PnlDonxinnghi";
-            this.PnlDonxinnghi.Padding = new System.Windows.Forms.Padding(10);
-            this.PnlDonxinnghi.Size = new System.Drawing.Size(1325, 72);
-            this.PnlDonxinnghi.TabIndex = 85;
-            // 
-            // lblThongtinDA
-            // 
-            this.lblThongtinDA.BackColor = System.Drawing.Color.Transparent;
-            this.lblThongtinDA.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblThongtinDA.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblThongtinDA.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblThongtinDA.Location = new System.Drawing.Point(10, 10);
-            this.lblThongtinDA.Name = "lblThongtinDA";
-            this.lblThongtinDA.Size = new System.Drawing.Size(1305, 52);
-            this.lblThongtinDA.TabIndex = 1;
-            this.lblThongtinDA.Text = "Mã_Tên Dự Án";
-            this.lblThongtinDA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.White;
+            this.panel5.Controls.Add(this.vbLabel1);
             this.panel5.Controls.Add(this.btnLoc);
             this.panel5.Controls.Add(this.btnThemVaoNhom);
             this.panel5.Controls.Add(this.artanPannel1);
@@ -1437,10 +1279,29 @@
             this.panel5.Controls.Add(this.btnThemNVvaoDA);
             this.panel5.Controls.Add(this.cboTrinhDo);
             this.panel5.Controls.Add(this.btnFilter);
-            this.panel5.Location = new System.Drawing.Point(791, 122);
+            this.panel5.Location = new System.Drawing.Point(791, 101);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(506, 611);
+            this.panel5.Size = new System.Drawing.Size(506, 632);
             this.panel5.TabIndex = 87;
+            // 
+            // vbLabel1
+            // 
+            this.vbLabel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.vbLabel1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.vbLabel1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.vbLabel1.BorderRadius = 0;
+            this.vbLabel1.BorderSize = 0;
+            this.vbLabel1.FlatAppearance.BorderSize = 0;
+            this.vbLabel1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.vbLabel1.ForeColor = System.Drawing.Color.White;
+            this.vbLabel1.Location = new System.Drawing.Point(40, 101);
+            this.vbLabel1.Name = "vbLabel1";
+            this.vbLabel1.Size = new System.Drawing.Size(331, 43);
+            this.vbLabel1.TabIndex = 89;
+            this.vbLabel1.Text = "Danh sách nhân viên công ty";
+            this.vbLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.vbLabel1.TextColor = System.Drawing.Color.White;
+            this.vbLabel1.UseVisualStyleBackColor = false;
             // 
             // btnLoc
             // 
@@ -1453,7 +1314,7 @@
             this.btnLoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoc.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
             this.btnLoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnLoc.Location = new System.Drawing.Point(191, 56);
+            this.btnLoc.Location = new System.Drawing.Point(191, 42);
             this.btnLoc.Name = "btnLoc";
             this.btnLoc.Size = new System.Drawing.Size(97, 39);
             this.btnLoc.TabIndex = 87;
@@ -1473,7 +1334,7 @@
             this.btnThemVaoNhom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThemVaoNhom.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
             this.btnThemVaoNhom.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnThemVaoNhom.Location = new System.Drawing.Point(329, 51);
+            this.btnThemVaoNhom.Location = new System.Drawing.Point(329, 37);
             this.btnThemVaoNhom.Name = "btnThemVaoNhom";
             this.btnThemVaoNhom.Size = new System.Drawing.Size(130, 50);
             this.btnThemVaoNhom.TabIndex = 86;
@@ -1485,7 +1346,7 @@
             // artanPannel1
             // 
             this.artanPannel1.BackColor = System.Drawing.Color.White;
-            this.artanPannel1.BorderRadius = 30;
+            this.artanPannel1.BorderRadius = 0;
             this.artanPannel1.Controls.Add(this.gvNhanSu);
             this.artanPannel1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.artanPannel1.ForeColor = System.Drawing.Color.Black;
@@ -1495,7 +1356,7 @@
             this.artanPannel1.Location = new System.Drawing.Point(40, 137);
             this.artanPannel1.Name = "artanPannel1";
             this.artanPannel1.Padding = new System.Windows.Forms.Padding(10);
-            this.artanPannel1.Size = new System.Drawing.Size(429, 436);
+            this.artanPannel1.Size = new System.Drawing.Size(429, 479);
             this.artanPannel1.TabIndex = 85;
             // 
             // gvNhanSu
@@ -1545,7 +1406,7 @@
             this.gvNhanSu.RowHeadersWidth = 51;
             this.gvNhanSu.RowTemplate.Height = 24;
             this.gvNhanSu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gvNhanSu.Size = new System.Drawing.Size(409, 416);
+            this.gvNhanSu.Size = new System.Drawing.Size(409, 459);
             this.gvNhanSu.TabIndex = 2;
             this.gvNhanSu.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gvNhanSu_CellClick);
             // 
@@ -1649,7 +1510,7 @@
             "Junior",
             "Fresher",
             "Internship"});
-            this.cboTrinhDo.Location = new System.Drawing.Point(40, 56);
+            this.cboTrinhDo.Location = new System.Drawing.Point(40, 42);
             this.cboTrinhDo.Name = "cboTrinhDo";
             this.cboTrinhDo.Size = new System.Drawing.Size(145, 39);
             this.cboTrinhDo.TabIndex = 84;
@@ -1673,6 +1534,224 @@
             this.btnFilter.Text = "Filter";
             this.btnFilter.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
             this.btnFilter.UseVisualStyleBackColor = false;
+            // 
+            // pnlThongtinCheckIn
+            // 
+            this.pnlThongtinCheckIn.BackColor = System.Drawing.Color.White;
+            this.pnlThongtinCheckIn.BorderRadius = 0;
+            this.pnlThongtinCheckIn.Controls.Add(this.txtSoGioMotNg);
+            this.pnlThongtinCheckIn.Controls.Add(this.label2);
+            this.pnlThongtinCheckIn.Controls.Add(this.panel4);
+            this.pnlThongtinCheckIn.Controls.Add(this.label11);
+            this.pnlThongtinCheckIn.Controls.Add(this.cboNhom);
+            this.pnlThongtinCheckIn.Controls.Add(this.txtMaDA);
+            this.pnlThongtinCheckIn.Controls.Add(this.label10);
+            this.pnlThongtinCheckIn.ForeColor = System.Drawing.Color.Black;
+            this.pnlThongtinCheckIn.GradientAngle = 90F;
+            this.pnlThongtinCheckIn.GradientBttomColor = System.Drawing.Color.White;
+            this.pnlThongtinCheckIn.GradientTopcolor = System.Drawing.Color.White;
+            this.pnlThongtinCheckIn.Location = new System.Drawing.Point(33, 101);
+            this.pnlThongtinCheckIn.Name = "pnlThongtinCheckIn";
+            this.pnlThongtinCheckIn.Size = new System.Drawing.Size(729, 186);
+            this.pnlThongtinCheckIn.TabIndex = 86;
+            // 
+            // txtSoGioMotNg
+            // 
+            this.txtSoGioMotNg.BackColor = System.Drawing.Color.White;
+            this.txtSoGioMotNg.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtSoGioMotNg.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtSoGioMotNg.BorderRadius = 0;
+            this.txtSoGioMotNg.BorderSize = 2;
+            this.txtSoGioMotNg.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoGioMotNg.ForeColor = System.Drawing.Color.Black;
+            this.txtSoGioMotNg.Location = new System.Drawing.Point(197, 126);
+            this.txtSoGioMotNg.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSoGioMotNg.Multiline = false;
+            this.txtSoGioMotNg.Name = "txtSoGioMotNg";
+            this.txtSoGioMotNg.Padding = new System.Windows.Forms.Padding(7);
+            this.txtSoGioMotNg.PasswordChar = false;
+            this.txtSoGioMotNg.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtSoGioMotNg.PlaceholderText = "";
+            this.txtSoGioMotNg.Size = new System.Drawing.Size(135, 35);
+            this.txtSoGioMotNg.TabIndex = 93;
+            this.txtSoGioMotNg.Texts = "";
+            this.txtSoGioMotNg.UnderlinedStyle = false;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(14, 131);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(176, 30);
+            this.label2.TabIndex = 92;
+            this.label2.Text = "So gio mot ngay";
+            // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.btnXoaNT);
+            this.panel4.Controls.Add(this.cbNhomTruong);
+            this.panel4.Controls.Add(this.txtNhomTruong);
+            this.panel4.Location = new System.Drawing.Point(374, 19);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(327, 142);
+            this.panel4.TabIndex = 91;
+            // 
+            // btnXoaNT
+            // 
+            this.btnXoaNT.BackColor = System.Drawing.Color.Azure;
+            this.btnXoaNT.BackgroundColor = System.Drawing.Color.Azure;
+            this.btnXoaNT.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnXoaNT.BorderRadius = 3;
+            this.btnXoaNT.BorderSize = 2;
+            this.btnXoaNT.FlatAppearance.BorderSize = 0;
+            this.btnXoaNT.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXoaNT.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
+            this.btnXoaNT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnXoaNT.Location = new System.Drawing.Point(193, 50);
+            this.btnXoaNT.Name = "btnXoaNT";
+            this.btnXoaNT.Size = new System.Drawing.Size(103, 35);
+            this.btnXoaNT.TabIndex = 92;
+            this.btnXoaNT.Text = "Xóa";
+            this.btnXoaNT.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnXoaNT.UseVisualStyleBackColor = false;
+            this.btnXoaNT.Click += new System.EventHandler(this.btnXoaNT_Click);
+            // 
+            // cbNhomTruong
+            // 
+            this.cbNhomTruong.AutoSize = true;
+            this.cbNhomTruong.Location = new System.Drawing.Point(22, 8);
+            this.cbNhomTruong.Name = "cbNhomTruong";
+            this.cbNhomTruong.Size = new System.Drawing.Size(186, 35);
+            this.cbNhomTruong.TabIndex = 5;
+            this.cbNhomTruong.Text = "Nhóm Trưởng";
+            this.cbNhomTruong.UseVisualStyleBackColor = true;
+            this.cbNhomTruong.CheckedChanged += new System.EventHandler(this.cbNhomTruong_CheckedChanged);
+            // 
+            // txtNhomTruong
+            // 
+            this.txtNhomTruong.BackColor = System.Drawing.Color.White;
+            this.txtNhomTruong.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtNhomTruong.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtNhomTruong.BorderRadius = 0;
+            this.txtNhomTruong.BorderSize = 2;
+            this.txtNhomTruong.Enabled = false;
+            this.txtNhomTruong.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNhomTruong.ForeColor = System.Drawing.Color.Black;
+            this.txtNhomTruong.Location = new System.Drawing.Point(22, 50);
+            this.txtNhomTruong.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNhomTruong.Multiline = false;
+            this.txtNhomTruong.Name = "txtNhomTruong";
+            this.txtNhomTruong.Padding = new System.Windows.Forms.Padding(7);
+            this.txtNhomTruong.PasswordChar = false;
+            this.txtNhomTruong.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtNhomTruong.PlaceholderText = "";
+            this.txtNhomTruong.Size = new System.Drawing.Size(164, 35);
+            this.txtNhomTruong.TabIndex = 91;
+            this.txtNhomTruong.Texts = "";
+            this.txtNhomTruong.UnderlinedStyle = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(75, 78);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(70, 26);
+            this.label11.TabIndex = 83;
+            this.label11.Text = "Nhóm";
+            // 
+            // cboNhom
+            // 
+            this.cboNhom.FormattingEnabled = true;
+            this.cboNhom.Items.AddRange(new object[] {
+            "BUSINESS ANALYST",
+            "UI/UX DESIGNER",
+            "DEVOPS",
+            "TESTER",
+            "DATABASE",
+            "BACK-END",
+            "FRONT-END",
+            "SECURITY",
+            "BUSINESS ANALYST",
+            "UI/UX DESIGNER",
+            "DEVOPS",
+            "TESTER",
+            "DATABASE",
+            "BACK-END",
+            "FRONT-END",
+            "SECURITY"});
+            this.cboNhom.Location = new System.Drawing.Point(151, 70);
+            this.cboNhom.Name = "cboNhom";
+            this.cboNhom.Size = new System.Drawing.Size(181, 39);
+            this.cboNhom.TabIndex = 82;
+            // 
+            // txtMaDA
+            // 
+            this.txtMaDA.BackColor = System.Drawing.Color.White;
+            this.txtMaDA.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtMaDA.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtMaDA.BorderRadius = 0;
+            this.txtMaDA.BorderSize = 2;
+            this.txtMaDA.Enabled = false;
+            this.txtMaDA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaDA.ForeColor = System.Drawing.Color.Black;
+            this.txtMaDA.Location = new System.Drawing.Point(197, 23);
+            this.txtMaDA.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaDA.Multiline = false;
+            this.txtMaDA.Name = "txtMaDA";
+            this.txtMaDA.Padding = new System.Windows.Forms.Padding(7);
+            this.txtMaDA.PasswordChar = false;
+            this.txtMaDA.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtMaDA.PlaceholderText = "";
+            this.txtMaDA.Size = new System.Drawing.Size(135, 35);
+            this.txtMaDA.TabIndex = 59;
+            this.txtMaDA.Texts = "";
+            this.txtMaDA.UnderlinedStyle = false;
+            // 
+            // label10
+            // 
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(69, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(176, 30);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Mã Dự Án";
+            // 
+            // PnlDonxinnghi
+            // 
+            this.PnlDonxinnghi.BackColor = System.Drawing.Color.White;
+            this.PnlDonxinnghi.BorderRadius = 0;
+            this.PnlDonxinnghi.Controls.Add(this.lblThongtinDA);
+            this.PnlDonxinnghi.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PnlDonxinnghi.ForeColor = System.Drawing.Color.Black;
+            this.PnlDonxinnghi.GradientAngle = 90F;
+            this.PnlDonxinnghi.GradientBttomColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.PnlDonxinnghi.GradientTopcolor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.PnlDonxinnghi.Location = new System.Drawing.Point(3, 3);
+            this.PnlDonxinnghi.Name = "PnlDonxinnghi";
+            this.PnlDonxinnghi.Padding = new System.Windows.Forms.Padding(10);
+            this.PnlDonxinnghi.Size = new System.Drawing.Size(1325, 72);
+            this.PnlDonxinnghi.TabIndex = 85;
+            // 
+            // lblThongtinDA
+            // 
+            this.lblThongtinDA.BackColor = System.Drawing.Color.Transparent;
+            this.lblThongtinDA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblThongtinDA.Font = new System.Drawing.Font("Segoe UI", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThongtinDA.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblThongtinDA.Location = new System.Drawing.Point(10, 10);
+            this.lblThongtinDA.Name = "lblThongtinDA";
+            this.lblThongtinDA.Size = new System.Drawing.Size(1305, 52);
+            this.lblThongtinDA.TabIndex = 1;
+            this.lblThongtinDA.Text = "Mã_Tên Dự Án";
+            this.lblThongtinDA.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tpQLDA
             // 
@@ -2181,16 +2260,16 @@
             this.pnlPCDA.ResumeLayout(false);
             this.artanPannel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvNLDA)).EndInit();
-            this.pnlThongtinCheckIn.ResumeLayout(false);
-            this.pnlThongtinCheckIn.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            this.PnlDonxinnghi.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.artanPannel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvNhanSu)).EndInit();
             this.artanPannel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gvNLCTy)).EndInit();
+            this.pnlThongtinCheckIn.ResumeLayout(false);
+            this.pnlThongtinCheckIn.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.PnlDonxinnghi.ResumeLayout(false);
             this.tpQLDA.ResumeLayout(false);
             this.pnBot.ResumeLayout(false);
             this.pnThongTin.ResumeLayout(false);
@@ -2313,5 +2392,9 @@
         private VBButton btnCapTaiNguyen;
         private System.Windows.Forms.TabPage tpTaiNguyen;
         private VBButton btnXoaNT;
+        private CTTextBox txtSoGioMotNg;
+        private System.Windows.Forms.Label label2;
+        private VBLabel vbLabel2;
+        private VBLabel vbLabel1;
     }
 }

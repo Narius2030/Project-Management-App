@@ -1,5 +1,6 @@
 ﻿--###Views
 --Xem danh sách nhân viên là trưởng nhóm trong các dự án
+GO
 CREATE OR ALTER VIEW vw_danhsach_truongnhom
 AS
 SELECT 
@@ -9,17 +10,7 @@ INNER JOIN NHOM N ON N.MaNV = TN.MaNV AND N.TenNhom=TN.TenNhom and N.MaDA=TN.MaD
 INNER JOIN NHANVIEN NV ON NV.MaNV = TN.MaNV
 GO
 
---Xem danh sách trưởng nhóm của các dự án*
-CREATE OR ALTER VIEW vw_truongnhom_trong_duan
-AS
-SELECT
-	NV.MaNV, CONCAT(HovaTenDem,' ',Ten) AS HoTen, ChucVu, Levels,
-	TLD.TenNhom, TLD.MaDA
-FROM TRUONGNHOM TLD
-JOIN NHANVIEN NV ON NV.MaNV = TLD.MaNV
-GO 
-
---Xem danh sách số lượng công việc đã chưa hoàn thành
+--Xem danh sách số lượng công việc chưa hoàn thành
 CREATE OR ALTER VIEW vw_congviec_chuahoanthanh
 AS
 SELECT DA.MaDA, GD.MaGiaiDoan, COUNT(CV.MaCV) AS [số lượng công việc]
@@ -60,21 +51,6 @@ INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
 INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
 GO
 
---###Constraints CHECK
--- câu 1: check tiến độ công việc và tiến độ dự án
-ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
-ALTER TABLE DUAN ADD CONSTRAINT CHECK_TIENDODA CHECK (TienDo <=100 and TienDo>=0)
-
---câu 2: check Tên nhân viên và levels không chứa ký tự đặc biệt và số; SDT không chứa ký tự chữ cái
-
-ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_TENNV CHECK(Ten NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
-ALTER TABLE NHANVIEN ADD CONSTRAINT  CHECK_LEVELS CHECK(levels NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
-ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_SDT CHECK(SDT not LIKE '[a-zA-Z_!@#$%^&*()<>?/|}{~:]%]');
---câu 3: Mã nhân viên viết theo công thức: 2 ký tự đầu là “NV” + 3 ký tự số nguyên dương
-
-ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(SUBSTRING(MANV, 3, 3) AS INT) > 0 AND CAST(SUBSTRING(MANV, 3, 3) AS INT) <= 999);
-go
-
 
 --###Triggers
 
@@ -89,7 +65,7 @@ BEGIN
 		where ul.MaNV = @manv AND ul.MaDA = @mada AND ul.MaGiaiDoan = (SELECT TOP 1 MaGiaiDoan FROM GIAIDOAN WHERE GIAIDOAN.MaDA = @mada ORDER BY MaGiaiDoan DESC))
 		--Nếu nhân viên ko tồn tại trong giai đoạn mới nhất (đang làm việc) tại dự án đó thì tạo mới 1 hàng UOCLUONG
 		insert into UOCLUONG
-		select i.MaNV, i.MaDA, GIAIDOAN.MaGiaiDoan, NULL, NULL, NULL 
+		select i.MaNV, i.MaDA, GIAIDOAN.MaGiaiDoan, 0, 0, 0 
 		from inserted AS i
 			join GIAIDOAN on i.MaDA= GIAIDOAN.MaDA
 		where GIAIDOAN.MaGiaiDoan = (SELECT TOP 1 MaGiaiDoan FROM GIAIDOAN WHERE GIAIDOAN.MaDA = i.MaDA ORDER BY MaGiaiDoan DESC)
@@ -213,4 +189,20 @@ BEGIN
 	ELSE
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
 END
+GO
+
+
+--###Constraints CHECK
+-- câu 1: check tiến độ công việc và tiến độ dự án
+ALTER TABLE CONGVIEC ADD CONSTRAINT CHECK_TIENDOCV CHECK (TienDo<=100 and TienDo>=0)
+ALTER TABLE DUAN ADD CONSTRAINT CHECK_TIENDODA CHECK (TienDo <=100 and TienDo>=0)
+
+--câu 2: check Tên nhân viên và levels không chứa ký tự đặc biệt và số; SDT không chứa ký tự chữ cái
+
+ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_TENNV CHECK(Ten NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
+ALTER TABLE NHANVIEN ADD CONSTRAINT  CHECK_LEVELS CHECK(levels NOT LIKE '%[0-9_!@#$%^&*()<>?/|}{~:]%')
+ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_SDT CHECK(SDT not LIKE '[a-zA-Z_!@#$%^&*()<>?/|}{~:]%]');
+--câu 3: Mã nhân viên viết theo công thức: 2 ký tự đầu là “NV” + 3 ký tự số nguyên dương
+
+ALTER TABLE NHANVIEN ADD CONSTRAINT CHECK_MANV CHECK (MANV LIKE 'NV%' AND CAST(SUBSTRING(MANV, 3, 3) AS INT) > 0 AND CAST(SUBSTRING(MANV, 3, 3) AS INT) <= 999);
 GO

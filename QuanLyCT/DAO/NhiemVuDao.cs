@@ -1,13 +1,8 @@
-﻿using System;
+﻿using QLCongTy.DTO;
+using System;
 using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QLCongTy.DTO;
-using QLCongTy.Views.NhanSu;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace QLCongTy.DAO
@@ -23,7 +18,7 @@ namespace QLCongTy.DAO
                                     MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
                                     ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] 
                                 From v_DanhSachNhiemVuNhom
-                                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}'";
+                                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}' AND MaNV='{MaNV}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
 
@@ -141,6 +136,7 @@ namespace QLCongTy.DAO
         public int CapNhatTimeTask(string manv, int maduan, string magiaidoan)
         {
             int ketqua;
+
             try
             {
                 ketqua = Convert.ToInt32(dbconn.ExecuteScalar($"SELECT dbo.sfn_CapNhatTimeTask('{manv}',{maduan},'{magiaidoan}')"));

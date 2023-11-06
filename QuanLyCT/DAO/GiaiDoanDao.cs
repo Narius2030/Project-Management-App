@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using QLCongTy.DTO;
+using System;
 using System.Data;
-using System.Data.Entity;
-using QLCongTy.DTO;
-using System.Windows.Controls;
 using System.Data.SqlClient;
-using System.Windows.Navigation;
+using System.Linq;
 
 namespace QLCongTy.DAO
 {
@@ -57,6 +51,15 @@ namespace QLCongTy.DAO
                     return 0;
                 }
             }
+        }
+        public void XoaUocLuong(int maduan,string magiaidoan)
+        {
+            SqlParameter[] parame = new SqlParameter[]
+            {
+                new SqlParameter("@magd", SqlDbType.VarChar) { Value = magiaidoan },
+                new SqlParameter("@mada",SqlDbType.Int){Value=maduan}
+            };
+            dbC.ExecuteProcedure("sp_XoaUocLuong_GD_DA", parame);
         }
         public int XoaGiaiDoan(GIAIDOAN giaidoan)
         {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using QLCongTy.DTO;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using QLCongTy.DTO;
 
 namespace QLCongTy.DAO
 {

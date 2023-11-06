@@ -1,4 +1,3 @@
-﻿
 --####Procedure####
 --Insert thông tin điểm danh nghỉ
 CREATE OR ALTER PROCEDURE sp_themNgayNghi
@@ -91,6 +90,16 @@ BEGIN
 END
 GO
 
+--﻿Procedure khi xoá giai đoạn buộc phải xoá tất cả nhân vẫn đang làm tại dự án và giai đoạn đó ở bảng ước lượng
+Create Or Alter Procedure sp_XoaUocLuong_GD_DA
+@magd varchar(10),@mada int
+as
+begin
+	Delete From UocLuong
+	where UOCLUONG.MaGiaiDoan=@magd and UOCLUONG.MaDA=@mada
+end
+Go
+
 --Procedure Đăng Nhập kiểm tra có tồn tại tài khoản không *
 CREATE OR ALTER PROCEDURE sp_ktrDangNhap
 @matk VARCHAR(20), @matkhau VARCHAR(20), @check INT OUTPUT
@@ -127,21 +136,11 @@ begin
 	select @soluongnvhoanthanh= count(MaNhiemVu)
 	FROM vw_nhiemvu_giaidoan_duan
 	WHERE TrangThai = 'Done' AND MaCV=@MaCV AND MaGiaiDoan=@magiaidoan
-	--From CONGVIEC ,NHIEMVU,GIAIDOAN
-	--where NHIEMVU.MaCV=CONGVIEC.MaCV
-	--and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
-	--and NHIEMVU.TrangThai='Done'
-	--and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
 
       --Tìm tất cả nhiệm vụ trong 1 giai đoạn
 	select  @soluongnhiemvu= count(MaNhiemVu)
 	FROM vw_nhiemvu_giaidoan_duan
 	WHERE MaCV=@MaCV AND MaGiaiDoan=@magiaidoan
-
-	--From CONGVIEC ,NHIEMVU,GIAIDOAN
-	--where NHIEMVU.MaCV=CONGVIEC.MaCV
-	--and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
-	--and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
       
       --Nếu số lượng nhiệm vụ hoàn thành lớn hơn 0 thì cập nhật tiên độ công việc ngược lại thì không
 	if(@soluongnvhoanthanh >0)
@@ -247,7 +246,7 @@ as
 begin
 	if exists (select nvtq.MaTienQuyet From NHIEMVU as nv ,NHIEMVU as nvtq
 		where nv.MaNhiemVu=nvtq.MaTienQuyet
-		and nvtq.MaNhiemVu='02CV11DA11' and nv.TrangThai='Done')
+		and nvtq.MaNhiemVu=@manv and nv.TrangThai='Done')
 	begin
 		set @check=1
 	end
@@ -283,10 +282,6 @@ RETURN (
 		MaNV, TenNhom, MaDA, HoTen, ChucVu, Levels, SoGioMotNg
 	FROM vw_danhsach_truongnhom
 	WHERE TenNhom=@tennhom AND MaDA=@mada
- --   ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
-	--INNER JOIN NHANVIEN NV
- --       ON  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
-	--	WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
 )
 GO
 
@@ -304,14 +299,6 @@ BEGIN
 	SELECT *
 	FROM vw_congviec_chuahoanthanh
 	WHERE MaGiaiDoan = @MaGiaiDoan AND MaDA = @mada
-
-   -- FROM CongViec CV
-   -- INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
-   -- INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-   -- WHERE CV.TrangThai != 'Done'
-   --   AND CV.MaGiaiDoan = @MaGiaiDoan
-   --   AND DA.MaDA = @mada
-	  --group by DA.MaDA,GD.MaGiaiDoan
 	return
 END
 GO
@@ -327,15 +314,6 @@ BEGIN
 	FROM vw_nhiemvu_giaidoan_duan
 	WHERE MaNV=@manhanvien AND MaDA=@maduan AND MaGiaiDoan=@magiaidoan
 	RETURN @timetask
-
-	--From NHIEMVU
-	--join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
-	--join DUAN on CONGVIEC.MaDA=DUAN.MaDA
-	--join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
-	--join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	--where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
-	--		and GIAIDOAN.MaGiaiDoan=@magiaidoan
-	--return @timetask
 END
 GO
 
@@ -350,16 +328,6 @@ BEGIN
 	FROM vw_nhiemvu_giaidoan_duan
 	WHERE TrangThai = 'Done' AND MaNV=@manhanvien AND MaDA=@maduan AND MaGiaiDoan=@magiaidoan
 	RETURN @timetask
-
-	--From NHIEMVU
-	--join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
-	--join DUAN on CONGVIEC.MaDA=DUAN.MaDA
-	--join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
-	--join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	--where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
-	--		and GIAIDOAN.MaGiaiDoan=@magiaidoan
-	--		and NHIEMVU.TrangThai='Done'
-	--return @timetask
 END
 GO
 
@@ -374,9 +342,6 @@ BEGIN
 	SELECT 
 		@sumThoiGianNghi=(COUNT(MaNV)*SoGioMotNg)
 	FROM vw_ngaynghi_trong_duan
-	--FROM DIEMDANH dd
-	--JOIN NHOM n ON n.MaNV = dd.MaNV
-	--JOIN GIAIDOAN gd ON gd.MaDA = n.MaDA
 	WHERE MaGiaiDoan=@magiaidoan AND MaNV=@manhanvien AND (Ngay BETWEEN NgayBD AND NgayKT)
 	GROUP BY MaNV, SoGioMotNg
 

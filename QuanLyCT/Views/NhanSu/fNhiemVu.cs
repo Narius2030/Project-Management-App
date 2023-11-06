@@ -1,15 +1,8 @@
 ﻿using QLCongTy.DAO;
 using QLCongTy.DTO;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Media.Media3D;
 
 namespace QLCongTy.Views.NhanSu
 {
@@ -69,15 +62,27 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnPhanNV_Click(object sender, EventArgs e)
         {
-            NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(cboCongViec.SelectedValue.ToString()));
-            if (cbTienQuyet.Checked)
+            if(cboCongViec.SelectedValue==null)
             {
-                nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
+                MessageBox.Show("Chưa Phân Công Công Việc Cho Dự Án", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                return;
+            }    
+            try
+            {
+                NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(cboCongViec.SelectedValue.ToString()));
+                if (cbTienQuyet.Checked)
+                {
+                    nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
+                }
+                nvDao.ThemNhiemVu(nv);
+                ReLoad();
+                TimeTask();
+                ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
             }
-            nvDao.ThemNhiemVu(nv);
-            ReLoad();
-            TimeTask();
-            ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
+            catch(Exception ) 
+            {
+                MessageBox.Show("Chưa Phân Công Công Việc Cho Dự Án", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadCboGiaiDoan()
@@ -167,8 +172,6 @@ namespace QLCongTy.Views.NhanSu
                 nv.TenNhiemVu = row.Cells[1].Value.ToString();
                 nv.TrangThai = row.Cells[2].Value.ToString();
                 nv.MaTienQuyet = row.Cells[3].Value.ToString();
-                //nudThoiGianThucTe.Value = string.IsNullOrEmpty(row.Cells[5].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[5].Value);
-                //nv.ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value);
                 nudThoiGianUocTinh.Value = string.IsNullOrEmpty(row.Cells[4].Value.ToString()) ? 0 : Convert.ToInt32(row.Cells[4].Value);
                 nv.ThoiGianUocTinh = Convert.ToInt32(nudThoiGianUocTinh.Value);
                 TimeTask();
@@ -266,7 +269,7 @@ namespace QLCongTy.Views.NhanSu
                 nv.ThoiGianLamThucTe = Convert.ToInt32(nudThoiGianThucTe.Value);
                 nv.TrangThai = "Done";
             }
-            MessageBox.Show(nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts).ToString());
+
             if (nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts) == 1)
             {
                 if (nvDao.SuaNhiemVu(nv) == 1)
