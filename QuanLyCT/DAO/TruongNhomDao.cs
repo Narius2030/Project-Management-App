@@ -26,11 +26,7 @@ namespace QLCongTy.DAO
 
         public DataTable timTruongNhom(NHOM nhom)
         {
-<<<<<<< HEAD
-            return dbconn.ExecuteQuery($"select *From dbo.sfn_TimTruongNhom('{nhom.TenNhom}',{nhom.MaDA})");
-=======
             return dbconn.ExecuteQuery($"select * From dbo.sfn_TimTruongNhom('{nhom.TenNhom}',{nhom.MaDA})");
->>>>>>> d0a845557af48923a7114dddfc282bb9c463914c
         }
 
         public void DoiTruongNhom(string MaTruongNhomMoi, NHOM nhom)

@@ -58,6 +58,15 @@ namespace QLCongTy.DAO
                 }
             }
         }
+        public void XoaUocLuong(int maduan,string magiaidoan)
+        {
+            SqlParameter[] parame = new SqlParameter[]
+            {
+                new SqlParameter("@magd", SqlDbType.VarChar) { Value = magiaidoan },
+                new SqlParameter("@mada",SqlDbType.Int){Value=maduan}
+            };
+            dbC.ExecuteProcedure("sp_XoaUocLuong_GD_DA", parame);
+        }
         public int XoaGiaiDoan(GIAIDOAN giaidoan)
         {
             using (QLDAEntities entityf = new QLDAEntities())

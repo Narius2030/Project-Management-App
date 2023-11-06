@@ -69,15 +69,27 @@ namespace QLCongTy.Views.NhanSu
 
         private void btnPhanNV_Click(object sender, EventArgs e)
         {
-            NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(cboCongViec.SelectedValue.ToString()));
-            if (cbTienQuyet.Checked)
+            if(cboCongViec.SelectedValue==null)
             {
-                nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
+                MessageBox.Show("Chưa Phân Công Công Việc Cho Dự Án", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                return;
+            }    
+            try
+            {
+                NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(cboCongViec.SelectedValue.ToString()));
+                if (cbTienQuyet.Checked)
+                {
+                    nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
+                }
+                nvDao.ThemNhiemVu(nv);
+                ReLoad();
+                TimeTask();
+                ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
             }
-            nvDao.ThemNhiemVu(nv);
-            ReLoad();
-            TimeTask();
-            ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
+            catch(Exception ) 
+            {
+                MessageBox.Show("Chưa Phân Công Công Việc Cho Dự Án", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadCboGiaiDoan()
@@ -259,11 +271,7 @@ namespace QLCongTy.Views.NhanSu
         private void btnCapNhat_Click(object sender, EventArgs e)
         {
             nv.TrangThai = "Doing";
-<<<<<<< HEAD
-            nv.TenNhiemVu = txtTenNhom.Texts;
-=======
             nv.TenNhiemVu = txtNhiemVu.Texts;
->>>>>>> d0a845557af48923a7114dddfc282bb9c463914c
 
             if (ckbDone.Checked && Convert.ToInt32(nudThoiGianThucTe.Value) != 0)
             {

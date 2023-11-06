@@ -105,10 +105,8 @@ namespace QLCongTy.Views.NhanSu
                 txtThoiGianLamViec.Texts = row.Cells[4].Value.ToString();
             }
         }
-
         private void btnDoiTruongNhom_Click(object sender, EventArgs e)
         {
-            string MaNVTruongNhom = nDao.XacDinhTruongNhom(nhom).Rows[0]["MaNV"].ToString();
             tnDao.DoiTruongNhom(txtMaNV.Texts, nhom);
             LoadGVTruongNhom();
             LoadTVNhom();

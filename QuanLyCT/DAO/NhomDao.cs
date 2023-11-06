@@ -3,6 +3,7 @@ using QLCongTy.Views.NhanSu;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace QLCongTy.DAO
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show($"Thêm thành viên thất bại: {ex.Message}");
+                    MessageBox.Show($"Số giờ làm việc 1 ngày của nhân viên trong dự án này không hợp lệ");
                 }
             }
         }
@@ -79,18 +80,14 @@ namespace QLCongTy.DAO
                 return true;
             }
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> d0a845557af48923a7114dddfc282bb9c463914c
         public DataTable XacDinhTruongNhom(NHOM nhom)
         {
             string sqlStr = $"SELECT MaNV FROM TRUONGNHOM WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
-        public int FindSoGioMotNg(string manv)
+        public int FindSoGioMotNg(string manv, int mada)
         {
-            string sqlStr = $@"SELECT DISTINCT(SoGioMotNg) FROM NHOM WHERE MaNV='{manv}'";
+            string sqlStr = $@"SELECT DISTINCT(SoGioMotNg) FROM NHOM WHERE MaNV='{manv}' AND MaDA={mada}";
             int ketqua = Convert.ToInt32(dbconn.ExecuteScalar(sqlStr));
             return ketqua;
         }

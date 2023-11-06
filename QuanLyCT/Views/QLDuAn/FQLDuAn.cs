@@ -133,6 +133,7 @@ namespace QLCongTy.QLDuAn
 
             //Điền thông tin giai đoạn
             txtMaDA.Texts = da.MaDA.ToString();
+            lblThongtinDA.Text=da.MaDA.ToString();
             LoadDataNhanLuc();
         }
         private bool CheckQuyen(string MaTruongDA)
@@ -162,31 +163,40 @@ namespace QLCongTy.QLDuAn
         }
         private void btnThemVaoNhom_Click(object sender, EventArgs e)
         {
-            nhom.MaNV = txtNhomTruong.Texts;
-            nhom.MaDA = int.Parse(txtMaDA.Texts);
-            nhom.TenNhom = cboNhom.Text;
-            nhom.SoGioMotNg = Int32.Parse(txtSoGioMotNg.Texts);
-            if (cbNhomTruong.Checked == true)
+         
+            try
             {
-                TRUONGNHOM tn = new TRUONGNHOM();
-                tn.MaNV = txtNhomTruong.Texts;
-                tn.MaDA = int.Parse(txtMaDA.Texts);
-                tn.TenNhom = cboNhom.Text;
-                nd.ThemTruongNhom(tn);
-                nd.ThemThanhVien(nhom);
-                MessageBox.Show("Thêm nhóm trưởng thành công");
-            }
-            else
-            {
-                if (nd.KiemTraTonTaiNhomTruong(nhom))
+                nhom.MaNV = txtNhomTruong.Texts;
+                nhom.MaDA = int.Parse(txtMaDA.Texts);
+                nhom.TenNhom = cboNhom.Text;
+                nhom.SoGioMotNg = int.Parse(txtSoGioMotNg.Texts);
+                if (cbNhomTruong.Checked == true)
                 {
+                    TRUONGNHOM tn = new TRUONGNHOM();
+                    tn.MaNV = txtNhomTruong.Texts;
+                    tn.MaDA = int.Parse(txtMaDA.Texts);
+                    tn.TenNhom = cboNhom.Text;
+                    nd.ThemTruongNhom(tn);
                     nd.ThemThanhVien(nhom);
-                    MessageBox.Show("Thêm thành viên thành công");
+                    MessageBox.Show("Thêm nhóm trưởng thành công");
                 }
                 else
                 {
-                    MessageBox.Show("Cần có nhóm trưởng trước khi thêm thành viên vào nhóm");
+                    if (nd.KiemTraTonTaiNhomTruong(nhom))
+                    {
+                        nd.ThemThanhVien(nhom);
+                        MessageBox.Show("Thêm thành viên thành công");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cần có nhóm trưởng trước khi thêm thành viên vào nhóm");
+                    }
                 }
+                LoadDataNhanLuc();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
         }
         private void btnLoc_Click(object sender, EventArgs e)
@@ -302,7 +312,7 @@ namespace QLCongTy.QLDuAn
             DataGridViewRow row = gvNhanSu.SelectedRows[0];
             txtNhomTruong.Texts = row.Cells["MaNV"].Value.ToString();
             //...
-            txtSoGioMotNg.Texts = nd.FindSoGioMotNg(row.Cells["MaNV"].Value.ToString()).ToString();
+            txtSoGioMotNg.Texts = nd.FindSoGioMotNg(row.Cells["MaNV"].Value.ToString(), int.Parse(txtMaDA.Texts)).ToString();
         }
         #endregion
 
@@ -454,9 +464,9 @@ namespace QLCongTy.QLDuAn
                     MessageBox.Show("Giai đoạn trước chưa được phân công việc, không thể tạo giai đoạn mới","Thông Báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
-                MessageBox.Show("Thêm Thất Bại"+ex.Message, "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Thêm Thất Bại.Bạn Hãy Làm theo quy trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
 
         }
@@ -471,6 +481,7 @@ namespace QLCongTy.QLDuAn
                 };
                 if (gdD.XoaGiaiDoan(gd) == 1)
                 {
+                    gdD.XoaUocLuong(da.MaDA, txtMaGD.Texts);
                     LoadDataGiaiDoan();
                     MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -481,7 +492,7 @@ namespace QLCongTy.QLDuAn
             }
             catch (Exception)
             {
-                MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Xoá Thất Bại.Bạn Hãy Làm theo quy trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
         }
 
@@ -509,7 +520,7 @@ namespace QLCongTy.QLDuAn
             }
             catch (Exception)
             {
-                MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Cập Nhật Thất Bại.Bạn Hãy Làm theo quy trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
         }
 
@@ -571,44 +582,67 @@ namespace QLCongTy.QLDuAn
 
         private void btnthemcv_Click(object sender, EventArgs e)
         {
-
-            CONGVIEC cv = new CONGVIEC()
+            if(txtmaduan.Texts==null || txtmagiaidoan==null || txtmagiaidoan.Texts== "VD: 01DA01")
             {
-                TrangThai = "Pending",
-                CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?)null,
-                TenCV = txttencongviec.Texts,
-                TienDo = 0,
-                TenNhom = cbbtennhom.Texts,
-                MaDA = Convert.ToInt32(txtmaduan.Texts),
-                MaGiaiDoan = txtmagiaidoan.Texts
-            };
-            cvd.AddJob(cv);
-            LoadCongViec();
+                MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                CONGVIEC cv = new CONGVIEC()
+                {
+                    TrangThai = "Pending",
+                    CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?)null,
+                    TenCV = txttencongviec.Texts,
+                    TienDo = 0,
+                    TenNhom = cbbtennhom.Texts,
+                    MaDA = Convert.ToInt32(txtmaduan.Texts),
+                    MaGiaiDoan = txtmagiaidoan.Texts
+                };
+                cvd.AddJob(cv);
+                LoadCongViec();
+            }
+            catch(Exception )
+            {
+                MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+            }
 
         }
 
         private void btnupdatepc_Click(object sender, EventArgs e)
         {
-            CONGVIEC cv = new CONGVIEC()
+            if (txtmaduan.Texts == null || txtmagiaidoan == null || txtmagiaidoan.Texts == "VD: 01DA01")
             {
-                MaCV= !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
-                TrangThai = txttrangthai.Texts,
-                CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?)null,
-                TenCV = txttencongviec.Texts,
-                TienDo =float.Parse(txttiendo.Texts),
-                TenNhom = cbbtennhom.Texts,
-                MaDA = Convert.ToInt32(txtmaduan.Texts),
-                MaGiaiDoan = txtmagiaidoan.Texts
-            };
-            if (cvd.UpdateJob(cv) == 1)
-            {
-                LoadCongViec();
-                MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                return;
             }
-            else
+            try
             {
-                MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-            }    
+                CONGVIEC cv = new CONGVIEC()
+                {
+                    MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0,
+                    TrangThai = txttrangthai.Texts,
+                    CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?)null,
+                    TenCV = txttencongviec.Texts,
+                    TienDo = float.Parse(txttiendo.Texts),
+                    TenNhom = cbbtennhom.Texts,
+                    MaDA = Convert.ToInt32(txtmaduan.Texts),
+                    MaGiaiDoan = txtmagiaidoan.Texts
+                };
+                if (cvd.UpdateJob(cv) == 1)
+                {
+                    LoadCongViec();
+                    MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnCapTaiNguyen_Click(object sender, EventArgs e)
@@ -625,20 +659,28 @@ namespace QLCongTy.QLDuAn
 
         private void btnxoacv_Click(object sender, EventArgs e)
         {
-            CONGVIEC cv = new CONGVIEC()
+            try
             {
-                MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0
-            };
-            cvd.KiemTraCongViecTienQuyet(cv);
-            if(cvd.RemoveJob(cv) == 1) 
-            {
-                MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadCongViec();
+                CONGVIEC cv = new CONGVIEC()
+                {
+                    MaCV = !string.IsNullOrEmpty(txtmacongviec.Texts) ? Convert.ToInt32(txtmacongviec.Texts) : 0
+                };
+                cvd.KiemTraCongViecTienQuyet(cv);
+                if (cvd.RemoveJob(cv) == 1)
+                {
+                    MessageBox.Show("Xoá Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadCongViec();
+                }
+                else
+                {
+                    MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception)
             {
-                MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-            }    
+                MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+            }
+        
         }
         private void btnXoaNT_Click(object sender, EventArgs e)
         {

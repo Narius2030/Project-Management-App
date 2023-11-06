@@ -1,5 +1,13 @@
-﻿
---####Procedure and Function####
+﻿--Procedure khi xoá giai đoạn buộc phải xoá tất cả nhân vẫn đang làm tại dự án và giai đoạn đó ở bảng ước lượng
+Create Or Alter Procedure sp_XoaUocLuong_GD_DA
+@magd varchar(10),@mada int
+as
+begin
+	Delete From UocLuong
+	where UOCLUONG.MaGiaiDoan=@magd and UOCLUONG.MaDA=@mada
+end
+Go
+--####Procedure####
 --Procedure Đăng Nhập kiểm tra có tồn tại tài khoản không *
 CREATE OR ALTER PROCEDURE sp_ktrDangNhap
 @matk VARCHAR(20), @matkhau VARCHAR(20), @check INT OUTPUT
@@ -33,19 +41,14 @@ begin
 	declare @soluongnhiemvu real
 
       --Tìm số lượng nhiệm vụ hoàn thành trong 1 giai đoạn
-	select @soluongnvhoanthanh= count(NHIEMVU.MaNhiemVu)
-	From CONGVIEC ,NHIEMVU,GIAIDOAN
-	where NHIEMVU.MaCV=CONGVIEC.MaCV
-	and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
-	and NHIEMVU.TrangThai='Done'
-	and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
+	select @soluongnvhoanthanh= count(MaNhiemVu)
+	FROM vw_nhiemvu_giaidoan_duan
+	WHERE TrangThai = 'Done' AND MaCV=@MaCV AND MaGiaiDoan=@magiaidoan
 
       --Tìm tất cả nhiệm vụ trong 1 giai đoạn
-	select  @soluongnhiemvu= count(NHIEMVU.MaNhiemVu)
-	From CONGVIEC ,NHIEMVU,GIAIDOAN
-	where NHIEMVU.MaCV=CONGVIEC.MaCV
-	and CONGVIEC.MaGiaiDoan=GIAIDOAN.MaGiaiDoan
-	and CongViec.MaCV=@MaCV and GiaiDoan.MaGiaiDoan=@magiaidoan
+	select  @soluongnhiemvu= count(MaNhiemVu)
+	FROM vw_nhiemvu_giaidoan_duan
+	WHERE MaCV=@MaCV AND MaGiaiDoan=@magiaidoan
       
       --Nếu số lượng nhiệm vụ hoàn thành lớn hơn 0 thì cập nhật tiên độ công việc ngược lại thì không
 	if(@soluongnvhoanthanh >0)
@@ -152,30 +155,18 @@ begin
 	if exists (select nvtq.MaTienQuyet From NHIEMVU as nv ,NHIEMVU as nvtq
 		where nv.MaNhiemVu=nvtq.MaTienQuyet
 		and nvtq.MaNhiemVu=@manv and nv.TrangThai='Done')
-	 begin
-		 set @check=1
-	 end
 	begin
-		 set @check=0
+		set @check=1
+	end
+	else
+	begin
+		set @check=0
 	end
 end
 GO
 
-
---xem danh sách thành viên trong 1 dự án trong 1 nhóm
-CREATE OR ALTER PROCEDURE sp_dstvmotnhomtrongmotduan
-@mada int, @tennhom nvarchar(20)
-as
-begin
-SELECT N.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-                                FROM NHOM N
-                                INNER JOIN NHANVIEN NV
-                                ON N.MaNV = NV.MaNV
-                                WHERE N.MaDA = @mada AND N.TenNhom = @tennhom
-end
-
-go
---Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trịS
+--####Function####
+--Kiểm Tra Tồn tại nhóm trưởng function trả ra 1 giá trị*
 CREATE OR ALTER FUNCTION CheckTonTaiNhomTruong(@TenNhom VARCHAR(100), @MaDA INT)
 RETURNS INT
 AS
@@ -190,22 +181,19 @@ BEGIN
 END;
 GO
 
---Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào*
+--Tìm Trưởng Nhóm trả ra 1 bảng  và có tham số đầu vào****
 CREATE OR ALTER FUNCTION sfn_TimTruongNhom(@tennhom nvarchar(20), @mada int)
 RETURNS TABLE
 AS
 RETURN (
-	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-    FROM TRUONGNHOM TN
-    INNER JOIN NHOM N
-    ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
-	INNER JOIN NHANVIEN NV
-        ON  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
-		WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
+	SELECT 
+		MaNV, TenNhom, MaDA, HoTen, ChucVu, Levels, SoGioMotNg
+	FROM vw_danhsach_truongnhom
+	WHERE TenNhom=@tennhom AND MaDA=@mada
 )
 GO
 
---Function Kiểm tra giai đoạn đã hoàn thành hay chưa *
+--Function Kiểm tra giai đoạn đã hoàn thành hay chưa ****
 CREATE OR ALTER FUNCTION sfn_KiemTraGiaiDoan(@mada int, @MaGiaiDoan VARCHAR(255))
 RETURNS @table TABLE 
 (
@@ -216,14 +204,9 @@ RETURNS @table TABLE
 AS
 BEGIN
 	INSERT INTO @table
-	SELECT DA.MaDA,GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
-    FROM CongViec CV
-    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
-    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-    WHERE CV.TrangThai != 'Done'
-      AND CV.MaGiaiDoan = @MaGiaiDoan
-      AND DA.MaDA = @mada
-	  group by DA.MaDA,GD.MaGiaiDoan
+	SELECT *
+	FROM vw_congviec_chuahoanthanh
+	WHERE MaGiaiDoan = @MaGiaiDoan AND MaDA = @mada
 	return
 END
 GO
@@ -235,15 +218,10 @@ AS
 BEGIN
 
 	declare @timetask  varchar(10)
-	select @timetask=sum(NHIEMVU.ThoiGianUocTinh) 
-	From NHIEMVU
-	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
-	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
-	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
-	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
-			and GIAIDOAN.MaGiaiDoan=@magiaidoan
-	return @timetask
+	SELECT @timetask=sum(ThoiGianUocTinh) 
+	FROM vw_nhiemvu_giaidoan_duan
+	WHERE MaNV=@manhanvien AND MaDA=@maduan AND MaGiaiDoan=@magiaidoan
+	RETURN @timetask
 END
 GO
 
@@ -253,22 +231,16 @@ RETURNS INT
 AS
 BEGIN
 
-	declare @timetask  varchar(10)
-	select @timetask=sum(NHIEMVU.ThoiGianUocTinh) 
-	From NHIEMVU
-	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
-	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
-	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
-	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
-			and GIAIDOAN.MaGiaiDoan=@magiaidoan
-			and NHIEMVU.TrangThai='Done'
-	return @timetask
+	DECLARE @timetask  varchar(10)
+	SELECT @timetask=sum(ThoiGianUocTinh) 
+	FROM vw_nhiemvu_giaidoan_duan
+	WHERE TrangThai = 'Done' AND MaNV=@manhanvien AND MaDA=@maduan AND MaGiaiDoan=@magiaidoan
+	RETURN @timetask
 END
 GO
 
 --Tìm số giờ nghỉ trong một giai đoạn của dự án
-CREATE OR ALTER FUNCTION sfn_TimThoiGianNghi(@manhanvien varchar(10), @magiaidoan VARCHAR(20),  @soGioNg INT)
+CREATE OR ALTER FUNCTION sfn_TimThoiGianNghi(@manhanvien varchar(10), @magiaidoan VARCHAR(20))
 RETURNS DECIMAL
 AS
 BEGIN
@@ -276,12 +248,10 @@ BEGIN
 
 	-- Tìm số ngày nghỉ trong giaidoan của duan
 	SELECT 
-		@sumThoiGianNghi=(COUNT(dd.MaNV)*@soGioNg)
-	FROM DIEMDANH dd
-	JOIN NHOM n ON n.MaNV = dd.MaNV
-	JOIN GIAIDOAN gd ON gd.MaDA = n.MaDA
-	WHERE gd.MaGiaiDoan=@magiaidoan AND dd.MaNV=@manhanvien AND (dd.Ngay BETWEEN gd.NgayBD AND gd.NgayKT)
-	GROUP BY dd.MaNV
+		@sumThoiGianNghi=(COUNT(MaNV)*SoGioMotNg)
+	FROM vw_ngaynghi_trong_duan
+	WHERE MaGiaiDoan=@magiaidoan AND MaNV=@manhanvien AND (Ngay BETWEEN NgayBD AND NgayKT)
+	GROUP BY MaNV, SoGioMotNg
 
 	IF @sumThoiGianNghi IS NULL
 		SET @sumThoiGianNghi = 0
@@ -305,78 +275,6 @@ BEGIN
 	GROUP BY MaGiaiDoan, NgayBD, NgayKT
 
 	RETURN @sumDays * @soGioNg
-END
-GO
-
-	declare @timetask  varchar(10)
-	select @timetask=sum(NHIEMVU.ThoiGianUocTinh) 
-	From NHIEMVU
-	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
-	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
-	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
-	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
-			and GIAIDOAN.MaGiaiDoan=@magiaidoan
-			and NHIEMVU.TrangThai='Done'
-	return @timetask
-END
-
-Go
---Tính Tổng Time Task
-CREATE OR ALTER FUNCTION sfn_SumTimeTask (@manhanvien varchar(10),@maduan int ,@magiaidoan varchar(10))
-RETURNS INT
-AS
-BEGIN
-
-	declare @timetask  varchar(10)
-	select @timetask=sum(NHIEMVU.ThoiGianUocTinh) 
-	From NHIEMVU
-	join CONGVIEC on CONGVIEC.MaCV=NHIEMVU.MaCV
-	join DUAN on CONGVIEC.MaDA=DUAN.MaDA
-	join NHANVIEN on NHANVIEN.MaNV=NHIEMVU.MaNV
-	join GiaiDoan on GiaiDoan.magiaidoan=CONGVIEC.MaGiaiDoan
-	where NHANVIEN.MaNV=@manhanvien and DUAN.MaDA=@maduan
-			and GIAIDOAN.MaGiaiDoan=@magiaidoan
-	return @timetask
-END
-GO
-
---Tìm Trưởng Nhóm trả ra 1 bảng có tham số đầu vào
---Function
-CREATE OR ALTER FUNCTION sfn_TimTruongNhom(@tennhom nvarchar(20), @mada int)
-RETURNS TABLE
-AS
-RETURN (
-	SELECT TN.MaNV, CONCAT(NV.HovaTenDem, ' ', NV.Ten) HoTen, NV.ChucVu, NV.Levels, N.SoGioMotNg
-    FROM TRUONGNHOM TN
-    INNER JOIN NHOM N
-    ON N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
-	INNER JOIN NHANVIEN NV
-        ON  NV.MaNV=N.MaNV and TN.MaNV=NV.MaNV 
-		WHERE TN.TenNhom=@tennhom and TN.MaDA=@mada
-)
-GO
-
---Function
-CREATE OR ALTER FUNCTION sfn_KiemTraGiaiDoan(@mada int, @MaGiaiDoan VARCHAR(255))
-RETURNS @table TABLE 
-(
-	MaDA INT,
-	MaGiaiDoan VARCHAR(255),
-	SoLuongCongViec INT
-)
-AS
-BEGIN
-	INSERT INTO @table
-	SELECT DA.MaDA,GD.MaGiaiDoan ,COUNT(CV.MaCV) as[ số lượng công việc]
-    FROM CongViec CV
-    INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
-    INNER JOIN DUAN DA ON GD.MaDA = DA.MaDA
-    WHERE CV.TrangThai != 'Done'
-      AND CV.MaGiaiDoan = @MaGiaiDoan
-      AND DA.MaDA = @mada
-	  group by DA.MaDA,GD.MaGiaiDoan
-	return
 END
 GO
 
