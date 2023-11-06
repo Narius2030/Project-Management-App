@@ -155,9 +155,14 @@ namespace QLCongTy.QLDuAn
                 else
                 {
                     TRUONGNHOM tn = new TRUONGNHOM() {TenNhom=nhom.TenNhom, MaDA=nhom.MaDA, MaNV=nhom.MaNV};
-                    daDao.removeTruongNhomDA(tn);
+                    daDao.removeNhomDA(tn);
                 }
             }
+            LoadDataNhanLuc();
+        }
+        private void btnXoaNT_Click(object sender, EventArgs e)
+        {
+            tnDao.xoaTruongNhom(nhom);
             LoadDataNhanLuc();
         }
         private void btnThemVaoNhom_Click(object sender, EventArgs e)
@@ -637,12 +642,6 @@ namespace QLCongTy.QLDuAn
             {
                 MessageBox.Show("Xoá Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }    
-        }
-
-        private void btnXoaNT_Click(object sender, EventArgs e)
-        {
-            tnDao.xoaTruongNhom(nhom);
-            LoadDataNhanLuc();
         }
     }
 }

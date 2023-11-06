@@ -20,8 +20,15 @@ namespace QLCongTy.DAO
 
         public void xoaTruongNhom(NHOM nhom)
         {
-            string sqlStr = $@"UPDATE TRUONGNHOM SET MaNV=NULL WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}'";
-            dbconn.ExecuteCommand(sqlStr);
+            //string sqlStr = $@"UPDATE TRUONGNHOM SET MaNV=NULL WHERE MaDA = {nhom.MaDA} AND TenNhom = '{nhom.TenNhom}'";
+            //dbconn.ExecuteCommand(sqlStr);
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@mada",SqlDbType.Int) {Value = nhom.MaDA},
+                new SqlParameter("@tennhom",SqlDbType.NVarChar, 20) {Value = nhom.TenNhom}
+            };
+            dbconn.ExecuteProcedure("sp_xoaTruongNhomDuAn", parameters);
         }
 
         public DataTable timTruongNhom(NHOM nhom)
@@ -31,8 +38,16 @@ namespace QLCongTy.DAO
 
         public void DoiTruongNhom(string MaTruongNhomMoi, NHOM nhom)
         {
-            string sqlStr = $@"UPDATE TRUONGNHOM SET MaNV = '{MaTruongNhomMoi}' WHERE TenNhom = '{nhom.TenNhom}' AND MaDA = '{nhom.MaDA}'";
-            dbconn.ExecuteCommand(sqlStr);
+            //string sqlStr = $@"UPDATE TRUONGNHOM SET MaNV = '{MaTruongNhomMoi}' WHERE TenNhom = '{nhom.TenNhom}' AND MaDA = '{nhom.MaDA}'";
+            //dbconn.ExecuteCommand(sqlStr);
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@mada",SqlDbType.Int) {Value = nhom.MaDA},
+                new SqlParameter("@tennhom",SqlDbType.NVarChar, 20) {Value = nhom.TenNhom},
+                new SqlParameter("@truongnhommoi",SqlDbType.VarChar, 10) {Value = MaTruongNhomMoi}
+            };
+            dbconn.ExecuteProcedure("sp_doiTruongNhomDuAn", parameters);
         }
     }
 }

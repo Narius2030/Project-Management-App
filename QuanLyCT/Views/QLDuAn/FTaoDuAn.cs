@@ -40,13 +40,13 @@ namespace QLCongTy.QLDuAn
             {
                 if (mode.ToUpper() == "THÊM")
                 {
-                    DUAN daNew = new DUAN() { MaDA=da.MaDA, TenDA=txtTenDA.Texts, TienDo=0, NgayKT=dtpNgayKetThuc.Value, NgayBD=dtpNgayBatDau.Value, ChiPhi=txtChiPhi.Texts, TrangThai="tri hoan", MaPM=cboMaTruongDA.Text };
+                    DUAN daNew = new DUAN() { MaDA=da.MaDA, TenDA=txtTenDA.Texts, TienDo=0, NgayKT=dtpNgayKetThuc.Value, NgayBD=dtpNgayBatDau.Value, ChiPhi=txtChiPhi.Texts, TrangThai="Pending", MaPM=cboMaTruongDA.Text };
                     daDao.insertDuAn(daNew);
                 }
                 else
                 {
                     MessageBox.Show(txtChiPhi.Texts);
-                    DUAN daNew = new DUAN() { MaDA = da.MaDA, TenDA = txtTenDA.Texts, TienDo = int.Parse(txtTienDoDA.Texts), NgayKT = dtpNgayKetThuc.Value, NgayBD = dtpNgayBatDau.Value, ChiPhi = txtChiPhi.Texts, TrangThai = "tri hoan", MaPM = cboMaTruongDA.Text };
+                    DUAN daNew = new DUAN() { MaDA = da.MaDA, TenDA = txtTenDA.Texts, TienDo = int.Parse(txtTienDoDA.Texts), NgayKT = dtpNgayKetThuc.Value, NgayBD = dtpNgayBatDau.Value, ChiPhi = txtChiPhi.Texts, TrangThai = txtTrangThai.Texts, MaPM = cboMaTruongDA.Text };
                     daDao.editDuAn(daNew);
                 }
                 MessageBox.Show("Thao tác thành công");

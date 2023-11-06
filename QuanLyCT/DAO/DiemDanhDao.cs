@@ -23,8 +23,16 @@ namespace QLCongTy.DAO
         }
         public void ThemNgayNghi(DIEMDANH dd)
         {
-            string sqlStr = $@"INSERT INTO DIEMDANH VALUES('{dd.Ngay}', '{dd.MaNV}', '{dd.NoiDung}')";
-            dbconn.ExecuteCommand(sqlStr);
+            //string sqlStr = $@"INSERT INTO DIEMDANH VALUES('{dd.Ngay}', '{dd.MaNV}', '{dd.NoiDung}')";
+            //dbconn.ExecuteCommand(sqlStr);
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@ngay", SqlDbType.Date) {Value = dd.Ngay},
+                new SqlParameter("@manv ", SqlDbType.VarChar,10) {Value = dd.MaNV},
+                new SqlParameter("@noidungnghi", SqlDbType.NVarChar, 20) {Value= dd.NoiDung}
+            };
+            dbconn.ExecuteProcedure("sp_themNgayNghi", parameters);
         }
 
         public void TinhTimeSprint(string manv)
@@ -50,7 +58,7 @@ namespace QLCongTy.DAO
                 double soGioLam = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
                 // Thực hiện tính số thời gian nghỉ trúng phải giai đoạn đang làm
-                sqlStr = $"SELECT dbo.sfn_TimThoiGianNghi('{manv}', '{magd}', {soGioMotNg})";
+                sqlStr = $"SELECT dbo.sfn_TimThoiGianNghi('{manv}', '{magd}')";
                 cmd = new SqlCommand(sqlStr, conn);
                 double soGioNghi = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
