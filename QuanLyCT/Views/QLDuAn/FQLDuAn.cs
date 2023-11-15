@@ -4,6 +4,8 @@ using QLCongTy.Views.QLDuAn;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -11,13 +13,11 @@ namespace QLCongTy.QLDuAn
 {
     public partial class fQLDuAn : Form
     {  
-        NhiemVuDao nvDao = new NhiemVuDao();
         DuAnDao daDao = new DuAnDao();
         GiaiDoanDao gdD =new GiaiDoanDao();
         DUAN da = new DUAN();
         NHOM nhom = new NHOM();
         NhomDao nd = new NhomDao();
-        GIAIDOAN gd=new GIAIDOAN();
         CongViecDao cvd=new CongViecDao();
         TruongNhomDao tnDao = new TruongNhomDao();
         public fQLDuAn()
@@ -170,8 +170,7 @@ namespace QLCongTy.QLDuAn
         private void btnThemVaoNhom_Click(object sender, EventArgs e)
         {
          
-            try
-            {
+            
                 nhom.MaNV = txtNhomTruong.Texts;
                 nhom.MaDA = int.Parse(txtMaDA.Texts);
                 nhom.TenNhom = cboNhom.Text;
@@ -199,11 +198,8 @@ namespace QLCongTy.QLDuAn
                     }
                 }
                 LoadDataNhanLuc();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Bạn Hãy Làm Theo Quy Trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-            }
+            
+            
         }
         private void ReloadCboFind_Click(object sender, EventArgs e)
         {
@@ -287,20 +283,27 @@ namespace QLCongTy.QLDuAn
         }
         private void gvPCDuAn_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow row = gvNLDA.SelectedRows[0];
-            nhom.MaNV = row.Cells["MaNV"].Value.ToString();
-            nhom.TenNhom = row.Cells["TenNhom"].Value.ToString();
-            nhom.MaDA = da.MaDA;
             try
             {
-                if (nhom.MaNV == nd.FindTruongNhom(nhom).Rows[0]["MaNV"].ToString())
+                DataGridViewRow row = gvNLDA.SelectedRows[0];
+                nhom.MaNV = row.Cells["MaNV"].Value.ToString();
+                nhom.TenNhom = row.Cells["TenNhom"].Value.ToString();
+                nhom.MaDA = da.MaDA;
+                try
                 {
-                    txtNhomTruong.Texts = nhom.MaNV;
+                    if (nhom.MaNV == nd.FindTruongNhom(nhom).Rows[0]["MaNV"].ToString())
+                    {
+                        txtNhomTruong.Texts = nhom.MaNV;
+                    }
+                }
+                catch (Exception)
+                {
+                    cbNhomTruong.Checked = false;
                 }
             }
-            catch (Exception)
+            catch(Exception)
             {
-                cbNhomTruong.Checked = false;
+                MessageBox.Show("Bạn Hãy làm theo quy trình","Thông Báo",MessageBoxButtons.RetryCancel,MessageBoxIcon.Warning);
             }
         }
 
@@ -445,6 +448,8 @@ namespace QLCongTy.QLDuAn
                 dtpNgayBD.Value = Convert.ToDateTime(row.Cells[2].Value.ToString());
                 dtpNgayKT.Value = Convert.ToDateTime(row.Cells[3].Value.ToString());
                 txtNoiDung.Texts = row.Cells[1].Value.ToString();
+                double ketqua = daDao.UpdateTienDo(da.MaDA, row.Cells[0].Value.ToString());
+                MessageBox.Show($"Tiến Độ Dự Án Trong Sprint {txtMaGD.Texts} Là:{ketqua}%", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }   
         }

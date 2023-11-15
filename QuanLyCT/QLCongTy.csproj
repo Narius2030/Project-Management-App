@@ -68,6 +68,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CONGVIEC.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAO\CongViecDao.cs" />
     <Compile Include="DAO\DiemDanhDao.cs" />
     <Compile Include="DAO\DuAnDao.cs" />
@@ -78,55 +81,61 @@
     <Compile Include="DAO\TaiNguyenDao.cs" />
     <Compile Include="DAO\TruongNhomDao.cs" />
     <Compile Include="DAO\UocLuongDao.cs" />
-    <Compile Include="DTO\CONGVIEC.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
-    </Compile>
     <Compile Include="DTO\DIEMDANH.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+      <DependentUpon>QLCTPM.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\DUAN.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+      <DependentUpon>QLCTPM.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\GIAIDOAN.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+      <DependentUpon>QLCTPM.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\NHANVIEN.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+      <DependentUpon>QLCTPM.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\NHIEMVU.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+      <DependentUpon>QLCTPM.tt</DependentUpon>
     </Compile>
     <Compile Include="DTO\NHOM.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DTO\QLDACongTyPM.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLDACongTyPM.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DTO\QLDACongTyPM.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DTO\QLDACongTyPM.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DTO\TAINGUYEN.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DTO\TRUONGNHOM.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DTO\UOCLUONG.cs">
-      <DependentUpon>QLDACongTyPM.tt</DependentUpon>
+      <DependentUpon>QLCTPM.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLCTPM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLCTPM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLCTPM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\QLCTPM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLCTPM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\sfn_KiemTraGiaiDoan_Result.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\sfn_TimTruongNhom_Result.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\sp_dstvmotnhomtrongmotduan_Result.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\TAINGUYEN.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\TRUONGNHOM.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\UOCLUONG.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\Custome_control\CTDateTimePicker.cs">
       <SubType>Component</SubType>
@@ -207,6 +216,21 @@
     <Compile Include="Views\QLDuAn\FTaoDuAn.Designer.cs">
       <DependentUpon>FTaoDuAn.cs</DependentUpon>
     </Compile>
+    <Compile Include="DTO\vw_congviec_chuahoanthanh.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\vw_danhsach_truongnhom.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\vw_ngaynghi_trong_duan.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\vw_nhiemvu_giaidoan_duan.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTO\v_DanhSachNhiemVuNhom.cs">
+      <DependentUpon>QLCTPM.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Views\Custome_control\CustomComboBox.resx">
       <DependentUpon>CustomComboBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -245,13 +269,6 @@
     <EmbeddedResource Include="Views\QLDuAn\FTaoDuAn.resx">
       <DependentUpon>FTaoDuAn.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="DTO\QLDACongTyPM.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QLDACongTyPM.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DTO\QLDACongTyPM.edmx.diagram">
-      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -267,6 +284,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="DTO\QLCTPM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLCTPM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DTO\QLCTPM.edmx.diagram">
+      <DependentUpon>QLCTPM.edmx</DependentUpon>
+    </None>
     <None Include="Views\Resources\sean-pollock-PhYq704ffdA-unsplash.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -279,15 +303,15 @@
     <Content Include="Database\Constraints.sql" />
     <Content Include="Database\ProcedureAndFunction.sql" />
     <Content Include="Database\QLDA_DB.sql" />
-    <Content Include="DTO\QLDACongTyPM.Context.tt">
+    <Content Include="DTO\QLCTPM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
-      <LastGenOutput>QLDACongTyPM.Context.cs</LastGenOutput>
+      <DependentUpon>QLCTPM.edmx</DependentUpon>
+      <LastGenOutput>QLCTPM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DTO\QLDACongTyPM.tt">
+    <Content Include="DTO\QLCTPM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QLDACongTyPM.edmx</DependentUpon>
-      <LastGenOutput>QLDACongTyPM.cs</LastGenOutput>
+      <DependentUpon>QLCTPM.edmx</DependentUpon>
+      <LastGenOutput>QLCTPM.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,8 @@
 ﻿using QLCongTy.DTO;
 using System;
 using System.Data;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Windows;
 
@@ -12,16 +14,25 @@ namespace QLCongTy.DAO
         DBConnection dbconn = new DBConnection();
         public void ThemThanhVien(NHOM nhom)
         {
-            using(QLDAEntities entity = new QLDAEntities())
+            using (QLDAEntities entity = new QLDAEntities())
             {
                 try
                 {
                     entity.NHOMs.Add(nhom);
                     entity.SaveChanges();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show($"Số giờ làm việc 1 ngày của nhân viên trong dự án này không hợp lệ");
+                    SqlException sqlEx = ex.GetBaseException() as SqlException;
+                    if (sqlEx != null)
+                    {
+                        MessageBox.Show("Lỗi SQL xảy ra: " + sqlEx.Message);
+                        // Xử lý lỗi SQL cụ thể tại đây
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lỗi xảy ra khi: " + ex.Message);
+                    }
                 }
             }
         }

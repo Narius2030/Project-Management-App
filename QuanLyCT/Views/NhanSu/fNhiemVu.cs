@@ -34,7 +34,7 @@ namespace QLCongTy.Views.NhanSu
             pgbTienDoCaNhan.Value = 0;
             pgbTienDoCaNhan.Maximum = 100;
             pgbUocTinhNV.Maximum = ulDao.GetTimeSprint(this.MaDA, this.MaNV);
-            //pgbUocTinhNV.Value = ;
+            pgbUocTinhNV.Value = ulDao.GetTimeSprint(this.MaDA, this.MaNV);
         }
         public fNhiemVu()
         {
@@ -69,15 +69,26 @@ namespace QLCongTy.Views.NhanSu
             }    
             try
             {
-                NHIEMVU nv = new NHIEMVU(txtMaNhiemVu.Texts, null, "Pending", null, txtNhiemVu.Texts, Convert.ToInt32(nudThoiGianUocTinh.Value), this.MaNV, Convert.ToInt32(cboCongViec.SelectedValue.ToString()));
-                if (cbTienQuyet.Checked)
+                NHIEMVU nv = new NHIEMVU()
+                {
+                    MaNhiemVu = txtMaNhiemVu.Texts,
+                    MaTienQuyet = null,
+                    TrangThai = "Pending",
+                    ThoiGianLamThucTe = null,
+                    TenNhiemVu = txtNhiemVu.Texts,
+                    ThoiGianUocTinh = Convert.ToInt32(nudThoiGianUocTinh.Value),
+                    MaNV = this.MaNV,
+                    MaCV = Convert.ToInt32(cboCongViec.SelectedValue.ToString())
+            };
+
+            if (cbTienQuyet.Checked)
                 {
                     nv.MaTienQuyet = cboNhiemVuTienQuyet.SelectedValue.ToString();
                 }
                 nvDao.ThemNhiemVu(nv);
                 ReLoad();
                 TimeTask();
-                ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, nvDao.TongTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
+                ulDao.CapNhatTimeTask(this.MaDA, this.MaGiaiDoan, this.MaNV, pgbThucTeNV.Maximum - nvDao.CapNhatTimeTask(this.MaNV, this.MaDA, this.MaGiaiDoan));
             }
             catch(Exception ) 
             {

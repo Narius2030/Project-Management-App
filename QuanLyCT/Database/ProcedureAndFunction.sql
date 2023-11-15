@@ -1,4 +1,27 @@
 --####Procedure####
+--Tính Tiến Độ Dự Án trong 1 sprint bằng tổng số  công việc thuộc 1 sprint trong 1 dự án x100 /tổng số công việc trong 1 dự án thuộc spirnt đó 
+ Create Or Alter Procedure sp_TinhTienDoDuAn
+ @mada int,@magiaidoan varchar(10),@ketqua REAL OUTPUT
+ as
+ begin
+	--Tìm tổng số công việc trong 1 sprint
+	declare @tongsocongviec int 
+	select @tongsocongviec=COUNT(CONGVIEC.MaCV) 
+	From DUAN join CONGVIEC on CONGVIEC.MaDA=DUAN.MaDA
+	join GIAIDOAN on GIAIDOAN.MaGiaiDoan=CONGVIEC.MaGiaiDoan
+	where DUAN.MaDA=@mada and GIAIDOAN.MaGiaiDoan=@magiaidoan
+
+	--Tìm tổng số công việc hoàn thành trong 1 sprint
+	declare @tongsocvhoanthanh int 
+	select @tongsocvhoanthanh=COUNT(CONGVIEC.MaCV) 
+	From DUAN join CONGVIEC on CONGVIEC.MaDA=DUAN.MaDA
+	join GIAIDOAN on GIAIDOAN.MaGiaiDoan=CONGVIEC.MaGiaiDoan
+	where DUAN.MaDA=@mada and GIAIDOAN.MaGiaiDoan=@magiaidoan
+	and CONGVIEC.TrangThai='Done'
+	set @ketqua=(@tongsocvhoanthanh*100)/(@tongsocongviec)
+end
+Go
+
 --Insert thông tin điểm danh nghỉ
 CREATE OR ALTER PROCEDURE sp_themNgayNghi
 @ngay DATE, @manv VARCHAR(10), @noidungnghi NVARCHAR(20)
@@ -369,4 +392,14 @@ BEGIN
 	RETURN @sumDays * @soGioNg
 END
 GO
+
+--Cập nhật timesprint theo từng ngày
+CREATE OR ALTER PROCEDURE sp_UpdateTimeSprintTheoNgay
+AS
+BEGIN
+    UPDATE UOCLUONG
+    SET timesprint = timesprint - (SELECT SoGioMotNg FROM NHOM WHERE UOCLUONG.MaNV = NHOM.MaNV AND UOCLUONG.MaDA = NHOM.MaDA)
+	WHERE UOCLUONG.MaGiaiDoan IN (SELECT MaGiaiDoan FROM GIAIDOAN 
+                                   WHERE GETDATE() BETWEEN GIAIDOAN.NgayBD AND GIAIDOAN.NgayKT)
+END
 

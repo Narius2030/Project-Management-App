@@ -50,8 +50,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtNhiemVu = new QLCongTy.CTTextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnPhanNV = new QLCongTy.VBButton();
             this.btnCapNhat = new QLCongTy.VBButton();
+            this.btnPhanNV = new QLCongTy.VBButton();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -247,8 +247,8 @@
             this.pnPCNhom.Controls.Add(this.label8);
             this.pnPCNhom.Controls.Add(this.txtNhiemVu);
             this.pnPCNhom.Controls.Add(this.label3);
-            this.pnPCNhom.Controls.Add(this.btnCapNhat);
             this.pnPCNhom.Controls.Add(this.btnPhanNV);
+            this.pnPCNhom.Controls.Add(this.btnCapNhat);
             this.pnPCNhom.Location = new System.Drawing.Point(19, 28);
             this.pnPCNhom.Name = "pnPCNhom";
             this.pnPCNhom.Size = new System.Drawing.Size(1221, 190);
@@ -401,26 +401,6 @@
             this.label3.TabIndex = 96;
             this.label3.Text = "Tên nhiệm vụ";
             // 
-            // btnPhanNV
-            // 
-            this.btnPhanNV.BackColor = System.Drawing.Color.Azure;
-            this.btnPhanNV.BackgroundColor = System.Drawing.Color.Azure;
-            this.btnPhanNV.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.btnPhanNV.BorderRadius = 3;
-            this.btnPhanNV.BorderSize = 2;
-            this.btnPhanNV.FlatAppearance.BorderSize = 0;
-            this.btnPhanNV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPhanNV.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
-            this.btnPhanNV.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnPhanNV.Location = new System.Drawing.Point(1057, 26);
-            this.btnPhanNV.Name = "btnPhanNV";
-            this.btnPhanNV.Size = new System.Drawing.Size(139, 63);
-            this.btnPhanNV.TabIndex = 95;
-            this.btnPhanNV.Text = "Phân công nhiệm vụ";
-            this.btnPhanNV.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
-            this.btnPhanNV.UseVisualStyleBackColor = false;
-            this.btnPhanNV.Click += new System.EventHandler(this.btnPhanNV_Click);
-            // 
             // btnCapNhat
             // 
             this.btnCapNhat.BackColor = System.Drawing.Color.Azure;
@@ -441,6 +421,26 @@
             this.btnCapNhat.UseVisualStyleBackColor = false;
             this.btnCapNhat.Visible = false;
             this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
+            // 
+            // btnPhanNV
+            // 
+            this.btnPhanNV.BackColor = System.Drawing.Color.Azure;
+            this.btnPhanNV.BackgroundColor = System.Drawing.Color.Azure;
+            this.btnPhanNV.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnPhanNV.BorderRadius = 3;
+            this.btnPhanNV.BorderSize = 2;
+            this.btnPhanNV.FlatAppearance.BorderSize = 0;
+            this.btnPhanNV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPhanNV.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold);
+            this.btnPhanNV.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnPhanNV.Location = new System.Drawing.Point(1057, 26);
+            this.btnPhanNV.Name = "btnPhanNV";
+            this.btnPhanNV.Size = new System.Drawing.Size(139, 63);
+            this.btnPhanNV.TabIndex = 95;
+            this.btnPhanNV.Text = "Phân công nhiệm vụ";
+            this.btnPhanNV.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnPhanNV.UseVisualStyleBackColor = false;
+            this.btnPhanNV.Click += new System.EventHandler(this.btnPhanNV_Click);
             // 
             // label7
             // 

@@ -23,6 +23,7 @@ namespace QLCongTy
         public static string MaCV;
         public bool Account = false;
         NhanVienDao nvD =new NhanVienDao();
+        UocLuongDao ulD =new UocLuongDao();
         public fMainMenu()
         {
             InitializeComponent();
@@ -35,6 +36,7 @@ namespace QLCongTy
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            TimeSprintDown();
         }
 
         private void fMainMenu_Load(object sender, EventArgs e)
@@ -300,5 +302,10 @@ namespace QLCongTy
             WindowState = FormWindowState.Minimized;
         }
         #endregion
+
+        private void TimeSprintDown()
+        {
+            //ulD.CapNhatTimeSprint();
+        }
     }
 }

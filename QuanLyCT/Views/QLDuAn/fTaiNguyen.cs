@@ -46,7 +46,12 @@ namespace QLCongTy.Views.QLDuAn
 
         private void btnCapTN_Click(object sender, EventArgs e)
         {
-            TAINGUYEN tnguyen = new TAINGUYEN(txtMaTaiNguyen.Texts, txtTenTaiNguyen.Texts, txtLoaiTaiNguyen.Texts);
+            TAINGUYEN tnguyen = new TAINGUYEN()
+            { 
+               MaTN= txtMaTaiNguyen.Texts, 
+               TenTN= txtTenTaiNguyen.Texts, 
+               LoaiTaiNguyen=  txtLoaiTaiNguyen.Texts
+            };
             tnguyenDao.ThemTaiNguyen(this.MaDA, tnguyen.MaTN);
             LoadGVCapTaiNguyen();
         }

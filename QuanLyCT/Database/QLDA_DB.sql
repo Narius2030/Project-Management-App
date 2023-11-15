@@ -306,13 +306,13 @@ INSERT INTO CONGVIEC (TrangThai, CVTienQuyet, TenCV, TienDo, TenNhom, MaDA, MaGi
 GO
 
 INSERT INTO NHIEMVU VALUES
-('01CV09', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV002', 3),
-('01CV02', DEFAULT, 'Done', 5, N'Chức năng đăng nhập', 6, 'NV003', 2),
-('01CV03', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV006', 3),
-('01CV04', '01CV03', 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV007', 4),
-('01CV05', '01CV04', 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV003', 5),
-('01CV06', DEFAULT, 'Doing', 5, N'Chức năng đăng nhập', 8, 'NV006', 6),
-('01CV07', DEFAULT, 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV010', 7),
-('01CV08', DEFAULT, 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV002', 8);
+('01CV03DA07', DEFAULT, 'Done', 5, N'Giao diện đăng nhập', 8, 'NV002', 3),
+('01CV02DA08', DEFAULT, 'Done', 5, N'Chức năng đăng nhập', 6, 'NV003', 2),
+('02CV03DA07', '01CV03DA07', 'Done', 5, N'Giao diện đăng nhập', 8, 'NV006', 3),
+('01CV04DA07', DEFAULT, 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV007', 4),
+('01CV05DA06', DEFAULT, 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV003', 5),
+('01CV06DA07', DEFAULT, 'Doing', 5, N'Chức năng đăng nhập', 8, 'NV006', 6),
+('01CV07DA05', DEFAULT, 'Pending', 5, N'Giao diện đăng nhập', 8, 'NV010', 7),
+('01CV08DA05', DEFAULT, 'Pending', 5, N'Chức năng đăng nhập', 8, 'NV002', 8);
 GO
 

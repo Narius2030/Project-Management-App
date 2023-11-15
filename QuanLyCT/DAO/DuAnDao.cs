@@ -1,4 +1,5 @@
 ﻿using QLCongTy.DTO;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -45,9 +46,6 @@ namespace QLCongTy.DAO
         }
         public void insertDuAn(DUAN da)
         {
-            //string sqlStr = $@"INSERT INTO DUAN(TenDA, TienDo, NgayKT, NgayBD, ChiPhi, TrangThai, MaPM) VALUES(N'{da.TenDA}', {da.TienDo}, '{da.NgayKT}', '{da.NgayBD}', '{da.ChiPhi}', '{da.TrangThai}', '{da.MaPM}')";
-            //dbconn.ExecuteCommand(sqlStr);
-
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@tenda",SqlDbType.NVarChar, 50) {Value = da.TenDA},
@@ -62,9 +60,6 @@ namespace QLCongTy.DAO
         }
         public void editDuAn(DUAN da)
         {
-            //string sqlStr = $@"UPDATE DUAN SET TenDA=N'{da.TenDA}', TienDo={da.TienDo}, NgayKT='{da.NgayKT}', NgayBD='{da.NgayBD}', ChiPhi='{da.ChiPhi}', TrangThai='{da.TrangThai}', MaPM='{da.MaPM}' WHERE MaDA={da.MaDA}";
-            //dbconn.ExecuteCommand(sqlStr);
-
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@mada",SqlDbType.Int) {Value = da.MaDA},
@@ -80,9 +75,6 @@ namespace QLCongTy.DAO
         }
         public void removeDuAn(int mada)
         {
-            //string sqlStr = $@"DELETE FROM DUAN WHERE MaDA={mada}";
-            //dbconn.ExecuteCommand(sqlStr);
-
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@mada",SqlDbType.Int) {Value = mada}
@@ -91,9 +83,6 @@ namespace QLCongTy.DAO
         }
         public void removeThanhVienDA(NHOM nhom)
         {
-            //string sqlStr = $@"DELETE FROM NHOM WHERE MaNV='{nhom.MaNV}' AND MaDA={nhom.MaDA} AND TenNhom='{nhom.TenNhom}'";
-            //dbconn.ExecuteCommand(sqlStr);
-
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@mada",SqlDbType.Int) {Value = nhom.MaDA},
@@ -104,15 +93,34 @@ namespace QLCongTy.DAO
         }
         public void removeNhomDA(TRUONGNHOM tn)
         {
-            //string sqlStr = $@"DELETE FROM TRUONGNHOM WHERE TenNhom='{tn.TenNhom}' AND MaDA={tn.MaDA}";
-            //dbconn.ExecuteCommand(sqlStr);
-
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@mada",SqlDbType.Int) {Value = tn.MaDA},
                 new SqlParameter("@tennhom",SqlDbType.NVarChar, 20) {Value = tn.TenNhom}
             };
             dbconn.ExecuteProcedure("sp_xoaNhomDuAn", parameters);
+        }
+        public double UpdateTienDo(int mada, string magiaidoan)
+        {
+            double ketqua;
+            try
+            {
+
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                new SqlParameter("mada",SqlDbType.Int){Value =mada},
+                new SqlParameter("@magiaidoan ",SqlDbType.VarChar,10){Value =magiaidoan},
+                new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output}
+                };
+                dbconn.ExecuteProcedure("sp_TinhTienDoDuAn", parameters);
+                ketqua = Convert.ToDouble(parameters[2].Value);
+
+            }
+            catch (Exception)
+            {
+                ketqua = 0;
+            }
+            return ketqua;
         }
     }
 }

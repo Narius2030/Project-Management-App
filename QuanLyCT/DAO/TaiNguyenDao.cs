@@ -22,9 +22,6 @@ namespace QLCongTy.DAO
 
         public void ThemTaiNguyen(int MaDA, string MaTNguyen)
         {
-            //string sqlStr = $"INSERT INTO CAP VALUES ({MaDA}, '{MaTNguyen}')";
-            //dbconn.ExecuteQuery(sqlStr);
-
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@mada",SqlDbType.Int){Value = MaDA},

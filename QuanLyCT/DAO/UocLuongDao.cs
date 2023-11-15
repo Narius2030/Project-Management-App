@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace QLCongTy.DAO
 {
@@ -23,9 +24,6 @@ namespace QLCongTy.DAO
         }
         public void CapNhatTimeTask(int MaDA, string MaGiaiDoan, string MaNV, int timeTask)
         {
-            //string sqlStr = $"UPDATE UOCLUONG SET TimeTasks = {timeTask} WHERE MaNV = '{MaNV}' AND MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}'";
-            //dbconn.ExecuteQuery(sqlStr);
-
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@mada",SqlDbType.Int){Value = MaDA},
@@ -33,7 +31,28 @@ namespace QLCongTy.DAO
                 new SqlParameter("@manv",SqlDbType.VarChar, 10) {Value = MaNV},
                 new SqlParameter("@timetask",SqlDbType.Int) {Value = timeTask}
             };
-            dbconn.ExecuteProcedure("sp_capnhatTimeTask", parameters);
+            try
+            {
+                dbconn.ExecuteProcedure("sp_capnhatTimeTask", parameters);
+            }
+            catch(Exception ex)
+            {
+                SqlException sqlEx = ex.GetBaseException() as SqlException;
+                if (sqlEx != null)
+                {
+                    MessageBox.Show("Lỗi SQL xảy ra: " + sqlEx.Message);
+                    // Xử lý lỗi SQL cụ thể tại đây
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi xảy ra khi: " + ex.Message);
+                }
+            }
+        }
+
+        public void CapNhatTimeSprint()
+        {
+            dbconn.ExecuteProcedure("sp_UpdateTimeSprintTheoNgay", null);
         }
     }
 }

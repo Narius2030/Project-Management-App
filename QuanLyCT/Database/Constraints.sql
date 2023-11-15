@@ -9,7 +9,6 @@ FROM TRUONGNHOM TN
 INNER JOIN NHOM N ON N.MaNV = TN.MaNV AND N.TenNhom=TN.TenNhom and N.MaDA=TN.MaDA
 INNER JOIN NHANVIEN NV ON NV.MaNV = TN.MaNV
 GO
-
 --Xem danh sách số lượng công việc chưa hoàn thành
 CREATE OR ALTER VIEW vw_congviec_chuahoanthanh
 AS
@@ -46,9 +45,10 @@ Create Or ALter View v_DanhSachNhiemVuNhom as
 SELECT 
 	NV.MaNV, CV.MaDA,GD.MaGiaiDoan,CV.MaCV,N.TenNhom,NV.MaNhiemVu , TenNhiemVu , NV.TrangThai , MaTienQuyet, NV.ThoiGianUocTinh, NV.ThoiGianLamThucTe 
 FROM NHIEMVU NV
-INNER JOIN NHOM N ON N.MaNV = NV.MaNV
+INNER JOIN NHOM N ON N.MaNV = NV.MaNV 
 INNER JOIN CONGVIEC CV ON NV.MaCV = CV.MaCV
-INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan
+INNER JOIN GIAIDOAN GD ON CV.MaGiaiDoan = GD.MaGiaiDoan and GD.MaDA=CV.MaDA
+and GD.MaDA=N.MaDA
 GO
 
 
@@ -106,7 +106,7 @@ BEGIN
 END
 GO
 
---4/ Time Task > Time Sprint thì hủy phân công *
+--4/ Time Task > Time Sprint thì hủy phân công ***
 CREATE OR ALTER TRIGGER tr_sosanh_thoigian ON UOCLUONG
 FOR UPDATE
 AS
@@ -115,7 +115,7 @@ SELECT @timetask=new.TimeTasks, @timetask=new.TimeSprint
 FROM inserted new, UOCLUONG ul
 WHERE new.MaNV = ul.MaNV AND new.MaDA = ul.MaDA AND new.MaGiaiDoan = ul.MaGiaiDoan
 IF (@timetask > @timesprint)
-BEGIN 
+BEGIN
 	RAISERROR('Lỗi Time Task > Time Sprint', 16, 1)
 	ROLLBACK TRAN;
 END
@@ -168,7 +168,7 @@ BEGIN
 END
 GO
 
---7. Xóa trưởng nhóm trong NHOM và TRUONGNHOM*
+--7. Xóa trưởng nhóm trong NHOM và TRUONGNHOM***
 CREATE OR ALTER TRIGGER tr_xoaTruongNhom ON TRUONGNHOM
 INSTEAD OF DELETE
 AS
@@ -188,6 +188,38 @@ BEGIN
 	END
 	ELSE
 		RAISERROR('Nhóm này còn thành viên nên không được xóa trưởng nhóm', 16, 1)
+END
+GO
+
+
+--8. Kiểm tra nhân viên trong cùng dự án có cùng Số giờ làm một ngày***
+CREATE OR ALTER TRIGGER tr_ktr_soGioMotNg ON NHOM
+AFTER INSERT
+AS
+DECLARE @manv VARCHAR(10), @soGioNg DECIMAL, @mada INT, @currentSoGioNg DECIMAL, @check INT
+SELECT @manv=i.MaNV, @soGioNg=i.SoGioMotNg, @mada=i.MaDA
+FROM inserted i
+--Kiểm tra Số giờ làm việc trong một dự án của một nhân viên
+SELECT @check=COUNT(*) FROM NHOM
+WHERE MaNV=@manv AND MaDA=@mada
+IF @check > 0
+BEGIN
+	DECLARE cursor_nhomDA CURSOR
+	FOR SELECT SoGioMotNg FROM NHOM WHERE MaDA=@mada AND MaNV=@manv
+
+	SET @check = 1
+	OPEN cursor_nhomDA
+	FETCH NEXT FROM cursor_nhomDA INTO @currentSoGioNg
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF @currentSoGioNg != @soGioNg
+			SET @check = 0
+			BREAK;
+	END
+	CLOSE cursor_nhomDA
+	DEALLOCATE cursor_nhomDA
+	IF @check = 0
+		RAISERROR('Thời gian làm việc một ngày trong một dự án không hợp lệ', 16, 1)
 END
 GO
 
