@@ -1,4 +1,8 @@
-﻿using QLCongTy.QLDuAn;
+﻿using QLCongTy.DTO;
+using QLCongTy.NhanSu;
+using QLCongTy.QLDuAn;
+using QLCongTy.Views.NhanSu;
+using QLCongTy.Views.QLDuAn;
 using System;
 using System.Windows.Forms;
 

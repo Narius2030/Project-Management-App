@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using QLCongTy.DAO;
+using QLCongTy.DTO;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
+using System.Data.Entity.Migrations.Infrastructure;
 using System.Windows.Forms;
 
 namespace QLCongTy.NhanSu
 {
     public partial class FNhanSu : Form
     {
-       
+       NhanVienDao nvDao = new NhanVienDao();
         public FNhanSu()
         {
             InitializeComponent();
@@ -21,21 +17,20 @@ namespace QLCongTy.NhanSu
 
         private void FNhanSu_Load(object sender, EventArgs e)
         {
-          
+            LoadGVNhanSu();
             DoiTenGV();
-            GetCboPB();
-            //GetCboCV();
+            GetCboLevels();
+            GetCboChucVu();
 
-            //Thống kê
             ThongKeLuong();
             ThongKeCLNL();
         }
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-           
-            cboChucVu.Text = "";
-            cboGioiTinh.Text = "";
+            cboChucVu.Text = string.Empty;
+            cboLevels.Text = string.Empty;
+            LoadGVNhanSu();
         }
 
         #region Tương tác với Datagridview
@@ -44,27 +39,18 @@ namespace QLCongTy.NhanSu
         {
             
         }
+
+        private void LoadGVNhanSu()
+        {
+            gvNhanSu.DataSource = nvDao.DSNhanVien();
+        }
         #endregion
 
-        #region Các chức năng phổ biến
-        private void cboPhongBan_SelectedIndexChanged(object sender, EventArgs e)
-        {
-          
-        }
-
-        private void cboChucVu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void cboGioiTinh_SelectedIndexChanged(object sender, EventArgs e)
-        {
-         
-        }
-
+        #region Nut chuc nang
         private void btnThem_Click(object sender, EventArgs e)
         {
-           
+            NHANVIEN nv = new NHANVIEN(txtMaNV.Texts, txtHoDem.Texts, txtTen.Texts, txtChucVu.Texts, txtEmail.Texts, txtLevels.Texts, txtDiaChi.Texts, txtSdt.Texts, txtMaNV.Texts, txtMaNV.Texts.ToLower());
+            nvDao.ThemNhanVien(nv);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -187,26 +173,41 @@ namespace QLCongTy.NhanSu
         private void gvNhanSu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow r = gvNhanSu.SelectedRows[0];
-
-            //txtMaNV.Texts = r.Cells[0].Value.ToString();
-            //txtHoDem.Texts = r.Cells[1].Value.ToString();
-            //txtTenNV.Texts = r.Cells[2].Value.ToString();
-            //dtpNgaySinh.Text = r.Cells[3].Value.ToString();
-            //txtDiaChi.Texts = r.Cells[4].Value.ToString();
-            //txtCCCD.Texts = r.Cells[5].Value.ToString();
-            //cboPB.Text = r.Cells[6].Value.ToString();
-            //cboGTinh.Text = r.Cells[7].Value.ToString();
-            //txtSDT.Texts = r.Cells[8].Value.ToString();
-            //txtEmail.Texts = r.Cells[9].Value.ToString();
-            //cboCV.Text = r.Cells[10].Value.ToString();
-            //cboTrinhdo.Text = r.Cells[11].Value.ToString();
+            txtMaNV.Texts = r.Cells[0].Value.ToString();
+            txtHoDem.Texts = r.Cells[1].Value.ToString();
         }
 
-        private void GetCboPB()
+        private void GetCboLevels()
         {
-          
-            //cboPB.DisplayMember = "TenPB";
-            //cboPB.ValueMember = "MaPB";
+            DataTable source = nvDao.GetDSLevels();
+            cboLevels.DisplayMember = "Levels";
+            cboLevels.ValueMember = "Levels";
+            cboLevels.DataSource = source;
+        }
+
+        private void GetCboChucVu()
+        {
+            DataTable source = nvDao.GetDSChucVu();
+            cboChucVu.DisplayMember = "ChucVu";
+            cboChucVu.ValueMember = "ChucVu";
+            cboChucVu.DataSource = source;
+        }
+        //Ham loi, chua loc duoc
+        private void cboLevels_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            gvNhanSu.DataSource = nvDao.LocLevels(cboLevels.SelectedItem.ToString());
+        }
+
+        //Ham loi, chua loc duoc
+        private void cboChucVu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            gvNhanSu.DataSource = nvDao.LocChucVu(cboChucVu.SelectedItem.ToString());
+        }
+
+        private void btnXoa_Click_1(object sender, EventArgs e)
+        {
+            nvDao.XoaNhanVien(txtMaNV.Texts);
+            MessageBox.Show("Xóa thảnh công");
         }
     }
 }

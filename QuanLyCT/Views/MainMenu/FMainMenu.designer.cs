@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.btnDangXuat = new FontAwesome.Sharp.IconButton();
-            this.btnTaiKhoan = new FontAwesome.Sharp.IconButton();
+            this.btnDoiMatKhau = new FontAwesome.Sharp.IconButton();
             this.pnlDiemDanh = new System.Windows.Forms.Panel();
             this.btnDuyetDonXinNghi = new FontAwesome.Sharp.IconButton();
             this.btnCheckInOut = new FontAwesome.Sharp.IconButton();
@@ -40,7 +40,7 @@
             this.btnDiemDanh = new FontAwesome.Sharp.IconButton();
             this.btnDuAn = new FontAwesome.Sharp.IconButton();
             this.pnlNhanSu = new System.Windows.Forms.Panel();
-            this.btnPhongBan = new FontAwesome.Sharp.IconButton();
+            this.btnNhom = new FontAwesome.Sharp.IconButton();
             this.btnNhanVien = new FontAwesome.Sharp.IconButton();
             this.btnNhanSu = new FontAwesome.Sharp.IconButton();
             this.pnlLogo = new System.Windows.Forms.Panel();
@@ -58,12 +58,10 @@
             this.pnlDesktop = new System.Windows.Forms.Panel();
             this.pnlLogin = new System.Windows.Forms.Panel();
             this.artanPannel3 = new ArtanComponent.ArtanPannel();
-            this.btnDangNhap = new QLCongTy.VBButton();
-            this.artanPannel2 = new ArtanComponent.ArtanPannel();
             this.btnShowPW = new FontAwesome.Sharp.IconButton();
             this.txtMatKhau = new QLCongTy.CTTextBox();
-            this.artanPannel1 = new ArtanComponent.ArtanPannel();
             this.txtTaiKhoan = new QLCongTy.CTTextBox();
+            this.btnDangNhap = new QLCongTy.VBButton();
             this.lblMatKhau = new System.Windows.Forms.Label();
             this.lblTaiKhoan = new System.Windows.Forms.Label();
             this.picAccount = new FontAwesome.Sharp.IconPictureBox();
@@ -81,8 +79,6 @@
             this.pnlDesktop.SuspendLayout();
             this.pnlLogin.SuspendLayout();
             this.artanPannel3.SuspendLayout();
-            this.artanPannel2.SuspendLayout();
-            this.artanPannel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,7 +86,7 @@
             // 
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(37)))), ((int)(((byte)(45)))));
             this.pnlMenu.Controls.Add(this.btnDangXuat);
-            this.pnlMenu.Controls.Add(this.btnTaiKhoan);
+            this.pnlMenu.Controls.Add(this.btnDoiMatKhau);
             this.pnlMenu.Controls.Add(this.pnlDiemDanh);
             this.pnlMenu.Controls.Add(this.lblDate);
             this.pnlMenu.Controls.Add(this.lblTime);
@@ -122,36 +118,36 @@
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnDangXuat.Size = new System.Drawing.Size(245, 75);
-            this.btnDangXuat.TabIndex = 43;
+            this.btnDangXuat.TabIndex = 46;
             this.btnDangXuat.Text = "Đăng xuất";
             this.btnDangXuat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangXuat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDangXuat.UseVisualStyleBackColor = false;
             this.btnDangXuat.Click += new System.EventHandler(this.btnDangXuat_Click);
             // 
-            // btnTaiKhoan
+            // btnDoiMatKhau
             // 
-            this.btnTaiKhoan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(37)))), ((int)(((byte)(45)))));
-            this.btnTaiKhoan.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnTaiKhoan.FlatAppearance.BorderSize = 0;
-            this.btnTaiKhoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTaiKhoan.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTaiKhoan.ForeColor = System.Drawing.Color.White;
-            this.btnTaiKhoan.IconChar = FontAwesome.Sharp.IconChar.UserAlt;
-            this.btnTaiKhoan.IconColor = System.Drawing.Color.White;
-            this.btnTaiKhoan.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnTaiKhoan.IconSize = 45;
-            this.btnTaiKhoan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaiKhoan.Location = new System.Drawing.Point(0, 570);
-            this.btnTaiKhoan.Name = "btnTaiKhoan";
-            this.btnTaiKhoan.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnTaiKhoan.Size = new System.Drawing.Size(245, 75);
-            this.btnTaiKhoan.TabIndex = 41;
-            this.btnTaiKhoan.Text = "Tài khoản";
-            this.btnTaiKhoan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaiKhoan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTaiKhoan.UseVisualStyleBackColor = false;
-            this.btnTaiKhoan.Click += new System.EventHandler(this.btnTaiKhoan_Click);
+            this.btnDoiMatKhau.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(37)))), ((int)(((byte)(45)))));
+            this.btnDoiMatKhau.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDoiMatKhau.FlatAppearance.BorderSize = 0;
+            this.btnDoiMatKhau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDoiMatKhau.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDoiMatKhau.ForeColor = System.Drawing.Color.White;
+            this.btnDoiMatKhau.IconChar = FontAwesome.Sharp.IconChar.ArrowRightFromFile;
+            this.btnDoiMatKhau.IconColor = System.Drawing.Color.White;
+            this.btnDoiMatKhau.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDoiMatKhau.IconSize = 45;
+            this.btnDoiMatKhau.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDoiMatKhau.Location = new System.Drawing.Point(0, 570);
+            this.btnDoiMatKhau.Name = "btnDoiMatKhau";
+            this.btnDoiMatKhau.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnDoiMatKhau.Size = new System.Drawing.Size(245, 75);
+            this.btnDoiMatKhau.TabIndex = 45;
+            this.btnDoiMatKhau.Text = "Đổi mật khẩu";
+            this.btnDoiMatKhau.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDoiMatKhau.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDoiMatKhau.UseVisualStyleBackColor = false;
+            this.btnDoiMatKhau.Click += new System.EventHandler(this.btnDoiMatKhau_Click);
             // 
             // pnlDiemDanh
             // 
@@ -276,7 +272,7 @@
             // 
             // pnlNhanSu
             // 
-            this.pnlNhanSu.Controls.Add(this.btnPhongBan);
+            this.pnlNhanSu.Controls.Add(this.btnNhom);
             this.pnlNhanSu.Controls.Add(this.btnNhanVien);
             this.pnlNhanSu.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlNhanSu.Location = new System.Drawing.Point(0, 214);
@@ -284,26 +280,26 @@
             this.pnlNhanSu.Size = new System.Drawing.Size(245, 103);
             this.pnlNhanSu.TabIndex = 36;
             // 
-            // btnPhongBan
+            // btnNhom
             // 
-            this.btnPhongBan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(32)))), ((int)(((byte)(51)))));
-            this.btnPhongBan.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnPhongBan.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(35)))), ((int)(((byte)(75)))));
-            this.btnPhongBan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPhongBan.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPhongBan.ForeColor = System.Drawing.Color.White;
-            this.btnPhongBan.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnPhongBan.IconColor = System.Drawing.Color.Black;
-            this.btnPhongBan.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnPhongBan.IconSize = 30;
-            this.btnPhongBan.Location = new System.Drawing.Point(0, 50);
-            this.btnPhongBan.Name = "btnPhongBan";
-            this.btnPhongBan.Size = new System.Drawing.Size(245, 50);
-            this.btnPhongBan.TabIndex = 2;
-            this.btnPhongBan.Text = "Phòng Ban";
-            this.btnPhongBan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPhongBan.UseVisualStyleBackColor = false;
-            this.btnPhongBan.Click += new System.EventHandler(this.btnPhongBan_Click);
+            this.btnNhom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(32)))), ((int)(((byte)(51)))));
+            this.btnNhom.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnNhom.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(35)))), ((int)(((byte)(75)))));
+            this.btnNhom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNhom.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNhom.ForeColor = System.Drawing.Color.White;
+            this.btnNhom.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnNhom.IconColor = System.Drawing.Color.Black;
+            this.btnNhom.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnNhom.IconSize = 30;
+            this.btnNhom.Location = new System.Drawing.Point(0, 50);
+            this.btnNhom.Name = "btnNhom";
+            this.btnNhom.Size = new System.Drawing.Size(245, 50);
+            this.btnNhom.TabIndex = 2;
+            this.btnNhom.Text = "Nhóm";
+            this.btnNhom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnNhom.UseVisualStyleBackColor = false;
+            this.btnNhom.Click += new System.EventHandler(this.btnPhongBan_Click);
             // 
             // btnNhanVien
             // 
@@ -526,6 +522,7 @@
             // pnlLogin
             // 
             this.pnlLogin.BackColor = System.Drawing.Color.Lavender;
+            this.pnlLogin.BackgroundImage = global::QLCongTy.Properties.Resources.sean_pollock_PhYq704ffdA_unsplash;
             this.pnlLogin.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlLogin.Controls.Add(this.artanPannel3);
             this.pnlLogin.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -539,26 +536,88 @@
             // artanPannel3
             // 
             this.artanPannel3.BackColor = System.Drawing.Color.White;
-            this.artanPannel3.BorderRadius = 30;
+            this.artanPannel3.BorderRadius = 0;
+            this.artanPannel3.Controls.Add(this.btnShowPW);
+            this.artanPannel3.Controls.Add(this.txtMatKhau);
+            this.artanPannel3.Controls.Add(this.txtTaiKhoan);
             this.artanPannel3.Controls.Add(this.btnDangNhap);
-            this.artanPannel3.Controls.Add(this.artanPannel2);
-            this.artanPannel3.Controls.Add(this.artanPannel1);
             this.artanPannel3.Controls.Add(this.lblMatKhau);
             this.artanPannel3.Controls.Add(this.lblTaiKhoan);
             this.artanPannel3.Controls.Add(this.picAccount);
             this.artanPannel3.ForeColor = System.Drawing.Color.Black;
             this.artanPannel3.GradientAngle = 90F;
-            this.artanPannel3.GradientBttomColor = System.Drawing.Color.LightCyan;
-            this.artanPannel3.GradientTopcolor = System.Drawing.Color.Azure;
-            this.artanPannel3.Location = new System.Drawing.Point(364, 44);
+            this.artanPannel3.GradientBttomColor = System.Drawing.Color.Transparent;
+            this.artanPannel3.GradientTopcolor = System.Drawing.Color.Transparent;
+            this.artanPannel3.Location = new System.Drawing.Point(414, 44);
             this.artanPannel3.Name = "artanPannel3";
-            this.artanPannel3.Size = new System.Drawing.Size(664, 695);
+            this.artanPannel3.Size = new System.Drawing.Size(562, 695);
             this.artanPannel3.TabIndex = 89;
+            // 
+            // btnShowPW
+            // 
+            this.btnShowPW.BackColor = System.Drawing.Color.White;
+            this.btnShowPW.Cursor = System.Windows.Forms.Cursors.HSplit;
+            this.btnShowPW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShowPW.ForeColor = System.Drawing.Color.White;
+            this.btnShowPW.IconChar = FontAwesome.Sharp.IconChar.Eye;
+            this.btnShowPW.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnShowPW.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnShowPW.IconSize = 30;
+            this.btnShowPW.Location = new System.Drawing.Point(445, 515);
+            this.btnShowPW.Name = "btnShowPW";
+            this.btnShowPW.Size = new System.Drawing.Size(38, 33);
+            this.btnShowPW.TabIndex = 7;
+            this.btnShowPW.UseVisualStyleBackColor = false;
+            this.btnShowPW.Click += new System.EventHandler(this.btnShowPW_Click);
+            // 
+            // txtMatKhau
+            // 
+            this.txtMatKhau.BackColor = System.Drawing.SystemColors.Window;
+            this.txtMatKhau.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtMatKhau.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtMatKhau.BorderRadius = 0;
+            this.txtMatKhau.BorderSize = 3;
+            this.txtMatKhau.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMatKhau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtMatKhau.Location = new System.Drawing.Point(75, 504);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMatKhau.Multiline = false;
+            this.txtMatKhau.Name = "txtMatKhau";
+            this.txtMatKhau.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txtMatKhau.PasswordChar = false;
+            this.txtMatKhau.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtMatKhau.PlaceholderText = "";
+            this.txtMatKhau.Size = new System.Drawing.Size(420, 54);
+            this.txtMatKhau.TabIndex = 106;
+            this.txtMatKhau.Texts = "";
+            this.txtMatKhau.UnderlinedStyle = false;
+            // 
+            // txtTaiKhoan
+            // 
+            this.txtTaiKhoan.BackColor = System.Drawing.SystemColors.Window;
+            this.txtTaiKhoan.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.txtTaiKhoan.BorderFocusColor = System.Drawing.Color.HotPink;
+            this.txtTaiKhoan.BorderRadius = 0;
+            this.txtTaiKhoan.BorderSize = 3;
+            this.txtTaiKhoan.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTaiKhoan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtTaiKhoan.Location = new System.Drawing.Point(75, 351);
+            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTaiKhoan.Multiline = false;
+            this.txtTaiKhoan.Name = "txtTaiKhoan";
+            this.txtTaiKhoan.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.txtTaiKhoan.PasswordChar = false;
+            this.txtTaiKhoan.PlaceholderColor = System.Drawing.Color.DarkGray;
+            this.txtTaiKhoan.PlaceholderText = "";
+            this.txtTaiKhoan.Size = new System.Drawing.Size(420, 51);
+            this.txtTaiKhoan.TabIndex = 105;
+            this.txtTaiKhoan.Texts = "";
+            this.txtTaiKhoan.UnderlinedStyle = false;
             // 
             // btnDangNhap
             // 
-            this.btnDangNhap.BackColor = System.Drawing.Color.BlueViolet;
-            this.btnDangNhap.BackgroundColor = System.Drawing.Color.BlueViolet;
+            this.btnDangNhap.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.btnDangNhap.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
             this.btnDangNhap.BorderColor = System.Drawing.Color.CornflowerBlue;
             this.btnDangNhap.BorderRadius = 12;
             this.btnDangNhap.BorderSize = 0;
@@ -568,7 +627,7 @@
             this.btnDangNhap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDangNhap.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDangNhap.ForeColor = System.Drawing.Color.White;
-            this.btnDangNhap.Location = new System.Drawing.Point(245, 604);
+            this.btnDangNhap.Location = new System.Drawing.Point(200, 604);
             this.btnDangNhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(182, 64);
@@ -578,104 +637,13 @@
             this.btnDangNhap.UseVisualStyleBackColor = false;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
             // 
-            // artanPannel2
-            // 
-            this.artanPannel2.BackColor = System.Drawing.Color.White;
-            this.artanPannel2.BorderRadius = 10;
-            this.artanPannel2.Controls.Add(this.btnShowPW);
-            this.artanPannel2.Controls.Add(this.txtMatKhau);
-            this.artanPannel2.ForeColor = System.Drawing.Color.Black;
-            this.artanPannel2.GradientAngle = 90F;
-            this.artanPannel2.GradientBttomColor = System.Drawing.Color.Transparent;
-            this.artanPannel2.GradientTopcolor = System.Drawing.Color.Transparent;
-            this.artanPannel2.Location = new System.Drawing.Point(120, 503);
-            this.artanPannel2.Name = "artanPannel2";
-            this.artanPannel2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.artanPannel2.Size = new System.Drawing.Size(420, 70);
-            this.artanPannel2.TabIndex = 93;
-            // 
-            // btnShowPW
-            // 
-            this.btnShowPW.BackColor = System.Drawing.Color.White;
-            this.btnShowPW.Cursor = System.Windows.Forms.Cursors.HSplit;
-            this.btnShowPW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnShowPW.ForeColor = System.Drawing.Color.White;
-            this.btnShowPW.IconChar = FontAwesome.Sharp.IconChar.Eye;
-            this.btnShowPW.IconColor = System.Drawing.Color.RoyalBlue;
-            this.btnShowPW.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnShowPW.IconSize = 30;
-            this.btnShowPW.Location = new System.Drawing.Point(362, 9);
-            this.btnShowPW.Name = "btnShowPW";
-            this.btnShowPW.Size = new System.Drawing.Size(50, 56);
-            this.btnShowPW.TabIndex = 7;
-            this.btnShowPW.UseVisualStyleBackColor = false;
-            this.btnShowPW.Click += new System.EventHandler(this.btnShowPW_Click);
-            // 
-            // txtMatKhau
-            // 
-            this.txtMatKhau.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMatKhau.BackColor = System.Drawing.Color.White;
-            this.txtMatKhau.BorderColor = System.Drawing.Color.White;
-            this.txtMatKhau.BorderSize = 2;
-            this.txtMatKhau.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMatKhau.ForeColor = System.Drawing.Color.Black;
-            this.txtMatKhau.Location = new System.Drawing.Point(9, 9);
-            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtMatKhau.Multiline = false;
-            this.txtMatKhau.Name = "txtMatKhau";
-
-            this.txtMatKhau.Padding = new System.Windows.Forms.Padding(7);
-            this.txtMatKhau.PasswordChar = true;
-            this.txtMatKhau.Size = new System.Drawing.Size(354, 56);
-            this.txtMatKhau.TabIndex = 11;
-            this.txtMatKhau.Texts = "";
-            this.txtMatKhau.UnderlinedStyle = false;
-            // 
-            // artanPannel1
-            // 
-            this.artanPannel1.BackColor = System.Drawing.Color.White;
-            this.artanPannel1.BorderRadius = 10;
-            this.artanPannel1.Controls.Add(this.txtTaiKhoan);
-            this.artanPannel1.ForeColor = System.Drawing.Color.Black;
-            this.artanPannel1.GradientAngle = 90F;
-            this.artanPannel1.GradientBttomColor = System.Drawing.Color.Transparent;
-            this.artanPannel1.GradientTopcolor = System.Drawing.Color.Transparent;
-            this.artanPannel1.Location = new System.Drawing.Point(120, 347);
-            this.artanPannel1.Name = "artanPannel1";
-            this.artanPannel1.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.artanPannel1.Size = new System.Drawing.Size(420, 70);
-            this.artanPannel1.TabIndex = 92;
-            // 
-            // txtTaiKhoan
-            // 
-            this.txtTaiKhoan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTaiKhoan.BackColor = System.Drawing.Color.White;
-            this.txtTaiKhoan.BorderColor = System.Drawing.Color.White;
-            this.txtTaiKhoan.BorderSize = 2;
-            this.txtTaiKhoan.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTaiKhoan.ForeColor = System.Drawing.Color.Black;
-            this.txtTaiKhoan.Location = new System.Drawing.Point(9, 9);
-            this.txtTaiKhoan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.txtTaiKhoan.Multiline = false;
-            this.txtTaiKhoan.Name = "txtTaiKhoan";
-            this.txtTaiKhoan.Padding = new System.Windows.Forms.Padding(7);
-            this.txtTaiKhoan.PasswordChar = false;
-            this.txtTaiKhoan.Size = new System.Drawing.Size(402, 56);
-            this.txtTaiKhoan.TabIndex = 10;
-            this.txtTaiKhoan.Texts = "";
-            this.txtTaiKhoan.UnderlinedStyle = false;
-            // 
             // lblMatKhau
             // 
             this.lblMatKhau.AutoSize = true;
             this.lblMatKhau.BackColor = System.Drawing.Color.Transparent;
             this.lblMatKhau.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMatKhau.ForeColor = System.Drawing.Color.DarkViolet;
-            this.lblMatKhau.Location = new System.Drawing.Point(113, 462);
+            this.lblMatKhau.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.lblMatKhau.Location = new System.Drawing.Point(68, 462);
             this.lblMatKhau.Name = "lblMatKhau";
             this.lblMatKhau.Size = new System.Drawing.Size(147, 38);
             this.lblMatKhau.TabIndex = 91;
@@ -686,8 +654,8 @@
             this.lblTaiKhoan.AutoSize = true;
             this.lblTaiKhoan.BackColor = System.Drawing.Color.Transparent;
             this.lblTaiKhoan.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTaiKhoan.ForeColor = System.Drawing.Color.DarkViolet;
-            this.lblTaiKhoan.Location = new System.Drawing.Point(113, 302);
+            this.lblTaiKhoan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
+            this.lblTaiKhoan.Location = new System.Drawing.Point(68, 302);
             this.lblTaiKhoan.Name = "lblTaiKhoan";
             this.lblTaiKhoan.Size = new System.Drawing.Size(133, 38);
             this.lblTaiKhoan.TabIndex = 90;
@@ -696,12 +664,12 @@
             // picAccount
             // 
             this.picAccount.BackColor = System.Drawing.Color.Transparent;
-            this.picAccount.ForeColor = System.Drawing.Color.DarkBlue;
+            this.picAccount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
             this.picAccount.IconChar = FontAwesome.Sharp.IconChar.UserShield;
-            this.picAccount.IconColor = System.Drawing.Color.DarkBlue;
+            this.picAccount.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(66)))), ((int)(((byte)(110)))));
             this.picAccount.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.picAccount.IconSize = 230;
-            this.picAccount.Location = new System.Drawing.Point(217, 31);
+            this.picAccount.Location = new System.Drawing.Point(172, 31);
             this.picAccount.Name = "picAccount";
             this.picAccount.Size = new System.Drawing.Size(230, 245);
             this.picAccount.TabIndex = 89;
@@ -741,8 +709,6 @@
             this.pnlLogin.ResumeLayout(false);
             this.artanPannel3.ResumeLayout(false);
             this.artanPannel3.PerformLayout();
-            this.artanPannel2.ResumeLayout(false);
-            this.artanPannel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picAccount)).EndInit();
             this.ResumeLayout(false);
 
@@ -766,7 +732,7 @@
         private FontAwesome.Sharp.IconButton btnDiemDanh;
         private FontAwesome.Sharp.IconButton btnDuAn;
         private System.Windows.Forms.Panel pnlNhanSu;
-        private FontAwesome.Sharp.IconButton btnPhongBan;
+        private FontAwesome.Sharp.IconButton btnNhom;
         private FontAwesome.Sharp.IconButton btnNhanVien;
         private FontAwesome.Sharp.IconButton btnNhanSu;
         private FontAwesome.Sharp.IconPictureBox picCurrentChildForm;
@@ -776,19 +742,17 @@
         private System.Windows.Forms.Panel pnlDiemDanh;
         private FontAwesome.Sharp.IconButton btnDuyetDonXinNghi;
         private FontAwesome.Sharp.IconButton btnCheckInOut;
-        private FontAwesome.Sharp.IconButton btnDangXuat;
-        private FontAwesome.Sharp.IconButton btnTaiKhoan;
         private VBLabel lblTenNV;
         private ArtanComponent.ArtanPannel artanPannel3;
         private VBButton btnDangNhap;
-        private ArtanComponent.ArtanPannel artanPannel2;
         private FontAwesome.Sharp.IconButton btnShowPW;
-        private CTTextBox txtMatKhau;
-        private ArtanComponent.ArtanPannel artanPannel1;
-        private CTTextBox txtTaiKhoan;
         private System.Windows.Forms.Label lblMatKhau;
         private System.Windows.Forms.Label lblTaiKhoan;
         private FontAwesome.Sharp.IconPictureBox picAccount;
+        private CTTextBox txtTaiKhoan;
+        private CTTextBox txtMatKhau;
+        private FontAwesome.Sharp.IconButton btnDangXuat;
+        private FontAwesome.Sharp.IconButton btnDoiMatKhau;
     }
 }
 

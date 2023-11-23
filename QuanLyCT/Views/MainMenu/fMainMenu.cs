@@ -8,6 +8,8 @@ using QLCongTy.DAO;
 using QLCongTy.DTO;
 using QLCongTy.NhanSu;
 using QLCongTy.QLDuAn;
+using QLCongTy.Views.MainMenu;
+using QLCongTy.Views.NhanSu;
 
 namespace QLCongTy
 {
@@ -19,6 +21,7 @@ namespace QLCongTy
         private Form currentChildForm;  //Form chuc nang hien tai
                                         //Fields dang nhap va cham cong
         public static string MaNV;
+        public static string MatKhau;
         public static string MaCV;
         public bool Account = false;
         NhanVienDao nvD =new NhanVienDao();
@@ -34,11 +37,13 @@ namespace QLCongTy
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            //TimeSprintDown();
         }
 
         private void fMainMenu_Load(object sender, EventArgs e)
         {
             tmCurrentTime.Start();
+            lblTenNV.Text = nvD.HoTenNhanVien(MaNV);
             //Cập nhật bảng chấm công
         }
 
@@ -58,7 +63,7 @@ namespace QLCongTy
 
         private void btnPhongBan_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new FQLNhanVienPB());
+            OpenChildForm(new fNhom());
             HidePanel(pnlNhanSu);
         }
 
@@ -80,12 +85,12 @@ namespace QLCongTy
             HidePanel(pnlDiemDanh);
         }
 
-        private void btnTaiKhoan_Click(object sender, EventArgs e)
+        private void btnDoiMatKhau_Click(object sender, EventArgs e)
         {
-            ActivateButton(sender, RGBColors.color5);
-            OpenChildForm(new FProfile());
+            ActivateButton(sender, RGBColors.color3);
+            OpenChildForm(new fDoiMatKhau());
         }
-        
+
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
             CustomizeDesing();
@@ -110,13 +115,21 @@ namespace QLCongTy
         }
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            NHANVIEN nv =new NHANVIEN(txtTaiKhoan.Texts,txtMatKhau.Texts);
-            
+            NHANVIEN nv = new NHANVIEN()
+            {
+                MaTaiKhoan = txtTaiKhoan.Texts,
+                MatKhau = txtMatKhau.Texts
+            };
+            MaNV = nv.MaTaiKhoan;
+            MatKhau = nv.MatKhau;
+
+            nvD = new NhanVienDao();
             if (nvD.CheckTaiKhoan(nv)==1)
             {
-                pnlAccount.Visible = true;
                 btnDangXuat.Visible = true;
-                btnTaiKhoan.Visible = true;
+                btnDoiMatKhau.Visible = true;
+                btnDuyetDonXinNghi.Enabled = true;
+                pnlAccount.Visible = true;
                 pnlDiemDanh.Visible = true;
                 btnDiemDanh.Visible = true;
                 pnlDiemDanh.Visible = false;
@@ -124,14 +137,12 @@ namespace QLCongTy
                 pnlNhanSu.Visible = true;
                 btnNhanSu.Visible = true;
                 pnlNhanSu.Visible = false;
-                btnDuyetDonXinNghi.Enabled = true;
                 HidePanel(pnlLogin);
-                MessageBox.Show("Thành Công", "Thông Bao", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblTenNV.Text = MaNV;
             }
             else
             {
-                MessageBox.Show("Thất Bại", "Thông Bao", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-
+                MessageBox.Show("Đăng Nhập Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
             }
         }
 
@@ -157,11 +168,11 @@ namespace QLCongTy
             btnNhanSu.Visible = false;
             btnDuAn.Visible = false;
             btnDiemDanh.Visible = false;
-            btnTaiKhoan.Visible = false;
             btnDangXuat.Visible = false;
             pnlAccount.Visible = false;
             pnlNhanSu.Visible = false;
             pnlDiemDanh.Visible = false;
+            btnDoiMatKhau.Visible = false;
         }
         #region Xử lý Form con
 
@@ -297,5 +308,11 @@ namespace QLCongTy
             WindowState = FormWindowState.Minimized;
         }
         #endregion
+
+        private void TimeSprintDown()
+        {
+            //ulD.CapNhatTimeSprint();
+        }
+
     }
 }

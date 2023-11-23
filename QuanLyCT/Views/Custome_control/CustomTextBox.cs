@@ -144,12 +144,15 @@ namespace QLCongTy
         {
             get
             {
-               return textbox.Text;
+                return textbox.Text;
             }
             set
             {
                 textbox.Text = value;
-                SetPlaceholder();
+                if (!isPlaceholder && placeholderText != "")
+                {
+                    SetPlaceholder();
+                }
             }
         }
 
@@ -190,8 +193,6 @@ namespace QLCongTy
                 SetPlaceholder();
             }
         }
-
-
 
         #endregion
 
@@ -335,10 +336,13 @@ namespace QLCongTy
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
             if (_TextChanged != null)
+            {
                 _TextChanged.Invoke(sender, e);
+            }
         }
         private void textBox1_Click(object sender, EventArgs e)
         {
+            RemovePlaceholder();
             this.OnClick(e);
         }
         private void textBox1_MouseEnter(object sender, EventArgs e)
@@ -363,7 +367,6 @@ namespace QLCongTy
         {
             isFocused = false;
             this.Invalidate();
-            SetPlaceholder();
         }
         ///::::+
         #endregion
