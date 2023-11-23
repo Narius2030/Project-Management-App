@@ -8,7 +8,7 @@ namespace QLCongTy.DAO
 {
     public class TruongNhomDao
     {
-        DBConnection dbconn = new DBConnection();
+        DBConnection dbconn = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
         public DataTable laydanhsachnhomtruong(int mada)
         {
             string sqlStr = $"SELECT MaNV, TenNhom FROM TRUONGNHOM WHERE MaDA = {mada} ";
@@ -17,16 +17,23 @@ namespace QLCongTy.DAO
 
         public void xoaTruongNhom(NHOM nhom)
         {
-            SqlParameter[] parameters = new SqlParameter[]
-            {
-                new SqlParameter("@mada",SqlDbType.Int) {Value = nhom.MaDA},
-                new SqlParameter("@tennhom",SqlDbType.NVarChar, 20) {Value = nhom.TenNhom}
-            };
             try
             {
+                SqlParameter[] parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@mada",SqlDbType.Int) {Value = nhom.MaDA},
+                    new SqlParameter("@tennhom",SqlDbType.NVarChar, 20) {Value = nhom.TenNhom},
+                    new SqlParameter("@matn",SqlDbType.VarChar, 20) {Value = nhom.MaNV}
+                };
                 dbconn.ExecuteProcedure("sp_xoaTruongNhomDuAn", parameters);
+
+                //parameters = new SqlParameter[]
+                //{
+                //    new SqlParameter("@manv",SqlDbType.NVarChar, 20) {Value = nhom.MaNV}
+                //};
+                //dbconn.ExecuteProcedure("sp_RemoveRoleTEAMLEAD", parameters);
             }
-            catch(Exception ex) {
+            catch (Exception ex) {
                 SqlException sqlEx = ex.GetBaseException() as SqlException;
                 if (sqlEx != null)
                 {
@@ -53,6 +60,7 @@ namespace QLCongTy.DAO
                 new SqlParameter("@truongnhommoi",SqlDbType.VarChar, 10) {Value = MaTruongNhomMoi}
             };
             dbconn.ExecuteProcedure("sp_doiTruongNhomDuAn", parameters);
+
         }
     }
 }

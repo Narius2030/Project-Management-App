@@ -42,6 +42,14 @@ namespace QLCongTy.Views.NhanSu
         }
         private void fNhiemVu_Load(object sender, EventArgs e)
         {
+            MessageBox.Show(fNhom.quyenhan.ToString());
+            if (fNhom.quyenhan != 2 && fNhom.quyenhan != 3)
+            {
+                MessageBox.Show(fNhom.quyenhan.ToString());
+                btnTaoMaNhiemVu.Enabled = false;
+                btnXoaNhiemVu.Enabled=false;
+                btnSua.Enabled=false;
+            }
             nv.MaCV = this.MaCV;
             nv.MaNV = this.MaNV;
             lblTitleNhiemVu.Text = nvienDao.HoTenNhanVien(this.MaNV);
@@ -283,27 +291,23 @@ namespace QLCongTy.Views.NhanSu
 
             if (nvDao.KiemTraNhiemVuTienQuyet(txtMaNhiemVu.Texts) == 1)
             {
-                if (nvDao.SuaNhiemVu(nv) == 1)
-                {
-                    ReLoad();
-                    TimeTask();
-                }
+                nvDao.SuaNhiemVu(nv);
+                ReLoad();
+                TimeTask();
             }
             else
             {
                 if (!string.IsNullOrEmpty(nv.MaTienQuyet))
                 {
-                    MessageBox.Show(nv.MaTienQuyet);
+                    MessageBox.Show("Nhiệm vụ tiên quyết chưa hoàn thành !");
                     ReLoad();
                     return;
                 } 
                 else
                 {
-                    if (nvDao.SuaNhiemVu(nv) == 1)
-                    {
-                        ReLoad();
-                        TimeTask();
-                    }
+                    nvDao.SuaNhiemVu(nv);
+                    ReLoad();
+                    TimeTask();
                 }
             }
             ShowHideUpdateControl();

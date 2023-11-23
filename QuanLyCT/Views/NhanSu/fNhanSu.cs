@@ -1,6 +1,8 @@
 ﻿using QLCongTy.DAO;
+using QLCongTy.DTO;
 using System;
 using System.Data;
+using System.Data.Entity.Migrations.Infrastructure;
 using System.Windows.Forms;
 
 namespace QLCongTy.NhanSu
@@ -47,7 +49,8 @@ namespace QLCongTy.NhanSu
         #region Nut chuc nang
         private void btnThem_Click(object sender, EventArgs e)
         {
-           
+            NHANVIEN nv = new NHANVIEN(txtMaNV.Texts, txtHoDem.Texts, txtTen.Texts, txtChucVu.Texts, txtEmail.Texts, txtLevels.Texts, txtDiaChi.Texts, txtSdt.Texts, txtMaNV.Texts, txtMaNV.Texts.ToLower());
+            nvDao.ThemNhanVien(nv);
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -170,18 +173,8 @@ namespace QLCongTy.NhanSu
         private void gvNhanSu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewRow r = gvNhanSu.SelectedRows[0];
-            //txtMaNV.Texts = r.Cells[0].Value.ToString();
-            //txtHoDem.Texts = r.Cells[1].Value.ToString();
-            //txtTenNV.Texts = r.Cells[2].Value.ToString();
-            //dtpNgaySinh.Text = r.Cells[3].Value.ToString();
-            //txtDiaChi.Texts = r.Cells[4].Value.ToString();
-            //txtCCCD.Texts = r.Cells[5].Value.ToString();
-            //cboPB.Text = r.Cells[6].Value.ToString();
-            //cboGTinh.Text = r.Cells[7].Value.ToString();
-            //txtSDT.Texts = r.Cells[8].Value.ToString();
-            //txtEmail.Texts = r.Cells[9].Value.ToString();
-            //cboCV.Text = r.Cells[10].Value.ToString();
-            //cboTrinhdo.Text = r.Cells[11].Value.ToString();
+            txtMaNV.Texts = r.Cells[0].Value.ToString();
+            txtHoDem.Texts = r.Cells[1].Value.ToString();
         }
 
         private void GetCboLevels()
@@ -209,6 +202,12 @@ namespace QLCongTy.NhanSu
         private void cboChucVu_SelectedIndexChanged(object sender, EventArgs e)
         {
             gvNhanSu.DataSource = nvDao.LocChucVu(cboChucVu.SelectedItem.ToString());
+        }
+
+        private void btnXoa_Click_1(object sender, EventArgs e)
+        {
+            nvDao.XoaNhanVien(txtMaNV.Texts);
+            MessageBox.Show("Xóa thảnh công");
         }
     }
 }

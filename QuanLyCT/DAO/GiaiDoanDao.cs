@@ -1,5 +1,7 @@
-﻿using QLCongTy.DTO;
+﻿using Microsoft.VisualBasic;
+using QLCongTy.DTO;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -8,7 +10,7 @@ namespace QLCongTy.DAO
 {
     public class GiaiDoanDao
     {
-        DBConnection dbC = new DBConnection();
+        DBConnection dbC = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
         public DataTable GetListSprint(int mada,int check)
         {
             if (check == 1)
@@ -22,35 +24,13 @@ namespace QLCongTy.DAO
         }
         public void ThemGiaiDoan(GIAIDOAN giaidoan)
         {
-            using (QLDAEntities entityf = new QLDAEntities())
-            {
-                
-                entityf.GIAIDOANs.Add(giaidoan);
-                entityf.SaveChanges();
-            }
+            string sqlStr = $@"INSERT INTO GIAIDOAN VALUES ('{giaidoan.MaGiaiDoan}', N'{giaidoan.NoiDung}', '{giaidoan.NgayBD}', '{giaidoan.NgayKT}', {giaidoan.MaDA})";
+            dbC.ExecuteCommand(sqlStr);
         }
-        public int SuaGiaiDoan(GIAIDOAN giaidoan)
+        public void SuaGiaiDoan(GIAIDOAN giaidoan)
         {
-            using (QLDAEntities entityf = new QLDAEntities())
-            {
-                var query = from q in entityf.GIAIDOANs
-                            where q.MaGiaiDoan == giaidoan.MaGiaiDoan
-                            select q;
-                GIAIDOAN giaiDoanCanCapNhat = query.FirstOrDefault();
-                if (giaiDoanCanCapNhat != null)
-                {
-                    giaiDoanCanCapNhat.NoiDung = giaidoan.NoiDung;
-                    giaiDoanCanCapNhat.NgayBD = giaidoan.NgayBD;
-                    giaiDoanCanCapNhat.NgayKT = giaidoan.NgayKT;
-                    giaiDoanCanCapNhat.MaDA = giaidoan.MaDA;
-                    entityf.SaveChanges();
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
+            string sqlStr = $@"UPDATE GIAIDOAN SET NoiDung = N'{giaidoan.NoiDung}', NgayBD = '{giaidoan.NgayBD}', NgayKT = '{giaidoan.NgayKT}', MaDA = { giaidoan.MaDA } WHERE MaGiaiDoan = '{giaidoan.MaGiaiDoan}'";
+            dbC.ExecuteCommand(sqlStr);
         }
         public void XoaUocLuong(int maduan,string magiaidoan)
         {
@@ -63,23 +43,15 @@ namespace QLCongTy.DAO
         }
         public int XoaGiaiDoan(GIAIDOAN giaidoan)
         {
-            using (QLDAEntities entityf = new QLDAEntities())
+            try
             {
-                var query = from q in entityf.GIAIDOANs
-                            where q.MaGiaiDoan == giaidoan.MaGiaiDoan
-                            select q;
-
-                GIAIDOAN gdkq = query.FirstOrDefault();
-                if (gdkq != null)
-                {
-                    entityf.GIAIDOANs.Remove(gdkq);
-                    entityf.SaveChanges();
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                string sqlStr = $@"DELETE GIAIDOAN WHERE GIAIDOAN.MaGiaiDoan = '{giaidoan.MaGiaiDoan}'";
+                dbC.ExecuteCommand(sqlStr);
+                return 1;
+            }
+            catch
+            {
+                return 0;
             }
         }
         public Boolean CheckGiaiDoanTruoc(GIAIDOAN gd)

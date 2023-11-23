@@ -1,18 +1,24 @@
 ﻿using QLCongTy.DTO;
+using QLCongTy.Views.NhanSu;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows;
 
 namespace QLCongTy.DAO
 {
     public class DuAnDao
     {
-        DBConnection dbconn = new DBConnection();
-        public DataTable getProjectList()
+        DBConnection dbconn = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
+
+        public DataTable getProjectList(string MaTK)
         {
-            string sqlStr = "SELECT * FROM DUAN";
-            return dbconn.ExecuteQuery(sqlStr);
-        }
+            SqlParameter[] parameters = new SqlParameter[]
+           {
+               new SqlParameter("@mataikhoan",SqlDbType.VarChar,20){Value=MaTK}
+           };
+           return dbconn.ExecuteProcedure("sp_Check_PM_TeamLead_CEO",parameters);
+       }
         public DataTable getNhanLucDA(int mada)
         {
             //Funtion return a table
@@ -28,7 +34,8 @@ namespace QLCongTy.DAO
             // View
             string sqlStr = $@"SELECT
 	                            MaNV, CONCAT(HovaTenDem,' ',Ten), Levels, Email
-                            FROM NHANVIEN";
+                            FROM NHANVIEN
+                            WHERE MaNV <> 'NV002'";
             return dbconn.ExecuteQuery(sqlStr);
         }
         public DataTable FilterLevel(string level)
@@ -39,10 +46,9 @@ namespace QLCongTy.DAO
                             FROM NHANVIEN WHERE Levels='{level}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
-        public DataTable DSDuAn()
+        public DataTable DSDuAn(string matk)
         {
-            string sqlStr = $"SELECT CONCAT(MaDA, ' - ', TenDA) as TenDA, MaDA FROM DUAN";
-            return dbconn.ExecuteQuery(sqlStr);
+            return getProjectList(matk);
         }
         public void insertDuAn(DUAN da)
         {
@@ -73,13 +79,28 @@ namespace QLCongTy.DAO
             };
             dbconn.ExecuteProcedure("sp_capnhatDuAn", parameters);
         }
-        public void removeDuAn(int mada)
+        public void removeDuAn(DUAN da)
         {
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@mada",SqlDbType.Int) {Value = mada}
+                new SqlParameter("@mada",SqlDbType.Int) {Value = da.MaDA}
             };
-            dbconn.ExecuteProcedure("sp_xoaDuAn", parameters);
+            try
+            {
+                dbconn.ExecuteProcedure("sp_xoaDuAn", parameters);
+            }
+            catch (Exception ex)
+            {
+                SqlException sqlEx = ex.GetBaseException() as SqlException;
+                if (sqlEx != null)
+                {
+                    MessageBox.Show(sqlEx.Message);
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi xảy ra khi: \n" + ex.Message);
+                }
+            }
         }
         public void removeThanhVienDA(NHOM nhom)
         {
@@ -102,24 +123,17 @@ namespace QLCongTy.DAO
         }
         public double UpdateTienDo(int mada, string magiaidoan)
         {
-            double ketqua;
-            try
-            {
 
                 SqlParameter[] parameters = new SqlParameter[]
                 {
-                new SqlParameter("mada",SqlDbType.Int){Value =mada},
-                new SqlParameter("@magiaidoan ",SqlDbType.VarChar,10){Value =magiaidoan},
-                new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output}
+                    new SqlParameter("mada",SqlDbType.Int){Value =mada},
+                    new SqlParameter("@magiaidoan ",SqlDbType.VarChar,10){Value =magiaidoan},
+                    new SqlParameter("@ketqua",SqlDbType.Real){Direction = ParameterDirection.Output}
                 };
                 dbconn.ExecuteProcedure("sp_TinhTienDoDuAn", parameters);
-                ketqua = Convert.ToDouble(parameters[2].Value);
+              double  ketqua = Convert.ToDouble(parameters[2].Value);
 
-            }
-            catch (Exception)
-            {
-                ketqua = 0;
-            }
+            
             return ketqua;
         }
     }

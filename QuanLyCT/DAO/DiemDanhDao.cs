@@ -6,8 +6,8 @@ namespace QLCongTy.DAO
 {
     public class DiemDanhDao
     {
-        DBConnection dbconn = new DBConnection();
-        public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
+        DBConnection dbconn = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
+
         public DataTable layDanhSachDiemDanh()
         {
             string sqlStr = "SELECT * FROM vw_ngaynghi_trong_duan";
@@ -46,12 +46,10 @@ namespace QLCongTy.DAO
 
                 // Thực hiện tính số thời gian giai đoạn đang làm
                 sqlStr = $"SELECT dbo.sfn_CapNhatTimeSprint('{magd}', {mada}, {soGioMotNg})";
-                SqlCommand cmd = new SqlCommand(sqlStr, conn);
                 double soGioLam = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
                 // Thực hiện tính số thời gian nghỉ trúng phải giai đoạn đang làm
                 sqlStr = $"SELECT dbo.sfn_TimThoiGianNghi('{manv}', '{magd}')";
-                cmd = new SqlCommand(sqlStr, conn);
                 double soGioNghi = double.Parse(dbconn.ExecuteScalar(sqlStr).ToString());
 
                 // Tính Time Sprint

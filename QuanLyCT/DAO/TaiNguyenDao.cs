@@ -5,8 +5,7 @@ namespace QLCongTy.DAO
 {
     internal class TaiNguyenDao
     {
-        public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
-        DBConnection dbconn = new DBConnection();
+        DBConnection dbconn = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
 
         public DataTable LoadTNDuAn(int MaDA)
         {

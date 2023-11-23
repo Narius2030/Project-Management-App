@@ -27,6 +27,10 @@ namespace QLCongTy.QLDuAn
             gvQLDuAn.AllowUserToAddRows = false;
             gvNhanSu.AllowUserToAddRows = false;
             gvNLDA.AllowUserToAddRows = false;
+            if (fMainMenu.MaNV != "NV002")
+            {
+                showCEOButton();
+            }
         }
 
         private void fQLDuAn_Load(object sender, EventArgs e)
@@ -97,7 +101,7 @@ namespace QLCongTy.QLDuAn
         }
         public void LoadDataDA()
         {
-            gvQLDuAn.DataSource = daDao.getProjectList();
+            gvQLDuAn.DataSource = daDao.getProjectList(fMainMenu.MaNV);
         }
         void LoadTabPages()
         {
@@ -157,6 +161,7 @@ namespace QLCongTy.QLDuAn
                 else
                 {
                     TRUONGNHOM tn = new TRUONGNHOM() {TenNhom=nhom.TenNhom, MaDA=nhom.MaDA, MaNV=nhom.MaNV};
+                    //xoá thằng trưởng nhóm  trong bảng nhóm
                     daDao.removeNhomDA(tn);
                 }
             }
@@ -168,9 +173,7 @@ namespace QLCongTy.QLDuAn
             LoadDataNhanLuc();
         }
         private void btnThemVaoNhom_Click(object sender, EventArgs e)
-        {
-         
-            
+        {           
                 nhom.MaNV = txtNhomTruong.Texts;
                 nhom.MaDA = int.Parse(txtMaDA.Texts);
                 nhom.TenNhom = cboNhom.Text;
@@ -190,7 +193,6 @@ namespace QLCongTy.QLDuAn
                     if (nd.KiemTraTonTaiNhomTruong(nhom))
                     {
                         nd.ThemThanhVien(nhom);
-                        MessageBox.Show("Thêm thành viên thành công");
                     }
                     else
                     {
@@ -223,7 +225,7 @@ namespace QLCongTy.QLDuAn
         {
             try
             {
-                daDao.removeDuAn(da.MaDA);
+                daDao.removeDuAn(da);
                 MessageBox.Show("Thao tác thành công");
             }
             catch (Exception ex)
@@ -243,11 +245,53 @@ namespace QLCongTy.QLDuAn
 
         #region Tuong tác DataGridView
 
+        private void showCEOButton()
+        {
+            btnThem.Enabled = false;
+            btnXoa.Enabled = true;
+            btnSua.Enabled = false;
+            btnTuyenNV.Enabled = false; 
+            btnCapTaiNguyen.Enabled = false;
+        }
+        private void showButton(int temp)
+        {
+            if (temp == 0)
+            {
+                //PM
+                btnadd.Enabled = true;
+                btnremove.Enabled = true;
+                btnupdate.Enabled = true;
+                btnthemcv.Enabled = true;
+                btnxoacv.Enabled = true;
+                btnupdatepc.Enabled = true;
+            }
+            else
+            {
+                //LEAD
+                btnadd.Enabled = false;
+                btnremove.Enabled = false;
+                btnupdate.Enabled = false;
+                btnthemcv.Enabled = false;
+                btnxoacv.Enabled = false;
+                btnupdatepc.Enabled = false;
+            }
+        }
+
         private void gvQLDuAn_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //Để data ra đối tượng DuAn để lưu trữ
             DataGridViewRow r = gvQLDuAn.SelectedRows[0];
-
+            if (fMainMenu.MaNV != "NV002")
+            {
+                if (r.Cells["MaPM"].Value.ToString() == fMainMenu.MaNV)
+                {
+                    showButton(0);
+                }
+                else
+                {
+                    showButton(1);
+                }
+            }
             Type type = da.GetType();
             int i = 0;
             foreach (var propertyInfo in type.GetProperties())
@@ -529,19 +573,12 @@ namespace QLCongTy.QLDuAn
                     NgayKT = dtpNgayKT.Value,
                     MaDA = da.MaDA
                 };
-                if (gdD.SuaGiaiDoan(gd) == 1 )
-                {
-                    LoadDataGiaiDoan();
-                    MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }    
+                gdD.SuaGiaiDoan(gd);
+                MessageBox.Show("Thao tác thành công", "Thông Báo");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Cập Nhật Thất Bại. Bạn Hãy Làm theo quy trình", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                MessageBox.Show($"Cập Nhật Thất Bại: {ex.Message}", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
             }
         }
 
@@ -613,7 +650,7 @@ namespace QLCongTy.QLDuAn
                 CONGVIEC cv = new CONGVIEC()
                 {
                     TrangThai = "Pending",
-                    CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?)null,
+                    CVTienQuyet = !string.IsNullOrEmpty(txttienquyet.Texts) ? Convert.ToInt32(txttienquyet.Texts) : (int?) null,
                     TenCV = txttencongviec.Texts,
                     TienDo = 0,
                     TenNhom = cbbtennhom.Texts,
@@ -650,15 +687,8 @@ namespace QLCongTy.QLDuAn
                     MaDA = Convert.ToInt32(txtmaduan.Texts),
                     MaGiaiDoan = txtmagiaidoan.Texts
                 };
-                if (cvd.UpdateJob(cv) == 1)
-                {
-                    LoadCongViec();
-                    MessageBox.Show("Cập Nhật Thành Công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Cập Nhật Thất Bại", "Thông Báo", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                }
+                cvd.UpdateJob(cv);
+                MessageBox.Show("Thao tác thành công", "Thông Báo");
             }
             catch (Exception)
             {

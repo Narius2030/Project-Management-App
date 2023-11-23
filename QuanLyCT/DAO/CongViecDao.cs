@@ -8,7 +8,7 @@ namespace QLCongTy.DAO
 {
     public class CongViecDao
     {
-        DBConnection dbC = new DBConnection();
+        DBConnection dbC = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
         public DataTable GetListJob(int mada, string magiaidoan)
         {
             return dbC.ExecuteQuery($"select MaCV,TrangThai,CVTienQuyet,TenCV,TienDo,TenNhom From CONGVIEC where CONGVIEC.MaDA={mada} and CONGVIEC.MaGiaiDoan='{magiaidoan}'");
@@ -38,54 +38,39 @@ namespace QLCongTy.DAO
         }
         public void AddJob(CONGVIEC cv)
         {
-            using (QLDAEntities qlhs = new QLDAEntities())
+            string sqlStr;
+
+            if (cv.CVTienQuyet == null)
             {
-                
-                qlhs.CONGVIECs.Add(cv);
-                qlhs.SaveChanges();
+                sqlStr = $@"INSERT INTO CONGVIEC VALUES ('{cv.TrangThai}', NULL, N'{cv.TenCV}', {cv.TienDo}, '{cv.TenNhom}', {cv.MaDA}, '{cv.MaGiaiDoan}')";
             }
+            else
+            {
+                sqlStr = $@"INSERT INTO CONGVIEC VALUES ('{cv.TrangThai}', {cv.CVTienQuyet}, N'{cv.TenCV}', {cv.TienDo}, '{cv.TenNhom}', {cv.MaDA}, '{cv.MaGiaiDoan}')";
+            }
+            dbC.ExecuteCommand(sqlStr);
         }
         public int RemoveJob(CONGVIEC cv)
         {
-            using (QLDAEntities entityf = new QLDAEntities())
+            try
             {
-                var query = from q in entityf.CONGVIECs
-                            where q.MaCV == cv.MaCV
-                            select q;
-                CONGVIEC cvketqua = query.FirstOrDefault();
-                if (cvketqua != null)
-                {
-                    entityf.CONGVIECs.Remove(cvketqua);
-                    entityf.SaveChanges();
-                    return 1;
-                }
+                string sqlStr = $@"DELETE CONGVIEC WHERE CONGVIEC.MaCV = {cv.MaCV}";
+                dbC.ExecuteCommand(sqlStr);
+                return 1;
+            }
+            catch
+            {
                 return 0;
             }
         }
-        public int UpdateJob(CONGVIEC cv)
+        public void UpdateJob(CONGVIEC cv)
         {
-            using (QLDAEntities entityf = new QLDAEntities())
+            string sqlStr = $@"UPDATE CONGVIEC SET TrangThai='{cv.TrangThai}', CVTienQuyet={cv.CVTienQuyet}, TenCV=N'{cv.TenCV}', TienDo={cv.TienDo}, TenNhom='{cv.TenNhom}', MaDA={cv.MaDA}, MaGiaiDoan='{cv.MaGiaiDoan}' WHERE MaCV = {cv.MaCV}";
+            if (cv.CVTienQuyet == null)
             {
-                var query = from q in entityf.CONGVIECs
-                            where q.MaCV == cv.MaCV
-                            select q;
-                CONGVIEC cvketqua = query.FirstOrDefault();
-                if (cvketqua != null)
-                {
-                    cvketqua.TrangThai = cv.TrangThai;
-                    cvketqua.CVTienQuyet = cv.CVTienQuyet;
-                    cvketqua.TenCV = cv.TenCV;
-                    cvketqua.TienDo = cv.TienDo;
-                    cvketqua.TenNhom = cv.TenNhom;
-                    cvketqua.MaGiaiDoan = cv.MaGiaiDoan;
-                    entityf.SaveChanges();
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
+                sqlStr = $@"UPDATE CONGVIEC SET TrangThai='{cv.TrangThai}', CVTienQuyet=NULL, TenCV=N'{cv.TenCV}', TienDo={cv.TienDo}, TenNhom='{cv.TenNhom}', MaDA={cv.MaDA}, MaGiaiDoan='{cv.MaGiaiDoan}' WHERE MaCV = {cv.MaCV}";
             }
+            dbC.ExecuteCommand(sqlStr);
         }
         public void KiemTraCongViecTienQuyet(CONGVIEC cv)
         {

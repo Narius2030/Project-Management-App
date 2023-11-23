@@ -7,7 +7,7 @@ namespace QLCongTy.DAO
 {
     internal class UocLuongDao
     {
-        DBConnection dbconn = new DBConnection();
+        DBConnection dbconn = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
         NhiemVuDao nvDao = new NhiemVuDao();
         public int GetTimeSprint(int mada, string manhanvien)
         {

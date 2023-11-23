@@ -1,6 +1,7 @@
 ﻿using QLCongTy.DTO;
 using System;
 using System.Data;
+using System.Data.Entity.SqlServer;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,79 +10,47 @@ namespace QLCongTy.DAO
 {
     internal class NhiemVuDao
     {
-        public SqlConnection conn = new SqlConnection(Properties.Settings.Default.cnnStr);
-        DBConnection dbconn = new DBConnection();
+        DBConnection dbconn = new DBConnection(fMainMenu.MaNV, fMainMenu.MatKhau);
 
         public DataTable DSNhiemVuNhom(string MaNV, int MaDA, string MaGiaiDoan, int MaCV, string TenNhom)
         {
             string sqlStr = $@" select 
-                                    MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
-                                    ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] 
-                                From v_DanhSachNhiemVuNhom
-                                WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}' AND MaNV='{MaNV}'";
+                                MaNhiemVu as [Nhiệm Vụ],TenNhiemVu as [Tên Nhiệm Vụ],TrangThai as [Trạng Thái],MaTienQuyet as [Mã Tiên Quyết],
+                                ThoiGianUocTinh as [Giờ Ước Tính],ThoiGianLamThucTe as [Giờ Thực Tế] 
+                            From v_DanhSachNhiemVuNhom
+                            WHERE MaDA = {MaDA} AND MaGiaiDoan = '{MaGiaiDoan}' AND MaCV = {MaCV} AND TenNhom = '{TenNhom}' AND MaNV='{MaNV}'";
             return dbconn.ExecuteQuery(sqlStr);
         }
 
         public void ThemNhiemVu(NHIEMVU nv)
         {
-            using (QLDAEntities entity = new QLDAEntities())
+            string sqlStr;
+            if (nv.MaTienQuyet == null)
             {
-                try
-                {
-                    entity.NHIEMVUs.Add(nv); 
-                    entity.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Thuc Thi That Bai: {ex.Message}");
-                }
+                sqlStr = $@"INSERT INTO NHIEMVU VALUES ('{nv.MaNhiemVu}', NULL, '{nv.TrangThai}', NULL, '{nv.TenNhiemVu}', {nv.ThoiGianUocTinh}, '{nv.MaNV}', {nv.MaCV})";
             }
-        }
-        public int SuaNhiemVu(NHIEMVU nv)
-        {
-            using(QLDAEntities entity = new QLDAEntities())
+            else
             {
-                try
-                {
-                    var query=from q in entity.NHIEMVUs
-                              where q.MaNhiemVu == nv.MaNhiemVu
-                               select q;
-                    NHIEMVU kq=query.FirstOrDefault();
-                    if(kq != null) 
-                    {
-                        kq.TrangThai = nv.TrangThai;
-                        kq.ThoiGianLamThucTe = nv.ThoiGianLamThucTe;
-                        kq.TenNhiemVu = nv.TenNhiemVu;
-                        entity.SaveChanges() ;
-                        return 1;
-                    }
-                    else
-                    {
-                        return 0;
-                    }    
-                   
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show($"Thuc Thi That Bai: {ex.Message}");
-                    return 0;
-                }
-            }    
+                sqlStr = $@"INSERT INTO NHIEMVU VALUES ('{nv.MaNhiemVu}', '{nv.MaTienQuyet}', '{nv.TrangThai}', NULL, '{nv.TenNhiemVu}', {nv.ThoiGianUocTinh}, '{nv.MaNV}', {nv.MaCV})";
+            }
+            dbconn.ExecuteCommand(sqlStr);
+        }
+
+        public void SuaNhiemVu(NHIEMVU nv)
+        {
+            string sqlStr = $@"UPDATE NHIEMVU SET TrangThai='{nv.TrangThai}', ThoiGianLamThucTe={nv.ThoiGianLamThucTe} WHERE MaNhiemVu='{nv.MaNhiemVu}'";
+            dbconn.ExecuteCommand(sqlStr);
         }
         public int XoaNhiemVu(NHIEMVU nv)
         {
-            using (QLDAEntities entityf = new QLDAEntities())
+            try
             {
-                var query = from q in entityf.NHIEMVUs
-                            where q.MaNhiemVu == nv.MaNhiemVu
-                            select q;
-                NHIEMVU cvketqua = query.FirstOrDefault();
-                if (cvketqua != null)
-                {
-                    entityf.NHIEMVUs.Remove(cvketqua);
-                    entityf.SaveChanges();
-                    return 1;
-                }
+                string sqlStr = $@"DELETE NHIEMVU WHERE NHIEMVU.MaNhiemVu = '{nv.MaNhiemVu}'";
+                dbconn.ExecuteCommand(sqlStr);
+                return 1;
+            }
+            catch
+            {
                 return 0;
             }
         }

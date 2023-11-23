@@ -12,6 +12,8 @@ namespace QLCongTy.Views.NhanSu
         TruongNhomDao tnDao = new TruongNhomDao();
         NhomDao nDao = new NhomDao();
         NHOM nhom = new NHOM();
+        //Biến lưu vai trò để kiểm soát thao tác trên form
+        public static int quyenhan;
         public fNhom()
         {
             InitializeComponent();
@@ -50,10 +52,19 @@ namespace QLCongTy.Views.NhanSu
             nhom.TenNhom = cboNhom.SelectedValue.ToString();
             LoadGVTruongNhom();
             LoadTVNhom();
+            quyenhan = nDao.CheckRole(Convert.ToInt32(cboDuAn.SelectedValue.ToString()), cboNhom.SelectedValue.ToString(), fMainMenu.MaNV);
+            if (quyenhan == 4)
+            {
+                btnThem.Enabled = false;
+            }
+            else
+            {
+                btnThem.Enabled = true;
+            }
         }
         private void LoadCboDA()
         {
-            DataTable source = daDao.DSDuAn();
+            DataTable source = daDao.DSDuAn(fMainMenu.MaNV);
             cboDuAn.DisplayMember = "TenDA";
             cboDuAn.ValueMember = "MaDA";
             cboDuAn.DataSource = source;

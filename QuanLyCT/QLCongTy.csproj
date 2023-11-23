@@ -166,17 +166,17 @@
       <DependentUpon>fCheckin-Checkout.cs</DependentUpon>
     </Compile>
     <Compile Include="ExportFile.cs" />
+    <Compile Include="Views\MainMenu\fDoiMatKhau.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\MainMenu\fDoiMatKhau.Designer.cs">
+      <DependentUpon>fDoiMatKhau.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainMenu\FMainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\MainMenu\FMainMenu.designer.cs">
       <DependentUpon>FMainMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainMenu\FProfile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\MainMenu\FProfile.Designer.cs">
-      <DependentUpon>FProfile.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\NhanSu\fNhanSu.cs">
       <SubType>Form</SubType>
@@ -240,11 +240,11 @@
     <EmbeddedResource Include="Views\Custome_control\CustomTextBox.resx">
       <DependentUpon>CustomTextBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainMenu\fDoiMatKhau.resx">
+      <DependentUpon>fDoiMatKhau.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MainMenu\FMainMenu.resx">
       <DependentUpon>FMainMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainMenu\FProfile.resx">
-      <DependentUpon>FProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NhanSu\fNhanSu.resx">
       <DependentUpon>fNhanSu.cs</DependentUpon>
@@ -300,6 +300,8 @@
     <None Include="Views\Resources\calendarWhite.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Database\Author.sql" />
+    <Content Include="Database\Chay1Lan.sql" />
     <Content Include="Database\Constraints.sql" />
     <Content Include="Database\ProcedureAndFunction.sql" />
     <Content Include="Database\QLDA_DB.sql" />

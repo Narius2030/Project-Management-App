@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.btnDangXuat = new FontAwesome.Sharp.IconButton();
-            this.btnTaiKhoan = new FontAwesome.Sharp.IconButton();
+            this.btnDoiMatKhau = new FontAwesome.Sharp.IconButton();
             this.pnlDiemDanh = new System.Windows.Forms.Panel();
             this.btnDuyetDonXinNghi = new FontAwesome.Sharp.IconButton();
             this.btnCheckInOut = new FontAwesome.Sharp.IconButton();
@@ -86,7 +86,7 @@
             // 
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(37)))), ((int)(((byte)(45)))));
             this.pnlMenu.Controls.Add(this.btnDangXuat);
-            this.pnlMenu.Controls.Add(this.btnTaiKhoan);
+            this.pnlMenu.Controls.Add(this.btnDoiMatKhau);
             this.pnlMenu.Controls.Add(this.pnlDiemDanh);
             this.pnlMenu.Controls.Add(this.lblDate);
             this.pnlMenu.Controls.Add(this.lblTime);
@@ -118,36 +118,36 @@
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnDangXuat.Size = new System.Drawing.Size(245, 75);
-            this.btnDangXuat.TabIndex = 43;
+            this.btnDangXuat.TabIndex = 46;
             this.btnDangXuat.Text = "Đăng xuất";
             this.btnDangXuat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnDangXuat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnDangXuat.UseVisualStyleBackColor = false;
             this.btnDangXuat.Click += new System.EventHandler(this.btnDangXuat_Click);
             // 
-            // btnTaiKhoan
+            // btnDoiMatKhau
             // 
-            this.btnTaiKhoan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(37)))), ((int)(((byte)(45)))));
-            this.btnTaiKhoan.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnTaiKhoan.FlatAppearance.BorderSize = 0;
-            this.btnTaiKhoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTaiKhoan.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTaiKhoan.ForeColor = System.Drawing.Color.White;
-            this.btnTaiKhoan.IconChar = FontAwesome.Sharp.IconChar.UserAlt;
-            this.btnTaiKhoan.IconColor = System.Drawing.Color.White;
-            this.btnTaiKhoan.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnTaiKhoan.IconSize = 45;
-            this.btnTaiKhoan.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaiKhoan.Location = new System.Drawing.Point(0, 570);
-            this.btnTaiKhoan.Name = "btnTaiKhoan";
-            this.btnTaiKhoan.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnTaiKhoan.Size = new System.Drawing.Size(245, 75);
-            this.btnTaiKhoan.TabIndex = 41;
-            this.btnTaiKhoan.Text = "Tài khoản";
-            this.btnTaiKhoan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTaiKhoan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTaiKhoan.UseVisualStyleBackColor = false;
-            this.btnTaiKhoan.Click += new System.EventHandler(this.btnTaiKhoan_Click);
+            this.btnDoiMatKhau.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(37)))), ((int)(((byte)(45)))));
+            this.btnDoiMatKhau.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDoiMatKhau.FlatAppearance.BorderSize = 0;
+            this.btnDoiMatKhau.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDoiMatKhau.Font = new System.Drawing.Font("Times New Roman", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDoiMatKhau.ForeColor = System.Drawing.Color.White;
+            this.btnDoiMatKhau.IconChar = FontAwesome.Sharp.IconChar.ArrowRightFromFile;
+            this.btnDoiMatKhau.IconColor = System.Drawing.Color.White;
+            this.btnDoiMatKhau.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDoiMatKhau.IconSize = 45;
+            this.btnDoiMatKhau.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDoiMatKhau.Location = new System.Drawing.Point(0, 570);
+            this.btnDoiMatKhau.Name = "btnDoiMatKhau";
+            this.btnDoiMatKhau.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnDoiMatKhau.Size = new System.Drawing.Size(245, 75);
+            this.btnDoiMatKhau.TabIndex = 45;
+            this.btnDoiMatKhau.Text = "Đổi mật khẩu";
+            this.btnDoiMatKhau.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDoiMatKhau.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDoiMatKhau.UseVisualStyleBackColor = false;
+            this.btnDoiMatKhau.Click += new System.EventHandler(this.btnDoiMatKhau_Click);
             // 
             // pnlDiemDanh
             // 
@@ -742,8 +742,6 @@
         private System.Windows.Forms.Panel pnlDiemDanh;
         private FontAwesome.Sharp.IconButton btnDuyetDonXinNghi;
         private FontAwesome.Sharp.IconButton btnCheckInOut;
-        private FontAwesome.Sharp.IconButton btnDangXuat;
-        private FontAwesome.Sharp.IconButton btnTaiKhoan;
         private VBLabel lblTenNV;
         private ArtanComponent.ArtanPannel artanPannel3;
         private VBButton btnDangNhap;
@@ -753,6 +751,8 @@
         private FontAwesome.Sharp.IconPictureBox picAccount;
         private CTTextBox txtTaiKhoan;
         private CTTextBox txtMatKhau;
+        private FontAwesome.Sharp.IconButton btnDangXuat;
+        private FontAwesome.Sharp.IconButton btnDoiMatKhau;
     }
 }
 
