@@ -40,12 +40,15 @@
 
 ## Design models
 * Entity model
+
 ![image](https://github.com/Narius2030/QLDA/assets/94912102/a0f805a6-be31-4260-8a9d-ef40ae5266ea)
 
 * Relationship model
+
 ![image](https://github.com/Narius2030/QLDA/assets/94912102/23a527b3-8f94-48ee-bb18-1c78997ad18b)
 
 * Database model
+
 ![image](https://github.com/Narius2030/Project-Management-App/assets/94912102/13f157ef-9621-4398-b0bc-9d3359feb57b)
 
 
@@ -61,6 +64,7 @@
 * Sprint and module assignment tab
 
 ![image](https://github.com/Narius2030/Project-Management-App/assets/94912102/9e6c7aa1-2c8e-4a15-9569-11f6f7f89502)
+
 ![image](https://github.com/Narius2030/Project-Management-App/assets/94912102/f30829b2-262e-4972-8ef7-86d8ac79900c)
 
 * Task assignment tab
